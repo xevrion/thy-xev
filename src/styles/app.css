@@ -2,13 +2,28 @@
 @import 'tailwindcss';
 
 @theme {
+  /* bg */
   --color-taupe: #463f3aff;
+  /* secondary sections , secondary text-muted */
   --color-battleship-gray: #8a817cff;
+  /* primary text, secondary text (low opacity) */
   --color-silver: #bcb8b1ff;
+  /* link,buttons,highlights */
   --color-blue-crayola: #5c7affff;
-  --color-egyptian-blue: #0e34a0ff;
+  /* headings,call to action */
+  --color-soft-royal-blue: #5e7aff;
 }
 
+@layer components {
+
+    
+
+
+  
+}
+
+/* sg -> headings */
+/* inter -> other text */
 .sg-regular {
   font-family: 'Space Grotesk', sans-serif;
   font-optical-sizing: auto;
@@ -62,4 +77,8 @@
   font-optical-sizing: auto;
   font-weight: 900;
   font-style: normal;
+}
+
+body {
+  background-color: var(--color-taupe);
 }
