@@ -1,3 +1,4 @@
+import ActivityWidget from './ActivityStatus'
 import SplitText from './reactbits/splittext'
 import SpotifyWidget from './SpotifyWidget'
 
@@ -37,6 +38,7 @@ export const Hero = () => {
             </div>
             <div >
                 <SpotifyWidget/>
+                <ActivityWidget/>
                
             </div>
         </section>
