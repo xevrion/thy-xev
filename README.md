@@ -12,7 +12,7 @@ todo
    - [x] add listening now (spotify api)
    - [ ] make the spotify thing- pretty
    - [x] add online offline status.. maybe discord(lanyard) 
-   - [ ] add keystrokes and mouse length counter 
+   - [x] add keystrokes and mouse clicks counter and uptime too
    - [ ] add current project which you're working on
 
 - [ ] make about section
