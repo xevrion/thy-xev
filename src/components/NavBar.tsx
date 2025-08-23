@@ -1,6 +1,9 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
 
 export const NavBar = () => {
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const links = ["Projects", "Posts", "About", "Contact"];
     return (
@@ -10,7 +13,7 @@ export const NavBar = () => {
             </a>
 
             <div className="flex gap-8">
-                {links.map((link) => (
+                {links.filter((link) => `/${link.toLowerCase()}` !== currentPath).map((link) => (
                     <a
                         key={link}
                         href={`/${link.toLowerCase()}`}

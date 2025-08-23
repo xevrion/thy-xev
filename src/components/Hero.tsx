@@ -1,12 +1,10 @@
-import { section } from 'motion/react-client'
-import React from 'react'
 import SplitText from './reactbits/splittext'
 
 export const Hero = () => {
     return (
         <section className='px-80 py-20 max-w-1200px m-auto'>
-            <div className='flex items-center justify-between gap-20 flex-wrap'>
-                <div className='gap-5 flex'>
+            <div className='flex flex-row  items-center justify-between  gap-20  w-full'>
+                <div className='gap-5 flex flex-wrap flex-row'>
                     <SplitText
                         text="Hello! I'm"
                         className="text-[4rem]  mb-[1px] text-battleship-gray sg-bold"
@@ -20,7 +18,7 @@ export const Hero = () => {
                         rootMargin="-100px"
                         textAlign="center" />
                     <SplitText
-                        text=" Xevrion "
+                        text=" Xevrion"
                         className="text-[4rem]  mb-[1px] text-soft-royal-blue sg-bold"
                         delay={20}
                         duration={1}
@@ -31,8 +29,10 @@ export const Hero = () => {
                         threshold={0.1}
                         rootMargin="-100px"
                         textAlign="center" />
-                    
-                </div>
+                    </div>
+                    <div className='size-1/5 border-5 rounded-full border-battleship-gray'>
+                        <img src="src\assets\pfp.jpeg" alt="pfp" className='rounded-full' />
+                    </div>
             </div>
         </section>
     )
