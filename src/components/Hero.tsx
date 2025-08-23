@@ -1,8 +1,9 @@
 import SplitText from './reactbits/splittext'
+import SpotifyWidget from './SpotifyWidget'
 
 export const Hero = () => {
     return (
-        <section className='px-80 py-20 max-w-1200px m-auto'>
+        <section className='px-80 py-20 max-w-1200px '>
             <div className='flex flex-row  items-center justify-between  gap-20  w-full'>
                 <div className='gap-5 flex flex-wrap flex-row'>
                     <SplitText
@@ -33,6 +34,9 @@ export const Hero = () => {
                     <div className='size-1/5 border-5 rounded-full border-battleship-gray'>
                         <img src="src\assets\pfp.jpeg" alt="pfp" className='rounded-full' />
                     </div>
+            </div>
+            <div>
+                <SpotifyWidget/>
             </div>
         </section>
     )
