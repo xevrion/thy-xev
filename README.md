@@ -9,7 +9,8 @@ todo
 - [ ] make home section
    - [ ] add big text
    - [ ] add a lil info in 2 3 lines
-   - [ ] add listening now (spotify api)
+   - [x] add listening now (spotify api)
+   - [ ] make the spotify thing- pretty
    - [ ] add online offline status.. maybe discord 
    - [ ] add keystrokes and mouse length counter 
    - [ ] add current project which you're working on
