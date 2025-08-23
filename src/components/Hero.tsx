@@ -1,4 +1,3 @@
-import DiscordWidget from './OnlineStatus'
 import SplitText from './reactbits/splittext'
 import SpotifyWidget from './SpotifyWidget'
 
