@@ -15,7 +15,7 @@ const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI!;
 
 let refresh_token: string | null = null;
 
-// Add CORS middleware
+
 app.use(cors({
     origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Your React app URL
     credentials: true
@@ -76,9 +76,9 @@ app.get("/api/callback", async (req: Request, res: Response) => {
 // 3. Now Playing → fetch current song
 app.get("/now-playing", async (req: Request, res: Response) => {
     if (!refresh_token) {
-        return res.json({ 
-            isPlaying: false, 
-            message: "Please authenticate first by visiting /login" 
+        return res.json({
+            isPlaying: false,
+            message: "Please authenticate first by visiting /login"
         });
     }
 
@@ -121,7 +121,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
             songUrl: song.external_urls.spotify,
             duration: song.duration_ms,
             progress: nowPlaying.data.progress_ms,
-            preview_url: song.preview_url, // 30s preview if available
+            preview_url: song.preview_url, // 30s preview if available (refresh every 30 seconds)
         });
     } catch (err: any) {
         console.error("Error fetching now playing:", err.response?.data || err.message);
@@ -131,8 +131,8 @@ app.get("/now-playing", async (req: Request, res: Response) => {
 
 // Health check
 app.get("/", (req: Request, res: Response) => {
-    res.json({ 
-        status: "Server running!", 
+    res.json({
+        status: "Server running!",
         authenticated: !!refresh_token,
         endpoints: {
             login: "/login",

@@ -10,6 +10,7 @@ import { Contact } from './components/Contact'
 import { Projects } from './components/Projects'
 import { PageWrapper } from './components/PageWrapper'
 
+
 function App() {
 
 
