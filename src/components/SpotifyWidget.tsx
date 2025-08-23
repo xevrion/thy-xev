@@ -72,7 +72,7 @@ const SpotifyWidget: React.FC = () => {
     }
 
     return (
-        <div className="flex items-center space-x-3 group">
+        <div className="flex flex-row items-center space-x-3 group">
             {/* Album Art */}
             <div className="relative">
                 <img
@@ -93,15 +93,17 @@ const SpotifyWidget: React.FC = () => {
             </div>
 
             {/* Spotify Link */}
+
             <a
                 href={track.songUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-soft-royal-blue hover:text-blue-crayola transition-colors duration-250 opacity-70 hover:opacity-100"
+                className="text-soft-royal-blue hover:text-blue-crayola transition-all duration-250 opacity-70 hover:opacity-100 hover:scale-[1.1]"
                 title="Open in Spotify"
             >
-                <ExternalLink className="w-4 h-4" />
+                <ExternalLink className="w-6 h-6" />
             </a>
+
         </div>
     );
 };
