@@ -9,7 +9,7 @@ export const Hero = () => {
                 <div className='gap-5 flex flex-wrap flex-row'>
                     <SplitText
                         text="Hello! I'm"
-                        className="text-[4rem]  mb-[1px] text-battleship-gray sg-bold "
+                        className="text-[4rem]  mb-[1px] text-battleship-gray sg-bold selection:bg-blue-crayola"
                         delay={20}
                         duration={1}
                         ease="elastic.out(1, 0.5)"
@@ -21,7 +21,7 @@ export const Hero = () => {
                         textAlign="center" />
                     <SplitText
                         text=" Xevrion"
-                        className="text-[4rem]  mb-[1px] text-soft-royal-blue sg-bold transition-all duration-150 hover:scale-[1.05] hover:[text-shadow:0_0_10px_#5e7aff]"
+                        className="text-[4rem]  mb-[1px] text-soft-royal-blue sg-bold transition-all duration-150 hover:scale-[1.05] hover:[text-shadow:0_0_10px_#5e7aff] selection:bg-battleship-gray"
                         delay={20}
                         duration={1}
                         ease="elastic.out(1, 0.5)"

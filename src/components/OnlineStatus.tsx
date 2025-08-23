@@ -97,7 +97,7 @@ const DiscordWidget: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center space-x-3 ">
+    <div className="flex items-center space-x-3 hover:scale-[1.05] duration-100">
       {/* Status Indicator */}
       <div className="relative">
         <div className={`w-3 h-3 rounded-full ${getStatusColor(status.discord_status)}`}></div>
