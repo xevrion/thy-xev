@@ -152,32 +152,40 @@ const SpotifyWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center space-x-3 animate-pulse">
-        <div className="w-12 h-12 bg-battleship-gray rounded-lg opacity-50"></div>
-        <div className="flex-1">
-          <div className="h-4 bg-battleship-gray rounded w-32 mb-2 opacity-50"></div>
-          <div className="h-3 bg-battleship-gray rounded w-24 opacity-30"></div>
+      <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 animate-pulse w-full max-w-xs">
+        <div className="w-12 h-12 bg-battleship-gray rounded-lg opacity-50 shrink-0"></div>
+        <div className="flex-1 w-full">
+          <div className="h-4 bg-battleship-gray rounded w-full sm:w-32 mb-2 opacity-50"></div>
+          <div className="h-3 bg-battleship-gray rounded w-full sm:w-24 opacity-30"></div>
         </div>
       </div>
     );
   }
 
+  // Error state
   if (error) {
     return (
-      <div className="flex items-center space-x-3 text-battleship-gray">
-        <Music className="w-5 h-5" />
-        <span className="inter-regular text-sm">Unable to load music data</span>
+      <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 text-battleship-gray w-full max-w-xs">
+        <div className="w-12 h-12 bg-battleship-gray bg-opacity-20 rounded-lg flex items-center justify-center shrink-0">
+          <Music className="w-5 h-5" />
+        </div>
+        <p className="inter-regular text-sm text-center sm:text-left truncate w-full">
+          {error}
+        </p>
       </div>
     );
   }
 
+  // Not playing state
   if (!track?.isPlaying) {
     return (
-      <div className="flex items-center space-x-3 text-battleship-gray">
-        <div className="w-12 h-12 bg-battleship-gray bg-opacity-20 rounded-lg flex items-center justify-center">
+      <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 text-battleship-gray w-full max-w-xs">
+        <div className="w-12 h-12 bg-battleship-gray bg-opacity-20 rounded-lg flex items-center justify-center shrink-0">
           <Music className="w-5 h-5" />
         </div>
-        <p className="inter-medium text-sm">Currently not listening to anything</p>
+        <p className="inter-medium text-sm text-center sm:text-left truncate w-full">
+          Currently not listening to anything
+        </p>
       </div>
     );
   }

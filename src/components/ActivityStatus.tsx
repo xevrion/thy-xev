@@ -173,14 +173,14 @@ const ActivityWidget: React.FC = () => {
   }
 
   return (
-    <div className="space-y-3 mt-5 w-full max-w-xs sm:max-w-sm md:max-w-md">
+    <div className="space-y-3 mt-5 w-full max-w-xs sm:max-w-sm md:max-w-md ">
       {/* Header */}
       <div className="flex items-center space-x-2">
-        <span className="inter-bold text-sm text-silver">Stats</span>
+        <span className="inter-bold text-2xl text-silver">Stats</span>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-md">
         {/* Keystrokes */}
         <div className="flex items-center space-x-2">
           <Keyboard className="w-4 h-4 text-battleship-gray" />
@@ -195,7 +195,7 @@ const ActivityWidget: React.FC = () => {
         </div>
 
         {/* Mouse Activity */}
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 ">
           <div className="flex items-center space-x-2">
             <Mouse className="w-4 h-4 text-battleship-gray" />
             <div>
@@ -209,7 +209,7 @@ const ActivityWidget: React.FC = () => {
           </div>
           <div className="flex items-center space-x-2">
             <div>
-              <div className="sg-semibold text-silver">
+              <div className="sg-semibold  text-silver">
                 {formatNumber(activity.right_mouse_clicks)}
               </div>
               <div className="inter-regular text-battleship-gray opacity-70">
@@ -221,7 +221,7 @@ const ActivityWidget: React.FC = () => {
       </div>
 
       {/* Session Info */}
-      <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-battleship-gray opacity-70">
+      <div className="flex flex-col sm:flex-row sm:justify-between text-md text-battleship-gray opacity-70">
         <span className="inter-regular">
           Uptime: {activity.session_duration_hours}h
         </span>

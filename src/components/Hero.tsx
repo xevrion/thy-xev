@@ -45,12 +45,14 @@
 //     )
 // }
 import ActivityWidget from './ActivityStatus'
+import CurrentlyWorking from './CurrentlyWorking'
 import SplitText from './reactbits/splittext'
+import Socials from './Socials'
 import SpotifyWidget from './SpotifyWidget'
 
 export const Hero = () => {
     return (
-        <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto">
+        <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto ">
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
                 
                 {/* Text side */}
@@ -93,6 +95,8 @@ export const Hero = () => {
             <div className="mt-10 flex flex-col gap-6">
                 <SpotifyWidget />
                 <ActivityWidget />
+                <CurrentlyWorking/>
+                <Socials/>
             </div>
         </section>
     )

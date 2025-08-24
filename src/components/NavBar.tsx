@@ -35,7 +35,7 @@
 // }
 
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // hamburger icons
 import DiscordWidget from "./OnlineStatus";
 
@@ -43,11 +43,23 @@ export const NavBar = () => {
     const location = useLocation();
     const currentPath = location.pathname;
     const [isOpen, setIsOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 70;
+      setScrolled(isScrolled);
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll); // cleaning up / removing the thing when the component is unmounted
+  }, [])
 
     const links = ["Projects", "Posts", "About", "Contact"];
 
     return (
-        <nav className="flex justify-between items-center px-6 sm:px-8 py-4 bg-transparent sticky top-0 z-50 backdrop-blur-sm">
+        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]':'bg-transparent'}`}>
             {/* Logo + Discord */}
             <div className="flex items-center gap-2">
                 <a href="/">
