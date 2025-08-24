@@ -15,10 +15,9 @@ todo
    - [x] add keystrokes and mouse clicks counter and uptime too
    - [x] add current project which you're working on
    - [ ] add upcoming contests on leetcode,codechef and codeforces
-     - [ ] codeforces
-     - [ ] codechef
-     - [ ] leetcode
-
+     - [x] codeforces
+     - [ ] codechef (dont have api)
+     - [ ] leetcode (dont have api)
 - [ ] make about section
 - [ ] make contact section
 - [ ] make projects section

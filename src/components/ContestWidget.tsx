@@ -51,15 +51,15 @@ const CodeforcesWidget: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div className="animate-pulse text-battleship-gray">Loading contests...</div>;
+        return <div className="animate-pulse inter-bold text-battleship-gray text-xl">Loading contests...</div>;
     }
 
     if (error) {
-        return <div className="text-battleship-gray">{error}</div>;
+        return <div className="inter-bold text-battleship-gray text-xl">{error}</div>;
     }
 
     if (contests.length === 0) {
-        return <div className="text-battleship-gray">No contests today</div>;
+        return <div className="inter-bold text-battleship-gray text-xl">No contests today</div>;
     }
 
     return (

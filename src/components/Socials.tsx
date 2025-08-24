@@ -29,11 +29,13 @@ export default function Socials() {
       rotate: -45,
       stagger: 0.1,
       duration: 0.8,
+
       ease: 'back.out(1.7)',
       scrollTrigger: {
         trigger: containerRef.current,
         start: 'top 80%',
-        toggleActions: 'play none none none'
+        toggleActions: 'play none none none',
+
       }
     })
   }, [])
