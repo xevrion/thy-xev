@@ -13,7 +13,11 @@ todo
    - [ ] make the spotify thing- pretty
    - [x] add online offline status.. maybe discord(lanyard) 
    - [x] add keystrokes and mouse clicks counter and uptime too
-   - [ ] add current project which you're working on
+   - [x] add current project which you're working on
+   - [ ] add upcoming contests on leetcode,codechef and codeforces
+     - [ ] codeforces
+     - [ ] codechef
+     - [ ] leetcode
 
 - [ ] make about section
 - [ ] make contact section

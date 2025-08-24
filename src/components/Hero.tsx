@@ -49,6 +49,7 @@ import CurrentlyWorking from './CurrentlyWorking'
 import SplitText from './reactbits/splittext'
 import Socials from './Socials'
 import SpotifyWidget from './SpotifyWidget'
+import ContestWidget from './ContestWidget'
 
 export const Hero = () => {
     return (
@@ -96,6 +97,7 @@ export const Hero = () => {
                 <SpotifyWidget />
                 <ActivityWidget />
                 <CurrentlyWorking/>
+                <ContestWidget/>
                 <Socials/>
             </div>
         </section>
