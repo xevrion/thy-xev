@@ -183,7 +183,7 @@ const ActivityWidget: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-md">
         {/* Keystrokes */}
         <div className="flex items-center space-x-2">
-          <Keyboard className="w-4 h-4 text-battleship-gray" />
+          <Keyboard className="w-4 h-4 text-battleship-gray hover:scale-[1.1] duration-200" />
           <div>
             <div className="sg-semibold text-silver">
               {formatNumber(activity.keystrokes)}
@@ -197,7 +197,7 @@ const ActivityWidget: React.FC = () => {
         {/* Mouse Activity */}
         <div className="flex flex-wrap gap-4 ">
           <div className="flex items-center space-x-2">
-            <Mouse className="w-4 h-4 text-battleship-gray" />
+            <Mouse className="w-4 h-4 text-battleship-gray hover:scale-[1.1] duration-200" />
             <div>
               <div className="sg-semibold text-silver">
                 {formatNumber(activity.left_mouse_clicks)}

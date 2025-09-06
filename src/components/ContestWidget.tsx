@@ -86,7 +86,7 @@ const CodeforcesWidget: React.FC = () => {
                         >
                             {/* Dot Indicator */}
                             <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse shrink-0"></div>
-    
+
                             {/* Contest Info */}
                             <div className="flex flex-col overflow-hidden ">
                                 <span className="text-sm md:text-base inter-medium text-battleship-gray truncate ">{contest.name}</span>

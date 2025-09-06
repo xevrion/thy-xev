@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "url": "https://github.com/xevrion/thy-xev",
+      "text": "portfolio (this website)",
+      "desc": "designing my own personal website~"
+    },
+    {
+      "url": "https://github.com/xevrion",
+      "text": "design credit",
+      "desc": "finetuning an LLM for document summarization"
+    },
+    {
+      "url": "https://codeforces.com",
+      "text": "dsa questions",
+      "desc": "for placement~"
+    }
+  ],
+  "pastProjects": [
+    {
+      "url": "https://github.com/yourusername/pomodoro-ai",
+      "text": "Pomodoro AI",
+      "desc": "A feature-rich Pomodoro timer with AI-assisted workflows, smooth animations, and modular design."
+    },
+    {
+      "url": "https://github.com/yourusername/journal",
+      "text": "Journaling Website",
+      "desc": "Rust + WebAssembly powered journaling app with dark mode UI, media embeds, and local file storage."
+    },
+    {
+      "url": "https://github.com/yourusername/markdown-reader",
+      "text": "Markdown Reader",
+      "desc": "A retro-terminal themed markdown site built in SvelteKit with a persistent sidebar explorer."
+    }
+  ]
+}

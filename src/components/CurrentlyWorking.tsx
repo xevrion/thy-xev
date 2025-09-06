@@ -1,22 +1,6 @@
-export const projects = [
-    {
-        "url": "https://github.com/xevrion/thy-xev",
-        "text": "portfolio (this website)",
-        "desc": "designing my own personal website~",
-    },
-    {
-        "url": "https://github.com/xevrion",
-        "text": "design credit",
-        "desc": "finetuning an LLM for document summarization",
-    },
-    {
-        "url": "https://codeforces.com",
-        "text": "dsa questions",
-        "desc": "for placement~",
-    },
+import data from '../../constants/projects.json'
 
-]
-
+const {projects} = data;
 
 function CurrentlyWorking() {
 
