@@ -20,7 +20,13 @@ todo
      - [ ] leetcode (dont have api)
 - [ ] make about section
 - [ ] make contact section
-- [ ] make projects section
+- [x] make projects section
+   - [x] basic page structure
+   - [ ] some cool effects
+   - [x] current working
+   - [x] past projects
+   - [ ] dynamic fetching from github repos
+ 
 - [ ] make posts section (markdown)
 - [ ] add which languages i know
 - [ ] make it pretty
