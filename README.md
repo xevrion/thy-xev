@@ -37,3 +37,19 @@ todo
   - [ ] change activity.py to send data to backend instead of localhost  
   - [ ] add POST /activity (save stats)  
   - [ ] add GET /activity (serve stats)  
+- [ ] add live coding stats (Wakatime API)  
+  - [ ] show time spent coding today  
+  - [ ] show language breakdown (pie chart / bar graph)  
+
+- [ ] add weather widget (OpenWeather / WeatherAPI)  
+  - [ ] fetch weather for Surat + Jodhpur  
+  - [ ] display temp, condition + small icon  
+  - [ ] make it fit theme (minimal / glowy)  
+
+- [ ] add AI-generated summaries for projects  
+  - [ ] generate 1–2 line tagline from project description using API  
+  - [ ] show tagline under each project card dynamically  
+
+- [ ] integrate search (Meilisearch) **(later)**  
+  - [ ] index markdown posts + projects  
+  - [ ] add sidebar/global search bar  
