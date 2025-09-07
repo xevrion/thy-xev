@@ -50,6 +50,6 @@ todo
   - [ ] generate 1–2 line tagline from project description using API  
   - [ ] show tagline under each project card dynamically  
 
-- [ ] integrate search (Meilisearch) **(later)**  
+- [ ] integrate search (Meilisearch) (later)
   - [ ] index markdown posts + projects  
   - [ ] add sidebar/global search bar  

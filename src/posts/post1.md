@@ -1,5 +1,5 @@
-# aiglo uglu
-Date: 2024-10-01
+# First Post
+Date: 07-09-2025
 
 This is my first post on Xevrion.dev!
 

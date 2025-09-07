@@ -9,7 +9,7 @@ export const parsedPosts = Object.entries(posts).map(([path, content], idx) => {
   // First line = title, next few lines = summary
   const lines = content.split('\n');
   const title = lines[0].replace(/^# /, '') || slug;
-  const summary = lines.slice(2, 5).join(' ').slice(0, 150) + '...';
+  const summary = lines.slice(3, 5).join(' ').slice(0, 150) + '...';
   const date = lines[1].replace(/^Date: /, '') || 'Unknown Date';
 
   return {
