@@ -39,7 +39,7 @@
 //             <div >
 //                 <SpotifyWidget/>
 //                 <ActivityWidget/>
-               
+
 //             </div>
 //         </section>
 //     )
@@ -55,7 +55,7 @@ export const Hero = () => {
     return (
         <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto ">
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
-                
+
                 {/* Text side */}
                 <div className="flex flex-col gap-5 text-center md:text-left">
                     <SplitText
@@ -88,7 +88,7 @@ export const Hero = () => {
 
                 {/* Image */}
                 <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 border-4 rounded-full border-battleship-gray shrink-0">
-                    <img src="src/assets/pfp.jpeg" alt="pfp" className="w-full h-full object-cover rounded-full" />
+                    <img src="src/assets/pfp.gif" alt="pfp" className="w-full h-full object-cover rounded-full" />
                 </div>
             </div>
 
@@ -96,9 +96,9 @@ export const Hero = () => {
             <div className="mt-10 flex flex-col gap-6">
                 <SpotifyWidget />
                 <ActivityWidget />
-                <CurrentlyWorking/>
-                <ContestWidget/>
-                <Socials/>
+                <CurrentlyWorking />
+                <ContestWidget />
+                <Socials />
             </div>
         </section>
     )

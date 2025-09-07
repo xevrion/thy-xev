@@ -34,7 +34,7 @@ export const Contact = () => {
         <SplitText
           text="Get in Touch"
           className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-soft-royal-blue sg-bold selection:bg-battleship-gray"
-          delay={20}
+          delay={50}
           duration={1}
           ease="elastic.out(1, 0.5)"
           splitType="chars"
@@ -57,7 +57,7 @@ export const Contact = () => {
             href={c.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 text-xl text-battleship-gray hover:text-soft-royal-blue transition-colors duration-200"
+            className="flex items-center gap-3 text-xl text-battleship-gray hover:text-soft-royal-blue hover:scale-[1.05] transition-all duration-250"
           >
             {c.icon}
             <span className="truncate max-w-xs sm:max-w-sm md:max-w-md">
