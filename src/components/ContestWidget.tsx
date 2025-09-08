@@ -64,39 +64,40 @@ const CodeforcesWidget: React.FC = () => {
 
     return (
         <div className="flex flex-col gap-2">
-            {contests.map((contest) => {
-                const start = new Date(contest.startTimeSeconds * 1000);
-                const timeIST = start.toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                    timeZone: 'Asia/Kolkata',
-                });
 
-                return (
-                    <div className='flex flex-col justify-start'>
-                        <p className='inter-bold text-battleship-gray text-xl'>Upcoming/Live Contests:</p>
+
+            <div className="flex flex-col gap-2">
+                <p className='inter-bold text-battleship-gray text-xl'>Upcoming/Live Contests:</p>
+                {contests.map((contest) => {
+                    const start = new Date(contest.startTimeSeconds * 1000);
+                    const timeIST = start.toLocaleTimeString('en-IN', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                        timeZone: 'Asia/Kolkata',
+                    });
+                    return (
                         <a
                             key={contest.name}
                             href={`https://codeforces.com/contest/${contest.url}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 rounded-xl px-3 py-2   
-                 hover:scale-[1.03] transition-all duration-200 ease-in-out   w-full max-w-md"
+                            className="flex items-center gap-3 rounded-xl px-3 py-2 hover:scale-[1.03] transition-all duration-200 ease-in-out w-full max-w-md"
                         >
                             {/* Dot Indicator */}
                             <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse shrink-0"></div>
-
                             {/* Contest Info */}
-                            <div className="flex flex-col overflow-hidden ">
-                                <span className="text-sm md:text-base inter-medium text-battleship-gray truncate ">{contest.name}</span>
+                            <div className="flex flex-col overflow-hidden">
+                                <span className="text-sm md:text-base inter-medium text-battleship-gray truncate">{contest.name}</span>
                                 <span className="text-xs md:text-sm text-battleship-gray opacity-80 inter-medium">{timeIST} IST</span>
                             </div>
                         </a>
-                    </div>
+                    );
+                })}
+            </div>
 
-                );
-            })}
+
+
         </div>
     );
 };
