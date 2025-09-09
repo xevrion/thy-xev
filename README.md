@@ -38,9 +38,9 @@ todo
   - [ ] add POST /activity (save stats)  
   - [ ] add GET /activity (serve stats)  
 - [ ] add live coding stats (Wakatime API)  
-  - [ ] show time spent coding today  
+  - [x] show time spent coding today  
   - [x] show time spent coding till now (all time)  
-  - [ ] show time spent coding this week
+  - [x] show time spent coding this week
   - [ ] show language breakdown (pie chart / bar graph)  
 
 - [ ] add weather widget (OpenWeather / WeatherAPI)  
