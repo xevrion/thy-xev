@@ -26,7 +26,7 @@ export const PostPage = () => {
                     h1: (props) => <h1 className="text-2xl sm:text-3xl text-soft-royal-blue sg-medium mb-4" {...props} />,
                     h2: (props) => <h2 className="text-xl sm:text-2xl text-soft-royal-blue sg-bold mb-3" {...props} />,
                     h3: (props) => <h3 className="text-lg sm:text-xl text-soft-royal-blue sg-bold mb-2" {...props} />,
-                    p: (props) => <p className="text-battleship-gray text-lg mb-4 leading-relaxed" {...props} />,
+                    p: (props) => <p className="text-battleship-gray text-lg mb-4 sg-regular leading-relaxed" {...props} />,
                     a: (props) => <a className="text-soft-royal-blue hover:underline transition-colors" {...props} target="_blank" />,
                     code: (props) => <code className="bg-battleship-gray text-soft-royal-blue px-1 rounded" {...props} />,
                     blockquote: (props) => (

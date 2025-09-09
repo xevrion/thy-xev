@@ -3,6 +3,7 @@ import axios from "axios";
 import dotenv from "dotenv";
 import querystring from "querystring";
 import cors from "cors";
+import fetch from "node-fetch";
 
 dotenv.config();
 const app = express();
@@ -144,3 +145,111 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(PORT, () =>
     console.log(`🚀 Spotify server running on http://localhost:${PORT}`)
 );
+
+
+
+// alltime
+app.get("/wakatimeAllTime", async (req: Request, res: Response) => {
+    try {
+        const apiKey = process.env.WAKATIME_API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ error: "Missing WAKATIME_API_KEY in .env" });
+        }
+
+        const url = "https://wakatime.com/api/v1/users/current/all_time_since_today";
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: "Basic " + Buffer.from(apiKey + ":").toString("base64"),
+                Accept: "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(response.status).json({
+                error: "Failed to fetch WakaTime all-time data",
+                details: text,
+            });
+        }
+
+        const data = await response.json();
+        res.json(data); // forward directly
+    } catch (err: any) {
+        console.error("Error fetching WakaTime:", err.message);
+        res.status(500).json({ error: "Internal error fetching WakaTime" });
+    }
+});
+
+// Daily stats (today only)
+app.get("/wakatimeDaily", async (req: Request, res: Response) => {
+    try {
+        const apiKey = process.env.WAKATIME_API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ error: "Missing WAKATIME_API_KEY in .env" });
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        const url = `https://wakatime.com/api/v1/users/current/summaries?start=${today}&end=${today}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: "Basic " + Buffer.from(apiKey + ":").toString("base64"),
+                Accept: "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(response.status).json({
+                error: "Failed to fetch WakaTime daily data",
+                details: text,
+            });
+        }
+
+        const data = await response.json();
+        res.json(data); // forward directly
+    } catch (err: any) {
+        console.error("Error fetching WakaTime daily:", err.message);
+        res.status(500).json({ error: "Internal error fetching WakaTime daily" });
+    }
+});
+
+
+// Weekly stats (last 7 days)
+app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
+    try {
+        const apiKey = process.env.WAKATIME_API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ error: "Missing WAKATIME_API_KEY in .env" });
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+
+        const url = `https://wakatime.com/api/v1/users/current/summaries?start=${lastWeek}&end=${today}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: "Basic " + Buffer.from(apiKey + ":").toString("base64"),
+                Accept: "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(response.status).json({
+                error: "Failed to fetch WakaTime weekly data",
+                details: text,
+            });
+        }
+
+        const data = await response.json();
+        res.json(data); // forward directly
+    } catch (err: any) {
+        console.error("Error fetching WakaTime weekly:", err.message);
+        res.status(500).json({ error: "Internal error fetching WakaTime weekly" });
+    }
+});

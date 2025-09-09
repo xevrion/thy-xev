@@ -18,8 +18,8 @@ todo
      - [x] codeforces
      - [ ] codechef (dont have api)
      - [ ] leetcode (dont have api)
-- [ ] make about section
-- [ ] make contact section
+- [x] make about section
+- [x] make contact section
 - [x] make projects section
    - [x] basic page structure
    - [ ] some cool effects
@@ -27,7 +27,7 @@ todo
    - [x] past projects
    - [ ] dynamic fetching from github repos
  
-- [ ] make posts section (markdown)
+- [x] make posts section (markdown)
 - [ ] add which languages i know
 - [ ] make it pretty
 - [ ] hosting
@@ -39,6 +39,8 @@ todo
   - [ ] add GET /activity (serve stats)  
 - [ ] add live coding stats (Wakatime API)  
   - [ ] show time spent coding today  
+  - [x] show time spent coding till now (all time)  
+  - [ ] show time spent coding this week
   - [ ] show language breakdown (pie chart / bar graph)  
 
 - [ ] add weather widget (OpenWeather / WeatherAPI)  
