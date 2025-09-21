@@ -41,6 +41,8 @@ import {
   SiNeovim,
 } from "react-icons/si";
 
+
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Map skill string → Icon component
@@ -89,7 +91,7 @@ export default function Skills() {
       opacity: 0,
       scale: 0,
       rotate: -45,
-      stagger: 0.08,
+      stagger: 0.04,
       duration: 0.8,
       ease: "back.out(1.7)",
       scrollTrigger: {

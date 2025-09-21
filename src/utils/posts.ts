@@ -1,4 +1,3 @@
-// src/utils/posts.ts
 export const posts = import.meta.glob('../posts/*.md', { eager: true, as: 'raw' }) as Record<string, string>;
 
 // Transform into usable array

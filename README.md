@@ -19,6 +19,7 @@ todo
      - [ ] codechef (dont have api)
      - [ ] leetcode (dont have api)
 - [x] make about section
+  - [x] add tech stack
 - [x] make contact section
 - [x] make projects section
    - [x] basic page structure
@@ -28,7 +29,6 @@ todo
    - [ ] dynamic fetching from github repos
  
 - [x] make posts section (markdown)
-- [ ] add which languages i know
 - [ ] make it pretty
 - [ ] hosting
   - [ ] deploy frontend on Vercel  or everything on render..
