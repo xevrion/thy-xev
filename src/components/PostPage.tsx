@@ -3,6 +3,19 @@ import { useParams } from "react-router-dom";
 import { parsedPosts } from "./../utils/posts";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+// import remarkHtml from 'remark-html'
+import rehypeRaw from 'rehype-raw';
+
+const Tooltip: React.FC<{ message: string; children: React.ReactNode }> = ({ message, children }) => {
+    return (
+        <span className="relative group cursor-help underline decoration-dotted underline-offset-3">
+            {children}
+            <span className="absolute bottom-full left-1/2 -translate-x-1/2  hidden group-hover:block bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap z-10 ">
+                {message}
+            </span>
+        </span>
+    );
+};
 
 export const PostPage = () => {
     const { slug } = useParams();
@@ -15,12 +28,8 @@ export const PostPage = () => {
             {/* <h1 className="text-4xl text-soft-royal-blue sg-bold mb-6">{post.title}</h1> */}
             <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
-                // components={{
-                //     h1: (props) => <h1 className="text-3xl text-soft-royal-blue sg-medium mb-4" {...props} />,
-                //     h2: (props) => <h2 className="text-2xl text-soft-royal-blue sg-bold mb-3" {...props} />,
-                //     p: (props) => <p className="text-battleship-gray text-lg mb-4" {...props} />,
-                //     a: (props) => <a className="text-soft-royal-blue hover:underline" {...props} target="_blank" />,
-                // }}
+                rehypePlugins={[rehypeRaw]}
+
 
                 components={{
                     h1: (props) => <h1 className="text-2xl sm:text-3xl text-soft-royal-blue sg-medium mb-4" {...props} />,
@@ -35,8 +44,19 @@ export const PostPage = () => {
                     ul: (props) => <ul className="list-disc ml-6 mb-4" {...props} />,
                     ol: (props) => <ol className="list-decimal ml-6 mb-4" {...props} />,
                     li: (props) => <li className="mb-2 text-battleship-gray" {...props} />,
-                    strong: (props) => <strong className="font-bold text-soft-royal-blue" {...props} />,
+                    strong: (props) => <strong className="font-bold " {...props} />,
                     em: (props) => <em className="italic text-battleship-gray" {...props} />,
+                    span: (props: React.HTMLAttributes<HTMLSpanElement> & { "data-tooltip"?: string }) => {
+                        if (props.className === "tooltip") {
+                            // expects markdown like: <span class="tooltip" data-tooltip="Hello!">Hover me</span>
+                            return (
+                                <Tooltip message={props["data-tooltip"] ?? ""} >
+                                    {props.children}
+                                </Tooltip>
+                            );
+                        }
+                        return <span {...props} />;
+                    }
                 }}
 
             >

@@ -58,8 +58,8 @@ export const Hero = () => {
                 <ActivityWidget />
                 <CurrentlyWorking />
                 <ContestWidget />
-                <Socials />
                 <WakatimeWidget/>
+                <Socials />
                 
 
             </div>
