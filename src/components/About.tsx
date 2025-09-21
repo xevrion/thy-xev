@@ -1,4 +1,5 @@
 import SplitText from './reactbits/splittext'
+import Skills from './Skills'
 import Socials from './Socials'
 
 export const About = () => {
@@ -28,6 +29,10 @@ export const About = () => {
           Hi! I'm Yash Bavadiya, a passionate Computer Science student from IIT Jodhpur with a knack for programming, design, and exploring new technologies. I love building creative projects that blend functionality and aesthetics, whether it's web apps, AI tools, or interactive websites. Outside of coding, I enjoy music, playing the piano and ukulele, and constantly learning new skills to push myself forward. My goal is to combine technology and creativity to make meaningful, polished digital experiences.
         </p>
       </div>
+        <div className='text-center '>
+          <h1 className='text-xl sm:text-2xl lg:text-3xl text-soft-royal-blue sg-bold selection:bg-battleship-gray mb-10'>TechStack</h1>
+          <Skills />
+        </div>
       <div className="mt-10 flex flex-col gap-6 bottom-0">
 
         <Socials />

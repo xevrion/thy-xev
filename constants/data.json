@@ -18,5 +18,38 @@
                 }
             }
         }
-    }
+    },
+    "techStack": [
+    "c",
+    "cplusplus",
+    "python",
+    "java",
+    "go",
+    "javascript",
+    "typescript",
+    "html5",
+    "css3",
+    "react",
+    "nextjs",
+    "svelte",
+    "tailwindcss",
+    "nodejs",
+    "express",
+    "docker",
+    "proxmox",
+    "wasm",
+    "tensorflow",
+    "pytorch",
+    "numpy",
+    "pandas",
+    "git",
+    "github",
+    "vscode",
+    "vim",
+    "nvim",
+    "archlinux",
+    "linux",
+    "vercel",
+    "wakatime"
+  ]
 }
