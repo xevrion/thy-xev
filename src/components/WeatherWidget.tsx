@@ -10,7 +10,7 @@ interface WeatherData {
 }
 
 const cities = [
-  { name: "Surat", lat: 21.1702, lon: 72.8311 },
+  // { name: "Surat", lat: 21.1702, lon: 72.8311 },
   { name: "Jodhpur", lat: 26.2389, lon: 73.0243 },
 ];
 
