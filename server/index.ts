@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import querystring from "querystring";
 import cors from "cors";
 import fetch from "node-fetch";
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+
 
 dotenv.config({ path: ".env.production" });
 const app = express();
@@ -124,6 +126,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
             progress: nowPlaying.data.progress_ms,
             preview_url: song.preview_url, // 30s preview if available (refresh every 30 seconds)
         });
+        
     } catch (err: any) {
         console.error("Error fetching now playing:", err.response?.data || err.message);
         res.json({ isPlaying: false, message: "Error fetching current song" });

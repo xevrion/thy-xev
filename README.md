@@ -28,13 +28,9 @@ todo
  
 - [x] make posts section (markdown)
 - [x] make it pretty
-- [ ] hosting
-  - [ ] deploy frontend on Vercel  or everything on render..
-  - [ ] deploy backend (Spotify) on Render/Railway  
-  - [ ] update frontend to use backend API URL  
-  - [ ] change activity.py to send data to backend instead of localhost  
-  - [ ] add POST /activity (save stats)  
-  - [ ] add GET /activity (serve stats)  
+- [x] hosting
+  - [x] digital ocean 16$ VPS
+  - [x] bought domain for free from name.com 
 - [ ] add live coding stats (Wakatime API)  
   - [x] show time spent coding today  
   - [x] show time spent coding till now (all time)  
