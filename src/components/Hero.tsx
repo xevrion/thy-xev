@@ -48,7 +48,7 @@ export const Hero = () => {
 
                 {/* Image */}
                 <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 border-4 rounded-full border-battleship-gray shrink-0">
-                    <img src="src/assets/download (10).jpeg" alt="pfp" className="w-full h-full object-cover rounded-full" />
+                    <img src="src\assets\download (10).jpeg" alt="pfp" className="w-full h-full object-cover rounded-full" />
                 </div>
             </div>
 
