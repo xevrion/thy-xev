@@ -5,12 +5,10 @@ todo
 - [x] make basic structure
 - [x] decide theme
 - [x] think about markdown pages
-- [ ] first work on implementing basic functionality
-- [ ] make home section
-   - [ ] add big text
-   - [ ] add a lil info in 2 3 lines
+- [x] first work on implementing basic functionality
+
    - [x] add listening now (spotify api)
-   - [ ] make the spotify thing- pretty
+   - [x] make the spotify thing- pretty
    - [x] add online offline status.. maybe discord(lanyard) 
    - [x] add keystrokes and mouse clicks counter and uptime too
    - [x] add current project which you're working on
@@ -23,13 +21,13 @@ todo
 - [x] make contact section
 - [x] make projects section
    - [x] basic page structure
-   - [ ] some cool effects
+   - [x] some cool effects
    - [x] current working
    - [x] past projects
    - [ ] dynamic fetching from github repos
  
 - [x] make posts section (markdown)
-- [ ] make it pretty
+- [x] make it pretty
 - [ ] hosting
   - [ ] deploy frontend on Vercel  or everything on render..
   - [ ] deploy backend (Spotify) on Render/Railway  
