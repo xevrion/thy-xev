@@ -43,10 +43,10 @@ todo
   - [x] show time spent coding this week
   - [ ] show language breakdown (pie chart / bar graph)  
 
-- [ ] add weather widget (OpenWeather / WeatherAPI)  
-  - [ ] fetch weather for Surat + Jodhpur  
-  - [ ] display temp, condition + small icon  
-  - [ ] make it fit theme (minimal / glowy)  
+- [x] add weather widget (OpenWeather / WeatherAPI)  
+  - [x] fetch weather for Surat + Jodhpur  
+  - [x] display temp, condition + small icon  
+  - [x] make it fit theme (minimal / glowy)  
 
 - [ ] add AI-generated summaries for projects  
   - [ ] generate 1–2 line tagline from project description using API  

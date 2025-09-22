@@ -38,6 +38,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // hamburger icons
 import DiscordWidget from "./OnlineStatus";
+import WeatherWidget from "./WeatherWidget";
+
 
 export const NavBar = () => {
     const location = useLocation();
@@ -68,6 +70,7 @@ export const NavBar = () => {
                     </div>
                 </a>
                 <DiscordWidget />
+                <WeatherWidget/>
             </div>
 
             {/* Desktop Links */}
