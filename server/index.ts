@@ -5,7 +5,7 @@ import querystring from "querystring";
 import cors from "cors";
 import fetch from "node-fetch";
 
-dotenv.config();
+dotenv.config({ path: ".env.production" });
 const app = express();
 
 const PORT = 3001;
