@@ -41,7 +41,7 @@ app.get("/login", (req: Request, res: Response) => {
 });
 
 // 2. Callback → exchange code for tokens
-app.get("/api/callback", async (req: Request, res: Response) => {
+app.get("/callback", async (req: Request, res: Response) => {
     const code = req.query.code as string | undefined;
 
     if (!code) return res.status(400).send("No code provided");
