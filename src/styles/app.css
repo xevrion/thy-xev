@@ -6,15 +6,20 @@
 
 @theme {
   /* bg */
-  --color-taupe: #463f3aff;
+  /* --color-taupe: #463f3aff; */
+  --color-taupe: #2e2a27;
   /* secondary sections , secondary text-muted */
-  --color-battleship-gray: #8a817cff;
+  /* --color-battleship-gray: #8a817cff; */
+  --color-battleship-gray: #a6a19d;
   /* primary text, secondary text (low opacity) */
-  --color-silver: #bcb8b1ff;
+  /* --color-silver: #bcb8b1ff; */
+  --color-silver: #e0dedb;
   /* link,buttons,highlights */
-  --color-blue-crayola: #5c7affff;
+  /* --color-blue-crayola: #5c7affff; */
+  --color-blue-crayola: #4c6fff;
   /* headings,call to action */
-  --color-soft-royal-blue: #5e7aff;
+  /* --color-soft-royal-blue: #5e7aff; */
+  --color-soft-royal-blue: #6e8cff;
 }
 
 @layer components {
