@@ -56,7 +56,7 @@ export default function WeatherWidget() {
   }
 
   return (
-    <div className="flex gap-3 ml-3">
+    <div className="flex gap-3 ml-3 hidden lg:block">
       {weather.map((w) => (
         <div
           key={w.city}

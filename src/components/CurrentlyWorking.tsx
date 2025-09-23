@@ -5,7 +5,7 @@ const {projects} = data;
 function CurrentlyWorking() {
 
     return (
-        <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
+        <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl ">
             <div className="inter-bold">Currently Working</div>
             {projects.map((value) => {
                 return (<>
