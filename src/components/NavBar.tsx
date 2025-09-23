@@ -75,7 +75,7 @@ export const NavBar = () => {
     const links = ["Projects", "Posts", "About", "Contact"];
 
     return (
-        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
+        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
             {/* Logo + Discord */}
             <div className="flex items-center gap-2">
                 <a href="/">
