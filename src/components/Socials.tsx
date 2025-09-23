@@ -33,7 +33,8 @@ export default function Socials() {
       ease: 'back.out(1.7)',
       scrollTrigger: {
         trigger: containerRef.current,
-        start: 'top 80%',
+        start: 'top bottom',
+        // markers: true,
         toggleActions: 'play none none none',
 
       }

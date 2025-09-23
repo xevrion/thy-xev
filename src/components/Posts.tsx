@@ -104,6 +104,7 @@
 import { Link } from "react-router-dom";
 import { parsedPosts } from "./../utils/posts";
 import SplitText from "../components/reactbits/splittext";
+import Socials from "./Socials";
 
 export const Posts = () => {
   return (
@@ -139,6 +140,7 @@ export const Posts = () => {
           </div>
         ))}
       </div>
+      <Socials />
     </section>
   );
 };

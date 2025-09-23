@@ -97,6 +97,7 @@ export default function Skills() {
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top 80%",
+        // markers: true,
         toggleActions: "play none none none",
       },
     });

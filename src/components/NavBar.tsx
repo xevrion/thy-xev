@@ -48,20 +48,34 @@ export const NavBar = () => {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 70;
-      setScrolled(isScrolled);
-    }
+        const handleScroll = () => {
+            const isScrolled = window.scrollY > 70;
+            setScrolled(isScrolled);
+        }
 
-    window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
 
-    return () => window.removeEventListener('scroll', handleScroll); // cleaning up / removing the thing when the component is unmounted
-  }, [])
+        return () => window.removeEventListener('scroll', handleScroll); // cleaning up / removing the thing when the component is unmounted
+    }, [])
+
+    // Prevent scrolling when mobile menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        // Cleanup function to restore scrolling when component unmounts
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen])
 
     const links = ["Projects", "Posts", "About", "Contact"];
 
     return (
-        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]':'bg-transparent'}`}>
+        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
             {/* Logo + Discord */}
             <div className="flex items-center gap-2">
                 <a href="/">
@@ -70,7 +84,7 @@ export const NavBar = () => {
                     </div>
                 </a>
                 <DiscordWidget />
-                <WeatherWidget/>
+                <WeatherWidget />
             </div>
 
             {/* Desktop Links */}
@@ -90,31 +104,36 @@ export const NavBar = () => {
                     ))}
             </div>
 
+
             {/* Mobile Menu Button */}
             <button
-                className="md:hidden text-soft-royal-blue"
+                className="md:hidden text-soft-royal-blue z-50 relative"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
 
             {/* Mobile Dropdown */}
-            {isOpen && (
-                <div className="absolute top-full right-0 mt-2 w-48 rounded-xl bg-black/80 shadow-lg p-4 flex flex-col gap-4 md:hidden">
+            <div
+                className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-black/20 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"
+                    } md:hidden`}
+            >
+                <div className="flex flex-col items-center justify-center h-full gap-8">
                     {links
                         .filter((link) => `/${link.toLowerCase()}` !== currentPath)
                         .map((link) => (
                             <a
                                 key={link}
                                 href={`/${link.toLowerCase()}`}
-                                className="font-space-grotesk text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-200 hover:opacity-100"
-                                onClick={() => setIsOpen(false)} // close menu after click
+                                className="font-space-grotesk text-2xl font-bold text-soft-royal-blue opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                                onClick={() => setIsOpen(false)}
                             >
                                 {link}
                             </a>
                         ))}
                 </div>
-            )}
+            </div>
+
         </nav>
     );
 };
