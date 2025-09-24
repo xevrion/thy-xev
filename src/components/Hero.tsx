@@ -56,7 +56,7 @@ export const Hero = () => {
             {/* Widgets */}
             <div className="mt-10 flex flex-col gap-6 ">
                 <SpotifyWidget />
-                <ActivityWidget />
+                {/* <ActivityWidget /> */}
                 <CurrentlyWorking />
                 <ContestWidget />
                 <WakatimeWidget/>
