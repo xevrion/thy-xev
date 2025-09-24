@@ -1,4 +1,4 @@
-import ActivityWidget from './ActivityStatus'
+// import ActivityWidget from './ActivityStatus'
 import CurrentlyWorking from './CurrentlyWorking'
 import SplitText from './reactbits/splittext'
 import Socials from './Socials'
