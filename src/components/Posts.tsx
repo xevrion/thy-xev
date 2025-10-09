@@ -90,7 +90,7 @@
 //         ))}
 //       </div>
 //       <div className="mt-10 flex flex-col gap-6 bottom-0">
-      
+
 //               <Socials />
 //             </div>
 //     </section>
@@ -109,7 +109,7 @@ import Socials from "./Socials";
 export const Posts = () => {
   return (
     <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
-      
+
       {/* Heading */}
       <div className="text-center">
         <SplitText
@@ -126,19 +126,19 @@ export const Posts = () => {
 
       {/* Posts list */}
       <div className="flex flex-col gap-10">
-        {parsedPosts.map((post) => (
-          <div key={post.slug} className="border-b border-battleship-gray pb-6">
-            <div className="mb-2 flex flex-row justify-between items-center">
-              <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2">
-                <Link to={`/posts/${post.slug}`} className="hover:underline">
-                  {post.title}
-                </Link>
-              </h2>
-              <h3 className="text-lg sg-medium text-battleship-gray">{post.date}</h3>
+        {parsedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
+            <div key={post.slug} className="border-b border-battleship-gray pb-6">
+              <div className="mb-2 flex flex-row justify-between items-center">
+                <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2">
+                  <Link to={`/posts/${post.slug}`} className="hover:underline">
+                    {post.title}
+                  </Link>
+                </h2>
+                <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
+              </div>
+              <p className="text-battleship-gray text-lg">{post.summary}</p>
             </div>
-            <p className="text-battleship-gray text-lg">{post.summary}</p>
-          </div>
-        ))}
+          ))}
       </div>
       <Socials />
     </section>

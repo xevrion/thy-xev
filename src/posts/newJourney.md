@@ -1,7 +1,7 @@
 # New Journey
 Date: 08-09-2025
 
-Hello to everyone who is reading this! I am very excited to share that today my monitor setup arrived. I have been wanting a dual monitor setup for a long time, and now I finally have it. I mean I already had a monitor which was a bit smaller (19 inch 900p 75hz monitor) but now I have a 24 inch 1440p 180hz (Gigabyte M2QA) monitor as my main monitor and now my laptop sits on the side as a secondary monitor. I am very excited to use this setup for coding, gaming, and general productivity.
+Hello to everyone who is reading this! I am very excited to share that today my monitor setup arrived. I have been wanting a dual monitor setup for a long time, and now I finally have it. I mean I already had a monitor which was a bit smaller (19 inch 900p 75hz monitor) but now I have a 27 inch 1440p 180hz (Gigabyte M2QA) monitor as my main monitor and now my laptop sits on the side as a secondary monitor. I am very excited to use this setup for coding, gaming, and general productivity.
 
 And this is a very very smooth experience, but I'm still using it on 144hz, because the true 180hz experience only works through display port, and my laptop only has HDMI output. But I will get a display port to USB-C cable soon, so I can use the full potential of this monitor.
 
