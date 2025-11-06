@@ -102,7 +102,7 @@ export const PostPage = () => {
           },
           pre: (props) => (
             <pre
-              className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-sm rounded-lg p-4 my-5 overflow-x-auto border border-[rgba(100,149,237,0.2)] shadow-lg shadow-[rgba(0,0,0,0.4)]"
+              className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-sm rounded-lg p-4 my-5 whitespace-pre-wrap break-words border border-[rgba(100,149,237,0.2)] shadow-lg shadow-[rgba(0,0,0,0.4)]"
               {...props}
             >
               {/* <div className="absolute top-2 right-3 text-[10px] text-battleship-gray uppercase tracking-widest select-none">
