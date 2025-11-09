@@ -1,19 +1,19 @@
 {
   "projects": [
     {
-      "url": "https://github.com/xevrion/thy-xev",
-      "text": "portfolio (this website)",
-      "desc": "designing my own personal website~"
+      "url": "https://github.com/xevrion/chronapse",
+      "text": "Chronapse",
+      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way."
+    },
+    {
+      "url": "https://github.com/xevrion/PeerPlume",
+      "text": "PeerPlume",
+      "desc": "A lightweight, cross-platform peer-to-peer file sharing app for local networks. Fast, secure, and connection-free."
     },
     {
       "url": "https://github.com/xevrion",
-      "text": "design credit",
-      "desc": "finetuning an LLM for document summarization"
-    },
-    {
-      "url": "https://codeforces.com",
-      "text": "dsa questions",
-      "desc": "for placement~"
+      "text": "Design Credit",
+      "desc": "Finetuning an LLM for document summarization"
     }
   ],
   "pastProjects": [
