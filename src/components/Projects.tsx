@@ -1,13 +1,33 @@
 import SplitText from './reactbits/splittext'
 import data from '../../constants/projects.json'
-
+import { Helmet } from 'react-helmet-async'
 import Socials from './Socials';
 
 const { projects, pastProjects } = data;
 
 export const Projects = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16  ">
+    <>
+      <Helmet>
+        <title>Projects | Xevrion - Full Stack Developer</title>
+        <meta name="title" content="Projects | Xevrion - Full Stack Developer" />
+        <meta name="description" content="Explore my current and past projects including web applications, AI tools, and interactive websites. Showcasing creative projects that blend functionality and aesthetics." />
+        <link rel="canonical" href="https://xevrion.dev/projects" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://xevrion.dev/projects" />
+        <meta property="og:title" content="Projects | Xevrion" />
+        <meta property="og:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
+        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://xevrion.dev/projects" />
+        <meta name="twitter:title" content="Projects | Xevrion" />
+        <meta name="twitter:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
+        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      </Helmet>
+
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16  ">
 
       {/* Heading */}
       <div className="text-center">
@@ -64,5 +84,6 @@ export const Projects = () => {
       </div>
 
     </section>
+    </>
   )
 }

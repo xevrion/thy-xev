@@ -1,10 +1,31 @@
 import SplitText from './reactbits/splittext'
 import Skills from './Skills'
 import Socials from './Socials'
+import { Helmet } from 'react-helmet-async'
 
 export const About = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <>
+      <Helmet>
+        <title>About Me | Xevrion - Full Stack Developer</title>
+        <meta name="title" content="About Me | Xevrion - Full Stack Developer" />
+        <meta name="description" content="Hi! I'm Yash Bavadiya (Xevrion), a Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects that blend functionality and aesthetics." />
+        <link rel="canonical" href="https://xevrion.dev/about" />
+
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://xevrion.dev/about" />
+        <meta property="og:title" content="About Xevrion - Full Stack Developer" />
+        <meta property="og:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
+        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://xevrion.dev/about" />
+        <meta name="twitter:title" content="About Xevrion - Full Stack Developer" />
+        <meta name="twitter:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
+        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      </Helmet>
+
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
 
       {/* Heading */}
       <div className="text-center">
@@ -38,6 +59,7 @@ export const About = () => {
         <Socials />
       </div>
     </section>
+    </>
   )
 }
 

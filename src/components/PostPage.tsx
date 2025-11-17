@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 // import remarkHtml from 'remark-html'
 import rehypeRaw from "rehype-raw";
+import { Helmet } from "react-helmet-async";
 
 const Tooltip: React.FC<{ message: string; children: React.ReactNode }> = ({
   message,
@@ -26,8 +27,55 @@ export const PostPage = () => {
 
   if (!post) return <p className="text-center text-red-500">Post not found!</p>;
 
+  // Generate meta description from post content (first 155 chars)
+  const metaDescription = post.summary || post.content.slice(0, 155).replace(/[#*`\n]/g, ' ').trim() + '...';
+  const pageTitle = `${post.title} | Xevrion`;
+  const pageUrl = `https://xevrion.dev/posts/${slug}`;
+
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto">
+    <>
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="title" content={pageTitle} />
+        <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* Open Graph */}
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+        <meta property="article:published_time" content={post.date} />
+        <meta property="article:author" content="Xevrion" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={pageUrl} />
+        <meta name="twitter:title" content={post.title} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+
+        {/* JSON-LD Structured Data for Blog Post */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": post.title,
+            "description": metaDescription,
+            "datePublished": post.date,
+            "author": {
+              "@type": "Person",
+              "name": "Xevrion",
+              "url": "https://xevrion.dev"
+            },
+            "url": pageUrl,
+            "image": "https://xevrion.dev/android-chrome-512x512.png"
+          })}
+        </script>
+      </Helmet>
+
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto">
       {/* <h1 className="text-4xl text-soft-royal-blue sg-bold mb-6">{post.title}</h1> */}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
@@ -116,5 +164,6 @@ export const PostPage = () => {
         {post.content}
       </ReactMarkdown>
     </section>
+    </>
   );
 };

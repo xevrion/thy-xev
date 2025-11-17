@@ -105,10 +105,31 @@ import { Link } from "react-router-dom";
 import { parsedPosts } from "./../utils/posts";
 import SplitText from "../components/reactbits/splittext";
 import Socials from "./Socials";
+import { Helmet } from "react-helmet-async";
 
 export const Posts = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <>
+      <Helmet>
+        <title>Blog Posts | Xevrion - Full Stack Developer</title>
+        <meta name="title" content="Blog Posts | Xevrion - Full Stack Developer" />
+        <meta name="description" content="Read my blog posts about web development, Linux, programming challenges, and tech insights. Sharing experiences and learnings from IIT Jodhpur." />
+        <link rel="canonical" href="https://xevrion.dev/posts" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://xevrion.dev/posts" />
+        <meta property="og:title" content="Blog Posts | Xevrion" />
+        <meta property="og:description" content="Read my blog posts about web development, Linux, programming challenges, and tech insights." />
+        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://xevrion.dev/posts" />
+        <meta name="twitter:title" content="Blog Posts | Xevrion" />
+        <meta name="twitter:description" content="Read my blog posts about web development, Linux, programming challenges, and tech insights." />
+        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      </Helmet>
+
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
 
       {/* Heading */}
       <div className="text-center">
@@ -142,5 +163,6 @@ export const Posts = () => {
       </div>
       <Socials />
     </section>
+    </>
   );
 };

@@ -9,4 +9,6 @@ import string from "vite-plugin-string"
 export default defineConfig({
   plugins: [react(), tailwindcss(), string({ include: "**/*.md" })],
   // assetsInclude: ['**/*.md'],
+  // Note: Pre-rendering removed due to plugin compatibility issues
+  // Google can still crawl React apps effectively with proper meta tags
 })

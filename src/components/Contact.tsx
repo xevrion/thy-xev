@@ -1,6 +1,7 @@
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import SplitText from './reactbits/splittext'
 import { Mail } from 'lucide-react' // icons
+import { Helmet } from 'react-helmet-async'
 
 const contacts = [
   {
@@ -27,7 +28,27 @@ const contacts = [
 
 export const Contact = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <>
+      <Helmet>
+        <title>Contact | Xevrion - Full Stack Developer</title>
+        <meta name="title" content="Contact | Xevrion - Full Stack Developer" />
+        <meta name="description" content="Get in touch with Xevrion. Always open for collaborations, new ideas, or just a friendly chat. Connect via email, GitHub, LinkedIn, or Twitter." />
+        <link rel="canonical" href="https://xevrion.dev/contact" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://xevrion.dev/contact" />
+        <meta property="og:title" content="Contact | Xevrion" />
+        <meta property="og:description" content="Get in touch with Xevrion. Always open for collaborations, new ideas, or just a friendly chat." />
+        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:url" content="https://xevrion.dev/contact" />
+        <meta name="twitter:title" content="Contact | Xevrion" />
+        <meta name="twitter:description" content="Get in touch with Xevrion. Always open for collaborations, new ideas, or just a friendly chat." />
+        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      </Helmet>
+
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
 
       {/* Heading */}
       <div className="text-center">
@@ -68,6 +89,7 @@ export const Contact = () => {
       </div>
 
     </section>
+    </>
   )
 }
 
