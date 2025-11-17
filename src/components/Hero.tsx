@@ -6,7 +6,7 @@ import SpotifyWidget from './SpotifyWidget'
 import ContestWidget from './ContestWidget'
 import WakatimeWidget from './WakatimeWidget'
 import pfp from '../assets/download (10).jpeg';
-import { Helmet } from 'react-helmet-async';
+import { Style } from 'react-head';
 
 
 
@@ -16,43 +16,41 @@ import { Helmet } from 'react-helmet-async';
 export const Hero = () => {
     return (
         <>
-            <Helmet>
-                {/* Homepage inherits meta tags from index.html, but we can add structured data */}
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
+            {/* Homepage inherits meta tags from index.html, but we can add structured data */}
+            <Style type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "name": "Yash Bavadiya",
+                    "alternateName": "Xevrion",
+                    "url": "https://xevrion.dev",
+                    "jobTitle": "Full Stack Developer",
+                    "description": "Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects",
+                    "alumniOf": {
+                        "@type": "EducationalOrganization",
+                        "name": "IIT Jodhpur"
+                    },
+                    "sameAs": [
+                        "https://github.com/xevrion",
+                        "https://www.linkedin.com/in/yash-bavadiya-a598a224b/",
+                        "https://x.com/xevrion_the1"
+                    ],
+                    "knowsAbout": ["Web Development", "Full Stack Development", "React", "TypeScript", "Linux", "Software Engineering"]
+                })}
+            </Style>
+            <Style type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "WebSite",
+                    "name": "Xevrion Portfolio",
+                    "url": "https://xevrion.dev",
+                    "description": "Full Stack Developer portfolio showcasing projects, blog posts, and technical expertise",
+                    "author": {
                         "@type": "Person",
-                        "name": "Yash Bavadiya",
-                        "alternateName": "Xevrion",
-                        "url": "https://xevrion.dev",
-                        "jobTitle": "Full Stack Developer",
-                        "description": "Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects",
-                        "alumniOf": {
-                            "@type": "EducationalOrganization",
-                            "name": "IIT Jodhpur"
-                        },
-                        "sameAs": [
-                            "https://github.com/xevrion",
-                            "https://www.linkedin.com/in/yash-bavadiya-a598a224b/",
-                            "https://x.com/xevrion_the1"
-                        ],
-                        "knowsAbout": ["Web Development", "Full Stack Development", "React", "TypeScript", "Linux", "Software Engineering"]
-                    })}
-                </script>
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "WebSite",
-                        "name": "Xevrion Portfolio",
-                        "url": "https://xevrion.dev",
-                        "description": "Full Stack Developer portfolio showcasing projects, blog posts, and technical expertise",
-                        "author": {
-                            "@type": "Person",
-                            "name": "Xevrion"
-                        }
-                    })}
-                </script>
-            </Helmet>
+                        "name": "Xevrion"
+                    }
+                })}
+            </Style>
 
             <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto ">
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
@@ -101,7 +99,7 @@ export const Hero = () => {
                 <ContestWidget />
                 <WakatimeWidget/>
                 <Socials />
-                
+
 
             </div>
         </section>

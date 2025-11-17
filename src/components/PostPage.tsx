@@ -5,7 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 // import remarkHtml from 'remark-html'
 import rehypeRaw from "rehype-raw";
-import { Helmet } from "react-helmet-async";
+import { Title, Meta, Link, Style } from "react-head";
 
 const Tooltip: React.FC<{ message: string; children: React.ReactNode }> = ({
   message,
@@ -34,46 +34,44 @@ export const PostPage = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="title" content={pageTitle} />
-        <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={pageUrl} />
+      <Title>{pageTitle}</Title>
+      <Meta name="title" content={pageTitle} />
+      <Meta name="description" content={metaDescription} />
+      <Link rel="canonical" href={pageUrl} />
 
-        {/* Open Graph */}
-        <meta property="og:type" content="article" />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
-        <meta property="article:published_time" content={post.date} />
-        <meta property="article:author" content="Xevrion" />
+      {/* Open Graph */}
+      <Meta property="og:type" content="article" />
+      <Meta property="og:url" content={pageUrl} />
+      <Meta property="og:title" content={post.title} />
+      <Meta property="og:description" content={metaDescription} />
+      <Meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      <Meta property="article:published_time" content={post.date} />
+      <Meta property="article:author" content="Xevrion" />
 
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={pageUrl} />
-        <meta name="twitter:title" content={post.title} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      {/* Twitter Card */}
+      <Meta name="twitter:card" content="summary_large_image" />
+      <Meta name="twitter:url" content={pageUrl} />
+      <Meta name="twitter:title" content={post.title} />
+      <Meta name="twitter:description" content={metaDescription} />
+      <Meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
 
-        {/* JSON-LD Structured Data for Blog Post */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.title,
-            "description": metaDescription,
-            "datePublished": post.date,
-            "author": {
-              "@type": "Person",
-              "name": "Xevrion",
-              "url": "https://xevrion.dev"
-            },
-            "url": pageUrl,
-            "image": "https://xevrion.dev/android-chrome-512x512.png"
-          })}
-        </script>
-      </Helmet>
+      {/* JSON-LD Structured Data for Blog Post */}
+      <Style type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": metaDescription,
+          "datePublished": post.date,
+          "author": {
+            "@type": "Person",
+            "name": "Xevrion",
+            "url": "https://xevrion.dev"
+          },
+          "url": pageUrl,
+          "image": "https://xevrion.dev/android-chrome-512x512.png"
+        })}
+      </Style>
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto">
       {/* <h1 className="text-4xl text-soft-royal-blue sg-bold mb-6">{post.title}</h1> */}

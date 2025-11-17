@@ -1,29 +1,27 @@
 import SplitText from './reactbits/splittext'
 import Skills from './Skills'
 import Socials from './Socials'
-import { Helmet } from 'react-helmet-async'
+import { Title, Meta, Link } from 'react-head'
 
 export const About = () => {
   return (
     <>
-      <Helmet>
-        <title>About Me | Xevrion - Full Stack Developer</title>
-        <meta name="title" content="About Me | Xevrion - Full Stack Developer" />
-        <meta name="description" content="Hi! I'm Yash Bavadiya (Xevrion), a Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects that blend functionality and aesthetics." />
-        <link rel="canonical" href="https://xevrion.dev/about" />
+      <Title>About Me | Xevrion - Full Stack Developer</Title>
+      <Meta name="title" content="About Me | Xevrion - Full Stack Developer" />
+      <Meta name="description" content="Hi! I'm Yash Bavadiya (Xevrion), a Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects that blend functionality and aesthetics." />
+      <Link rel="canonical" href="https://xevrion.dev/about" />
 
-        <meta property="og:type" content="profile" />
-        <meta property="og:url" content="https://xevrion.dev/about" />
-        <meta property="og:title" content="About Xevrion - Full Stack Developer" />
-        <meta property="og:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
-        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      <Meta property="og:type" content="profile" />
+      <Meta property="og:url" content="https://xevrion.dev/about" />
+      <Meta property="og:title" content="About Xevrion - Full Stack Developer" />
+      <Meta property="og:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
+      <Meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
 
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:url" content="https://xevrion.dev/about" />
-        <meta name="twitter:title" content="About Xevrion - Full Stack Developer" />
-        <meta name="twitter:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
-        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
-      </Helmet>
+      <Meta name="twitter:card" content="summary" />
+      <Meta name="twitter:url" content="https://xevrion.dev/about" />
+      <Meta name="twitter:title" content="About Xevrion - Full Stack Developer" />
+      <Meta name="twitter:description" content="Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects." />
+      <Meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
 

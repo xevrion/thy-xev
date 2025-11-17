@@ -1,6 +1,6 @@
 import SplitText from './reactbits/splittext'
 import data from '../../constants/projects.json'
-import { Helmet } from 'react-helmet-async'
+import { Title, Meta, Link } from 'react-head'
 import Socials from './Socials';
 
 const { projects, pastProjects } = data;
@@ -8,24 +8,22 @@ const { projects, pastProjects } = data;
 export const Projects = () => {
   return (
     <>
-      <Helmet>
-        <title>Projects | Xevrion - Full Stack Developer</title>
-        <meta name="title" content="Projects | Xevrion - Full Stack Developer" />
-        <meta name="description" content="Explore my current and past projects including web applications, AI tools, and interactive websites. Showcasing creative projects that blend functionality and aesthetics." />
-        <link rel="canonical" href="https://xevrion.dev/projects" />
+      <Title>Projects | Xevrion - Full Stack Developer</Title>
+      <Meta name="title" content="Projects | Xevrion - Full Stack Developer" />
+      <Meta name="description" content="Explore my current and past projects including web applications, AI tools, and interactive websites. Showcasing creative projects that blend functionality and aesthetics." />
+      <Link rel="canonical" href="https://xevrion.dev/projects" />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://xevrion.dev/projects" />
-        <meta property="og:title" content="Projects | Xevrion" />
-        <meta property="og:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
-        <meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
+      <Meta property="og:type" content="website" />
+      <Meta property="og:url" content="https://xevrion.dev/projects" />
+      <Meta property="og:title" content="Projects | Xevrion" />
+      <Meta property="og:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
+      <Meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://xevrion.dev/projects" />
-        <meta name="twitter:title" content="Projects | Xevrion" />
-        <meta name="twitter:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
-        <meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
-      </Helmet>
+      <Meta name="twitter:card" content="summary_large_image" />
+      <Meta name="twitter:url" content="https://xevrion.dev/projects" />
+      <Meta name="twitter:title" content="Projects | Xevrion" />
+      <Meta name="twitter:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
+      <Meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16  ">
 
