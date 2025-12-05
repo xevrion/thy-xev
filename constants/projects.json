@@ -1,9 +1,9 @@
 {
   "projects": [
     {
-      "url": "https://github.com/xevrion/chronapse",
-      "text": "Chronapse",
-      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way."
+      "url": "https://github.com/xevrion/Motixion",
+      "text": "Motixion",
+      "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together."
     },
     {
       "url": "https://github.com/xevrion/PeerPlume",
@@ -11,12 +11,27 @@
       "desc": "A lightweight, cross-platform peer-to-peer file sharing app for local networks. Fast, secure, and connection-free."
     },
     {
-      "url": "https://github.com/xevrion",
-      "text": "Design Credit",
-      "desc": "Finetuning an LLM for document summarization"
+      "url": "https://github.com/zulip/zulip",
+      "text": "Contributing to Zulip",
+      "desc": "Contributing to Zulip, an open-source team chat application."
     }
   ],
   "pastProjects": [
+    {
+      "url": "https://github.com/xevrion/DocuMentor",
+      "text": "DocuMentor",
+      "desc": "A documentation tool aimed at simplifying the creation and management of project documentation."
+    },
+    {
+      "url": "https://github.com/xevrion/StraightHockey",
+      "text": "StraightHockey",
+      "desc": "A web application providing real-time statistics and analytics for hockey games."
+    },
+    {
+      "url": "https://github.com/xevrion/chronapse",
+      "text": "Chronapse",
+      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way."
+    },
     {
       "url": "https://github.com/xevrion/chat-in-home",
       "text": "chat-in-home",
