@@ -17,19 +17,55 @@ jobs:
         with:
           node-version: 20
 
-      - name: Cache node modules
+      - name: Cache npm
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
           key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-
 
-      - name: Install dependencies
-        run: npm install --prefer-offline --legacy-peer-deps
+      - name: Hardened dependency install
+        run: |
+          echo "🏗️ Starting resilient install pipeline"
+
+          echo "👉 Step 1: Try normal npm install"
+          npm install --fetch-retries=5 --fetch-retry-factor=2 --legacy-peer-deps || INSTALL_FAIL=$?
+
+          if [ "$INSTALL_FAIL" != "" ]; then
+            echo "⚠️ npm registry failed. Switching to mirror…"
+            npm config set registry https://registry.npmmirror.com
+
+            echo "👉 Step 2: Retry npm with mirror"
+            npm install --fetch-retries=5 --fetch-retry-factor=2 --legacy-peer-deps || MIRROR_FAIL=$?
+          fi
+
+          if [ "$MIRROR_FAIL" != "" ]; then
+            echo "⚠️ Mirror also failed. Installing pnpm fallback…"
+            npm install -g pnpm
+
+            echo "👉 Step 3: Try installing with pnpm"
+            pnpm install || PNPM_FAIL=$?
+          fi
+
+          if [ "$PNPM_FAIL" != "" ]; then
+            echo "⚠️ pnpm failed. Installing yarn fallback…"
+            npm install -g yarn
+
+            echo "👉 Step 4: Try installing with yarn"
+            yarn install || YARN_FAIL=$?
+          fi
+
+          if [ "$YARN_FAIL" != "" ]; then
+            echo "❌ All installers failed. Failing pipeline."
+            exit 1
+          fi
+
+          echo "✅ Dependencies installed successfully!"
 
       - name: Build site
-        run: npm run build
+        run: npm run build || pnpm build || yarn build
 
       - name: Copy dist to server
         uses: appleboy/scp-action@v0.1.4
