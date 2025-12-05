@@ -72,7 +72,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: xevrion
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
           target: "/home/xevrion/thy/dist/"
 
@@ -81,6 +81,6 @@ jobs:
         with:
           host: ${{ secrets.SERVER_IP }}
           username: xevrion
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo systemctl reload nginx
