@@ -1,15 +1,16 @@
-name: Deploy Website
+name: Deploy to Server
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node
@@ -17,70 +18,45 @@ jobs:
         with:
           node-version: 20
 
-      - name: Cache npm
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
 
-      - name: Hardened dependency install
-        run: |
-          echo "🏗️ Starting resilient install pipeline"
+      - name: Build project
+        run: npm run build
 
-          echo "👉 Step 1: Try normal npm install"
-          npm install --fetch-retries=5 --fetch-retry-factor=2 --legacy-peer-deps || INSTALL_FAIL=$?
-
-          if [ "$INSTALL_FAIL" != "" ]; then
-            echo "⚠️ npm registry failed. Switching to mirror…"
-            npm config set registry https://registry.npmmirror.com
-
-            echo "👉 Step 2: Retry npm with mirror"
-            npm install --fetch-retries=5 --fetch-retry-factor=2 --legacy-peer-deps || MIRROR_FAIL=$?
-          fi
-
-          if [ "$MIRROR_FAIL" != "" ]; then
-            echo "⚠️ Mirror also failed. Installing pnpm fallback…"
-            npm install -g pnpm
-
-            echo "👉 Step 3: Try installing with pnpm"
-            pnpm install || PNPM_FAIL=$?
-          fi
-
-          if [ "$PNPM_FAIL" != "" ]; then
-            echo "⚠️ pnpm failed. Installing yarn fallback…"
-            npm install -g yarn
-
-            echo "👉 Step 4: Try installing with yarn"
-            yarn install || YARN_FAIL=$?
-          fi
-
-          if [ "$YARN_FAIL" != "" ]; then
-            echo "❌ All installers failed. Failing pipeline."
-            exit 1
-          fi
-
-          echo "✅ Dependencies installed successfully!"
-
-      - name: Build site
-        run: npm run build || pnpm build || yarn build
-
-      - name: Copy dist to server
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: xevrion
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/*"
-          target: "/home/xevrion/thy/dist/"
-
-      - name: Reload nginx
+      # -----------------------------
+      # STEP 1: CLEAN REMOTE DIST
+      # -----------------------------
+      - name: Clear remote dist folder
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.SERVER_IP }}
+          host: ${{ secrets.HOST }}
           username: xevrion
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            rm -rf /home/xevrion/thy/dist
+            mkdir -p /home/xevrion/thy/dist
+
+      # -----------------------------
+      # STEP 2: UPLOAD FRESH BUILD
+      # -----------------------------
+      - name: Upload dist folder
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.HOST }}
+          username: xevrion
+          key: ${{ secrets.SSH_KEY }}
+          source: dist/**
+          target: /home/xevrion/thy/dist/
+
+      # -----------------------------
+      # STEP 3: RELOAD NGINX
+      # -----------------------------
+      - name: Reload Nginx
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: xevrion
+          key: ${{ secrets.SSH_KEY }}
           script: |
             sudo systemctl reload nginx
