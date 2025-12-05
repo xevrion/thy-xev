@@ -34,7 +34,7 @@ jobs:
           username: xevrion
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist.tar.gz"
-          target: "/home/xevrion/thy/dist.tar.gz"
+          target: "/home/xevrion/thy/"   # <── FIXED
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -46,18 +46,13 @@ jobs:
           script: |
             cd /home/xevrion/thy
 
-            # clean old build
             rm -rf dist
-
-            # extract fresh build
             tar -xzf dist.tar.gz
 
-            # fix structure: move generated dist/* into final dist/
-            mkdir -p /home/xevrion/thy/dist
-            mv /home/xevrion/thy/dist/* /home/xevrion/thy/dist 2>/dev/null || true
+            # move the built files up properly
+            mkdir -p dist
+            mv dist/* ./dist || true
 
-            # cleanup
-            rm -rf dist.tar.gz
+            rm -f dist.tar.gz
 
-            # reload nginx
             sudo systemctl reload nginx
