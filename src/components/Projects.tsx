@@ -32,7 +32,7 @@ export const Projects = () => {
       <div className="text-center">
         <SplitText
           text="Projects"
-          className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-soft-royal-blue sg-bold selection:bg-battleship-gray"
+          className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-soft-royal-blue sg-bold selection:bg-battleship-gray leading-tight"
           delay={20}
           duration={1}
           ease="elastic.out(1, 0.5)"
