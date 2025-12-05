@@ -1,4 +1,4 @@
-name: Deploy to Server
+name: deploy
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node
@@ -21,33 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
-      # -----------------------------
-      # STEP 1: CLEAN REMOTE DIST
-      # -----------------------------
-      # - name: Clear remote dist folder
-      #   uses: appleboy/ssh-action@v0.1.10
-      #   with:
-      #     host: ${{ secrets.SERVER_IP }}
-      #     username: xevrion
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       rm -rf /home/xevrion/thy/dist
-      #       mkdir -p /home/xevrion/thy/dist
+      - name: Tar dist folder
+        run: tar -czf dist.tar.gz dist
 
-      # # -----------------------------
-      # # STEP 2: UPLOAD FRESH BUILD
-      # # -----------------------------
-      # - name: Upload dist folder
-      #   uses: appleboy/scp-action@v0.1.4
-      #   with:
-      #     host: ${{ secrets.SERVER_IP }}
-      #     username: xevrion
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     source: dist/**
-      #     target: /home/xevrion/thy/dist/
+      - name: Copy artifact to server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: xevrion
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "dist.tar.gz"
+          target: "/home/xevrion/thy/dist.tar.gz"
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10
@@ -55,31 +42,22 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: xevrion
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true
           script: |
-            rm -rf /home/xevrion/thy/dist
-            mkdir -p /home/xevrion/thy/dist
-
             cd /home/xevrion/thy
 
-            # extract artifact INTO the project root, not inside dist/
+            # clean old build
+            rm -rf dist
+
+            # extract fresh build
             tar -xzf dist.tar.gz
 
-            # artifact always contains a dist folder. So move it.
-            mv dist/* /home/xevrion/thy/dist
+            # fix structure: move generated dist/* into final dist/
+            mkdir -p /home/xevrion/thy/dist
+            mv /home/xevrion/thy/dist/* /home/xevrion/thy/dist 2>/dev/null || true
 
-            # cleanup nested dist that came from tar
-            rm -rf dist
-            rm dist.tar.gz
+            # cleanup
+            rm -rf dist.tar.gz
 
-
-      # -----------------------------
-      # STEP 3: RELOAD NGINX
-      # -----------------------------
-      - name: Reload Nginx
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: xevrion
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+            # reload nginx
             sudo systemctl reload nginx
