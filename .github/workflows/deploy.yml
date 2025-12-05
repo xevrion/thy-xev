@@ -43,9 +43,9 @@ jobs:
       - name: Upload dist folder
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.SERVER_IP }}
           username: xevrion
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: dist/**
           target: /home/xevrion/thy/dist/
 
