@@ -30,9 +30,9 @@ jobs:
       - name: Clear remote dist folder
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.SERVER_IP }}
           username: xevrion
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             rm -rf /home/xevrion/thy/dist
             mkdir -p /home/xevrion/thy/dist
@@ -55,8 +55,8 @@ jobs:
       - name: Reload Nginx
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.SERVER_IP }}
           username: xevrion
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo systemctl reload nginx
