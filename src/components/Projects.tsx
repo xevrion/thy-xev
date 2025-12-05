@@ -2,6 +2,7 @@ import SplitText from './reactbits/splittext'
 import data from '../../constants/projects.json'
 import { Title, Meta, Link } from 'react-head'
 import Socials from './Socials';
+import { LinkPreview } from './LinkPreview';
 
 const { projects, pastProjects } = data;
 
@@ -48,10 +49,26 @@ export const Projects = () => {
 
       <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Currently Working</div>
-        {projects.map((value) => {
+        {projects.map((value, index) => {
           return (<>
-            <div className="flex whitespace-nowrap gap-1">
-              <a href={value['url']} className="hover:underline inter-medium text-xl " target="_blank">{value['text']}</a>
+            <div key={index} className="flex whitespace-nowrap gap-1">
+              {value['image'] ? (
+                <LinkPreview 
+                  url={value['url']} 
+                  isStatic={true}
+                  imageSrc={value['image']}
+                  className="hover:underline inter-medium text-xl"
+                >
+                  {value['text']}
+                </LinkPreview>
+              ) : (
+                <LinkPreview 
+                  url={value['url']} 
+                  className="hover:underline inter-medium text-xl"
+                >
+                  {value['text']}
+                </LinkPreview>
+              )}
               <p className="inter-medium text-xl truncate">- {value['desc']}</p>
             </div>
           </>
@@ -63,10 +80,26 @@ export const Projects = () => {
       {/* Past Projects */}
       <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Past Projects</div>
-        {pastProjects.map((value) => {
+        {pastProjects.map((value, index) => {
           return (<>
-            <div className="flex whitespace-nowrap gap-1">
-              <a href={value['url']} className="hover:underline inter-medium text-xl " target="_blank">{value['text']}</a>
+            <div key={index} className="flex whitespace-nowrap gap-1">
+              {value['image'] ? (
+                <LinkPreview 
+                  url={value['url']} 
+                  isStatic={true}
+                  imageSrc={value['image']}
+                  className="hover:underline inter-medium text-xl"
+                >
+                  {value['text']}
+                </LinkPreview>
+              ) : (
+                <LinkPreview 
+                  url={value['url']} 
+                  className="hover:underline inter-medium text-xl"
+                >
+                  {value['text']}
+                </LinkPreview>
+              )}
               <p className="inter-medium text-xl truncate">- {value['desc']}</p>
             </div>
           </>

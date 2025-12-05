@@ -3,49 +3,46 @@
     {
       "url": "https://github.com/xevrion/Motixion",
       "text": "Motixion",
-      "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together."
+      "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together.",
+      "image": "/project-previews/motixion.png"
     },
     {
       "url": "https://github.com/xevrion/PeerPlume",
       "text": "PeerPlume",
-      "desc": "A lightweight, cross-platform peer-to-peer file sharing app for local networks. Fast, secure, and connection-free."
+      "desc": "A lightweight, cross-platform peer-to-peer file sharing app for local networks. Fast, secure, and connection-free.",
+      "image": "/project-previews/peerplume.png"
     },
     {
       "url": "https://github.com/zulip/zulip",
       "text": "Contributing to Zulip",
-      "desc": "Contributing to Zulip, an open-source team chat application."
+      "desc": "Contributing to Zulip, an open-source team chat application.",
+      "image": "/project-previews/zulip.png"
     }
   ],
   "pastProjects": [
     {
       "url": "https://github.com/xevrion/DocuMentor",
       "text": "DocuMentor",
-      "desc": "A documentation tool aimed at simplifying the creation and management of project documentation."
+      "desc": "A documentation tool aimed at simplifying the creation and management of project documentation.",
+      "image": "/project-previews/documentor.png"
     },
     {
       "url": "https://github.com/xevrion/StraightHockey",
       "text": "StraightHockey",
-      "desc": "A web application providing real-time statistics and analytics for hockey games."
+      "desc": "A web application providing real-time statistics and analytics for hockey games.",
+      "image": "/project-previews/straighthockey.png"
     },
     {
       "url": "https://github.com/xevrion/chronapse",
       "text": "Chronapse",
-      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way."
+      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way.",
+      "image": "/project-previews/chronapse.png"
     },
     {
       "url": "https://github.com/xevrion/chat-in-home",
       "text": "chat-in-home",
-      "desc": "A real-time chat app built with React, Node, and Socket.IO for local networks and hostels."
-    },
-    {
-      "url": "https://github.com/xevrion/mark-downer",
-      "text": "mark-downer",
-      "desc": "A clean and minimal markdown reader/writer for quick note previews and blogging."
-    },
-    {
-      "url": "https://github.com/xevrion/electron-basics",
-      "text": "electron-basics",
-      "desc": "My early experiments with Electron — setting the stage for future desktop app development."
+      "desc": "A real-time chat app built with React, Node, and Socket.IO for local networks and hostels.",
+      "image": "/project-previews/chat-in-home.png"
     }
   ]
 }
