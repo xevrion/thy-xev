@@ -46,14 +46,14 @@ export const Posts = () => {
         {parsedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
             <div key={post.slug} className="border-b border-battleship-gray pb-6">
               <div className="mb-2 flex flex-row justify-between items-center">
-                <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2">
+                <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
                   <Link to={`/posts/${post.slug}`} className="hover:underline">
                     {post.title}
                   </Link>
                 </h2>
-                <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
+                <h3 className="text-lg sg-medium text-battleship-gray whitespace-nowrap">{post.displayDate}</h3>
               </div>
-              <p className="text-battleship-gray text-lg">{post.summary}</p>
+              <p className="text-battleship-gray text-lg sg-regular">{post.summary}</p>
             </div>
           ))}
       </div>

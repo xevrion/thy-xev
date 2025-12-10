@@ -105,14 +105,14 @@ export const PostPage = () => {
           ),
           a: (props) => (
             <a
-              className="text-soft-royal-blue hover:underline transition-colors"
+              className="text-soft-royal-blue hover:underline transition-colors sg-regular"
               {...props}
               target="_blank"
             />
           ),
           code: (props) => (
             <code
-              className="bg-[rgba(100,149,237,0.08)] text-soft-royal-blue px-1.5 py-0.5 rounded-md font-mono text-sm tracking-tight"
+              className="bg-[rgba(100,149,237,0.08)] text-soft-royal-blue px-1.5 py-0.5 rounded-md font-mono text-sm  tracking-tight"
               {...props}
             />
           ),
@@ -125,7 +125,7 @@ export const PostPage = () => {
           ul: (props) => <ul className="list-disc ml-6 mb-4" {...props} />,
           ol: (props) => <ol className="list-decimal ml-6 mb-4" {...props} />,
           li: (props) => (
-            <li className="mb-2 text-battleship-gray" {...props} />
+            <li className="mb-2 text-battleship-gray sg-regular text-lg" {...props} />
           ),
           strong: (props) => <strong className="font-bold " {...props} />,
           em: (props) => (

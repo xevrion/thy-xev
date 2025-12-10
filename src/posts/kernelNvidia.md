@@ -1,8 +1,6 @@
 # How I Spent 5 Hours Fixing My Broken Linux (And Almost Lost My Mind)
 Date: 06-11-2025
 
-
-
 I don’t even know where to begin. One morning I booted my laptop, and suddenly Ubuntu just… didn’t feel right. My dual monitors weren’t detected, the smooth animations were gone, and the whole desktop felt like it was running on life support. My first thought was, “maybe the NVIDIA driver just crashed.” So naturally, I opened a terminal and ran the sacred command:
 
 ```bash
