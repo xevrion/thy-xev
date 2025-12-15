@@ -17,6 +17,12 @@
       "text": "Contributing to Zulip",
       "desc": "Contributing to Zulip, an open-source team chat application.",
       "image": "/project-previews/zulip.png"
+    },
+    {
+      "url": "https://github.com/xevrion/peek-a-repo",
+      "text": "Peek-a-Repo",
+      "desc": "A Chrome extension that lets you peek into your GitHub repositories with a single click. No more scrolling through your repositories to find the one you want to work on.",
+      "image": "/project-previews/peek-a-repo.png"
     }
   ],
   "pastProjects": [
