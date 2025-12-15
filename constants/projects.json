@@ -7,10 +7,10 @@
       "image": "/project-previews/motixion.png"
     },
     {
-      "url": "https://github.com/xevrion/PeerPlume",
-      "text": "PeerPlume",
-      "desc": "A lightweight, cross-platform peer-to-peer file sharing app for local networks. Fast, secure, and connection-free.",
-      "image": "/project-previews/peerplume.png"
+      "url": "https://github.com/xevrion/notionx",
+      "text": "NotionX",
+      "desc": "A friction-zero Chrome extension that lets you save tweets to Notion with a single tap. No modals, no decision fatigue—just flow.",
+      "image": "/project-previews/notionX.png"
     },
     {
       "url": "https://github.com/zulip/zulip",
