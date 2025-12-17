@@ -21,7 +21,7 @@
     {
       "url": "https://github.com/xevrion/peek-a-repo",
       "text": "Peek-a-Repo",
-      "desc": "A Chrome extension that lets you peek into your GitHub repositories with a single click. No more scrolling through your repositories to find the one you want to work on.",
+      "desc": "A Chrome extension that lets you peek into your GitHub repositories without clicking. No more scrolling through your repositories to find the one you want to work on.",
       "image": "/project-previews/peek-a-repo.png"
     }
   ],
@@ -29,13 +29,13 @@
     {
       "url": "https://github.com/xevrion/DocuMentor",
       "text": "DocuMentor",
-      "desc": "A documentation tool aimed at simplifying the creation and management of project documentation.",
+      "desc": "An offline, privacy-first AI tutor that helps you learn from your study materials through intelligent summarization, Q&A, and quiz generation.",
       "image": "/project-previews/documentor.png"
     },
     {
       "url": "https://github.com/xevrion/StraightHockey",
       "text": "StraightHockey",
-      "desc": "A web application providing real-time statistics and analytics for hockey games.",
+      "desc": "A reinforcement-learning–powered air hockey game with a launcher, offering both a casual AI mode and an extreme RL showdown.",
       "image": "/project-previews/straighthockey.png"
     },
     {
