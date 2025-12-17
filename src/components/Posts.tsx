@@ -47,7 +47,7 @@ export const Posts = () => {
             <div key={post.slug} className="border-b border-battleship-gray pb-6">
               <div className="mb-2 flex flex-row justify-between items-center">
                 <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
-                  <Link to={`/posts/${post.slug}`} className="hover:underline">
+                  <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
                     {post.title}
                   </Link>
                 </h2>
