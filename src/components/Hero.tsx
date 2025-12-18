@@ -93,7 +93,9 @@ export const Hero = () => {
 
             {/* Widgets */}
             <div className="mt-10 flex flex-col gap-6 ">
-                <SpotifyWidget />
+                <div className="flex justify-center sm:justify-start">
+                  <SpotifyWidget />
+                </div>
                 {/* <ActivityWidget /> */}
                 <CurrentlyWorking />
                 <ContestWidget />
