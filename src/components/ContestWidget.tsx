@@ -79,7 +79,7 @@ const CodeforcesWidget: React.FC = () => {
                     return (
                         <a
                             key={contest.name}
-                            href={`https://codeforces.com/contest/${contest.url}`}
+                            href={`https://codeforces.com/contests/`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-3 rounded-xl px-3 py-2 hover:scale-[1.03] transition-all duration-200 ease-in-out w-full max-w-md"
