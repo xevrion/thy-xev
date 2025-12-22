@@ -67,6 +67,15 @@ const SpotifyWidget: React.FC = () => {
   return (
     <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-3 space-y-2 sm:space-y-0 max-w-full sm:max-w-xs group">
       {/* Album Art (clickable on mobile) */}
+    {track?.isPlaying ? (
+      <div className="text-soft-royal-blue">
+        <h2 className="inter-bold">Currently Playing</h2>
+      </div>
+    ) : (
+      <div className="text-battleship-gray">
+        <h2 className="inter-bold">Last Played</h2>
+      </div>
+    )}
       <a
         href={track?.songUrl}
         target="_blank"
@@ -83,6 +92,7 @@ const SpotifyWidget: React.FC = () => {
       {/* Track Info */}
       <div className="flex-1 min-w-0 text-center sm:text-left">
         <h4 className="sg-semibold text-silver text-sm truncate">{track?.title}</h4>
+        <h4 className="sg-semibold text-silver text-sm truncate">{track?.album}</h4>
         <p className="inter-regular text-battleship-gray text-xs truncate">
           {track?.artist}
         </p>
