@@ -7,6 +7,7 @@ import ContestWidget from './ContestWidget'
 import WakatimeWidget from './WakatimeWidget'
 import pfp from '../assets/download (10).jpeg';
 import { Style } from 'react-head';
+import GitHubWidget from './GitHubWidget'
 
 
 
@@ -97,6 +98,7 @@ export const Hero = () => {
                   <SpotifyWidget />
                 </div>
                 {/* <ActivityWidget /> */}
+                <GitHubWidget />
                 <CurrentlyWorking />
                 <ContestWidget />
                 <WakatimeWidget/>
