@@ -68,13 +68,13 @@ const SpotifyWidget: React.FC = () => {
     <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-3 space-y-2 sm:space-y-0 max-w-full sm:max-w-xs group">
       {/* Album Art (clickable on mobile) */}
       <a
-        href={track.songUrl}
+        href={track?.songUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="relative shrink-0"
       >
         <img
-          src={track.albumArt}
+          src={track?.albumArt}
           alt="Album cover"
           className="w-12 h-12 rounded-lg shadow-md hover:opacity-90 transition"
         />
@@ -82,15 +82,15 @@ const SpotifyWidget: React.FC = () => {
 
       {/* Track Info */}
       <div className="flex-1 min-w-0 text-center sm:text-left">
-        <h4 className="sg-semibold text-silver text-sm truncate">{track.title}</h4>
+        <h4 className="sg-semibold text-silver text-sm truncate">{track?.title}</h4>
         <p className="inter-regular text-battleship-gray text-xs truncate">
-          {track.artist}
+          {track?.artist}
         </p>
       </div>
 
       {/* Spotify Link (hidden on very small screens, shown on sm+) */}
       <a
-        href={track.songUrl}
+        href={track?.songUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="hidden sm:flex text-soft-royal-blue hover:text-blue-crayola transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-110 cursor-pointer"
