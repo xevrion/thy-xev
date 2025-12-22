@@ -64,20 +64,6 @@ const SpotifyWidget: React.FC = () => {
     );
   }
 
-  // Not playing state
-  if (!track?.isPlaying) {
-    return (
-      <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 text-battleship-gray w-full max-w-xs">
-        <div className="w-12 h-12 bg-battleship-gray bg-opacity-20 rounded-lg flex items-center justify-center shrink-0">
-          <Music className="w-5 h-5" />
-        </div>
-        <p className="inter-medium text-sm text-center sm:text-left truncate w-full">
-          Currently not listening to anything
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-3 space-y-2 sm:space-y-0 max-w-full sm:max-w-xs group">
       {/* Album Art (clickable on mobile) */}
