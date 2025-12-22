@@ -64,31 +64,28 @@ const SpotifyWidget: React.FC = () => {
     );
   }
 
-  // Not playing state
-  if (!track?.isPlaying) {
-    return (
-      <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-3 text-battleship-gray w-full max-w-xs">
-        <div className="w-12 h-12 bg-battleship-gray bg-opacity-20 rounded-lg flex items-center justify-center shrink-0">
-          <Music className="w-5 h-5" />
-        </div>
-        <p className="inter-medium text-sm text-center sm:text-left truncate w-full">
-          Currently not listening to anything
-        </p>
-      </div>
-    );
-  }
-
   return (
+    <>
+    <div className="flex flex-col gap-2 items-center justify-center sm:items-start sm:justify-start">
+     {track?.isPlaying ? (
+      <div className="text-soft-royal-blue">
+        <h2 className="inter-bold">Currently Playing</h2>
+      </div>
+    ) : (
+      <div className="text-battleship-gray">
+        <h2 className="inter-bold">Last Played</h2>
+      </div>
+    )}
     <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-3 space-y-2 sm:space-y-0 max-w-full sm:max-w-xs group">
       {/* Album Art (clickable on mobile) */}
       <a
-        href={track.songUrl}
+        href={track?.songUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="relative shrink-0"
       >
         <img
-          src={track.albumArt}
+          src={track?.albumArt}
           alt="Album cover"
           className="w-12 h-12 rounded-lg shadow-md hover:opacity-90 transition"
         />
@@ -96,15 +93,16 @@ const SpotifyWidget: React.FC = () => {
 
       {/* Track Info */}
       <div className="flex-1 min-w-0 text-center sm:text-left">
-        <h4 className="sg-semibold text-silver text-sm truncate">{track.title}</h4>
+        <h4 className="sg-semibold text-silver text-sm truncate">{track?.title}</h4>
+        <p className="inter-regular text-battleship-gray text-xs truncate">{track?.album}</p>
         <p className="inter-regular text-battleship-gray text-xs truncate">
-          {track.artist}
+          {track?.artist}
         </p>
       </div>
 
       {/* Spotify Link (hidden on very small screens, shown on sm+) */}
       <a
-        href={track.songUrl}
+        href={track?.songUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="hidden sm:flex text-soft-royal-blue hover:text-blue-crayola transition-all duration-200 opacity-70 hover:opacity-100 hover:scale-110 cursor-pointer"
@@ -113,6 +111,8 @@ const SpotifyWidget: React.FC = () => {
         <ExternalLink className="w-5 h-5" />
       </a>
     </div>
+    </div>
+    </>
   );
 };
 
