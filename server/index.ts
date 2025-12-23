@@ -108,9 +108,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
             }
         );
 
-        if (nowPlaying.status === 204 || !nowPlaying.data) {
-            return res.json({ isPlaying: false, message: "No song currently playing" });
-        }
+        //no need to check if is_playing is false this will cause a ui bug in front end as client side expects past song details ig isPLaying is false
 
         const song = nowPlaying.data.item;
         const isPlaying = nowPlaying.data.is_playing;
