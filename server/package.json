@@ -23,5 +23,6 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.19"
-  }
+  },
+  "type": "module"
 }
