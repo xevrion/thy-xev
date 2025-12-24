@@ -90,48 +90,78 @@ app.get("/now-playing", async (req: Request, res: Response) => {
     }
 
     try {
-        // Refresh access token
-        const tokenResponse = await axios.post(
-            "https://accounts.spotify.com/api/token",
-            querystring.stringify({
-                grant_type: "refresh_token",
-                refresh_token: REFRESH_TOKEN,
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
-            }),
-            { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-        );
-
-        const access_token: string = tokenResponse.data.access_token;
-
-        // Get currently playing
-        const nowPlaying = await axios.get(
-            "https://api.spotify.com/v1/me/player/recently-played?limit=1",
-            {
-                headers: { Authorization: `Bearer ${access_token}` },
-            }
-        );
-        const last = nowPlaying.data.items[0].track
-       
-        //no need to check if is_playing is false this will cause a ui bug in front end as client side expects past song details ig isPLaying is false
-    
-
-        res.json({
-            isPlaying: last.is_playing,
-            title: last.name,
-            artist: last.artists.map((a: any) => a.name).join(", "),
-            album: last.album.name,
-            albumArt: last.album.images[0]?.url || null,
-            songUrl: last.external_urls.spotify,
-            duration: last.duration_ms,
-            progress: nowPlaying.data.progress_ms,
-            preview_url: last.preview_url, // 30s preview if available (refresh every 30 seconds)
+        // 1) Refresh access token using your refresh token
+        const params = new URLSearchParams({
+          grant_type: "refresh_token",
+          refresh_token: REFRESH_TOKEN,
         });
-        
-    } catch (err: any) {
-        console.error("Error fetching now playing:", err.response?.data || err.message);
-        res.json({ isPlaying: false, message: "Error fetching current song", error: err.response?.data || err.message });
-    }
+    
+        const tokenResp = await axios.post(
+          "https://accounts.spotify.com/api/token",
+          params.toString(),
+          {
+            headers: {
+              Authorization:
+                "Basic " +
+                Buffer.from(
+                  CLIENT_ID +
+                    ":" +
+                    CLIENT_SECRET
+                ).toString("base64"),
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+    
+        const accessToken = tokenResp.data.access_token;
+    
+        // 2) First try: currently playing track
+        const now = await axios.get(
+          "https://api.spotify.com/v1/me/player/currently-playing",
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+            validateStatus: () => true,
+          }
+        );
+    
+        // If something is playing
+        if (now.status === 200 && now.data && now.data.item) {
+          const track = now.data.item;
+    
+          return res.status(200).json({
+            isPlaying: true,
+            title: track.name,
+            artist: track.artists.map((a: any) => a.name).join(", "),
+            album: track.album.name,
+            albumArt: track.album.images?.[0]?.url,
+            songUrl: track.external_urls.spotify,
+          });
+        }
+    
+        // 3) Fallback: recently played
+        const recent = await axios.get(
+          "https://api.spotify.com/v1/me/player/recently-played?limit=1",
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        );
+    
+        const last = recent.data.items[0].track;
+    
+        return res.status(200).json({
+          isPlaying: false,
+          title: last.name,
+          artist: last.artists.map((a: any) => a.name).join(", "),
+          albumArt: last.album.images?.[0]?.url,
+          songUrl: last.external_urls.spotify,
+        });
+      } catch (err) {
+        console.error((err as any).response?.data || (err as any).message);
+        return res.status(500).json({
+          error: "Failed to fetch playback",
+          details: (err as any).response?.data,
+        });
+      }
 });
 
 // Health check
