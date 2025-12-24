@@ -15,8 +15,8 @@ const PORT = 3001;
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID!;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI!;
+const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 
-let refresh_token: string | null = null;
 
 
 app.use(cors({
@@ -28,7 +28,11 @@ app.use(express.json());
 
 // 1. Login route → redirect to Spotify
 app.get("/login", (req: Request, res: Response) => {
-    const scope = "user-read-currently-playing user-read-playback-state";
+    const scope = [
+        "user-read-currently-playing",
+        "user-read-playback-state",
+        "user-read-recently-played",
+      ].join(" ");
     const authUrl =
         "https://accounts.spotify.com/authorize?" +
         querystring.stringify({
@@ -47,20 +51,20 @@ app.get("/callback", async (req: Request, res: Response) => {
     if (!code) return res.status(400).send("No code provided");
 
     try {
-        const tokenResponse = await axios.post(
-            "https://accounts.spotify.com/api/token",
-            querystring.stringify({
-                grant_type: "authorization_code",
-                code: code,
-                redirect_uri: REDIRECT_URI,
-                client_id: CLIENT_ID,
-                client_secret: CLIENT_SECRET,
-            }),
-            { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-        );
+        // const tokenResponse = await axios.post(
+        //     "https://accounts.spotify.com/api/token",
+        //     querystring.stringify({
+        //         grant_type: "authorization_code",
+        //         code: code,
+        //         redirect_uri: REDIRECT_URI,
+        //         client_id: CLIENT_ID,
+        //         client_secret: CLIENT_SECRET,
+        //     }),
+        //     { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        // );
 
-        refresh_token = tokenResponse.data.refresh_token;
-        console.log("✅ Refresh token obtained!");
+        // console.log("✅ Refresh token obtained", tokenResponse.data.refresh_token);
+        console.log("✅ Refresh token obtained");
         res.send(`
             <html>
                 <body style="font-family: Arial; text-align: center; margin-top: 50px;">
@@ -78,7 +82,7 @@ app.get("/callback", async (req: Request, res: Response) => {
 
 // 3. Now Playing → fetch current song
 app.get("/now-playing", async (req: Request, res: Response) => {
-    if (!refresh_token) {
+    if (!REFRESH_TOKEN) {
         return res.json({
             isPlaying: false,
             message: "Please authenticate first by visiting /login"
@@ -91,7 +95,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
             "https://accounts.spotify.com/api/token",
             querystring.stringify({
                 grant_type: "refresh_token",
-                refresh_token: refresh_token,
+                refresh_token: REFRESH_TOKEN,
                 client_id: CLIENT_ID,
                 client_secret: CLIENT_SECRET,
             }),
@@ -126,7 +130,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
         
     } catch (err: any) {
         console.error("Error fetching now playing:", err.response?.data || err.message);
-        res.json({ isPlaying: false, message: "Error fetching current song" });
+        res.json({ isPlaying: false, message: "Error fetching current song", error: err.response?.data || err.message });
     }
 });
 
@@ -134,7 +138,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
 app.get("/", (req: Request, res: Response) => {
     res.json({
         status: "Server running!",
-        authenticated: !!refresh_token,
+        authenticated: !!REFRESH_TOKEN,
         endpoints: {
             login: "/login",
             nowPlaying: "/now-playing"
