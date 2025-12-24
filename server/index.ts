@@ -127,7 +127,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
         
     } catch (err: any) {
         console.error("Error fetching now playing:", err.response?.data || err.message);
-        res.json({ isPlaying: false, message: "Error fetching current song" });
+        res.json({ isPlaying: false, message: "Error fetching current song",err });
     }
 });
 
