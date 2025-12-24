@@ -26,3 +26,5 @@ jobs:
             npm run build
 
             sudo systemctl reload nginx
+
+            pm2 restart xevrion-backend
