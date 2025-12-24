@@ -102,27 +102,26 @@ app.get("/now-playing", async (req: Request, res: Response) => {
 
         // Get currently playing
         const nowPlaying = await axios.get(
-            "https://api.spotify.com/v1/me/player/currently-playing",
+            "https://api.spotify.com/v1/me/player/recently-played?limit=1",
             {
                 headers: { Authorization: `Bearer ${access_token}` },
             }
         );
-
+        const last = nowPlaying.data.items[0].track
+       
         //no need to check if is_playing is false this will cause a ui bug in front end as client side expects past song details ig isPLaying is false
-
-        const song = nowPlaying.data.item;
-        const isPlaying = nowPlaying.data.is_playing;
+    
 
         res.json({
-            isPlaying: isPlaying,
-            title: song.name,
-            artist: song.artists.map((a: any) => a.name).join(", "),
-            album: song.album.name,
-            albumArt: song.album.images[0]?.url || null,
-            songUrl: song.external_urls.spotify,
-            duration: song.duration_ms,
+            isPlaying: last.is_playing,
+            title: last.name,
+            artist: last.artists.map((a: any) => a.name).join(", "),
+            album: last.album.name,
+            albumArt: last.album.images[0]?.url || null,
+            songUrl: last.external_urls.spotify,
+            duration: last.duration_ms,
             progress: nowPlaying.data.progress_ms,
-            preview_url: song.preview_url, // 30s preview if available (refresh every 30 seconds)
+            preview_url: last.preview_url, // 30s preview if available (refresh every 30 seconds)
         });
         
     } catch (err: any) {
