@@ -1,6 +1,12 @@
 {
   "projects": [
     {
+      "url": "https://github.com/xevrion/daemondoc",
+      "text": "DaemonDoc",
+      "desc": "Your README, on Autopilot.",
+      "image": "/project-previews/daemondoc.png"
+    },
+    {
       "url": "https://github.com/xevrion/Motixion",
       "text": "Motixion",
       "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together.",
