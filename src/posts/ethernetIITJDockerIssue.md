@@ -1,59 +1,129 @@
 # Ubuntu Ethernet Login Page Not Loading
 Date: 02-11-2025
 
-## Fixed — Docker subnet conflict
 ## Symptoms
 
-When connecting to campus ethernet, a login page (e.g. `gateway.iitj.ac.in`) normally opens for authentication. On Ubuntu the interface showed "Connected" but no sites loaded (even `google.com`) and manual attempts to reach the gateway returned "Destination Host Unreachable".
+When connecting to campus ethernet, a login page (e.g. `gateway.iitj.ac.in`) normally opens for authentication.
+
+On Ubuntu the interface shows **Connected**, but:
+
+- No websites load (even `google.com`)
+- Login page never appears
+- Browser shows `ERR_ADDRESS_UNREACHABLE`
+- Pinging the gateway returns `Destination Host Unreachable`
+
+## Root Cause
+
+Linux always prefers local routes over default routes. If Docker/VPN creates a bridge using the same subnet as your campus gateway, the OS thinks the gateway is local and sends packets into that virtual bridge instead of the real network.
+
+Result: No packets reach the gateway → captive portal never loads.
 
 ## Diagnosis
 
-Run:
+First, check where the gateway IP is being routed:
 
 ```bash
-ip route
+getent hosts gateway.iitj.ac.in
+ip route get <gateway-ip>
 ```
 
-If you see a route like `172.17.0.0/16 dev docker0`, Docker's default network overlaps your campus gateway (for example `172.17.0.3`). Packets destined for the gateway were being routed into Docker's virtual network instead of to the campus gateway.
-
-Example symptom when pinging the gateway:
+If the route shows something like:
 
 ```
-From 172.17.0.1 icmp_seq=1 Destination Host Unreachable
+dev docker0
+dev br-xxxx
+dev tailscale0
 ```
 
-## Fix
+instead of your ethernet interface (e.g., `enpXsY`), then traffic is being captured by a local virtual network instead of the real gateway.
 
-1. Edit (or create) the Docker daemon config:
+### Common Causes
+
+- Docker default bridge (`172.17.0.0/16`)
+- Docker Compose networks
+- Old/stale Docker bridges
+- VPNs (Tailscale, etc.) adding routing rules
+- Any local subnet overlapping the campus network
+
+**Example of a broken route:**
+
+```
+172.17.0.3 dev docker0 src 172.17.0.1
+```
+
+Packets never leave your laptop.
+
+## Solution: Move Docker Away from Common Private Ranges
+
+### Step 1: Edit Docker daemon config
 
 ```bash
 sudo nano /etc/docker/daemon.json
 ```
 
-2. Add or update the `bip` setting to a non-conflicting subnet, for example:
+Use a safe, uncommon subnet:
 
 ```json
 {
-  "bip": "172.26.0.1/16"
+  "default-address-pools": [
+    {
+      "base": "10.200.0.0/16",
+      "size": 24
+    }
+  ]
 }
 ```
 
-3. Restart Docker and reconnect the ethernet:
+### Step 2: Restart Docker
 
 ```bash
-sudo systemctl stop docker
-sudo systemctl stop docker.socket
-sudo systemctl daemon-reload
-sudo systemctl start docker
-# or: sudo systemctl restart docker
+sudo systemctl restart docker
 ```
 
-Reconnect the ethernet cable; the login page should open again.
+### Step 3: Recreate Compose networks (important)
 
-## Explanation (short)
+Old networks keep old subnets. Remove them:
 
-Docker creates a `docker0` bridge using `172.17.0.0/16` by default. If your network/gateway uses the same range, the OS routes traffic into the Docker bridge instead of the real gateway. Changing Docker's bridge subnet removes the conflict.
+```bash
+docker compose down
+docker network prune -f
+```
+
+Then start again:
+
+```bash
+docker compose up -d
+```
+
+### Step 4: Delete any stale bridges (if still present)
+
+```bash
+ip a | grep br-
+sudo ip link delete br-xxxx
+```
+
+## Verification
+
+Check that the route now points to your ethernet interface:
+
+```bash
+ip route get <gateway-ip>
+```
+
+It should now show:
+
+```
+via <ethernet-gateway> dev enpXsY
+```
+
+If it routes through ethernet, the login page will load.
 
 ## Takeaway
 
-If your intranet/login page or proxy stops working on Ubuntu, check `ip route` for `docker0` overlapping your network. Change Docker's subnet in `/etc/docker/daemon.json` and restart Docker.
+If an intranet/login page shows unreachable on Ubuntu:
+
+1. Resolve the gateway IP
+2. Run `ip route get <ip>`
+3. Check for Docker/VPN/bridge conflicts
+
+It's almost always a routing issue, not DNS or the browser.
