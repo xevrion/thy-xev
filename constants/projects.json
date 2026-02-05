@@ -4,7 +4,8 @@
       "url": "https://github.com/xevrion/daemondoc",
       "text": "DaemonDoc",
       "desc": "Your README, on Autopilot.",
-      "image": "/project-previews/daemondoc.png"
+      "image": "/project-previews/daemondoc.png",
+      "live": "https://daemondoc.online"
     },
     {
       "url": "https://github.com/zulip/zulip",
@@ -24,7 +25,8 @@
       "url": "https://github.com/xevrion/Motixion",
       "text": "Motixion",
       "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together.",
-      "image": "/project-previews/motixion.png"
+      "image": "/project-previews/motixion.png",
+      "live": "https://motixion.vercel.app"
     },
     {
       "url": "https://github.com/xevrion/notionx",

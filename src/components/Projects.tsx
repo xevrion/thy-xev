@@ -51,7 +51,7 @@ export const Projects = () => {
         <div className="inter-bold">Currently Working</div>
         {projects.map((value, index) => {
           return (<>
-            <div key={index} className="flex whitespace-nowrap gap-1">
+            <div key={index} className="flex whitespace-nowrap gap-2 items-center">
               {value['image'] ? (
                 <LinkPreview 
                   url={value['url']} 
@@ -69,6 +69,16 @@ export const Projects = () => {
                   {value['text']}
                 </LinkPreview>
               )}
+              {value['live'] && (
+                <a 
+                  href={value['live']} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium"
+                >
+                  live
+                </a>
+              )}
               <p className="inter-medium text-xl truncate">- {value['desc']}</p>
             </div>
           </>
@@ -82,7 +92,7 @@ export const Projects = () => {
         <div className="inter-bold">Past Projects</div>
         {pastProjects.map((value, index) => {
           return (<>
-            <div key={index} className="flex whitespace-nowrap gap-1">
+            <div key={index} className="flex whitespace-nowrap gap-2 items-center">
               {value['image'] ? (
                 <LinkPreview 
                   url={value['url']} 
@@ -99,6 +109,16 @@ export const Projects = () => {
                 >
                   {value['text']}
                 </LinkPreview>
+              )}
+              {value['live'] && (
+                <a 
+                  href={value['live']} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium"
+                >
+                  live
+                </a>
               )}
               <p className="inter-medium text-xl truncate">- {value['desc']}</p>
             </div>
