@@ -7,7 +7,7 @@ import ContestWidget from './ContestWidget'
 import WakatimeWidget from './WakatimeWidget'
 import pfp from '../assets/download (10).jpeg';
 import { Style } from 'react-head';
-import DiscordWidget from './DiscordWidget'
+// import DiscordWidget from './DiscordWidget'
 
 
 
@@ -96,7 +96,7 @@ export const Hero = () => {
             <div className="mt-10 flex flex-col gap-6 ">
             <div className="flex flex-col sm:flex-row sm:justify-between items-center sm:items-start gap-6">
     <SpotifyWidget />
-    <DiscordWidget />
+    {/* <DiscordWidget /> */}
   </div>
                 {/* <ActivityWidget /> */}
                 <CurrentlyWorking />
