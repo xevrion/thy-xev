@@ -112,7 +112,7 @@ export const PostPage = () => {
           ),
           code: (props) => (
             <code
-              className="bg-[rgba(100,149,237,0.08)] text-soft-royal-blue px-1.5 py-0.5 rounded-md font-mono text-sm  tracking-tight"
+              className="text-soft-royal-blue py-0.5 rounded-md font-mono text-sm  tracking-tight"
               {...props}
             />
           ),
@@ -148,13 +148,8 @@ export const PostPage = () => {
           },
           pre: (props) => (
             <pre
-              className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-sm rounded-lg p-4 my-5 whitespace-pre-wrap break-words border border-[rgba(100,149,237,0.2)] shadow-lg shadow-[rgba(0,0,0,0.4)]"
-              {...props}
-            >
-              {/* <div className="absolute top-2 right-3 text-[10px] text-battleship-gray uppercase tracking-widest select-none">
-                code
-              </div> */}
-              {props.children}
+              className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-sm rounded-lg p-4 my-5 whitespace-pre-wrap break-words border border-[rgba(100,149,237,0.2)] shadow-lg shadow-[rgba(0,0,0,0.4)]"{...props}
+            >{props.children}
             </pre>
           ),
         }}
