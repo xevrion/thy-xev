@@ -7,8 +7,6 @@ There were 2 DSA questions and 2 CS fundamentals (OS + OOP).
 
 This is a straightforward breakdown of what was asked, what I thought, what was right, and what I missed.
 
----
-
 ## DSA Question 1 — Search in Infinite Sorted Array
 
 **Problem**
@@ -69,8 +67,6 @@ while (first < last) {
 When array size unknown → exponential search first, binary search later.  
 Structure matters as much as idea.
 
----
-
 ## DSA Question 2 — Minimum Cost Grid Path
 
 **Problem**
@@ -121,8 +117,6 @@ Then I drifted toward BFS + “pick smallest each stage”.
 Knowing algorithm name ≠ implementing it.  
 Need recall fluency for core algorithms (Dijkstra, BFS, DFS).
 
----
-
 ## OS Question — 2GB RAM Running 5GB Game
 
 **Question**
@@ -142,8 +136,6 @@ Full idea: virtual memory → inactive pages moved to disk.
 ### Learning
 
 OS fundamentals are mostly clear.
-
----
 
 ## OOP Question — Virtual Destructors
 
@@ -172,8 +164,6 @@ Derived cleanup skipped → leak.
 
 Need stronger OOP fundamentals recall.
 
----
-
 ## Interview Feedback
 
 Interviewer said:
@@ -181,8 +171,6 @@ Interviewer said:
 - Improve DSA
 - Talk more and discuss approach
 - He would give hints if I interacted more
-
----
 
 ## Overall Learning
 
