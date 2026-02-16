@@ -49,3 +49,12 @@ todo
 - [ ] integrate search (Meilisearch) (later)
   - [ ] index markdown posts + projects  
   - [ ] add sidebar/global search bar  
+
+- [ ] add testimonials section (research other personal sites before proceeding)
+
+- [ ] add Resume section (pdf download + online view)
+  - [ ] upload resume pdf to server (which?)
+
+- [ ] light/dark theme?
+  - [ ] toggle button to switch themes  
+  - [ ] save preference in localStorage
