@@ -212,6 +212,27 @@ source ~/.iitj-cred
 
 
 
+## Improvements After Initial Version
+
+My first version actually had credentials hardcoded in the script.
+
+While trying to clean that up, I searched around to see if others had solved similar FortiGate campus login issues and came across an IIT Kanpur automation gist by Sumit Lahiri:
+
+https://gist.github.com/codersguild/bf0b343d9db1b817bdcd7ff14cb05e61
+
+His approach used encrypted credential storage instead of plaintext, which immediately made sense for this use case. I adapted that idea into my version by moving credentials to a separate file with restricted permissions.
+
+So the current design:
+
+- Script contains no secrets  
+- Credentials stored in `~/.iitj-cred`  
+- File permissions locked (`600`)  
+- Loaded at runtime  
+
+The core login logic I reverse-engineered independently, but the credential-handling cleanup was directly inspired by his IITK solution.
+
+
+
 ## Running in Background
 
 You can run the script detached so it keeps the LAN alive without an open terminal.
