@@ -105,7 +105,7 @@ export const PostPage = () => {
           ),
           a: (props) => (
             <a
-              className="text-soft-royal-blue hover:underline transition-colors sg-regular"
+              className="text-soft-royal-blue hover:underline transition-colors sg-regular wrap-anywhere"
               {...props}
               target="_blank"
             />
