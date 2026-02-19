@@ -1,7 +1,7 @@
 # Automating IITJ LAN Login (So My Internet Stops Dying Every 3 Hours)
 Date: 19-02-2026
 
-IIT Jodhpur LAN uses a FortiGate captive portal. Ethernet works only after logging in through a browser, and the session expires roughly every 10 000 seconds (~2 h 46 m).
+IIT Jodhpur hostel LAN uses a FortiGate captive portal. Ethernet works only after logging in through a browser, and the session expires roughly every 10 000 seconds (~2 h 46 m).
 
 Which means:
 
@@ -144,6 +144,87 @@ source ~/.iitj-cred
 
 
 
+## Running in Background
+
+You can run the script detached so it keeps the LAN alive without an open terminal.
+
+Start in background:
+
+```
+nohup ~/.iitj-login.sh >/dev/null 2>&1 &
+```
+
+Check if running:
+
+```
+cat /tmp/iitj-login.pid
+ps -p $(cat /tmp/iitj-login.pid)
+```
+
+Stop manually:
+
+```
+kill -SIGINT $(cat /tmp/iitj-login.pid)
+```
+
+This triggers clean logout via the trap.
+
+
+
+## Run Automatically on Startup (systemd user service)
+
+Create a user service so LAN auto-authenticates after login.
+
+```
+mkdir -p ~/.config/systemd/user
+nano ~/.config/systemd/user/iitj-login.service
+```
+
+```
+[Unit]
+Description=IITJ LAN Auto Login
+After=network-online.target
+
+[Service]
+ExecStart=/home/xevrion/.iitj-login.sh
+Restart=always
+
+[Install]
+WantedBy=default.target
+```
+
+Reload systemd:
+
+```
+systemctl --user daemon-reload
+```
+
+Enable at login:
+
+```
+systemctl --user enable iitj-login
+```
+
+Start now:
+
+```
+systemctl --user start iitj-login
+```
+
+Stop:
+
+```
+systemctl --user stop iitj-login
+```
+
+Disable:
+
+```
+systemctl --user disable iitj-login
+```
+
+
+
 ## Why This Works
 
 FortiGate doesn’t create multiple sessions per login.  
@@ -152,50 +233,6 @@ It stores one lease per device (MAC).
 Every successful login simply resets the expiry timer.
 
 So periodic login behaves like a keepalive, not parallel sessions.
-
-
-
-## Behavior
-
-Start once:
-
-```
-~/.iitj-login.sh
-```
-
-Then:
-
-- LAN stays authenticated indefinitely  
-- No session drops  
-- No browser popups  
-- Works in CLI/headless  
-- Safe to leave running  
-
-Stop:
-
-```
-Ctrl + C
-```
-
-Which triggers logout via trap.
-
-
-
-## Logout Handling
-
-The script traps termination signals:
-
-```
-trap logout SIGINT SIGTERM
-```
-
-So stopping the script sends:
-
-```
-GET /logout
-```
-
-and removes the PID file.
 
 
 
