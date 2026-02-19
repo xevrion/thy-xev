@@ -58,6 +58,74 @@ So the login flow is deterministic and scriptable.
 
 
 
+## How I Reverse-Engineered It
+
+The obvious first step was opening DevTools → Network tab while logging in normally from the browser.
+
+I watched the requests when submitting credentials and copied the login request as cURL:
+
+```
+POST https://gateway.iitj.ac.in:1003/
+username=...
+password=...
+magic=...
+4Tredir=...
+```
+
+That part was straightforward.
+
+The confusing part was everything around it.
+
+The login URL always looked like:
+
+```
+/login?06197964521b4b48
+/login?001b7bb6a428f3e8
+/login?randomhex
+```
+
+And logout:
+
+```
+/logout?020205030507080f
+/logout?something
+```
+
+At first it looked like those values were session IDs that needed to be preserved.
+
+So I tried replaying captured requests exactly via curl.  
+They worked — but only once.  
+Next time the values changed.
+
+So I assumed they were dynamic tokens and started trying to extract them properly.
+
+Then I noticed something odd.
+
+If I opened:
+
+```
+https://gateway.iitj.ac.in:1003/login?anything
+```
+
+literally any random string after `?` still returned a valid login page with a fresh `magic` token.
+
+Same for logout:
+
+```
+https://gateway.iitj.ac.in:1003/logout?anything
+```
+
+always logged me out.
+
+So those query values were not real tokens at all.  
+They were just cache-busting noise.
+
+That was the key realization.
+
+The only value that actually mattered was the hidden `magic` field inside the HTML.
+
+
+
 ## Strategy
 
 The portal session expires after ~2 h 46 m.  
