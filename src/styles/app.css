@@ -110,7 +110,7 @@ html.light {
 ::view-transition-old(root) { z-index: 0; }
 
 /* Social icons: darken in light theme */
-html.light .social-icon {
+html.light .social-icon, html.light .skill-icon {
   color: #5a5450;
 }
 
