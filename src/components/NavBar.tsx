@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react"; // hamburger icons
 import DiscordWidget from "./OnlineStatus";
 import WeatherWidget from "./WeatherWidget";
+import { ThemeToggle } from "./ThemeToggle";
 
 
 export const NavBar = () => {
@@ -44,38 +45,42 @@ export const NavBar = () => {
             <div className="flex items-center gap-2">
                 <a href="/">
                     <div className="sg-bold text-xl sm:text-2xl text-soft-royal-blue transition-all duration-200 hover:scale-105 hover:[text-shadow:0_0_10px_#5e7aff]">
-                        xevrion<span className="text-white selection:bg-black">.</span>dev |
+                        xevrion<span className="text-silver selection:bg-black">.</span>dev |
                     </div>
                 </a>
                 <DiscordWidget />
                 <WeatherWidget />
             </div>
 
-            {/* Desktop Links */}
-            <div className="hidden md:flex gap-8">
+            {/* Desktop Links + Theme Toggle */}
+            <div className="hidden md:flex items-center gap-8">
                 {links
                     .filter((link) => `/${link.toLowerCase()}` !== currentPath)
                     .map((link) => (
                         <a
                             key={link}
                             href={`/${link.toLowerCase()}`}
-                            className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250 
-                            after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue 
+                            className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250
+                            after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue
                             after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
                         >
                             {link}
                         </a>
                     ))}
+                <ThemeToggle />
             </div>
 
 
-            {/* Mobile Menu Button */}
-            <button
-                className="md:hidden text-soft-royal-blue z-50 relative"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            {/* Mobile Menu Button + Theme Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+                <ThemeToggle />
+                <button
+                    className="text-soft-royal-blue z-50 relative"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    {isOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+            </div>
 
             {/* Mobile Dropdown */}
             <div

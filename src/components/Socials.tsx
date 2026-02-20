@@ -51,7 +51,7 @@ export default function Socials() {
           href={urls[i]}
           className='inline-block'
         >
-          <Icon className='w-8 h-8 text-[#bcb8b1] hover:rotate-15 hover:scale-[1.1] transition-all duration-250' />
+          <Icon className='social-icon w-8 h-8 text-[#bcb8b1] hover:rotate-15 hover:scale-[1.1] transition-all duration-250' />
         </a>
       ))}
     </div>

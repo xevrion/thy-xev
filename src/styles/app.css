@@ -90,3 +90,34 @@
 body {
   background-color: var(--color-taupe);
 }
+
+/* Light theme overrides */
+html.light {
+  --color-taupe: #f2eeea;
+  --color-battleship-gray: #7a746e;
+  --color-silver: #2e2a27;
+  --color-blue-crayola: #4c6fff;
+  --color-soft-royal-blue: #3d5ce8;
+}
+
+/* Disable default view-transition animation; JS drives the reveal */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) { z-index: 9999; }
+::view-transition-old(root) { z-index: 0; }
+
+/* Social icons: darken in light theme */
+html.light .social-icon {
+  color: #5a5450;
+}
+
+/* Code block overrides for light theme */
+html.light pre {
+  background-color: #e8e3dd !important;
+  color: #2e2a27 !important;
+  border-color: rgba(61, 92, 232, 0.2) !important;
+  box-shadow: none !important;
+}

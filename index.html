@@ -57,6 +57,15 @@
 
     <!-- Umami Analytics -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="74938dae-7cfe-43c2-8933-b5e9be663d8c"></script>
+
+    <!-- Theme init: prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        if ((stored || sys) === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
