@@ -9,7 +9,7 @@ export function ThemeToggle() {
     <motion.button
       onClick={toggleTheme}
       whileTap={{ scale: 0.85 }}
-      className="relative text-soft-royal-blue p-1 overflow-hidden"
+      className="relative text-soft-royal-blue p-1 overflow-hidden cursor-pointer"
       aria-label="Toggle theme"
     >
       <AnimatePresence mode="wait" initial={false}>
