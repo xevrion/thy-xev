@@ -20,7 +20,7 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
 - [x] `map`, `unordered_map` — when to use which, complexity difference - <span class="blue">24/02/2026</span>
 - [x] `set`, `multiset`, `unordered_set` - <span class="blue">24/02/2026</span>
 - [x] `stack`, `queue`, `deque` - <span class="blue">24/02/2026</span>
-- [ ] `priority_queue` — min-heap and max-heap
+- [x] `priority_queue` — min-heap and max-heap - <span class="blue">24/02/2026</span>
 - [ ] `sort` with custom comparators
 - [ ] `lower_bound`, `upper_bound`, `binary_search`
 - [ ] `next_permutation`, `accumulate`, `count`, `find`
