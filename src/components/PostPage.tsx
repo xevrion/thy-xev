@@ -73,7 +73,7 @@ export const PostPage = () => {
         })}
       </Style>
 
-      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto">
+      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl text-lg mx-auto text-battleship-gray sg-regular">
       {/* <h1 className="text-4xl text-soft-royal-blue sg-bold mb-6">{post.title}</h1> */}
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
@@ -112,7 +112,7 @@ export const PostPage = () => {
           ),
           code: (props) => (
             <code
-              className="text-soft-royal-blue py-0.5 rounded-md font-mono text-sm  tracking-tight"
+              className="text-soft-royal-blue py-0.5 rounded-md font-mono tracking-tight"
               {...props}
             />
           ),
@@ -144,8 +144,15 @@ export const PostPage = () => {
                 </Tooltip>
               );
             }
+            if (props.className === "blue") {
+              // expects markdown like: <span class="blue">text</span>
+              return <span className="text-soft-royal-blue">{props.children}</span>;
+            }
             return <span {...props} />;
           },
+          hr: () => (
+            <hr className="my-8 border-none h-px bg-gradient-to-r from-transparent via-soft-royal-blue/30 to-transparent" />
+          ),
           pre: (props) => (
             <pre
               className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-[15px] rounded-lg p-4 my-5 whitespace-pre-wrap break-words border border-[rgba(100,149,237,0.2)]"{...props}
