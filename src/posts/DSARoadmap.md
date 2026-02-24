@@ -1,5 +1,5 @@
 # DSA & Competitive Programming Roadmap
-Date: 24-02-2026
+Date: 2026-02-24
 
 This is my public roadmap to go from basically nothing to:
 
