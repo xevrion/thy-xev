@@ -21,9 +21,9 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
 - [x] `set`, `multiset`, `unordered_set` - <span class="blue">24/02/2026</span>
 - [x] `stack`, `queue`, `deque` - <span class="blue">24/02/2026</span>
 - [x] `priority_queue` — min-heap and max-heap - <span class="blue">24/02/2026</span>
-- [ ] `sort` with custom comparators
-- [ ] `lower_bound`, `upper_bound`, `binary_search`
-- [ ] `next_permutation`, `accumulate`, `count`, `find`
+- [x] `sort` with custom comparators - <span class="blue">25/02/2026</span>
+- [x] `lower_bound`, `upper_bound`, `binary_search` - <span class="blue">25/02/2026</span>
+- [x] `next_permutation`, `accumulate`, `count`, `find` - <span class="blue">25/02/2026</span>
 - [ ] Practice: 10 problems using only STL on Codeforces (800–1000 rating)
 
 ### Complexity Analysis
