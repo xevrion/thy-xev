@@ -24,19 +24,19 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
 - [x] `sort` with custom comparators - <span class="blue">25/02/2026</span>
 - [x] `lower_bound`, `upper_bound`, `binary_search` - <span class="blue">25/02/2026</span>
 - [x] `next_permutation`, `accumulate`, `count`, `find` - <span class="blue">25/02/2026</span>
-- [ ] Practice: 10 problems using only STL on Codeforces (800–1000 rating)
+- [x] Practice: 10 problems using only STL on Codeforces (800–1000 rating) - <span class="blue">26/02/2026</span>
 
 ### Complexity Analysis
 
-- [ ] Big-O notation — O(1), O(log n), O(n), O(n log n), O(n²)
-- [ ] Can look at any loop structure and instantly state its complexity
-- [ ] Understand when a solution will TLE based on constraints (n ≤ 10^5 → O(n log n) max, etc.)
+- [x] Big-O notation — O(1), O(log n), O(n), O(n log n), O(n²) - <span class="blue">26/02/2026</span>
+- [x] Can look at any loop structure and instantly state its complexity - <span class="blue">26/02/2026</span>
+- [x] Understand when a solution will TLE based on constraints (n ≤ 10^5 → O(n log n) max, etc.) - <span class="blue">26/02/2026</span>
 
 ### Arrays & Strings
 
-- [ ] Two pointers technique — opposite ends and same direction
-- [ ] Sliding window — fixed size and variable size
-- [ ] Prefix sums — 1D and 2D
+- [x] Two pointers technique — opposite ends and same direction - <span class="blue">26/02/2026</span>
+- [x] Sliding window — fixed size and variable size - <span class="blue">26/02/2026</span>
+- [x] Prefix sums — 1D and 2D - <span class="blue">26/02/2026</span>
 - [ ] Practice: 15 problems on Leetcode (mix of Easy/Medium)
 
 ### Recursion & Backtracking

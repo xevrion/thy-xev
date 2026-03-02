@@ -159,6 +159,39 @@ export const PostPage = () => {
             >{props.children}
             </pre>
           ),
+          table: (props) => (
+            <div className="overflow-x-auto my-5">
+              <table
+                className="w-full border-collapse text-base text-battleship-gray sg-regular"
+                {...props}
+              />
+            </div>
+          ),
+          thead: (props) => (
+            <thead
+              className="border-b-2 border-soft-royal-blue/30"
+              {...props}
+            />
+          ),
+          tbody: (props) => <tbody {...props} />,
+          tr: (props) => (
+            <tr
+              className="border-b border-soft-royal-blue/10"
+              {...props}
+            />
+          ),
+          th: (props) => (
+            <th
+              className="text-left text-soft-royal-blue sg-bold px-4 py-2 text-sm"
+              {...props}
+            />
+          ),
+          td: (props) => (
+            <td
+              className="px-4 py-2 text-sm"
+              {...props}
+            />
+          ),
         }}
       >
         {post.content}
