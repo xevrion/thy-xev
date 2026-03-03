@@ -122,7 +122,7 @@ export const PostPage = () => {
               {...props}
             />
           ),
-          ul: (props) => <ul className="list-disc ml-6 mb-4" {...props} />,
+          ul: (props) => (<ul className="list-disc ml-6 mb-4" style={{marginLeft: '1.5rem'}} {...props} />),
           ol: (props) => <ol className="list-decimal ml-6 mb-4" {...props} />,
           li: (props) => (
             <li className="mb-2 text-battleship-gray sg-regular text-lg" {...props} />
