@@ -18,11 +18,12 @@ jobs:
           script_stop: true
           script: |
             cd /home/xevrion/thy
-            
-            git pull
-            
-            npm install --legacy-peer-deps
-            
+
+            git fetch origin
+            git reset --hard origin/main
+
+            npm ci
+
             npm run build
 
             sudo systemctl reload nginx
