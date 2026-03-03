@@ -16,28 +16,54 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
 
 ### C++ STL Mastery
 
-- [x] `vector`, `pair`, `string` — basics and common operations - <span class="blue">24/02/2026</span>
-- [x] `map`, `unordered_map` — when to use which, complexity difference - <span class="blue">24/02/2026</span>
-- [x] `set`, `multiset`, `unordered_set` - <span class="blue">24/02/2026</span>
-- [x] `stack`, `queue`, `deque` - <span class="blue">24/02/2026</span>
-- [x] `priority_queue` — min-heap and max-heap - <span class="blue">24/02/2026</span>
-- [x] `sort` with custom comparators - <span class="blue">25/02/2026</span>
-- [x] `lower_bound`, `upper_bound`, `binary_search` - <span class="blue">25/02/2026</span>
-- [x] `next_permutation`, `accumulate`, `count`, `find` - <span class="blue">25/02/2026</span>
-- [x] Practice: 10 problems using only STL on Codeforces (800–1000 rating) - <span class="blue">26/02/2026</span>
+- [x] `vector`, `pair`, `string` — basics and common operations — **24-02-2026**
+- [x] `map`, `unordered_map` — when to use which, complexity difference — **24-02-2026**
+- [x] `set`, `multiset`, `unordered_set` — **24-02-2026**
+- [x] `stack`, `queue`, `deque` — **24-02-2026**
+- [x] `priority_queue` — min-heap and max-heap — **24-02-2026**
+- [x] `sort` with custom comparators — **25-02-2026**
+- [x] `lower_bound`, `upper_bound`, `binary_search` — **25-02-2026**
+- [x] `next_permutation`, `accumulate`, `count`, `find` — **25-02-2026**
+- [x] Practice: 10 problems using only STL on Codeforces (800–1000 rating) — **26-02-2026**
+  - [x] [4A - Watermelon](https://codeforces.com/problemset/problem/4/A)
+  - [x] [50A - Domino Piling](https://codeforces.com/problemset/problem/50/A)
+  - [x] [71A - Way Too Long Words](https://codeforces.com/problemset/problem/71/A)
+  - [x] [112A - Petya and Strings](https://codeforces.com/problemset/problem/112/A)
+  - [x] [158A - Next Round](https://codeforces.com/problemset/problem/158/A)
+  - [x] [231A - Team](https://codeforces.com/problemset/problem/231/A)
+  - [x] [263A - Beautiful Matrix](https://codeforces.com/problemset/problem/263/A)
+  - [x] [282A - Bit++](https://codeforces.com/problemset/problem/282/A)
+  - [x] [339A - Helpful Maths](https://codeforces.com/problemset/problem/339/A)
+  - [x] [467A - George and Accommodation](https://codeforces.com/problemset/problem/467/A)
 
 ### Complexity Analysis
 
-- [x] Big-O notation — O(1), O(log n), O(n), O(n log n), O(n²) - <span class="blue">26/02/2026</span>
-- [x] Can look at any loop structure and instantly state its complexity - <span class="blue">26/02/2026</span>
-- [x] Understand when a solution will TLE based on constraints (n ≤ 10^5 → O(n log n) max, etc.) - <span class="blue">26/02/2026</span>
+- [x] Big-O notation — O(1), O(log n), O(n), O(n log n), O(n²) — **26-02-2026**
+- [x] Can look at any loop structure and instantly state its complexity — **26-02-2026**
+- [x] Understand when a solution will TLE based on constraints (n ≤ 10^5 → O(n log n) max, etc.) — **26-02-2026**
 
 ### Arrays & Strings
 
-- [x] Two pointers technique — opposite ends and same direction - <span class="blue">26/02/2026</span>
-- [x] Sliding window — fixed size and variable size - <span class="blue">26/02/2026</span>
-- [x] Prefix sums — 1D and 2D - <span class="blue">26/02/2026</span>
+- [x] Two pointers technique — opposite ends and same direction — **26-02-2026**
+- [x] Sliding window — fixed size and variable size — **26-02-2026**
+- [x] Prefix sums — 1D and 2D — **26-02-2026**
 - [ ] Practice: 15 problems on Leetcode (mix of Easy/Medium)
+  - [x] [1. Two Sum](https://leetcode.com/problems/two-sum/) — **01-03-2026**
+  - [x] [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) — **01-03-2026**
+  - [x] [217. Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) — **01-03-2026**
+  - [x] [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) — **02-03-2026**
+  - [x] [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/) — **02-03-2026**
+  - [x] [15. 3Sum](https://leetcode.com/problems/3sum/) — **02-03-2026**
+  - [x] [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/) — **02-03-2026**
+  - [x] [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) — **03-03-2026**
+  - [x] [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) — **03-03-2026**
+  - [x] [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) — **03-03-2026**
+  - [x] [1456. Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/) — **03-03-2026**
+  - [ ] [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
+  - [ ] [567. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+  - [ ] [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
+  - [ ] [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
+
 
 ### Recursion & Backtracking
 
