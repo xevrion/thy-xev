@@ -11,11 +11,52 @@ Which means:
 - Long tasks die silently  
 - Headless/CLI environments are painful  
 
-So I decided to automate the login and keep the LAN session alive permanently.
+So I built a small tool that keeps the LAN session alive automatically.
 
 
 
-## How the IITJ LAN Login Actually Works
+---
+
+# Quick Setup (Non-Technical Users)
+
+If you're on Linux and just want this to work without reading everything:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/xevrion/iitj-lan-autologin/main/bootstrap.sh | bash
+```
+
+Then run:
+
+```bash
+./install.sh
+```
+
+It will:
+
+- Ask for your IITJ LDAP username and password  
+- Encrypt them locally  
+- Install a background service  
+- Automatically keep your LAN logged in  
+
+After installation, it runs automatically every time you log in to your system.
+
+To manage it later:
+
+```bash
+./install.sh
+```
+
+You’ll see options to Start / Stop / Status / Uninstall.
+
+That’s it.
+
+If you’re curious how it works internally, continue reading.
+
+
+
+---
+
+# How the IITJ LAN Login Actually Works
 
 When you connect ethernet and open any site, the gateway redirects to something like:
 
@@ -39,7 +80,7 @@ magic=<token>
 4Tredir=...
 ```
 
-If credentials are correct, the gateway authorizes your MAC address for ~10 000 s.
+If credentials are correct, the gateway authorizes your MAC address for ~10 000 seconds.
 
 Logout is just:
 
@@ -52,17 +93,19 @@ Important observations:
 - `/login?anything` always returns a fresh login page  
 - The `magic` token changes every request  
 - Re-login overwrites session expiry (no stacking)  
-- Gateway keeps only one active auth per device  
+- Gateway keeps only one active authentication per device  
 
 So the login flow is deterministic and scriptable.
 
 
 
-## How I Reverse-Engineered It
+---
 
-The obvious first step was opening DevTools → Network tab while logging in normally from the browser.
+# How I Reverse-Engineered It
 
-I watched the requests when submitting credentials and copied the login request as cURL:
+I opened DevTools → Network tab while logging in normally.
+
+I observed the request made when submitting credentials and copied it as cURL:
 
 ```
 POST https://gateway.iitj.ac.in:1003/
@@ -72,11 +115,9 @@ magic=...
 4Tredir=...
 ```
 
-That part was straightforward.
+That part was simple.
 
-The confusing part was everything around it.
-
-The login URL always looked like:
+The confusing part was the login URL pattern:
 
 ```
 /login?06197964521b4b48
@@ -84,30 +125,28 @@ The login URL always looked like:
 /login?randomhex
 ```
 
-And logout:
+Logout looked like:
 
 ```
 /logout?020205030507080f
 /logout?something
 ```
 
-At first it looked like those values were session IDs that needed to be preserved.
+Initially I assumed those query values were session identifiers.
 
-So I tried replaying captured requests exactly via curl.  
-They worked — but only once.  
-Next time the values changed.
+Replaying captured requests worked once — then failed.
 
-So I assumed they were dynamic tokens and started trying to extract them properly.
+So I tried extracting those values dynamically.
 
-Then I noticed something odd.
+Then I noticed something critical.
 
-If I opened:
+Opening:
 
 ```
 https://gateway.iitj.ac.in:1003/login?anything
 ```
 
-literally any random string after `?` still returned a valid login page with a fresh `magic` token.
+with literally any random string still returned a valid login page.
 
 Same for logout:
 
@@ -117,37 +156,41 @@ https://gateway.iitj.ac.in:1003/logout?anything
 
 always logged me out.
 
-So those query values were not real tokens at all.  
+So those query values were not authentication tokens.
+
 They were just cache-busting noise.
 
-That was the key realization.
-
-The only value that actually mattered was the hidden `magic` field inside the HTML.
+The only value that actually mattered was the hidden `magic` field in the HTML.
 
 
 
-## Strategy
+---
 
-The portal session expires after ~2 h 46 m.  
+# Strategy
+
+The portal session expires after ~2 h 46 m.
+
 If I re-login before expiry, the session never drops.
 
 Automation logic:
 
 1. Request login page  
-2. Extract magic token  
+2. Extract `magic` token  
 3. POST credentials  
-4. Sleep ~2 h  
+4. Sleep ~2 hours  
 5. Repeat forever  
 
-This converts captive-portal auth into a persistent local service.
+This converts captive-portal authentication into a persistent local service.
 
 
 
-## The Script
+---
 
-I wrote a small daemon-style bash script that refreshes the session periodically.
+# The Core Script (Minimal Version)
 
-```
+This was the original daemon-style script:
+
+```bash
 #!/usr/bin/env bash
 
 LOGIN_URL="https://gateway.iitj.ac.in:1003/login"
@@ -190,142 +233,76 @@ done
 
 
 
-## Credentials
+---
 
-Credentials are stored separately so the script isn’t hard-coded.
+# Credentials Handling
 
-```
-~/.iitj-cred
-chmod 600
-```
+The initial version had credentials hardcoded.
 
-```
-IITJ_USER=b24cs1019
-IITJ_PASS='yourpassword'
-```
+That was not ideal.
 
-The script loads them via:
+The improved version:
 
-```
-source ~/.iitj-cred
-```
+- Encrypts credentials using OpenSSL (AES-256-CBC)  
+- Stores them inside `~/.local/share/iitj-login/`  
+- Restricts permissions  
+- Decrypts only at runtime  
 
-
-
-## Improvements After Initial Version
-
-My first version actually had credentials hardcoded in the script.
-
-While trying to clean that up, I searched around to see if others had solved similar FortiGate campus login issues and came across an IIT Kanpur automation gist by Sumit Lahiri:
+This design was inspired by an IIT Kanpur automation gist by Sumit Lahiri:
 
 https://gist.github.com/codersguild/bf0b343d9db1b817bdcd7ff14cb05e61
 
-His approach used encrypted credential storage instead of plaintext, which immediately made sense for this use case. I adapted that idea into my version by moving credentials to a separate file with restricted permissions.
-
-So the current design:
-
-- Script contains no secrets  
-- Credentials stored in `~/.iitj-cred`  
-- File permissions locked (`600`)  
-- Loaded at runtime  
-
-The core login logic I reverse-engineered independently, but the credential-handling cleanup was directly inspired by his IITK solution.
+The login flow itself was reverse-engineered independently. The credential hardening approach was influenced by that implementation.
 
 
 
-## Running in Background
+---
 
-You can run the script detached so it keeps the LAN alive without an open terminal.
+# Background Execution
 
-Start in background:
+Instead of running the script manually, the installer:
 
-```
-nohup ~/.iitj-login.sh >/dev/null 2>&1 &
-```
+- Creates a systemd user service  
+- Enables it  
+- Starts it  
+- Runs automatically at login  
 
-Check if running:
+Manual control:
 
-```
-cat /tmp/iitj-login.pid
-ps -p $(cat /tmp/iitj-login.pid)
-```
-
-Stop manually:
-
-```
-kill -SIGINT $(cat /tmp/iitj-login.pid)
-```
-
-This triggers clean logout via the trap.
-
-
-
-## Run Automatically on Startup (systemd user service)
-
-Create a user service so LAN auto-authenticates after login.
-
-```
-mkdir -p ~/.config/systemd/user
-nano ~/.config/systemd/user/iitj-login.service
-```
-
-```
-[Unit]
-Description=IITJ LAN Auto Login
-After=network-online.target
-
-[Service]
-ExecStart=/home/xevrion/.iitj-login.sh
-Restart=always
-
-[Install]
-WantedBy=default.target
-```
-
-Reload systemd:
-
-```
-systemctl --user daemon-reload
-```
-
-Enable at login:
-
-```
-systemctl --user enable iitj-login
-```
-
-Start now:
-
-```
-systemctl --user start iitj-login
-```
-
-Stop:
-
-```
+```bash
+systemctl --user status iitj-login
 systemctl --user stop iitj-login
-```
-
-Disable:
-
-```
+systemctl --user start iitj-login
 systemctl --user disable iitj-login
 ```
 
+Or simply re-run:
+
+```bash
+./install.sh
+```
+
+and use the menu.
 
 
-## Why This Works
 
-FortiGate doesn’t create multiple sessions per login.  
-It stores one lease per device (MAC).
+---
+
+# Why This Works
+
+FortiGate does not create multiple parallel sessions.
+
+It stores one lease per device (MAC address).
 
 Every successful login simply resets the expiry timer.
 
-So periodic login behaves like a keepalive, not parallel sessions.
+So periodic login behaves like a keepalive — not parallel authentication sessions.
 
 
 
-## Result
+---
+
+# Result
 
 IITJ LAN behaves like a normal always-on ethernet connection.
 
@@ -333,8 +310,6 @@ No re-auth interruptions.
 No portal redirects.  
 No broken long-running tasks.
 
-Basically turned a captive portal into a persistent local client.
-
-
+Just stable internet.
 
 *Written by Yash (xevrion)*
