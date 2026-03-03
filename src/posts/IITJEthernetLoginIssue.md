@@ -17,7 +17,7 @@ So I built a small tool that keeps the LAN session alive automatically.
 
 ---
 
-# Quick Setup (Non-Technical Users)
+# Quick Setup - Custom CLI Tool
 
 If you're on Linux and just want this to work without reading everything:
 
