@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react"; // hamburger icons
 import DiscordWidget from "./OnlineStatus";
 import WeatherWidget from "./WeatherWidget";
 import { ThemeToggle } from "./ThemeToggle";
+import { HandwrittenHint } from "./HandwrittenHint";
 
 
 export const NavBar = () => {
@@ -11,6 +12,7 @@ export const NavBar = () => {
     const currentPath = location.pathname;
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [showThemeHint, setShowThemeHint] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -67,7 +69,25 @@ export const NavBar = () => {
                             {link}
                         </a>
                     ))}
-                <ThemeToggle />
+                {/* Theme toggle with handwritten hint on home page */}
+                <div
+                    className="relative overflow-visible"
+                    onClick={() => setShowThemeHint(false)}
+                >
+                    <HandwrittenHint
+                        visible={showThemeHint && currentPath === '/'}
+                        text="try changing the theme!"
+                        arrowPath="M 21 31 L 22 23 L 20 14 L 21 4 M 15 10 L 21 4 L 27 10"
+                        arrowViewBox="0 0 30 33"
+                        arrowWidth={45}
+                        arrowHeight={50}
+                        flexDir="flex-col"
+                        alignment="items-end"
+                        textRotation="-rotate-3"
+                        className="top-full right-0 mt-1"
+                    />
+                    <ThemeToggle />
+                </div>
             </div>
 
 
