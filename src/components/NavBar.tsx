@@ -138,7 +138,7 @@ export const NavBar = () => {
 
             {/* Mobile Dropdown */}
             <div
-                className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-black/20 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"
+                className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-taupe/75 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"
                     } md:hidden`}
             >
                 <div className="flex flex-col items-center justify-center h-full gap-8">
