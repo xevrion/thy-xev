@@ -5,6 +5,7 @@ import DiscordWidget from "./OnlineStatus";
 import WeatherWidget from "./WeatherWidget";
 import { ThemeToggle } from "./ThemeToggle";
 import { HandwrittenHint } from "./HandwrittenHint";
+import { parsedPosts } from "../utils/posts";
 
 
 export const NavBar = () => {
@@ -13,6 +14,10 @@ export const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showThemeHint, setShowThemeHint] = useState(true);
+    const [showPostHint, setShowPostHint] = useState(true);
+
+    const latestPost = [...parsedPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+    const latestTitle = latestPost ? (latestPost.title.length > 28 ? latestPost.title.slice(0, 28) + '…' : latestPost.title) : '';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -58,17 +63,46 @@ export const NavBar = () => {
             <div className="hidden md:flex items-center gap-8">
                 {links
                     .filter((link) => `/${link.toLowerCase()}` !== currentPath)
-                    .map((link) => (
-                        <a
-                            key={link}
-                            href={`/${link.toLowerCase()}`}
-                            className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250
-                            after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue
-                            after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
-                        >
-                            {link}
-                        </a>
-                    ))}
+                    .map((link) => {
+                        if (link === 'Posts' && currentPath === '/') {
+                            return (
+                                <div key={link} className="relative overflow-visible" onMouseEnter={() => setShowPostHint(false)}>
+                                    <HandwrittenHint
+                                        visible={showPostHint}
+                                        text="new post — check it out!"
+                                        subtitle={latestTitle}
+                                        arrowPath="M 5 45 L 15 37 L 20 25 L 25 13 L 28 5 M 20 11 L 28 5 L 34 11"
+                                        arrowViewBox="0 0 50 50"
+                                        arrowWidth={60}
+                                        arrowHeight={60}
+                                        flexDir="flex-row-reverse"
+                                        alignment="items-end"
+                                        textRotation="rotate-2"
+                                        className="top-full right-0 mt-1"
+                                    />
+                                    <a
+                                        href="/posts"
+                                        className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250
+                                        after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue
+                                        after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
+                                    >
+                                        Posts
+                                    </a>
+                                </div>
+                            )
+                        }
+                        return (
+                            <a
+                                key={link}
+                                href={`/${link.toLowerCase()}`}
+                                className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250
+                                after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue
+                                after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
+                            >
+                                {link}
+                            </a>
+                        )
+                    })}
                 {/* Theme toggle with handwritten hint on home page */}
                 <div
                     className="relative overflow-visible"
@@ -104,7 +138,7 @@ export const NavBar = () => {
 
             {/* Mobile Dropdown */}
             <div
-                className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-black/20 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"
+                className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-taupe/75 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-y-0" : "-translate-y-full"
                     } md:hidden`}
             >
                 <div className="flex flex-col items-center justify-center h-full gap-8">
