@@ -12,6 +12,8 @@ interface HandwrittenHintProps {
   flexDir?: string
   /** Tailwind items-* alignment class */
   alignment?: string
+  /** Optional second line of smaller text below the main label */
+  subtitle?: string
   /** Tailwind rotate class for the text */
   textRotation?: string
   /** Extra classes on the outer absolute div */
@@ -21,6 +23,7 @@ interface HandwrittenHintProps {
 export function HandwrittenHint({
   visible,
   text,
+  subtitle,
   arrowPath,
   arrowViewBox = '0 0 30 35',
   arrowWidth = 30,
@@ -58,11 +61,18 @@ export function HandwrittenHint({
               transition={{ delay: 1.0, duration: 0.9, ease: 'easeOut' }}
             />
           </svg>
-          <span
-            className={`caveat text-battleship-gray/65 text-2xl whitespace-nowrap inline-block ${textRotation}`}
-          >
-            {text}
-          </span>
+          <div className="flex flex-col">
+            <span
+              className={`caveat text-battleship-gray/65 text-2xl whitespace-nowrap inline-block ${textRotation}`}
+            >
+              {text}
+            </span>
+            {subtitle && (
+              <span className="caveat text-battleship-gray/50 text-xl whitespace-nowrap inline-block">
+                {subtitle}
+              </span>
+            )}
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
