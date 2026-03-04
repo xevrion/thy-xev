@@ -1,19 +1,39 @@
+import { useState } from 'react'
 import data from '../../constants/projects.json'
 import { LinkPreview } from './LinkPreview';
+import { HandwrittenHint } from './HandwrittenHint';
 
 const {projects} = data;
 
 function CurrentlyWorking() {
+    const [showHint, setShowHint] = useState(true)
 
     return (
         <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl ">
             <div className="inter-bold">Currently Working</div>
             {projects.map((value, index) => {
-                return (<>
-                    <div key={index} className="flex whitespace-nowrap gap-2 items-center">
+                return (
+                    <div
+                        key={index}
+                        className="relative flex whitespace-nowrap gap-2 items-center overflow-visible"
+                    >
+                        {index === 0 && (
+                            <HandwrittenHint
+                                visible={showHint}
+                                text="hover me for a sneak peek!"
+                                arrowPath="M 5 12 L 18 11 L 32 13 L 43 12 M 36 7 L 43 12 L 36 17"
+                                arrowViewBox="0 0 50 25"
+                                arrowWidth={75}
+                                arrowHeight={38}
+                                flexDir="flex-row-reverse"
+                                textRotation="rotate-1"
+                                className="right-full mr-3 top-1/2 -translate-y-1/2 hidden md:flex"
+                            />
+                        )}
+                        <span onMouseEnter={index === 0 ? () => setShowHint(false) : undefined}>
                         {value['image'] ? (
-                            <LinkPreview 
-                                url={value['url']} 
+                            <LinkPreview
+                                url={value['url']}
                                 isStatic={true}
                                 imageSrc={value['image']}
                                 className="hover:underline inter-medium text-xl"
@@ -21,13 +41,14 @@ function CurrentlyWorking() {
                                 {value['text']}
                             </LinkPreview>
                         ) : (
-                            <LinkPreview 
-                                url={value['url']} 
+                            <LinkPreview
+                                url={value['url']}
                                 className="hover:underline inter-medium text-xl"
                             >
                                 {value['text']}
                             </LinkPreview>
                         )}
+                        </span>
                         {value['live'] && (
                             <a 
                                 href={value['live']} 
@@ -40,7 +61,6 @@ function CurrentlyWorking() {
                         )}
                         <p className="inter-medium text-xl truncate">- {value['desc']}</p>
                     </div>
-                </>
                 )
             })}
 
