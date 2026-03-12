@@ -17,7 +17,8 @@
       "url": "https://github.com/xevrion/peek-a-repo",
       "text": "Peek-a-Repo",
       "desc": "A Chrome extension that lets you peek into your GitHub repositories without clicking. No more scrolling through your repositories to find the one you want to work on.",
-      "image": "/project-previews/peek-a-repo.png"
+      "image": "/project-previews/peek-a-repo.png",
+      "live": "https://chromewebstore.google.com/detail/aanpngikpldepannbdkglfohenbkhomp?utm_source=item-share-cb"
     }
   ],
   "pastProjects": [
