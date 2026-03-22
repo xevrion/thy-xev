@@ -313,3 +313,185 @@ No broken long-running tasks.
 Just stable internet.
 
 *Written by Yash (xevrion)*
+
+---
+
+# Update (22-03-2026)
+
+After using this setup across different systems (Ubuntu → Fedora), I discovered that the original assumptions about the login flow were slightly incomplete.
+
+This section documents the corrected understanding and improvements.
+
+---
+
+## 1. The Login Endpoint Is NOT Always Accessible
+
+Earlier, I assumed this always works:
+
+```
+
+[https://gateway.iitj.ac.in:1003/login](https://gateway.iitj.ac.in:1003/login)
+
+```
+
+This is only partially true.
+
+In reality:
+
+- Port `1003` is **not always reachable**
+- It is **state-dependent**
+- It often fails when:
+  - Not authenticated
+  - Session expired
+  - MAC not recognized
+
+So directly requesting `/login` is **not reliable**.
+
+---
+
+## 2. The Real Entry Point Is HTTP Interception
+
+The actual flow used by FortiGate is:
+
+1. You try to access any HTTP site (like `http://neverssl.com`)
+2. FortiGate intercepts it
+3. Returns a redirect:
+
+```
+
+[https://gateway.iitj.ac.in:1003/fgtauth?TOKEN](https://gateway.iitj.ac.in:1003/fgtauth?TOKEN)
+
+```
+
+That `TOKEN` is effectively the **real authentication key**.
+
+This means:
+
+- You do NOT need `/login`
+- You do NOT need to scrape HTML
+- The `fgtauth` token itself is enough
+
+---
+
+## 3. Final Correct Login Flow
+
+The reliable flow is:
+
+1. Trigger HTTP intercept
+2. Extract `fgtauth` token
+3. Send POST request
+
+```
+
+POST [https://gateway.iitj.ac.in:1003/](https://gateway.iitj.ac.in:1003/)
+username=...
+password=...
+magic=<fgtauth_token>
+4Tredir=...
+
+```
+
+So:
+
+```
+
+fgtauth token == magic
+
+```
+
+This is the most important realization.
+
+---
+
+## 4. Fedora-Specific Issue (Critical)
+
+The biggest issue I faced was on Fedora.
+
+The script was correct — but login still failed.
+
+### Root Cause
+
+Fedora randomizes ethernet MAC addresses by default.
+
+FortiGate authenticates using:
+
+```
+
+MAC address (not IP, not cookies)
+
+```
+
+So:
+
+- Ubuntu → same MAC → works  
+- Windows → same MAC → works  
+- Fedora → different MAC → fails  
+
+---
+
+## Fix
+
+```
+
+nmcli connection modify "Wired connection 1" ethernet.cloned-mac-address permanent
+
+```
+
+This forces Fedora to use the real hardware MAC.
+
+After this, everything works instantly.
+
+---
+
+## 5. Why the Script Was Failing
+
+The original script failed because:
+
+- It relied on `/login`
+- It assumed the endpoint is always accessible
+- It didn’t account for MAC-based authentication
+- It didn’t handle multiple network interfaces (WiFi + Ethernet)
+
+---
+
+## 6. Improvements Made
+
+The tool was upgraded to:
+
+- Use HTTP intercept instead of `/login`
+- Extract `fgtauth` token directly
+- Force requests over ethernet interface
+- Add timeouts (no hanging)
+- Encrypt credentials properly
+- Disable MAC randomization automatically during install
+- Run as a systemd user service
+
+---
+
+## 7. Result After Fixes
+
+The system now works reliably across:
+
+- Ubuntu  
+- Fedora  
+- Systems with WiFi + Ethernet active  
+
+No manual intervention needed.
+
+---
+
+## Final Takeaway
+
+Captive portals are not just login forms.
+
+They are:
+
+```
+
+Identity systems based on MAC address
+
+```
+
+Once you understand that, everything becomes predictable.
+
+---
