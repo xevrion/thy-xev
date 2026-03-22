@@ -5,11 +5,11 @@ IIT Jodhpur hostel LAN uses a FortiGate captive portal. Ethernet works only afte
 
 Which means:
 
-- Downloads fail mid-way  
-- SSH sessions drop  
-- Builds break  
-- Long tasks die silently  
-- Headless/CLI environments are painful  
+- Downloads fail mid-way
+- SSH sessions drop
+- Builds break
+- Long tasks die silently
+- Headless/CLI environments are painful
 
 So I built a small tool that keeps the LAN session alive automatically.
 
@@ -33,10 +33,10 @@ Then run:
 
 It will:
 
-- Ask for your IITJ LDAP username and password  
-- Encrypt them locally  
-- Install a background service  
-- Automatically keep your LAN logged in  
+- Ask for your IITJ LDAP username and password
+- Encrypt them locally
+- Install a background service
+- Automatically keep your LAN logged in
 
 After installation, it runs automatically every time you log in to your system.
 
@@ -46,11 +46,11 @@ To manage it later:
 ./install.sh
 ```
 
-You’ll see options to Start / Stop / Status / Uninstall.
+You'll see options to Start / Stop / Status / Uninstall.
 
-That’s it.
+That's it.
 
-If you’re curious how it works internally, continue reading.
+If you're curious how it works internally, continue reading.
 
 
 
@@ -90,10 +90,10 @@ GET https://gateway.iitj.ac.in:1003/logout?random
 
 Important observations:
 
-- `/login?anything` always returns a fresh login page  
-- The `magic` token changes every request  
-- Re-login overwrites session expiry (no stacking)  
-- Gateway keeps only one active authentication per device  
+- `/login?anything` always returns a fresh login page
+- The `magic` token changes every request
+- Re-login overwrites session expiry (no stacking)
+- Gateway keeps only one active authentication per device
 
 So the login flow is deterministic and scriptable.
 
@@ -174,11 +174,11 @@ If I re-login before expiry, the session never drops.
 
 Automation logic:
 
-1. Request login page  
-2. Extract `magic` token  
-3. POST credentials  
-4. Sleep ~2 hours  
-5. Repeat forever  
+1. Request login page
+2. Extract `magic` token
+3. POST credentials
+4. Sleep ~2 hours
+5. Repeat forever
 
 This converts captive-portal authentication into a persistent local service.
 
@@ -243,10 +243,10 @@ That was not ideal.
 
 The improved version:
 
-- Encrypts credentials using OpenSSL (AES-256-CBC)  
-- Stores them inside `~/.local/share/iitj-login/`  
-- Restricts permissions  
-- Decrypts only at runtime  
+- Encrypts credentials using OpenSSL (AES-256-CBC)
+- Stores them inside `~/.local/share/iitj-login/`
+- Restricts permissions
+- Decrypts only at runtime
 
 This design was inspired by an IIT Kanpur automation gist by Sumit Lahiri:
 
@@ -262,10 +262,10 @@ The login flow itself was reverse-engineered independently. The credential harde
 
 Instead of running the script manually, the installer:
 
-- Creates a systemd user service  
-- Enables it  
-- Starts it  
-- Runs automatically at login  
+- Creates a systemd user service
+- Enables it
+- Starts it
+- Runs automatically at login
 
 Manual control:
 
@@ -306,8 +306,8 @@ So periodic login behaves like a keepalive — not parallel authentication sessi
 
 IITJ LAN behaves like a normal always-on ethernet connection.
 
-No re-auth interruptions.  
-No portal redirects.  
+No re-auth interruptions.
+No portal redirects.
 No broken long-running tasks.
 
 Just stable internet.
@@ -318,180 +318,173 @@ Just stable internet.
 
 # Update (22-03-2026)
 
-After using this setup across different systems (Ubuntu → Fedora), I discovered that the original assumptions about the login flow were slightly incomplete.
+After migrating from Ubuntu to Fedora, the script completely stopped working. Same code, same network, different OS — and suddenly nothing.
 
-This section documents the corrected understanding and improvements.
+Debugging this took longer than expected. Here's everything I found.
 
 ---
 
-## 1. The Login Endpoint Is NOT Always Accessible
+## 1. The Login Endpoint Is Not Always Accessible
 
-Earlier, I assumed this always works:
-
-```
-
-[https://gateway.iitj.ac.in:1003/login](https://gateway.iitj.ac.in:1003/login)
+The original script hit `/login` directly:
 
 ```
+https://gateway.iitj.ac.in:1003/login?<anything>
+```
 
-This is only partially true.
+This works fine when already authenticated. But when the session has expired, port 1003 is not always reachable with a direct connection. FortiGate only opens port 1003 to devices that have gone through the HTTP interception flow.
 
-In reality:
-
-- Port `1003` is **not always reachable**
-- It is **state-dependent**
-- It often fails when:
-  - Not authenticated
-  - Session expired
-  - MAC not recognized
-
-So directly requesting `/login` is **not reliable**.
+So directly requesting `/login` is unreliable as the entry point.
 
 ---
 
 ## 2. The Real Entry Point Is HTTP Interception
 
-The actual flow used by FortiGate is:
+FortiGate intercepts all plain HTTP traffic from unauthenticated devices at the network level — no DNS, no routing tricks, just TCP interception on port 80.
 
-1. You try to access any HTTP site (like `http://neverssl.com`)
-2. FortiGate intercepts it
-3. Returns a redirect:
+The actual flow:
 
+1. Curl any plain HTTP URL (e.g. `http://neverssl.com`)
+2. FortiGate intercepts the request and returns:
+
+```html
+<script>window.location="https://gateway.iitj.ac.in:1003/fgtauth?TOKEN";</script>
 ```
 
-[https://gateway.iitj.ac.in:1003/fgtauth?TOKEN](https://gateway.iitj.ac.in:1003/fgtauth?TOKEN)
-
-```
-
-That `TOKEN` is effectively the **real authentication key**.
-
-This means:
-
-- You do NOT need `/login`
-- You do NOT need to scrape HTML
-- The `fgtauth` token itself is enough
-
----
-
-## 3. Final Correct Login Flow
-
-The reliable flow is:
-
-1. Trigger HTTP intercept
-2. Extract `fgtauth` token
-3. Send POST request
-
-```
-
-POST [https://gateway.iitj.ac.in:1003/](https://gateway.iitj.ac.in:1003/)
-username=...
-password=...
-magic=<fgtauth_token>
-4Tredir=...
-
-```
+3. That `TOKEN` in the URL is the `magic` field
 
 So:
 
 ```
-
 fgtauth token == magic
-
 ```
 
-This is the most important realization.
+No need to scrape HTML. No need to request `/login`. The token is right there in the redirect URL.
 
 ---
 
-## 4. Fedora-Specific Issue (Critical)
+## 3. Fedora Randomizes Ethernet MAC Addresses
 
-The biggest issue I faced was on Fedora.
+This was the first big Fedora-specific problem.
 
-The script was correct — but login still failed.
+FortiGate authenticates devices by MAC address, not by IP or session cookie. Every successful login whitelists the device's MAC for ~10 000 seconds.
 
-### Root Cause
+Fedora's NetworkManager randomizes ethernet MAC addresses by default (as a privacy feature). Ubuntu's default is to preserve the real hardware MAC.
 
-Fedora randomizes ethernet MAC addresses by default.
+So on Fedora:
 
-FortiGate authenticates using:
+- Every reconnect → different MAC → FortiGate sees an unknown device → blocks it
+- Login fails silently
+- The script appears to work but nothing happens
 
-```
+Fix:
 
-MAC address (not IP, not cookies)
-
-```
-
-So:
-
-- Ubuntu → same MAC → works  
-- Windows → same MAC → works  
-- Fedora → different MAC → fails  
-
----
-
-## Fix
-
-```
-
+```bash
 nmcli connection modify "Wired connection 1" ethernet.cloned-mac-address permanent
-
 ```
 
-This forces Fedora to use the real hardware MAC.
+This pins the connection to the real hardware MAC. After reconnecting with the real MAC, FortiGate recognized the device instantly and the session was restored.
 
-After this, everything works instantly.
-
----
-
-## 5. Why the Script Was Failing
-
-The original script failed because:
-
-- It relied on `/login`
-- It assumed the endpoint is always accessible
-- It didn’t account for MAC-based authentication
-- It didn’t handle multiple network interfaces (WiFi + Ethernet)
+The installer now does this automatically during setup.
 
 ---
 
-## 6. Improvements Made
+## 4. Docker Was Routing the Captive Portal Traffic Locally
 
-The tool was upgraded to:
+Even after fixing the MAC, logins were still failing. The POST to `https://gateway.iitj.ac.in:1003/` was timing out.
 
-- Use HTTP intercept instead of `/login`
-- Extract `fgtauth` token directly
-- Force requests over ethernet interface
-- Add timeouts (no hanging)
-- Encrypt credentials properly
-- Disable MAC randomization automatically during install
-- Run as a systemd user service
+The root cause took a while to find.
+
+When unauthenticated, FortiGate also intercepts DNS queries. It returns its own internal captive portal IP for `gateway.iitj.ac.in` instead of the real public IP. On this network, it was returning `172.17.0.3`.
+
+I had Docker running. Docker's default bridge (`docker0`) occupies `172.17.0.0/16`.
+
+So when curl tried to connect to `172.17.0.3:1003`, the kernel routed it into Docker's local bridge instead of sending it out to FortiGate. The packet never left the machine.
+
+This is the same class of issue I wrote about in [Ubuntu Ethernet Login Page Not Loading](/posts/ethernetIITJDockerIssue) — Docker subnets silently stealing campus network traffic.
+
+Fix:
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<'EOF'
+{ "default-address-pools": [{ "base": "10.200.0.0/16", "size": 24 }] }
+EOF
+sudo systemctl restart docker
+docker network prune -f
+```
+
+Moving Docker off `172.17.x.x` eliminates the conflict entirely.
 
 ---
 
-## 7. Result After Fixes
+## 5. WiFi Was Stealing Packets Too
 
-The system now works reliably across:
+There was another routing issue layered on top.
 
-- Ubuntu  
-- Fedora  
-- Systems with WiFi + Ethernet active  
+When both WiFi and Ethernet are active, `172.17.0.3` was being routed via the WiFi interface (`wlp...`) instead of the ethernet interface (`enp...`). The `--interface enp7s0` flag in curl binds the source address, but the kernel still routes based on the routing table — and the routing table was sending `172.17.0.3` out on WiFi.
 
-No manual intervention needed.
+Fix: add a static route for the captive portal IP via the ethernet gateway.
+
+```bash
+nmcli connection modify "Wired connection 1" +ipv4.routes "172.17.0.3/32 10.22.16.1"
+```
+
+The installer now detects this automatically. It resolves `gateway.iitj.ac.in`, checks which interface the routing table assigns it to, and pins it to ethernet if needed.
+
+---
+
+## 6. The Login Script Had Two Bugs
+
+While debugging, I found two bugs in the generated `login.sh`:
+
+**Bug 1 — `set -e` with no `|| true` on the POST curl**
+
+The POST curl would timeout (exit code 28) when FortiGate wasn't reachable yet. With `set -e`, this crashed the entire script. systemd restarted it, it tried again, timed out again — infinite crash loop.
+
+Fix: remove `set -e`, add `|| true` to the POST command.
+
+**Bug 2 — python3 URL encoding for the password**
+
+The script was doing:
+
+```bash
+PASS_ENC=$(python3 -c "import urllib.parse; print(urllib.parse.quote('''$PASSWORD'''))")
+```
+
+This breaks if the password contains single quotes, and adds a dependency on python3. curl handles URL encoding natively:
+
+```bash
+curl --data-urlencode "password=$PASSWORD"
+```
+
+Both bugs are fixed in v3.0.0.
+
+---
+
+## 7. What v3.0.0 Does Automatically
+
+The installer now:
+
+1. Auto-detects the ethernet interface (no hardcoded `enp7s0`)
+2. Disables MAC randomization for the detected connection
+3. Checks if Docker's bridge conflicts with `172.17.x.x` and prints the fix
+4. Resolves the captive portal IP and pins routing to ethernet if needed
+5. Removes the python3 dependency (uses `--data-urlencode`)
+6. Generates a login script with proper error handling
 
 ---
 
 ## Final Takeaway
 
-Captive portals are not just login forms.
+Captive portals are MAC-based identity systems dressed up as login forms.
 
-They are:
+Once you understand that, most of the weird failures make sense:
 
-```
+- Different MAC → unrecognized device → silent block
+- Wrong routing → packets go nowhere → timeout
+- Docker subnets → packets stay local → timeout
 
-Identity systems based on MAC address
-
-```
-
-Once you understand that, everything becomes predictable.
+The login form is the easy part. Getting the packet to actually reach FortiGate is the hard part.
 
 ---
