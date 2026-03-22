@@ -475,6 +475,36 @@ The installer now:
 
 ---
 
+## 8. Two DNS Stacks: Why the Browser Portal Never Loaded
+
+After all the above fixes, the script was logging in correctly — but the browser captive portal popup in GNOME still hung forever on `http://connectivitycheck.gstatic.com/generate_204`, and manually visiting `https://gateway.iitj.ac.in:1003/` just spun and timed out.
+
+This was a completely separate problem.
+
+It turns out there are two independent DNS resolution paths on Linux:
+
+**Kernel / `dig` path:** DNS UDP packets go out the ethernet interface. FortiGate intercepts them at the network level and returns `172.17.0.3` for `gateway.iitj.ac.in` when the device is unauthenticated. So `dig +short gateway.iitj.ac.in` → `172.17.0.3`. Correct.
+
+**glibc path (`getaddrinfo`):** This is what browsers, GNOME, and `curl` use when resolving hostnames. It goes through systemd-resolved, which races DNS servers from all active interfaces. With WiFi also connected, WiFi's DNS responds faster and returns the real public IPs for `gateway.iitj.ac.in` (14.139.37.109, 220.158.144.40). Those IPs don't serve port 1003. Connection fails silently.
+
+So `dig` said `172.17.0.3`. `getent hosts gateway.iitj.ac.in` (what the browser actually uses) said `14.139.37.109`. They disagreed, and the browser always lost.
+
+The fix is simple: `/etc/hosts` is checked before any DNS, by all processes, always.
+
+```bash
+echo "172.17.0.3 gateway.iitj.ac.in" | sudo tee -a /etc/hosts
+```
+
+After that: GNOME captive portal popup loaded the FortiGate login page instantly. Browser navigation to `https://gateway.iitj.ac.in:1003/` worked. Manual login and logout both worked. The script worked with WiFi on or off.
+
+The same race condition also affected the login script itself. `curl --interface enp7s0` binds the source IP to ethernet but still calls `getaddrinfo()` (glibc) for DNS, which could return the public IPs. So the script now:
+
+1. Runs `resolvectl flush-caches` to clear stale entries
+2. Immediately runs `dig +short gateway.iitj.ac.in` — its UDP packet goes via ethernet → FortiGate intercepts → returns `172.17.0.3`
+3. Passes that IP to all subsequent curl calls via `--resolve gateway.iitj.ac.in:1003:172.17.0.3`, bypassing `getaddrinfo` entirely
+
+---
+
 ## Final Takeaway
 
 Captive portals are MAC-based identity systems dressed up as login forms.
@@ -484,7 +514,8 @@ Once you understand that, most of the weird failures make sense:
 - Different MAC → unrecognized device → silent block
 - Wrong routing → packets go nowhere → timeout
 - Docker subnets → packets stay local → timeout
+- glibc and kernel seeing different DNS answers → script works, browser doesn't, for the exact same reason
 
-The login form is the easy part. Getting the packet to actually reach FortiGate is the hard part.
+The login form is the easy part. Getting the packet to actually reach FortiGate — through the right interface, with the right MAC, through the right DNS answer, past Docker's bridges — is the hard part.
 
 ---
