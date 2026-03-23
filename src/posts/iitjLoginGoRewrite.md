@@ -1,39 +1,61 @@
 # Rewriting the IITJ LAN Autologin Tool in Go
 Date: 22-03-2026
 
-The bash script worked. That is the honest starting point.
+The <span class="blue">bash version worked</span>. That is the important part.
 
-After months of debugging — MAC randomization, Docker subnet conflicts, WiFi stealing packets, two DNS stacks fighting each other — the Linux version was genuinely solid. Sessions stayed alive. SSH stopped dropping. Builds stopped dying mid-way.
+After months of debugging MAC randomization, Docker subnet conflicts, WiFi stealing packets, and DNS behaving differently across tools, the Linux script had become surprisingly reliable. SSH sessions stopped dropping. Downloads stopped dying halfway through. Long builds could survive without me babysitting the connection.
 
-But it only worked on Linux. Specifically, on Linux with systemd and NetworkManager. Someone running Arch with OpenRC, or macOS, or Windows would get nothing.
+But it still had <span class="blue">one big limitation</span>: it was built for my exact environment.
 
-I had the core logic. I had a deep enough understanding of how FortiGate's captive portal works. The only thing left was to do it properly.
+It assumed Linux. It assumed `systemd`. It assumed NetworkManager. It assumed the machine running it looked a lot like mine.
 
-So I rewrote it in Go.
+That was fine for a personal fix. It was not fine for a tool I wanted other people to use.
 
----
+So I rewrote it in <span class="blue">Go</span>.
+
+The project is here if you want to look at the code:
+https://github.com/xevrion/iitj-lan-autologin
 
 ## Why Go
 
-The requirements were:
-- Single binary, no runtime dependency
-- Cross-compile for Linux (amd64/arm64), macOS (Intel + Apple Silicon), Windows
-- Proper networking primitives — binding to specific interfaces, controlling TLS, custom dialers
-- No framework bloat
+I wanted a few things from the rewrite:
 
-Go checks every box. `GOARCH=arm64 GOOS=darwin go build` just works. The `net/http` package gives you enough control to replicate what `curl --interface`, `curl --resolve`, and `curl -k` do without shelling out.
+- A single binary
+- No runtime dependency
+- Easy cross-compilation
+- Good control over networking
+- Something I could hand to Linux, macOS, and Windows users without a long setup guide
 
-Python would have worked too, but shipping Python means assuming Python is installed. Go produces a single self-contained binary.
+Go fit that <span class="blue">almost perfectly</span>.
 
----
+It gives me a standard library that is boring in a very useful way. `net`, `http`, `tls`, and `os` are enough to build most of the tool without dragging in unnecessary dependencies. It also makes cross-platform builds almost trivial.
 
-## The Interesting Parts
+```bash
+GOOS=darwin GOARCH=arm64 go build
+GOOS=windows GOARCH=amd64 go build
+GOOS=linux GOARCH=amd64 go build
+```
 
-### Translating `curl --interface` to Go
+Python could have worked too, but then distribution becomes a different problem. With Go, I get one self-contained binary that I can ship directly.
 
-In the bash script, `curl --interface enp7s0` binds the TCP connection's source address to the ethernet interface. Without this, the kernel picks the source based on routing, which might choose WiFi.
+## The Main Translation Problem
 
-In Go, this is a `net.Dialer` with `LocalAddr` set:
+The old bash script leaned heavily on `curl`.
+
+That sounds simple, until you remember that `curl` was doing a lot of heavy lifting:
+
+- Binding requests to the ethernet interface
+- Overriding DNS resolution
+- Ignoring FortiGate's self-signed certificate
+- Avoiding browser-specific DNS behavior
+
+The rewrite was mostly about <span class="blue">reproducing those behaviors directly in Go</span>.
+
+### Replacing `curl --interface`
+
+In the bash script, I used `curl --interface enp7s0` to force traffic through ethernet. Without that, the kernel could choose WiFi as the source path and the whole login flow would go to the wrong network.
+
+In Go, the equivalent is setting `LocalAddr` on a `net.Dialer`:
 
 ```go
 dialer := &net.Dialer{
@@ -42,13 +64,21 @@ dialer := &net.Dialer{
 }
 ```
 
-By binding to the ethernet interface's IP, the kernel routes the outgoing packet through ethernet. It is the Go equivalent of `--interface`.
+Once the socket is bound to the ethernet interface's IP, requests leave through ethernet instead of whatever route the system feels like using.
 
-### Translating `curl --resolve` to Go
+### Replacing `curl --resolve`
 
-The bash script used `--resolve gateway.iitj.ac.in:1003:172.17.0.3` to force curl to use a specific IP instead of going through the system resolver. This bypasses the glibc DNS race condition where WiFi's DNS returns the real public IPs instead of FortiGate's intercepted `172.17.0.3`.
+Another problem was <span class="blue">DNS</span>.
 
-In Go, this is done by overriding `DialContext` in the transport:
+FortiGate exposes the portal internally as `172.17.0.3`, but depending on which resolver answered the query, `gateway.iitj.ac.in` could also resolve to public IPs that are useless for captive-portal login.
+
+In bash, I worked around that with:
+
+```bash
+curl --resolve gateway.iitj.ac.in:1003:172.17.0.3
+```
+
+In Go, I handled it by overriding `DialContext`:
 
 ```go
 dialContext := func(ctx context.Context, network, addr string) (net.Conn, error) {
@@ -65,11 +95,15 @@ transport := &http.Transport{
 }
 ```
 
-Before any request to `gateway.iitj.ac.in`, we swap in the resolved portal IP. No `getaddrinfo`, no race, no WiFi DNS. The self-signed cert warning is suppressed the same way `curl -k` does it.
+That lets the client talk to the <span class="blue">exact portal IP</span> I want, without depending on the system resolver getting it right at that moment.
 
-### Resolving the Portal IP via Ethernet
+### Resolving the Portal IP Through Ethernet
 
-Before we can force the IP in the dialer, we need to know what IP FortiGate is returning from its intercepted DNS. The solution is to bind the DNS query itself to the ethernet interface:
+To override the hostname properly, I first need the captive portal IP that FortiGate returns on the ethernet path.
+
+That means the DNS query itself must go through ethernet.
+
+So the resolver also gets its own bound dialer:
 
 ```go
 resolver := &net.Resolver{
@@ -84,73 +118,86 @@ resolver := &net.Resolver{
 }
 ```
 
-By binding the UDP socket to the ethernet IP, the DNS query packet routes through ethernet. FortiGate intercepts it and returns `172.17.0.3`. We capture that IP and use it for all subsequent HTTP requests.
+This is one of those details that sounds minor until it breaks. If the DNS packet leaves through <span class="blue">WiFi</span>, the answer can be completely different from the answer FortiGate gives on <span class="blue">ethernet</span>.
 
-If that fails, it falls back to the system resolver — which returns `172.17.0.3` anyway if the `/etc/hosts` entry was added during install.
+## Security Changed Too
 
-### Credentials: AES-256-GCM
+The bash version encrypted credentials, but the Go rewrite was a good excuse to make that part cleaner.
 
-The bash version used `openssl enc -aes-256-cbc` which is fine but CBC doesn't authenticate the ciphertext. AES-256-GCM does — it provides both encryption and integrity. If the ciphertext is tampered with, decryption fails loudly instead of silently returning garbage.
+Instead of using <span class="blue">AES-CBC</span> through OpenSSL, I switched to <span class="blue">AES-256-GCM</span> from the Go standard library. That gives authenticated encryption, which means corrupted or tampered ciphertext fails cleanly instead of decrypting into garbage.
 
-The format is simple: `nonce (12 bytes) || GCM ciphertext`. No external library — just `crypto/aes` and `crypto/cipher` from stdlib.
+The stored format is simple:
 
----
+```text
+nonce || ciphertext
+```
 
-## Cross-Platform Service Management
+No external crypto dependency, no shelling out, and no plaintext credentials sitting around in config files.
 
-The most mechanical part of the rewrite was service management. Three completely different mechanisms:
+## Making It Cross-Platform
 
-**Linux (systemd):** Write a unit file to `~/.config/systemd/user/iitj-login.service`, then `systemctl --user enable/start`. Enable linger so it survives without an active login session.
+The login logic was only half the work. The other half was <span class="blue">service management</span>.
 
-**macOS (launchd):** Write a plist to `~/Library/LaunchAgents/ac.iitj.login.plist`, then `launchctl load`. The plist format is XML and verbose but straightforward.
+Each platform wants background tasks handled in its own way:
 
-**Windows (Task Scheduler):** Call `schtasks /create /sc onlogon`. Less elegant but it works. No registry hacks needed.
+- Linux uses a `systemd` user service
+- macOS uses a `launchd` agent
+- Windows uses Task Scheduler
 
-All three point to the same binary with the `login` subcommand. The binary is the daemon; the service manager just ensures it starts on boot.
+All three point to the same binary. Only the startup mechanism changes.
 
----
+That split actually made the project structure much better than the original script. The Go version naturally separated itself into pieces:
+
+- interface detection
+- credential storage
+- login flow
+- system fixes
+- service installation
+
+The bash version was one long file that kept growing because that was the fastest way to keep shipping fixes. The Go rewrite gave the project a shape that is much easier to reason about.
 
 ## What the Tool Does Now
 
-```
-iitj-login install    # one-time setup wizard
-iitj-login status     # show daemon status
-iitj-login start/stop
+The CLI ended up <span class="blue">much cleaner</span> too:
+
+```text
+iitj-login install
+iitj-login status
+iitj-login start
+iitj-login stop
 iitj-login uninstall
 ```
 
-Install does everything automatically:
+`install` handles <span class="blue">most of the painful setup automatically</span>:
 
-1. Detects the ethernet interface
-2. Disables MAC randomization (Linux/Fedora via nmcli)
-3. Warns about Docker subnet conflicts
-4. Adds `172.17.0.3 gateway.iitj.ac.in` to `/etc/hosts`
-5. Pins a static route for the portal IP via ethernet
-6. Encrypts credentials and saves them
-7. Installs and starts the daemon
+1. Detect the active ethernet interface
+2. Fix MAC randomization where needed
+3. Warn about Docker subnet conflicts
+4. Add `172.17.0.3 gateway.iitj.ac.in` to `/etc/hosts`
+5. Pin the portal route through ethernet
+6. Encrypt and store credentials
+7. Install the background service
 
-The daemon loop runs every 5 minutes: flush DNS → check if captive portal is active → login if needed → sleep.
+The login loop itself is simple: <span class="blue">clear DNS cache</span>, check whether the portal is intercepting traffic, <span class="blue">log in if required</span>, then sleep for five minutes and repeat.
+
+For installation, it now supports direct bootstrap scripts too:
 
 ```bash
-# Linux/macOS
+# Linux / macOS
 curl -fsSL https://raw.githubusercontent.com/xevrion/iitj-lan-autologin/main/bootstrap.sh | bash
 
-# Windows (PowerShell)
+# Windows PowerShell
 irm https://raw.githubusercontent.com/xevrion/iitj-lan-autologin/main/bootstrap.ps1 | iex
 ```
 
----
+## What I Learned
 
-## What I Actually Learned
+The most useful lesson from this rewrite was that a lot of <span class="blue">"CLI magic" is not magic at all</span>. `curl` feels special until you recreate the same behavior with `net.Dialer`, a custom resolver, and a small amount of transport logic.
 
-Go's `net` package gives you enough control to replicate most of what `curl` does from the CLI. The combination of `net.Dialer` with `LocalAddr` and a custom `DialContext` covers interface binding and hostname overriding. `tls.Config{InsecureSkipVerify: true}` covers self-signed certs. `http.ErrUseLastResponse` covers not following redirects (FortiGate uses JS redirects, not HTTP 302).
+The second lesson was more practical: if a tool is solving a genuinely annoying problem for real users, <span class="blue">portability matters more than elegance</span>. The bash version was clever, but fragile outside Linux. The Go version is much less clever and <span class="blue">much more usable</span>.
 
-The bash script worked by shelling out to `curl` for all of this. The Go version handles it natively, which means no dependency on curl being present, no subprocess overhead in a tight loop, and the same binary works on Windows where curl behavior differs.
+That trade was worth it.
 
-The rewrite also forced me to think about the structure. The bash script was a single file that did everything. The Go version has distinct packages for detection, credential storage, login flow, service management, and fixes. Each piece is testable in isolation.
-
----
-
-The bash script got the idea working. The Go version is the version I'd actually hand to someone and say: here, this will work on your machine.
+The script proved the idea. The <span class="blue">Go rewrite</span> turned it into something I could actually hand to someone else and expect them to run without debugging my entire network stack first.
 
 *Written by Yash (xevrion)*
