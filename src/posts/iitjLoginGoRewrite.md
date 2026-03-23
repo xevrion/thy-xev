@@ -1,5 +1,5 @@
 # Rewriting the IITJ LAN Autologin Tool in Go
-Date: 22-03-2026
+Date: 23-03-2026
 
 The <span class="blue">bash version worked</span>. That is the important part.
 
@@ -15,6 +15,8 @@ So I rewrote it in <span class="blue">Go</span>.
 
 The project is here if you want to look at the code:
 https://github.com/xevrion/iitj-lan-autologin
+
+It is now the main release line for the tool, with proper GitHub Releases and prebuilt binaries.
 
 ## Why Go
 
@@ -162,10 +164,12 @@ The CLI ended up <span class="blue">much cleaner</span> too:
 
 ```text
 iitj-login install
+iitj-login login
 iitj-login status
 iitj-login start
 iitj-login stop
 iitj-login uninstall
+iitj-login version
 ```
 
 `install` handles <span class="blue">most of the painful setup automatically</span>:
@@ -180,6 +184,14 @@ iitj-login uninstall
 
 The login loop itself is simple: <span class="blue">clear DNS cache</span>, check whether the portal is intercepting traffic, <span class="blue">log in if required</span>, then sleep for five minutes and repeat.
 
+On Linux and macOS, setup now also installs a manual page, so:
+
+```bash
+man iitj-login
+```
+
+works after installation.
+
 For installation, it now supports direct bootstrap scripts too:
 
 ```bash
@@ -190,6 +202,15 @@ curl -fsSL https://raw.githubusercontent.com/xevrion/iitj-lan-autologin/main/boo
 irm https://raw.githubusercontent.com/xevrion/iitj-lan-autologin/main/bootstrap.ps1 | iex
 ```
 
+The bootstrap scripts download the latest matching release binary first and only fall back to building from source when needed.
+
+The release history is also versioned properly now. The current line is:
+
+- `v4.0.0`: Go rewrite and cross-platform binary release
+- `v4.0.1`: man page support, uninstall cleanup, and release polish
+
+So this is no longer just a local rewrite that happens to build on other systems. It is a real released binary project now.
+
 ## What I Learned
 
 The most useful lesson from this rewrite was that a lot of <span class="blue">"CLI magic" is not magic at all</span>. `curl` feels special until you recreate the same behavior with `net.Dialer`, a custom resolver, and a small amount of transport logic.
@@ -199,5 +220,11 @@ The second lesson was more practical: if a tool is solving a genuinely annoying 
 That trade was worth it.
 
 The script proved the idea. The <span class="blue">Go rewrite</span> turned it into something I could actually hand to someone else and expect them to run without debugging my entire network stack first.
+
+That was the part I wanted most.
+
+Not a cleaner codebase for its own sake. Not a language rewrite for the sake of a rewrite.
+
+Just a tool that solves a real problem and is packaged well enough that another person can install it, trust it, and keep using it.
 
 *Written by Yash (xevrion)*
