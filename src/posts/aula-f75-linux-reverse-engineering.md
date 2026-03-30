@@ -1,5 +1,4 @@
 # Reverse Engineering My AULA F75 Keyboard on Linux (Ongoing)
-
 Date: 30-03-2026
 
 ## Why I'm Doing This
