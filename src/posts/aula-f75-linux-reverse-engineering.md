@@ -7,7 +7,7 @@ I run Fedora 43 with Hyprland. My keyboard is an AULA F75. The software to confi
 
 The keyboard has a "Ripples_shining" effect I like. It lights up from a keypress and spreads outward like a wave. The problem is the speed slider only goes from 0 to 4, and even at maximum it feels sluggish. I want faster. I want to push values the UI doesn't allow.
 
-This post is not a success story. I haven't cracked it yet. But I've learned a lot about how this keyboard talks to the OS, and I'm documenting everything here so I don't lose the thread — and in case someone else is doing the same thing.
+This post is not a success story. I haven't cracked it yet. But I've learned a lot about how this keyboard talks to the OS, and I'm documenting everything here so I don't lose the thread, and in case someone else is doing the same thing.
 
 ---
 
@@ -112,7 +112,7 @@ Three packets per Apply. 520 bytes each, zero-padded. Diffing the packets betwee
 # index 79 (0x4F): min speed = 0x40, max speed = 0x00
 ```
 
-Speed is a single byte. `0x40` at slider position 0 (slowest), `0x00` at position 4 (fastest). Linear steps of `0x10`. Lower value = faster. The UI is already sending the minimum possible value (`0x00`) at its maximum setting, so there's nothing to unlock by going below — unless the firmware wraps or interprets `0x00` as "default" rather than true zero.
+Speed is a single byte. `0x40` at slider position 0 (slowest), `0x00` at position 4 (fastest). Linear steps of `0x10`. Lower value = faster. The UI is already sending the minimum possible value (`0x00`) at its maximum setting, so there's nothing to unlock by going below, unless the firmware wraps or interprets `0x00` as "default" rather than true zero.
 
 The problem: every subsequent capture returned empty output. Wine's HID backend is not consistent. Sometimes it routes through the USB stack (visible to usbmon), sometimes it bypasses it entirely and writes directly to hidraw. You can't rely on usbmon alone.
 
