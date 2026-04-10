@@ -84,10 +84,11 @@ todo
   - [x] updated manually, personal and casual tone
   - [x] linked from hero and command palette
 
-- [ ] visitor count per post
-  - [ ] store counts in JSON file on VPS Express server
-  - [ ] rate limited endpoint to prevent spam/abuse
-  - [ ] show "X reads" on post cards and post page
+- [x] visitor count per post
+  - [x] stored in server/views.json on VPS
+  - [x] localStorage-gated on frontend (one count per browser, forever)
+  - [x] show "X reads" on post cards and post page
+  - [x] total site visitor counter on home page
 
 - [ ] typing animation on hero (lowest priority)
   - [ ] cycle through "developer", "designer", "pianist", "iit student"
