@@ -59,3 +59,34 @@ todo
 - [x] light/dark theme?
   - [x] toggle button to switch themes  
   - [x] save preference in localStorage
+
+- [ ] github contribution graph
+  - [ ] fetch real contribution data via GitHub API
+  - [ ] render heatmap grid widget on home page
+
+- [ ] reading time on posts
+  - [ ] show "X min read" on post cards and at top of each post
+
+- [ ] post tags + filter
+  - [ ] add tags to each markdown post (linux, web, life, iit, etc.)
+  - [ ] show tag chips on post cards
+  - [ ] filter posts by tag on /posts page
+
+- [ ] command palette (Cmd+K / Ctrl+K)
+  - [ ] fuzzy search across pages, posts, projects
+  - [ ] keyboard navigable, opens from anywhere on site
+
+- [ ] /now page
+  - [ ] what i'm currently learning, reading, building, listening to
+  - [ ] updated manually, personal and casual tone
+
+- [ ] visitor count per post
+  - [ ] store counts in JSON file on VPS Express server
+  - [ ] rate limited endpoint to prevent spam/abuse
+  - [ ] show "X reads" on post cards and post page
+
+- [ ] typing animation on hero (lowest priority)
+  - [ ] cycle through "developer", "designer", "pianist", "iit student"
+
+- [ ] cursor trail effect (lowest priority)
+  - [ ] subtle particle trail on desktop only
