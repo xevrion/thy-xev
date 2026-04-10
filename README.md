@@ -52,9 +52,10 @@ todo
 
 - [ ] add testimonials section (research other personal sites before proceeding)
 
-- [ ] add Resume section (pdf download + online view)
-  - [ ] upload resume pdf to server (which?)
+- [x] add Resume section (pdf download + online view)
+  - [x] hosted on Google Drive, embedded via iframe (no forced download)
+  - [x] download button + /resume route + Resume nav link
 
-- [ ] light/dark theme?
-  - [ ] toggle button to switch themes  
-  - [ ] save preference in localStorage
+- [x] light/dark theme?
+  - [x] toggle button to switch themes  
+  - [x] save preference in localStorage
