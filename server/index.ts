@@ -251,6 +251,55 @@ app.get("/wakatimeDaily", async (req: Request, res: Response) => {
 });
 
 
+// Language breakdown (last 7 days, aggregated)
+app.get("/wakatimeLanguages", async (req: Request, res: Response) => {
+    try {
+        const apiKey = process.env.WAKATIME_API_KEY;
+        if (!apiKey) {
+            return res.status(500).json({ error: "Missing WAKATIME_API_KEY in .env" });
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        const lastWeek = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0];
+
+        const url = `https://wakatime.com/api/v1/users/current/summaries?start=${lastWeek}&end=${today}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: "Basic " + Buffer.from(apiKey + ":").toString("base64"),
+                Accept: "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(response.status).json({ error: "Failed to fetch WakaTime data", details: text });
+        }
+
+        const data: any = await response.json();
+
+        // Aggregate seconds per language across all days
+        const totals: Record<string, number> = {};
+        for (const day of data.data ?? []) {
+            for (const lang of day.languages ?? []) {
+                totals[lang.name] = (totals[lang.name] ?? 0) + (lang.total_seconds ?? 0);
+            }
+        }
+
+        const sorted = Object.entries(totals)
+            .map(([name, seconds]) => ({ name, seconds }))
+            .sort((a, b) => b.seconds - a.seconds)
+            .slice(0, 8);
+
+        res.json(sorted);
+    } catch (err: any) {
+        console.error("Error fetching WakaTime languages:", err.message);
+        res.status(500).json({ error: "Internal error fetching WakaTime languages" });
+    }
+});
+
 // Weekly stats (last 7 days)
 app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
     try {

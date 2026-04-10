@@ -5,6 +5,7 @@ import Socials from './Socials'
 import SpotifyWidget from './SpotifyWidget'
 import ContestWidget from './ContestWidget'
 import WakatimeWidget from './WakatimeWidget'
+import WakatimeLanguages from './WakatimeLanguages'
 import pfp from '../assets/download (10).jpeg';
 import { Style } from 'react-head';
 // import DiscordWidget from './DiscordWidget'
@@ -102,6 +103,7 @@ export const Hero = () => {
                 <CurrentlyWorking />
                 <ContestWidget />
                 <WakatimeWidget/>
+                <WakatimeLanguages />
                 <Socials />
 
 
