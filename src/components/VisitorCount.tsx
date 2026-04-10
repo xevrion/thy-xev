@@ -6,17 +6,23 @@ const VisitorCount = () => {
     const [total, setTotal] = useState<number | null>(null);
 
     useEffect(() => {
-        // increment on mount (rate limited server-side to 1/hour per IP)
-        fetch(`${API_URL}/views`, { method: "POST" })
-            .then((r) => r.json())
-            .then((d) => setTotal(d.total ?? null))
-            .catch(() => {
-                // fallback: just fetch
-                fetch(`${API_URL}/views`)
-                    .then((r) => r.json())
-                    .then((d) => setTotal(d.total ?? null))
-                    .catch(() => {});
-            });
+        const alreadyCounted = localStorage.getItem("visited");
+        if (alreadyCounted) {
+            // just fetch the count, don't increment
+            fetch(`${API_URL}/views`)
+                .then((r) => r.json())
+                .then((d) => setTotal(d.total ?? null))
+                .catch(() => {});
+        } else {
+            // first visit — increment and mark
+            fetch(`${API_URL}/views`, { method: "POST" })
+                .then((r) => r.json())
+                .then((d) => {
+                    setTotal(d.total ?? null);
+                    localStorage.setItem("visited", "1");
+                })
+                .catch(() => {});
+        }
     }, []);
 
     if (total === null) return null;

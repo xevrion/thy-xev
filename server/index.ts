@@ -416,29 +416,11 @@ app.get("/views", (req: Request, res: Response) => {
     res.json({ total: views["__total__"] ?? 0 });
 });
 
-// POST /views — increment total site visits (rate limited per IP, 1 per hour)
+// POST /views — increment total site visits (localStorage-gated on frontend)
 app.post("/views", (req: Request, res: Response) => {
-    const ip = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim()
-        ?? req.socket.remoteAddress
-        ?? "unknown";
-
-    const now = Date.now();
-    const ipMap = rateLimit.get(ip) ?? {};
-    const last = ipMap["__total__"] ?? 0;
-    const SITE_RATE_WINDOW = 60 * 60 * 1000; // 1 hour for site visits
-
-    if (now - last < SITE_RATE_WINDOW) {
-        const views = readViews();
-        return res.json({ total: views["__total__"] ?? 0, counted: false });
-    }
-
-    ipMap["__total__"] = now;
-    rateLimit.set(ip, ipMap);
-
     const views = readViews();
     views["__total__"] = (views["__total__"] ?? 0) + 1;
     writeViews(views);
-
     res.json({ total: views["__total__"], counted: true });
 });
 
