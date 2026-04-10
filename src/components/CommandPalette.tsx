@@ -51,6 +51,7 @@ const PAGES: PaletteItem[] = [
   { id: "projects", label: "Projects", subtitle: "My projects",      type: "page", actionType: "navigate", target: "/projects" },
   { id: "contact",  label: "Contact",  subtitle: "Get in touch",     type: "page", actionType: "navigate", target: "/contact" },
   { id: "resume",   label: "Resume",   subtitle: "View my resume",   type: "page", actionType: "navigate", target: "/resume" },
+  { id: "now",      label: "Now",      subtitle: "What I'm up to right now", type: "page", actionType: "navigate", target: "/now" },
 ];
 
 const SOCIAL_ACTIONS: PaletteItem[] = [

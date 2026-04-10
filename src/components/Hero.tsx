@@ -106,6 +106,11 @@ export const Hero = () => {
                 <WakatimeWidget/>
                 <WakatimeLanguages />
                 <GithubContributions />
+                <div className="flex justify-center">
+                  <a href="/now" className="text-sm sg-regular text-battleship-gray/50 hover:text-soft-royal-blue transition-colors duration-200">
+                    what i'm doing now →
+                  </a>
+                </div>
                 <Socials />
 
 

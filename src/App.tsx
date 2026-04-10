@@ -11,6 +11,7 @@ import { Projects } from './components/Projects'
 import { PageWrapper } from './components/PageWrapper'
 import { PostPage } from './components/PostPage'
 import { Resume } from './components/Resume'
+import { Now } from './components/Now'
 import { CommandPalette } from './components/CommandPalette'
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/projects" element={<PageWrapper><NavBar /><Projects /></PageWrapper>} />
           <Route path="/posts/:slug" element={<PageWrapper><NavBar /><PostPage /></PageWrapper>} />
           <Route path="/resume" element={<PageWrapper><NavBar /><Resume /></PageWrapper>} />
+          <Route path="/now" element={<PageWrapper><NavBar /><Now /></PageWrapper>} />
         </Routes>
       </>
     </CursorifyProvider>
