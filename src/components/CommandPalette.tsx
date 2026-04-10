@@ -308,7 +308,7 @@ export const CommandPalette = () => {
             </ul>
 
             {/* footer */}
-            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-battleship-gray/10 text-xs text-battleship-gray/60 sg-regular">
+            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-battleship-gray/10 text-sm text-battleship-gray/60 sg-regular">
               <span><kbd className="font-mono">↑↓</kbd> navigate</span>
               <span><kbd className="font-mono">↵</kbd> open</span>
               <span><kbd className="font-mono">⌘K</kbd> close</span>
