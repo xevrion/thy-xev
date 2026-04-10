@@ -98,11 +98,11 @@ const GithubContributions = () => {
 
       <div
         ref={scrollRef}
-        className="overflow-x-auto scrollbar-none pb-1"
-        style={{ position: "relative" }}
+        className="gh-scroll overflow-x-auto pb-1"
+        style={{ position: "relative", msOverflowStyle: "none", scrollbarWidth: "none" }}
       >
-        {/* css variables for theme-aware colors */}
         <style>{`
+          .gh-scroll::-webkit-scrollbar { display: none; }
           :root {
             --color-cell-empty: rgba(100,116,139,0.15);
             --color-cell-low:   rgba(94,122,255,0.25);
@@ -127,8 +127,7 @@ const GithubContributions = () => {
               x={col * STEP}
               y={10}
               fontSize={9}
-              fill="currentColor"
-              opacity={0.45}
+              fill="#8a9ab0"
               fontFamily="inherit"
             >
               {label}
@@ -142,8 +141,7 @@ const GithubContributions = () => {
               x={-28}
               y={20 + dow * STEP + CELL - 1}
               fontSize={9}
-              fill="currentColor"
-              opacity={0.35}
+              fill="#8a9ab0"
               fontFamily="inherit"
             >
               {DAY_LABELS[dow]}
