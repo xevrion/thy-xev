@@ -14,13 +14,14 @@ const sortedPosts = [...parsedPosts].sort(
 
 const fuse = new Fuse(sortedPosts, {
   keys: [
-    { name: "title", weight: 0.5 },
-    { name: "summary", weight: 0.3 },
-    { name: "content", weight: 0.2 },
+    { name: "title", weight: 0.4 },
+    { name: "summary", weight: 0.2 },
+    { name: "content", weight: 0.4 },
   ],
-  threshold: 0.35,
+  threshold: 0.2,
   includeMatches: false,
   minMatchCharLength: 2,
+  ignoreLocation: true,
 });
 
 export const Posts = () => {
