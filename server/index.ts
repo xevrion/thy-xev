@@ -300,6 +300,56 @@ app.get("/wakatimeLanguages", async (req: Request, res: Response) => {
     }
 });
 
+// GitHub contribution graph (last 52 weeks)
+app.get("/github-contributions", async (req: Request, res: Response) => {
+    try {
+        const token = process.env.GITHUB_PAT;
+        if (!token) return res.status(500).json({ error: "Missing GITHUB_PAT in .env" });
+
+        const query = `
+            query {
+                user(login: "xevrion") {
+                    contributionsCollection {
+                        contributionCalendar {
+                            totalContributions
+                            weeks {
+                                contributionDays {
+                                    date
+                                    contributionCount
+                                    weekday
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        `;
+
+        const response = await fetch("https://api.github.com/graphql", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query }),
+        });
+
+        if (!response.ok) {
+            const text = await response.text();
+            return res.status(response.status).json({ error: "GitHub API error", details: text });
+        }
+
+        const data: any = await response.json();
+        const calendar = data?.data?.user?.contributionsCollection?.contributionCalendar;
+        if (!calendar) return res.status(500).json({ error: "Unexpected GitHub response" });
+
+        res.json(calendar);
+    } catch (err: any) {
+        console.error("Error fetching GitHub contributions:", err.message);
+        res.status(500).json({ error: "Internal error fetching GitHub contributions" });
+    }
+});
+
 // Weekly stats (last 7 days)
 app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
     try {
