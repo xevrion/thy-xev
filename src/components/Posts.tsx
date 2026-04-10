@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Fuse from "fuse.js";
-import { parsedPosts } from "./../utils/posts";
+import { parsedPosts, readingTime } from "./../utils/posts";
 import SplitText from "../components/reactbits/splittext";
 import Socials from "./Socials";
 import { Title, Meta, Link as HeadLink } from "react-head";
@@ -124,7 +124,10 @@ export const Posts = () => {
                       {post.title}
                     </Link>
                   </h2>
-                  <h3 className="text-lg sg-medium text-battleship-gray whitespace-nowrap">{post.displayDate}</h3>
+                  <div className="flex items-center gap-3 whitespace-nowrap">
+                    <span className="text-sm sg-regular text-battleship-gray/60">{readingTime(post.content)}</span>
+                    <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
+                  </div>
                 </div>
                 <p className="text-battleship-gray text-lg sg-regular">{post.summary}</p>
               </div>

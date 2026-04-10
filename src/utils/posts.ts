@@ -1,5 +1,11 @@
 export const posts = import.meta.glob('../posts/*.md', { eager: true, as: 'raw' }) as Record<string, string>;
 
+export function readingTime(content: string): string {
+  const words = content.trim().split(/\s+/).length;
+  const mins = Math.max(1, Math.round(words / 200));
+  return `${mins} min read`;
+}
+
 // Transform into usable array
 export const parsedPosts = Object.entries(posts).map(([path, content], idx) => {
   const fileName = path.split('/').pop() || `post-${idx}`;

@@ -1,6 +1,6 @@
 // src/pages/PostPage.tsx
 import { useParams } from "react-router-dom";
-import { parsedPosts } from "./../utils/posts";
+import { parsedPosts, readingTime } from "./../utils/posts";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 // import remarkHtml from 'remark-html'
@@ -74,7 +74,11 @@ export const PostPage = () => {
       </Style>
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl text-lg mx-auto text-battleship-gray sg-regular">
-      {/* <h1 className="text-4xl text-soft-royal-blue sg-bold mb-6">{post.title}</h1> */}
+      <div className="flex items-center gap-3 mb-8 text-sm text-battleship-gray/60 sg-regular">
+        <span>{post.displayDate}</span>
+        <span>·</span>
+        <span>{readingTime(post.content)}</span>
+      </div>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
