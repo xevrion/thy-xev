@@ -22,7 +22,7 @@ export function useTheme() {
     const { clientX, clientY } = e
     const next: Theme = theme === 'dark' ? 'light' : 'dark'
 
-    if (!document.startViewTransition) {
+    if (!document.startViewTransition || window.innerWidth < 768) {
       applyTheme(next)
       setTheme(next)
       return
