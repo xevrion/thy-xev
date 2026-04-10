@@ -51,11 +51,15 @@ const GithubContributions = () => {
     fetch_();
   }, []);
 
-  // Scroll to the right (most recent) on load
+  // Scroll to the right (most recent) on load — delay for mobile paint
   useEffect(() => {
-    if (calendar && scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
-    }
+    if (!calendar || !scrollRef.current) return;
+    const el = scrollRef.current;
+    const doScroll = () => { el.scrollLeft = el.scrollWidth; };
+    doScroll();
+    // retry after paint in case mobile hasn't laid out yet
+    const id = requestAnimationFrame(doScroll);
+    return () => cancelAnimationFrame(id);
   }, [calendar]);
 
   if (loading) {
@@ -86,6 +90,8 @@ const GithubContributions = () => {
   const CELL = 12;
   const GAP = 3;
   const STEP = CELL + GAP;
+  const DAY_LABEL_WIDTH = 30;
+  const RIGHT_PAD = 4;
 
   return (
     <div className="flex flex-col gap-3">
@@ -116,7 +122,7 @@ const GithubContributions = () => {
         `}</style>
 
         <svg
-          width={calendar.weeks.length * STEP}
+          width={DAY_LABEL_WIDTH + calendar.weeks.length * STEP + RIGHT_PAD}
           height={20 + 7 * STEP}
           style={{ display: "block" }}
         >
@@ -124,7 +130,7 @@ const GithubContributions = () => {
           {monthPositions.map(({ label, col }) => (
             <text
               key={`${label}-${col}`}
-              x={col * STEP}
+              x={DAY_LABEL_WIDTH + col * STEP}
               y={10}
               fontSize={9}
               fill="#8a9ab0"
@@ -138,7 +144,7 @@ const GithubContributions = () => {
           {[1, 3, 5].map((dow) => (
             <text
               key={dow}
-              x={-28}
+              x={0}
               y={20 + dow * STEP + CELL - 1}
               fontSize={9}
               fill="#8a9ab0"
@@ -153,7 +159,7 @@ const GithubContributions = () => {
             week.contributionDays.map((day) => (
               <rect
                 key={day.date}
-                x={col * STEP}
+                x={DAY_LABEL_WIDTH + col * STEP}
                 y={20 + day.weekday * STEP}
                 width={CELL}
                 height={CELL}
