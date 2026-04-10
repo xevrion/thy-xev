@@ -411,7 +411,7 @@ app.get("/wakatimeWeekly", apiLimiter, async (req: Request, res: Response) => {
 // ── Post view counter ─────────────────────────────────────────────────────
 const VIEWS_FILE = path.join(__dirname, "views.json");
 // ip -> slug -> timestamp of last counted view
-const rateLimit = new Map<string, Record<string, number>>();
+const ipRateLimit = new Map<string, Record<string, number>>();
 const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutes per IP per slug
 
 function readViews(): Record<string, number> {
@@ -462,7 +462,7 @@ app.post("/views/:slug", (req: Request, res: Response) => {
         ?? "unknown";
 
     const now = Date.now();
-    const ipMap = rateLimit.get(ip) ?? {};
+    const ipMap = ipRateLimit.get(ip) ?? {};
     const last = ipMap[slug] ?? 0;
 
     if (now - last < RATE_WINDOW_MS) {
@@ -471,7 +471,7 @@ app.post("/views/:slug", (req: Request, res: Response) => {
     }
 
     ipMap[slug] = now;
-    rateLimit.set(ip, ipMap);
+    ipRateLimit.set(ip, ipMap);
 
     const views = readViews();
     views[slug] = (views[slug] ?? 0) + 1;
