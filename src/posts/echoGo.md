@@ -1,5 +1,6 @@
 # I Built a Peer-to-Peer Chat App in Go
 Date: 28-01-2026
+Tags: go, web
 
 Sometimes I build things not because they are "useful", but because my brain refuses to shut up until I understand how something works.
 

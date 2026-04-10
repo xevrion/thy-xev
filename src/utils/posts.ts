@@ -16,10 +16,14 @@ export const parsedPosts = Object.entries(posts).map(([path, content], idx) => {
 
   // Extract title & summary like before
   const title = lines[0].replace(/^# /, '') || slug;
-  const summary = lines.slice(3, 5).join(' ').slice(0, 150) + '...';
+  const summary = lines.slice(4, 6).join(' ').slice(0, 150) + '...';
 
   // Extract date from "Date:" line
   const rawDate = lines[1]?.replace(/^Date:\s*/, '').trim() || '';
+
+  // Extract tags from "Tags:" line
+  const rawTags = lines[2]?.replace(/^Tags:\s*/, '').trim() || '';
+  const tags = rawTags ? rawTags.split(',').map((t) => t.trim()).filter(Boolean) : [];
 
   // Convert DD-MM-YYYY → YYYY-MM-DD for JS sorting
   let sortDate = rawDate;
@@ -33,7 +37,8 @@ export const parsedPosts = Object.entries(posts).map(([path, content], idx) => {
     title,
     summary,
     content,
-    date: sortDate,       // ✅ used for sorting
-    displayDate: rawDate, // ✅ used for rendering UI
+    date: sortDate,
+    displayDate: rawDate,
+    tags,
   };
 });

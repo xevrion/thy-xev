@@ -12,6 +12,10 @@ const sortedPosts = [...parsedPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );
 
+const allTags = Array.from(
+  new Set(sortedPosts.flatMap((p) => p.tags))
+).sort();
+
 const fuse = new Fuse(sortedPosts, {
   keys: [
     { name: "title", weight: 0.4 },
@@ -26,34 +30,46 @@ const fuse = new Fuse(sortedPosts, {
 
 export const Posts = () => {
   const [query, setQuery] = useState("");
+  const [activeTag, setActiveTag] = useState<string | null>(null);
 
   const results = useMemo(() => {
     const q = query.trim();
-    if (!q) return sortedPosts;
+    let pool = sortedPosts;
+
+    // filter by tag first
+    if (activeTag) {
+      pool = pool.filter((p) => p.tags.includes(activeTag));
+    }
+
+    if (!q) return pool;
 
     const lower = q.toLowerCase();
 
-    // substring match for partial/in-progress typing
-    const substringMatches = sortedPosts.filter(
+    const substringMatches = pool.filter(
       (p) =>
         p.title.toLowerCase().includes(lower) ||
         p.summary.toLowerCase().includes(lower) ||
         p.content.toLowerCase().includes(lower)
     );
 
-    // fuzzy match for completed/misspelled words
-    const fuzzyMatches = fuse.search(q).map((r) => r.item);
+    const fuzzyMatches = new Fuse(pool, {
+      keys: [
+        { name: "title", weight: 0.4 },
+        { name: "summary", weight: 0.2 },
+        { name: "content", weight: 0.4 },
+      ],
+      threshold: 0.1,
+      minMatchCharLength: 3,
+      ignoreLocation: true,
+    }).search(q).map((r) => r.item);
 
-    // merge, deduplicate, preserve substring order first
     const seen = new Set<string>();
-    const merged = [...substringMatches, ...fuzzyMatches].filter((p) => {
+    return [...substringMatches, ...fuzzyMatches].filter((p) => {
       if (seen.has(p.slug)) return false;
       seen.add(p.slug);
       return true;
     });
-
-    return merged;
-  }, [query]);
+  }, [query, activeTag]);
 
   return (
     <>
@@ -90,27 +106,47 @@ export const Posts = () => {
           />
         </div>
 
-        {/* Search bar */}
-        <div className="relative max-w-xl mx-auto w-full">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none"
-          />
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search posts..."
-            className="w-full pl-9 pr-9 py-2 rounded-lg border border-battleship-gray/40 bg-transparent text-soft-royal-blue placeholder-battleship-gray/60 sg-regular text-sm focus:outline-none focus:border-soft-royal-blue/60 transition-colors duration-200"
-          />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-battleship-gray hover:text-soft-royal-blue transition-colors duration-150"
-            >
-              <X size={14} />
-            </button>
-          )}
+        {/* Search + tag filters */}
+        <div className="flex flex-col gap-4 max-w-xl mx-auto w-full">
+          {/* Search bar */}
+          <div className="relative w-full">
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none"
+            />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search posts..."
+              className="w-full pl-9 pr-9 py-2 rounded-lg border border-battleship-gray/40 bg-transparent text-soft-royal-blue placeholder-battleship-gray/60 sg-regular text-sm focus:outline-none focus:border-soft-royal-blue/60 transition-colors duration-200"
+            />
+            {query && (
+              <button
+                onClick={() => setQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-battleship-gray hover:text-soft-royal-blue transition-colors duration-150"
+              >
+                <X size={14} />
+              </button>
+            )}
+          </div>
+
+          {/* Tag chips */}
+          <div className="flex flex-wrap gap-2">
+            {allTags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+                className={`px-3 py-1 rounded-full text-xs sg-medium border transition-colors duration-150 ${
+                  activeTag === tag
+                    ? "bg-soft-royal-blue/10 border-soft-royal-blue text-soft-royal-blue"
+                    : "border-battleship-gray/30 text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue"
+                }`}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Posts list */}
@@ -129,11 +165,29 @@ export const Posts = () => {
                     <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
                   </div>
                 </div>
-                <p className="text-battleship-gray text-lg sg-regular">{post.summary}</p>
+                <p className="text-battleship-gray text-lg sg-regular mb-3">{post.summary}</p>
+                {/* Tag chips on card */}
+                {post.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+                        className={`px-2 py-0.5 rounded-full text-xs sg-medium border transition-colors duration-150 ${
+                          activeTag === tag
+                            ? "bg-soft-royal-blue/10 border-soft-royal-blue text-soft-royal-blue"
+                            : "border-battleship-gray/20 text-battleship-gray/70 hover:border-soft-royal-blue/50 hover:text-soft-royal-blue"
+                        }`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))
           ) : (
-            <p className="text-battleship-gray sg-regular text-center">No posts found for "{query}"</p>
+            <p className="text-battleship-gray sg-regular text-center">No posts found{activeTag ? ` tagged "${activeTag}"` : ` for "${query}"`}</p>
           )}
         </div>
 

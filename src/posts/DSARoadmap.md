@@ -1,5 +1,6 @@
 # DSA & Competitive Programming Roadmap
 Date: 24-02-2026
+Tags: dsa, guide
 
 This is my public roadmap to go from basically nothing to:
 

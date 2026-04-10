@@ -1,5 +1,6 @@
 # I Hated ML. Then I Discovered Agentic Architecture.
 Date: 10-04-2026
+Tags: ai, web
 
 My software engineering professor started a lecture on <span class="blue">agentic architecture</span> today.
 

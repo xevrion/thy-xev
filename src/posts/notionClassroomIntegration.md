@@ -1,5 +1,6 @@
 # Syncing Google Classroom to Notion with Google Apps Script
 Date: 02-03-2026
+Tags: web, guide
 
 ## The Problem
 

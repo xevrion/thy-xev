@@ -1,5 +1,6 @@
 # Building and Publishing an npm Package
 Date: 12-03-2026
+Tags: web, guide
 
 ## The Problem
 

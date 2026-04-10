@@ -1,5 +1,6 @@
 # Automating IITJ LAN Login (So My Internet Stops Dying Every 3 Hours)
 Date: 19-02-2026
+Tags: linux, iit, go
 
 IIT Jodhpur hostel LAN uses a FortiGate captive portal. Ethernet works only after logging in through a browser, and the session expires roughly every 10 000 seconds (~2 h 46 m).
 

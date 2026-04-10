@@ -1,5 +1,6 @@
 # From Ubuntu to Fedora + Hyprland: One Day, Zero Data Loss
 Date: 22-03-2026
+Tags: linux
 
 ## Why I Did It
 

@@ -1,5 +1,6 @@
 # Rewriting the IITJ LAN Autologin Tool in Go
 Date: 23-03-2026
+Tags: linux, iit, go
 
 The <span class="blue">bash version worked</span>. That is the important part.
 

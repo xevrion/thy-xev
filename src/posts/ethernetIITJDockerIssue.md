@@ -1,5 +1,6 @@
 # Ubuntu Ethernet Login Page Not Loading
 Date: 02-11-2025
+Tags: linux, iit
 
 ## Symptoms
 
