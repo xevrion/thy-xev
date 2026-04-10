@@ -5,6 +5,11 @@ import dotenv from "dotenv";
 import querystring from "querystring";
 import cors from "cors";
 import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 
@@ -386,4 +391,91 @@ app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
         console.error("Error fetching WakaTime weekly:", err.message);
         res.status(500).json({ error: "Internal error fetching WakaTime weekly" });
     }
+});
+
+// ── Post view counter ─────────────────────────────────────────────────────
+const VIEWS_FILE = path.join(__dirname, "views.json");
+// ip -> slug -> timestamp of last counted view
+const rateLimit = new Map<string, Record<string, number>>();
+const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutes per IP per slug
+
+function readViews(): Record<string, number> {
+    try {
+        if (!fs.existsSync(VIEWS_FILE)) return {};
+        return JSON.parse(fs.readFileSync(VIEWS_FILE, "utf-8"));
+    } catch { return {}; }
+}
+
+function writeViews(data: Record<string, number>) {
+    fs.writeFileSync(VIEWS_FILE, JSON.stringify(data, null, 2));
+}
+
+// GET /views — total site visits
+app.get("/views", (req: Request, res: Response) => {
+    const views = readViews();
+    res.json({ total: views["__total__"] ?? 0 });
+});
+
+// POST /views — increment total site visits (rate limited per IP, 1 per hour)
+app.post("/views", (req: Request, res: Response) => {
+    const ip = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim()
+        ?? req.socket.remoteAddress
+        ?? "unknown";
+
+    const now = Date.now();
+    const ipMap = rateLimit.get(ip) ?? {};
+    const last = ipMap["__total__"] ?? 0;
+    const SITE_RATE_WINDOW = 60 * 60 * 1000; // 1 hour for site visits
+
+    if (now - last < SITE_RATE_WINDOW) {
+        const views = readViews();
+        return res.json({ total: views["__total__"] ?? 0, counted: false });
+    }
+
+    ipMap["__total__"] = now;
+    rateLimit.set(ip, ipMap);
+
+    const views = readViews();
+    views["__total__"] = (views["__total__"] ?? 0) + 1;
+    writeViews(views);
+
+    res.json({ total: views["__total__"], counted: true });
+});
+
+// GET /views/:slug — return view count
+app.get("/views/:slug", (req: Request, res: Response) => {
+    const { slug } = req.params;
+    if (!slug || !/^[a-zA-Z0-9_-]+$/.test(slug))
+        return res.status(400).json({ error: "Invalid slug" });
+    const views = readViews();
+    res.json({ slug, views: views[slug] ?? 0 });
+});
+
+// POST /views/:slug — increment (rate limited per IP)
+app.post("/views/:slug", (req: Request, res: Response) => {
+    const { slug } = req.params;
+    if (!slug || !/^[a-zA-Z0-9_-]+$/.test(slug))
+        return res.status(400).json({ error: "Invalid slug" });
+
+    const ip = (req.headers["x-forwarded-for"] as string)?.split(",")[0]?.trim()
+        ?? req.socket.remoteAddress
+        ?? "unknown";
+
+    const now = Date.now();
+    const ipMap = rateLimit.get(ip) ?? {};
+    const last = ipMap[slug] ?? 0;
+
+    if (now - last < RATE_WINDOW_MS) {
+        const views = readViews();
+        return res.json({ slug, views: views[slug] ?? 0, counted: false });
+    }
+
+    ipMap[slug] = now;
+    rateLimit.set(ip, ipMap);
+
+    const views = readViews();
+    views[slug] = (views[slug] ?? 0) + 1;
+    writeViews(views);
+
+    res.json({ slug, views: views[slug], counted: true });
 });

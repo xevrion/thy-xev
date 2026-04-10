@@ -1,6 +1,7 @@
 // src/pages/PostPage.tsx
 import { useParams } from "react-router-dom";
 import { parsedPosts, readingTime } from "./../utils/posts";
+import { usePostViews } from "../hooks/usePostViews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 // import remarkHtml from 'remark-html'
@@ -24,6 +25,8 @@ const Tooltip: React.FC<{ message: string; children: React.ReactNode }> = ({
 export const PostPage = () => {
   const { slug } = useParams();
   const post = parsedPosts.find((p) => p.slug === slug);
+
+  const views = usePostViews(slug ?? "", true);
 
   if (!post) return <p className="text-center text-red-500">Post not found!</p>;
 
@@ -88,6 +91,7 @@ export const PostPage = () => {
                 <span className="text-sm text-battleship-gray/60 sg-regular">{post.displayDate}</span>
                 <span className="text-battleship-gray/30">·</span>
                 <span className="text-sm text-battleship-gray/60 sg-regular">{readingTime(post.content)}</span>
+                {views !== null && (<><span className="text-battleship-gray/30">·</span><span className="text-sm text-battleship-gray/60 sg-regular">{views} {views === 1 ? "read" : "reads"}</span></>)}
                 {post.tags.map((tag) => (
                   <span
                     key={tag}

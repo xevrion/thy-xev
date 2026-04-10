@@ -3,10 +3,51 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Fuse from "fuse.js";
 import { parsedPosts, readingTime } from "./../utils/posts";
+import { usePostViews } from "../hooks/usePostViews";
 import SplitText from "../components/reactbits/splittext";
 import Socials from "./Socials";
 import { Title, Meta, Link as HeadLink } from "react-head";
 import { Search, X } from "lucide-react";
+
+type Post = (typeof parsedPosts)[number];
+
+function PostCard({ post, activeTag, onTagClick }: { post: Post; activeTag: string | null; onTagClick: (tag: string) => void }) {
+  const views = usePostViews(post.slug);
+  return (
+    <div className="border-b border-battleship-gray pb-6">
+      <div className="mb-2 flex flex-row justify-between items-center">
+        <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
+          <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
+            {post.title}
+          </Link>
+        </h2>
+        <div className="flex items-center gap-3 whitespace-nowrap">
+          {views !== null && <span className="text-sm sg-regular text-battleship-gray/60">{views} {views === 1 ? "read" : "reads"}</span>}
+          <span className="text-sm sg-regular text-battleship-gray/60">{readingTime(post.content)}</span>
+          <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
+        </div>
+      </div>
+      <p className="text-battleship-gray text-lg sg-regular mb-3">{post.summary}</p>
+      {post.tags.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => onTagClick(tag)}
+              className={`px-2 py-0.5 rounded-full text-xs sg-medium border transition-colors duration-150 ${
+                activeTag === tag
+                  ? "bg-soft-royal-blue/10 border-soft-royal-blue text-soft-royal-blue"
+                  : "border-battleship-gray/20 text-battleship-gray/70 hover:border-soft-royal-blue/50 hover:text-soft-royal-blue"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const sortedPosts = [...parsedPosts].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -153,38 +194,7 @@ export const Posts = () => {
         <div className="flex flex-col gap-10">
           {results.length > 0 ? (
             results.map((post) => (
-              <div key={post.slug} className="border-b border-battleship-gray pb-6">
-                <div className="mb-2 flex flex-row justify-between items-center">
-                  <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
-                    <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
-                      {post.title}
-                    </Link>
-                  </h2>
-                  <div className="flex items-center gap-3 whitespace-nowrap">
-                    <span className="text-sm sg-regular text-battleship-gray/60">{readingTime(post.content)}</span>
-                    <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
-                  </div>
-                </div>
-                <p className="text-battleship-gray text-lg sg-regular mb-3">{post.summary}</p>
-                {/* Tag chips on card */}
-                {post.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <button
-                        key={tag}
-                        onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                        className={`px-2 py-0.5 rounded-full text-xs sg-medium border transition-colors duration-150 ${
-                          activeTag === tag
-                            ? "bg-soft-royal-blue/10 border-soft-royal-blue text-soft-royal-blue"
-                            : "border-battleship-gray/20 text-battleship-gray/70 hover:border-soft-royal-blue/50 hover:text-soft-royal-blue"
-                        }`}
-                      >
-                        {tag}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+              <PostCard key={post.slug} post={post} activeTag={activeTag} onTagClick={(tag) => setActiveTag(activeTag === tag ? null : tag)} />
             ))
           ) : (
             <p className="text-battleship-gray sg-regular text-center">No posts found{activeTag ? ` tagged "${activeTag}"` : ` for "${query}"`}</p>
