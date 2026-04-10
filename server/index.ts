@@ -46,7 +46,7 @@ app.use(cors({
 // Rate limiter for external API proxy endpoints (30 req / 15 min)
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 30,
+    max: 300,
     standardHeaders: true,
     legacyHeaders: false,
 });
