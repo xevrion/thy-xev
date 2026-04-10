@@ -1,11 +1,37 @@
 // src/pages/Posts.tsx
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import Fuse from "fuse.js";
 import { parsedPosts } from "./../utils/posts";
 import SplitText from "../components/reactbits/splittext";
 import Socials from "./Socials";
 import { Title, Meta, Link as HeadLink } from "react-head";
+import { Search, X } from "lucide-react";
+
+const sortedPosts = [...parsedPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+const fuse = new Fuse(sortedPosts, {
+  keys: [
+    { name: "title", weight: 0.5 },
+    { name: "summary", weight: 0.3 },
+    { name: "content", weight: 0.2 },
+  ],
+  threshold: 0.35,
+  includeMatches: false,
+  minMatchCharLength: 2,
+});
 
 export const Posts = () => {
+  const [query, setQuery] = useState("");
+
+  const results = useMemo(() => {
+    const q = query.trim();
+    if (!q) return sortedPosts;
+    return fuse.search(q).map((r) => r.item);
+  }, [query]);
+
   return (
     <>
       <Title>Blog Posts | Xevrion - Full Stack Developer</Title>
@@ -27,38 +53,66 @@ export const Posts = () => {
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
 
-      {/* Heading */}
-      <div className="text-center">
-        <SplitText
-          text="Posts"
-          className="text-5xl sm:text-6xl text-soft-royal-blue sg-bold mb-6"
-          delay={20}
-          duration={1}
-          ease="elastic.out(1, 0.5)"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-        />
-      </div>
+        {/* Heading */}
+        <div className="text-center">
+          <SplitText
+            text="Posts"
+            className="text-5xl sm:text-6xl text-soft-royal-blue sg-bold mb-6"
+            delay={20}
+            duration={1}
+            ease="elastic.out(1, 0.5)"
+            splitType="chars"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+          />
+        </div>
 
-      {/* Posts list */}
-      <div className="flex flex-col gap-10">
-        {parsedPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
-            <div key={post.slug} className="border-b border-battleship-gray pb-6">
-              <div className="mb-2 flex flex-row justify-between items-center">
-                <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
-                  <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
-                    {post.title}
-                  </Link>
-                </h2>
-                <h3 className="text-lg sg-medium text-battleship-gray whitespace-nowrap">{post.displayDate}</h3>
+        {/* Search bar */}
+        <div className="relative max-w-xl mx-auto w-full">
+          <Search
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none"
+          />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search posts..."
+            className="w-full pl-9 pr-9 py-2 rounded-lg border border-battleship-gray/40 bg-transparent text-soft-royal-blue placeholder-battleship-gray/60 sg-regular text-sm focus:outline-none focus:border-soft-royal-blue/60 transition-colors duration-200"
+          />
+          {query && (
+            <button
+              onClick={() => setQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-battleship-gray hover:text-soft-royal-blue transition-colors duration-150"
+            >
+              <X size={14} />
+            </button>
+          )}
+        </div>
+
+        {/* Posts list */}
+        <div className="flex flex-col gap-10">
+          {results.length > 0 ? (
+            results.map((post) => (
+              <div key={post.slug} className="border-b border-battleship-gray pb-6">
+                <div className="mb-2 flex flex-row justify-between items-center">
+                  <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
+                    <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
+                      {post.title}
+                    </Link>
+                  </h2>
+                  <h3 className="text-lg sg-medium text-battleship-gray whitespace-nowrap">{post.displayDate}</h3>
+                </div>
+                <p className="text-battleship-gray text-lg sg-regular">{post.summary}</p>
               </div>
-              <p className="text-battleship-gray text-lg sg-regular">{post.summary}</p>
-            </div>
-          ))}
-      </div>
-      <Socials />
-    </section>
+            ))
+          ) : (
+            <p className="text-battleship-gray sg-regular text-center">No posts found for "{query}"</p>
+          )}
+        </div>
+
+        <Socials />
+      </section>
     </>
   );
 };
