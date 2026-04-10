@@ -204,7 +204,7 @@ export const PostPage = () => {
           ),
         }}
       >
-        {post.content}
+        {post.content.split('\n').slice(3).join('\n')}
       </ReactMarkdown>
     </section>
     </>
