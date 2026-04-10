@@ -6,6 +6,7 @@ import WeatherWidget from "./WeatherWidget";
 import { ThemeToggle } from "./ThemeToggle";
 import { HandwrittenHint } from "./HandwrittenHint";
 import { parsedPosts } from "../utils/posts";
+import { openCommandPalette } from "./CommandPalette";
 
 
 export const NavBar = () => {
@@ -114,6 +115,16 @@ export const NavBar = () => {
                             </a>
                         )
                     })}
+                {/* Command palette trigger */}
+                <button
+                    onClick={openCommandPalette}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/30 text-battleship-gray/50 text-xs sg-regular hover:border-soft-royal-blue/40 hover:text-battleship-gray/70 transition-colors duration-150"
+                    aria-label="Open command palette"
+                >
+                    <span>Search...</span>
+                    <kbd className="font-mono text-[10px] opacity-60">⌘K</kbd>
+                </button>
+
                 {/* Theme toggle with handwritten hint on home page */}
                 <div
                     className="relative overflow-visible"

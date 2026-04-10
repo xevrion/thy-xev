@@ -11,13 +11,11 @@ import { Projects } from './components/Projects'
 import { PageWrapper } from './components/PageWrapper'
 import { PostPage } from './components/PostPage'
 import { Resume } from './components/Resume'
+import { CommandPalette } from './components/CommandPalette'
 
 
 function App() {
-
-
   return (
-
     <CursorifyProvider
       cursor={<DefaultCursor />}
       opacity={1}
@@ -26,20 +24,16 @@ function App() {
       breakpoint={997}
     >
       <>
-        {/* <NavBar /> */}
+        <CommandPalette />
         <Routes>
           <Route path="/" element={<PageWrapper><NavBar /><Hero /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><NavBar /><About /></PageWrapper>} />
           <Route path="/posts" element={<PageWrapper><NavBar /><Posts /></PageWrapper>} />
           <Route path="/contact" element={<PageWrapper><NavBar /><Contact /></PageWrapper>} />
           <Route path="/projects" element={<PageWrapper><NavBar /><Projects /></PageWrapper>} />
-          <Route path="/posts" element={<PageWrapper><NavBar /><Posts /></PageWrapper>} />
           <Route path="/posts/:slug" element={<PageWrapper><NavBar /><PostPage /></PageWrapper>} />
           <Route path="/resume" element={<PageWrapper><NavBar /><Resume /></PageWrapper>} />
         </Routes>
-
-
-
       </>
     </CursorifyProvider>
   )
