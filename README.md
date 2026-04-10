@@ -31,7 +31,7 @@ todo
 - [x] hosting
   - [x] digital ocean 16$ VPS
   - [x] bought domain for free from name.com 
-- [ ] add live coding stats (Wakatime API)  
+- [x] add live coding stats (Wakatime API)  
   - [x] show time spent coding today  
   - [x] show time spent coding till now (all time)  
   - [x] show time spent coding this week
@@ -60,25 +60,29 @@ todo
   - [x] toggle button to switch themes  
   - [x] save preference in localStorage
 
-- [ ] github contribution graph
-  - [ ] fetch real contribution data via GitHub API
-  - [ ] render heatmap grid widget on home page
+- [x] github contribution graph
+  - [x] real data via GitHub GraphQL API
+  - [x] SVG heatmap with soft-royal-blue palette, hover tooltips, legend
+  - [x] scrolls to most recent week, works on mobile
 
-- [ ] reading time on posts
-  - [ ] show "X min read" on post cards and at top of each post
+- [x] reading time on posts
+  - [x] show "X min read" on post cards and at top of each post
 
-- [ ] post tags + filter
-  - [ ] add tags to each markdown post (linux, web, life, iit, etc.)
-  - [ ] show tag chips on post cards
-  - [ ] filter posts by tag on /posts page
+- [x] post tags + filter
+  - [x] tags stored as "Tags:" line in markdown, parsed like Date
+  - [x] tag chips on post cards, filter on /posts page, shown on post page
+  - [x] horizontal scroll if too many tags
 
-- [ ] command palette (Cmd+K / Ctrl+K)
-  - [ ] fuzzy search across pages, posts, projects
-  - [ ] keyboard navigable, opens from anywhere on site
+- [x] command palette (Cmd+K / Ctrl+K)
+  - [x] fuzzy search across pages, posts, projects
+  - [x] keyboard navigable, opens from anywhere on site
+  - [x] actions: toggle theme, open spotify song, social links
+  - [x] desktop only
 
-- [ ] /now page
-  - [ ] what i'm currently learning, reading, building, listening to
-  - [ ] updated manually, personal and casual tone
+- [x] /now page
+  - [x] what i'm currently learning, reading, building, listening to
+  - [x] updated manually, personal and casual tone
+  - [x] linked from hero and command palette
 
 - [ ] visitor count per post
   - [ ] store counts in JSON file on VPS Express server
