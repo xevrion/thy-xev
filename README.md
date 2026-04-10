@@ -35,7 +35,7 @@ todo
   - [x] show time spent coding today  
   - [x] show time spent coding till now (all time)  
   - [x] show time spent coding this week
-  - [ ] show language breakdown (pie chart / bar graph)  
+  - [x] show language breakdown (bar chart with per-language colors, last 7 days)
 
 - [x] add weather widget (OpenWeather / WeatherAPI)  
   - [x] fetch weather for Surat + Jodhpur  
@@ -46,9 +46,9 @@ todo
   - [ ] generate 1–2 line tagline from project description using API  
   - [ ] show tagline under each project card dynamically  
 
-- [ ] integrate search (Meilisearch) (later)
-  - [ ] index markdown posts + projects  
-  - [ ] add sidebar/global search bar  
+- [x] integrate search in posts page
+  - [x] client-side fuzzy + substring search using fuse.js (no server needed)
+  - [x] searches title, summary, and full post content
 
 - [ ] add testimonials section (research other personal sites before proceeding)
 
