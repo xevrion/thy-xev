@@ -18,9 +18,9 @@ const fuse = new Fuse(sortedPosts, {
     { name: "summary", weight: 0.2 },
     { name: "content", weight: 0.4 },
   ],
-  threshold: 0.2,
+  threshold: 0.1,
   includeMatches: false,
-  minMatchCharLength: 2,
+  minMatchCharLength: 3,
   ignoreLocation: true,
 });
 
