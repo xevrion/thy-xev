@@ -30,7 +30,29 @@ export const Posts = () => {
   const results = useMemo(() => {
     const q = query.trim();
     if (!q) return sortedPosts;
-    return fuse.search(q).map((r) => r.item);
+
+    const lower = q.toLowerCase();
+
+    // substring match for partial/in-progress typing
+    const substringMatches = sortedPosts.filter(
+      (p) =>
+        p.title.toLowerCase().includes(lower) ||
+        p.summary.toLowerCase().includes(lower) ||
+        p.content.toLowerCase().includes(lower)
+    );
+
+    // fuzzy match for completed/misspelled words
+    const fuzzyMatches = fuse.search(q).map((r) => r.item);
+
+    // merge, deduplicate, preserve substring order first
+    const seen = new Set<string>();
+    const merged = [...substringMatches, ...fuzzyMatches].filter((p) => {
+      if (seen.has(p.slug)) return false;
+      seen.add(p.slug);
+      return true;
+    });
+
+    return merged;
   }, [query]);
 
   return (
