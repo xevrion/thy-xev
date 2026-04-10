@@ -74,9 +74,7 @@ export const PostPage = () => {
       </Style>
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl text-lg mx-auto text-battleship-gray sg-regular">
-      <div className="flex items-center gap-3 mb-8 text-sm text-battleship-gray/60 sg-regular">
-        <span>{post.displayDate}</span>
-        <span>·</span>
+      <div className="mb-8 text-sm text-battleship-gray/60 sg-regular">
         <span>{readingTime(post.content)}</span>
       </div>
       <ReactMarkdown
