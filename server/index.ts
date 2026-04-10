@@ -8,6 +8,8 @@ import fetch from "node-fetch";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+import { rateLimit } from "express-rate-limit";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 /* eslint-disable  @typescript-eslint/no-explicit-any */
@@ -23,12 +25,31 @@ const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET!;
 const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI!;
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN!;
 
+// Security headers
+app.use(helmet());
 
-
+// CORS — allow local dev + production domain
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://xevrion.dev',
+    'https://www.xevrion.dev',
+];
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173'], // Your React app URL
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+        else callback(new Error("Not allowed by CORS"));
+    },
     credentials: true
 }));
+
+// Rate limiter for external API proxy endpoints (30 req / 15 min)
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 app.use(express.json());
 
@@ -87,7 +108,7 @@ app.get("/callback", async (req: Request, res: Response) => {
 });
 
 // 3. Now Playing → fetch current song
-app.get("/now-playing", async (req: Request, res: Response) => {
+app.get("/now-playing", apiLimiter, async (req: Request, res: Response) => {
     if (!REFRESH_TOKEN) {
         return res.json({
             isPlaying: false,
@@ -163,10 +184,7 @@ app.get("/now-playing", async (req: Request, res: Response) => {
         });
       } catch (err) {
         console.error((err as any).response?.data || (err as any).message);
-        return res.status(500).json({
-          error: "Failed to fetch playback",
-          details: (err as any).response?.data,
-        });
+        return res.status(500).json({ error: "Failed to fetch playback" });
       }
 });
 
@@ -189,7 +207,7 @@ app.listen(PORT, () =>
 
 
 // alltime
-app.get("/wakatimeAllTime", async (req: Request, res: Response) => {
+app.get("/wakatimeAllTime", apiLimiter, async (req: Request, res: Response) => {
     try {
         const apiKey = process.env.WAKATIME_API_KEY;
         if (!apiKey) {
@@ -207,10 +225,8 @@ app.get("/wakatimeAllTime", async (req: Request, res: Response) => {
 
         if (!response.ok) {
             const text = await response.text();
-            return res.status(response.status).json({
-                error: "Failed to fetch WakaTime all-time data",
-                details: text,
-            });
+            console.error("WakaTime all-time error:", text);
+            return res.status(response.status).json({ error: "Failed to fetch WakaTime all-time data" });
         }
 
         const data = await response.json();
@@ -222,7 +238,7 @@ app.get("/wakatimeAllTime", async (req: Request, res: Response) => {
 });
 
 // Daily stats (today only)
-app.get("/wakatimeDaily", async (req: Request, res: Response) => {
+app.get("/wakatimeDaily", apiLimiter, async (req: Request, res: Response) => {
     try {
         const apiKey = process.env.WAKATIME_API_KEY;
         if (!apiKey) {
@@ -243,8 +259,8 @@ app.get("/wakatimeDaily", async (req: Request, res: Response) => {
             const text = await response.text();
             return res.status(response.status).json({
                 error: "Failed to fetch WakaTime daily data",
-                details: text,
             });
+            console.error("WakaTime daily error:", text);
         }
 
         const data = await response.json();
@@ -257,7 +273,7 @@ app.get("/wakatimeDaily", async (req: Request, res: Response) => {
 
 
 // Language breakdown (last 7 days, aggregated)
-app.get("/wakatimeLanguages", async (req: Request, res: Response) => {
+app.get("/wakatimeLanguages", apiLimiter, async (req: Request, res: Response) => {
     try {
         const apiKey = process.env.WAKATIME_API_KEY;
         if (!apiKey) {
@@ -280,7 +296,7 @@ app.get("/wakatimeLanguages", async (req: Request, res: Response) => {
 
         if (!response.ok) {
             const text = await response.text();
-            return res.status(response.status).json({ error: "Failed to fetch WakaTime data", details: text });
+            return res.status(response.status).json({ error: "Failed to fetch WakaTime data" });
         }
 
         const data: any = await response.json();
@@ -306,7 +322,7 @@ app.get("/wakatimeLanguages", async (req: Request, res: Response) => {
 });
 
 // GitHub contribution graph (last 52 weeks)
-app.get("/github-contributions", async (req: Request, res: Response) => {
+app.get("/github-contributions", apiLimiter, async (req: Request, res: Response) => {
     try {
         const token = process.env.GITHUB_PAT;
         if (!token) return res.status(500).json({ error: "Missing GITHUB_PAT in .env" });
@@ -341,7 +357,8 @@ app.get("/github-contributions", async (req: Request, res: Response) => {
 
         if (!response.ok) {
             const text = await response.text();
-            return res.status(response.status).json({ error: "GitHub API error", details: text });
+            console.error("GitHub API error:", text);
+            return res.status(response.status).json({ error: "GitHub API error" });
         }
 
         const data: any = await response.json();
@@ -356,7 +373,7 @@ app.get("/github-contributions", async (req: Request, res: Response) => {
 });
 
 // Weekly stats (last 7 days)
-app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
+app.get("/wakatimeWeekly", apiLimiter, async (req: Request, res: Response) => {
     try {
         const apiKey = process.env.WAKATIME_API_KEY;
         if (!apiKey) {
@@ -379,10 +396,8 @@ app.get("/wakatimeWeekly", async (req: Request, res: Response) => {
 
         if (!response.ok) {
             const text = await response.text();
-            return res.status(response.status).json({
-                error: "Failed to fetch WakaTime weekly data",
-                details: text,
-            });
+            console.error("WakaTime weekly error:", text);
+            return res.status(response.status).json({ error: "Failed to fetch WakaTime weekly data" });
         }
 
         const data = await response.json();
@@ -403,7 +418,10 @@ function readViews(): Record<string, number> {
     try {
         if (!fs.existsSync(VIEWS_FILE)) return {};
         return JSON.parse(fs.readFileSync(VIEWS_FILE, "utf-8"));
-    } catch { return {}; }
+    } catch (err) {
+        console.error("Error reading views.json:", err);
+        return {};
+    }
 }
 
 function writeViews(data: Record<string, number>) {
