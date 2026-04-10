@@ -132,12 +132,12 @@ export const Posts = () => {
           </div>
 
           {/* Tag chips */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
             {allTags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className={`px-3 py-1 rounded-full text-xs sg-medium border transition-colors duration-150 ${
+                className={`shrink-0 px-3 py-1 rounded-full text-xs sg-medium border transition-colors duration-150 ${
                   activeTag === tag
                     ? "bg-soft-royal-blue/10 border-soft-royal-blue text-soft-royal-blue"
                     : "border-battleship-gray/30 text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue"
