@@ -104,7 +104,7 @@ function ItemIcon({ item }: { item: PaletteItem }) {
 function TypeBadge({ type }: { type: PaletteItem["type"] }) {
   const map: Record<string, string> = { post: "post", project: "project", page: "page", action: "action" };
   return (
-    <span className="text-[10px] sg-regular text-battleship-gray/40 uppercase tracking-wider hidden sm:block shrink-0">
+    <span className="text-[11px] sg-regular text-battleship-gray/70 uppercase tracking-wider hidden sm:block shrink-0">
       {map[type]}
     </span>
   );
@@ -273,7 +273,7 @@ export const CommandPalette = () => {
                 onKeyDown={onKeyDown}
                 onBlur={() => { if (openRef.current) setTimeout(() => inputRef.current?.focus(), 0); }}
                 placeholder="Search pages, posts, projects, actions..."
-                className="flex-1 bg-transparent text-soft-royal-blue sg-regular text-base placeholder-battleship-gray/40 focus:outline-none"
+                className="flex-1 bg-transparent text-soft-royal-blue sg-regular text-base placeholder-battleship-gray/70 focus:outline-none"
               />
             </div>
 
@@ -296,7 +296,7 @@ export const CommandPalette = () => {
                     <ItemIcon item={item} />
                     <div className="flex-1 min-w-0">
                       <p className="text-base sg-medium truncate">{item.label}</p>
-                      {item.subtitle && <p className="text-sm text-battleship-gray/50 sg-regular truncate">{item.subtitle}</p>}
+                      {item.subtitle && <p className="text-sm text-battleship-gray/80 sg-regular truncate">{item.subtitle}</p>}
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       <TypeBadge type={item.type} />
@@ -308,7 +308,7 @@ export const CommandPalette = () => {
             </ul>
 
             {/* footer */}
-            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-battleship-gray/10 text-xs text-battleship-gray/30 sg-regular">
+            <div className="flex items-center gap-4 px-5 py-2.5 border-t border-battleship-gray/10 text-xs text-battleship-gray/60 sg-regular">
               <span><kbd className="font-mono">↑↓</kbd> navigate</span>
               <span><kbd className="font-mono">↵</kbd> open</span>
               <span><kbd className="font-mono">⌘K</kbd> close</span>
