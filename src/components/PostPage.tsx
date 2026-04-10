@@ -85,6 +85,8 @@ export const PostPage = () => {
                 {...props}
               />
               <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm text-battleship-gray/60 sg-regular">{post.displayDate}</span>
+                <span className="text-battleship-gray/30">·</span>
                 <span className="text-sm text-battleship-gray/60 sg-regular">{readingTime(post.content)}</span>
                 {post.tags.map((tag) => (
                   <span
