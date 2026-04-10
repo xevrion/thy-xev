@@ -118,11 +118,11 @@ export const NavBar = () => {
                 {/* Command palette trigger */}
                 <button
                     onClick={openCommandPalette}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/30 text-battleship-gray/50 text-xs sg-regular hover:border-soft-royal-blue/40 hover:text-battleship-gray/70 transition-colors duration-150"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/50 text-battleship-gray text-sm sg-regular hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-150"
                     aria-label="Open command palette"
                 >
                     <span>Search...</span>
-                    <kbd className="font-mono text-[10px] opacity-60">⌘K</kbd>
+                    <kbd className="font-mono text-xs">⌘K</kbd>
                 </button>
 
                 {/* Theme toggle with handwritten hint on home page */}
