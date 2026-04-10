@@ -32,7 +32,7 @@ export const Now = () => {
           <p className="text-battleship-gray/60 sg-regular text-sm">what i'm up to right now</p>
         </div>
 
-        <div className="flex flex-col gap-6 max-w-lg mx-auto w-full">
+        <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
           {items.map((item) => (
             <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
               <span className="text-battleship-gray/70 sg-regular text-base w-28 shrink-0">{item.label}</span>
