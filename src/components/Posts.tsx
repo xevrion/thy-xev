@@ -57,17 +57,6 @@ const allTags = Array.from(
   new Set(sortedPosts.flatMap((p) => p.tags))
 ).sort();
 
-const fuse = new Fuse(sortedPosts, {
-  keys: [
-    { name: "title", weight: 0.4 },
-    { name: "summary", weight: 0.2 },
-    { name: "content", weight: 0.4 },
-  ],
-  threshold: 0.1,
-  includeMatches: false,
-  minMatchCharLength: 3,
-  ignoreLocation: true,
-});
 
 export const Posts = () => {
   const [query, setQuery] = useState("");
