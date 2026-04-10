@@ -44,7 +44,7 @@ export const NavBar = () => {
         };
     }, [isOpen])
 
-    const links = ["Projects", "Posts", "About", "Contact"];
+    const links = ["Projects", "Posts", "About", "Contact", "Resume"];
 
     return (
         <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
@@ -89,6 +89,17 @@ export const NavBar = () => {
                                         Posts
                                     </a>
                                 </div>
+                            )
+                        }
+                        if (link === 'Resume') {
+                            return (
+                                <a
+                                    key={link}
+                                    href="/resume"
+                                    className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-60 transition-all duration-250 border-b border-dashed border-soft-royal-blue/50 hover:opacity-90 pb-[1px]"
+                                >
+                                    Resume
+                                </a>
                             )
                         }
                         return (

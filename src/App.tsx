@@ -10,6 +10,7 @@ import { Contact } from './components/Contact'
 import { Projects } from './components/Projects'
 import { PageWrapper } from './components/PageWrapper'
 import { PostPage } from './components/PostPage'
+import { Resume } from './components/Resume'
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/projects" element={<PageWrapper><NavBar /><Projects /></PageWrapper>} />
           <Route path="/posts" element={<PageWrapper><NavBar /><Posts /></PageWrapper>} />
           <Route path="/posts/:slug" element={<PageWrapper><NavBar /><PostPage /></PageWrapper>} />
+          <Route path="/resume" element={<PageWrapper><NavBar /><Resume /></PageWrapper>} />
         </Routes>
 
 
