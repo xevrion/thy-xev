@@ -107,7 +107,7 @@ export const Hero = () => {
                 <WakatimeLanguages />
                 <GithubContributions />
                 <div className="flex justify-center">
-                  <a href="/now" className="text-sm sg-regular text-battleship-gray/50 hover:text-soft-royal-blue transition-colors duration-200">
+                  <a href="/now" className="text-base sg-regular text-battleship-gray/70 hover:text-soft-royal-blue transition-colors duration-200">
                     what i'm doing now →
                   </a>
                 </div>

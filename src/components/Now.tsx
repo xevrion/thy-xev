@@ -34,15 +34,15 @@ export const Now = () => {
 
         <div className="flex flex-col gap-6 max-w-lg mx-auto w-full">
           {items.map((item) => (
-            <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4 border-b border-battleship-gray/15 pb-5">
-              <span className="text-battleship-gray/50 sg-regular text-sm w-24 shrink-0">{item.label}</span>
-              <span className="text-soft-royal-blue sg-medium text-base">{item.value}</span>
+            <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
+              <span className="text-battleship-gray/70 sg-regular text-base w-28 shrink-0">{item.label}</span>
+              <span className="text-soft-royal-blue sg-medium text-lg">{item.value}</span>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-battleship-gray/30 sg-regular text-xs">
-          last updated April 2026 · inspired by <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="hover:text-battleship-gray/60 transition-colors">nownownow.com</a>
+        <p className="text-center text-battleship-gray/60 sg-regular text-sm">
+          last updated 11 April 2026 · inspired by <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="hover:text-battleship-gray transition-colors">nownownow.com</a>
         </p>
       </section>
     </>
