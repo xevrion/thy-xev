@@ -74,26 +74,28 @@ export const PostPage = () => {
       </Style>
 
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl text-lg mx-auto text-battleship-gray sg-regular">
-      <div className="flex flex-wrap items-center gap-3 mb-8">
-        <span className="text-sm text-battleship-gray/60 sg-regular">{readingTime(post.content)}</span>
-        {post.tags.map((tag) => (
-          <span
-            key={tag}
-            className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/30 text-battleship-gray/70"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw]}
         components={{
           h1: (props) => (
-            <h1
-              className="text-2xl sm:text-3xl text-soft-royal-blue sg-medium mb-4"
-              {...props}
-            />
+            <div className="mb-8">
+              <h1
+                className="text-2xl sm:text-3xl text-soft-royal-blue sg-medium mb-3"
+                {...props}
+              />
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-sm text-battleship-gray/60 sg-regular">{readingTime(post.content)}</span>
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/30 text-battleship-gray/70"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           ),
           h2: (props) => (
             <h2
@@ -204,7 +206,11 @@ export const PostPage = () => {
           ),
         }}
       >
-        {post.content.split('\n').slice(3).join('\n')}
+        {(() => {
+          const lines = post.content.split('\n');
+          // keep title (line 0), drop Date (line 1) and Tags (line 2), keep rest
+          return [lines[0], ...lines.slice(3)].join('\n');
+        })()}
       </ReactMarkdown>
     </section>
     </>
