@@ -21,7 +21,7 @@ function CurrentlyWorking() {
                             <HandwrittenHint
                                 visible={showHint}
                                 text="hover me for a sneak peek!"
-                                arrowPath="M 2 14 C 6 6, 18 4, 26 6 M 21 3 L 26 6 L 22 11"
+                                arrowPath="M 2 10 C 8 4, 18 4, 26 8 M 26 3 L 26 8 L 21 8"
                                 arrowViewBox="0 0 30 18"
                                 arrowWidth={36}
                                 arrowHeight={22}
