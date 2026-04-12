@@ -52,7 +52,7 @@ export function HandwrittenHint({
             <motion.path
               d={arrowPath}
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.5"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"

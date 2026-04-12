@@ -4,8 +4,6 @@ import { Menu, X } from "lucide-react"; // hamburger icons
 import DiscordWidget from "./OnlineStatus";
 import WeatherWidget from "./WeatherWidget";
 import { ThemeToggle } from "./ThemeToggle";
-import { HandwrittenHint } from "./HandwrittenHint";
-import { parsedPosts } from "../utils/posts";
 import { openCommandPalette } from "./CommandPalette";
 
 
@@ -14,11 +12,6 @@ export const NavBar = () => {
     const currentPath = location.pathname;
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [showThemeHint, setShowThemeHint] = useState(true);
-    const [showPostHint, setShowPostHint] = useState(true);
-
-    const latestPost = [...parsedPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
-    const latestTitle = latestPost ? (latestPost.title.length > 28 ? latestPost.title.slice(0, 28) + '…' : latestPost.title) : '';
 
     useEffect(() => {
         const handleScroll = () => {
@@ -66,33 +59,6 @@ export const NavBar = () => {
                 {links
                     .filter((link) => `/${link.toLowerCase()}` !== currentPath)
                     .map((link) => {
-                        if (link === 'Posts' && currentPath === '/') {
-                            return (
-                                <div key={link} className="relative overflow-visible" onMouseEnter={() => setShowPostHint(false)}>
-                                    <HandwrittenHint
-                                        visible={showPostHint}
-                                        text="new post — check it out!"
-                                        subtitle={latestTitle}
-                                        arrowPath="M 5 45 L 15 37 L 20 25 L 25 13 L 28 5 M 20 11 L 28 5 L 34 11"
-                                        arrowViewBox="0 0 50 50"
-                                        arrowWidth={60}
-                                        arrowHeight={60}
-                                        flexDir="flex-row-reverse"
-                                        alignment="items-end"
-                                        textRotation="rotate-2"
-                                        className="top-full right-0 mt-1"
-                                    />
-                                    <a
-                                        href="/posts"
-                                        className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250
-                                        after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue
-                                        after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
-                                    >
-                                        Posts
-                                    </a>
-                                </div>
-                            )
-                        }
                         if (link === 'Resume') {
                             return (
                                 <a
@@ -126,25 +92,7 @@ export const NavBar = () => {
                     <kbd className="font-mono text-xs">⌘K</kbd>
                 </button>
 
-                {/* Theme toggle with handwritten hint on home page */}
-                <div
-                    className="relative overflow-visible"
-                    onClick={() => setShowThemeHint(false)}
-                >
-                    <HandwrittenHint
-                        visible={showThemeHint && currentPath === '/'}
-                        text="try changing the theme!"
-                        arrowPath="M 21 31 L 22 23 L 20 14 L 21 4 M 15 10 L 21 4 L 27 10"
-                        arrowViewBox="0 0 30 33"
-                        arrowWidth={45}
-                        arrowHeight={50}
-                        flexDir="flex-col"
-                        alignment="items-end"
-                        textRotation="-rotate-3"
-                        className="top-full right-0 mt-1"
-                    />
-                    <ThemeToggle />
-                </div>
+                <ThemeToggle />
             </div>
 
 
