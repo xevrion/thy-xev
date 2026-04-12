@@ -185,7 +185,7 @@ export const LinkPreview = ({
                 duration: 0.2,
               },
             }}
-            className="fixed z-50 pointer-events-none shadow-2xl rounded-xl"
+            className="fixed z-[1000] pointer-events-none shadow-2xl rounded-xl"
             style={{
               left: `${previewPosition.x}px`,
               top: `${previewPosition.y}px`,
