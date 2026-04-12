@@ -63,7 +63,7 @@ export function HandwrittenHint({
           </svg>
           <div className="flex flex-col">
             <span
-              className={`caveat text-battleship-gray/65 text-2xl whitespace-nowrap inline-block ${textRotation}`}
+              className={`caveat text-battleship-gray/65 text-lg whitespace-nowrap inline-block ${textRotation}`}
             >
               {text}
             </span>
