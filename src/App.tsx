@@ -25,6 +25,25 @@ function App() {
       breakpoint={997}
     >
       <>
+        {/* Decorative diagonal stripe borders */}
+        <div
+          className="pointer-events-none fixed inset-y-0 z-[999] hidden w-[60px] overflow-hidden xl:block"
+          style={{ left: 'calc(50% - 576px - 60px)' }}
+        >
+          <div
+            className="absolute inset-0 h-full w-[60px] border border-[var(--color-battleship-gray)] opacity-[0.15]"
+            style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
+          />
+        </div>
+        <div
+          className="pointer-events-none fixed inset-y-0 z-[999] hidden w-[60px] overflow-hidden xl:block"
+          style={{ left: 'calc(50% + 576px)' }}
+        >
+          <div
+            className="absolute inset-0 h-full w-[60px] border border-[var(--color-battleship-gray)] opacity-[0.15]"
+            style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
+          />
+        </div>
         <CommandPalette />
         <Routes>
           <Route path="/" element={<PageWrapper><NavBar /><Hero /></PageWrapper>} />

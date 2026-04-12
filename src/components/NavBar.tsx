@@ -48,7 +48,8 @@ export const NavBar = () => {
     const links = ["Projects", "Posts", "About", "Contact", "Resume"];
 
     return (
-        <nav className={`flex justify-between items-center px-6 sm:px-8 py-4  sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
+        <nav className={`w-full sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? ' bg-gradient-to-b from-taupe  to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
+        <div className="max-w-6xl mx-auto flex justify-between items-center px-6 sm:px-8 py-4">
             {/* Logo + Discord */}
             <div className="flex items-center gap-2">
                 <a href="/">
@@ -179,6 +180,7 @@ export const NavBar = () => {
                 </div>
             </div>
 
+        </div>
         </nav>
     );
 };
