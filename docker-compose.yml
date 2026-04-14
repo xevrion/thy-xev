@@ -1,0 +1,20 @@
+services:
+  frontend:
+    image: ghcr.io/xevrion/thy-xev/frontend:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+
+  backend:
+    image: ghcr.io/xevrion/thy-xev/backend:latest
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    env_file: .env
+    environment:
+      - DATA_DIR=/app/data
+    volumes:
+      - views_data:/app/data
+
+volumes:
+  views_data:

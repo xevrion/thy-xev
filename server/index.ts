@@ -409,7 +409,7 @@ app.get("/wakatimeWeekly", apiLimiter, async (req: Request, res: Response) => {
 });
 
 // ── Post view counter ─────────────────────────────────────────────────────
-const VIEWS_FILE = path.join(__dirname, "views.json");
+const VIEWS_FILE = path.join(process.env.DATA_DIR ?? __dirname, "views.json");
 // ip -> slug -> timestamp of last counted view
 const ipRateLimit = new Map<string, Record<string, number>>();
 const RATE_WINDOW_MS = 10 * 60 * 1000; // 10 minutes per IP per slug

@@ -1,0 +1,7 @@
+node_modules
+dist
+.env*
+*.json.bak
+activity_data.json
+activity.py
+views.json
