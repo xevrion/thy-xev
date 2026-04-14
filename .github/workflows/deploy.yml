@@ -36,7 +36,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/app
-            echo "${{ secrets.ENV_FILE }}" > .env
+            printf '%s\n' \
+              "SPOTIFY_CLIENT_ID=${{ secrets.SPOTIFY_CLIENT_ID }}" \
+              "SPOTIFY_CLIENT_SECRET=${{ secrets.SPOTIFY_CLIENT_SECRET }}" \
+              "SPOTIFY_REDIRECT_URI=${{ secrets.SPOTIFY_REDIRECT_URI }}" \
+              "SPOTIFY_REFRESH_TOKEN=${{ secrets.SPOTIFY_REFRESH_TOKEN }}" \
+              "WAKATIME_API_KEY=${{ secrets.WAKATIME_API_KEY }}" \
+              "GITHUB_PAT=${{ secrets.GH_PAT }}" \
+              > .env
             docker compose pull
             docker compose up -d --remove-orphans
             docker image prune -f
