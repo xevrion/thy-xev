@@ -16,7 +16,7 @@
     "@radix-ui/react-hover-card": "^1.1.15",
     "@shikijs/rehype": "^4.0.2",
     "@tailwindcss/vite": "^4.1.12",
-    "axios": "^1.13.5",
+    "axios": "^1.15.0",
     "clsx": "^2.1.1",
     "cursorify": "^0.0.4",
     "dotenv": "^17.2.1",
