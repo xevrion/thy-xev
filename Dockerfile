@@ -1,4 +1,4 @@
-# Stage 1: build
+# Stage 1: build (forced rebuild)
 FROM node:22-alpine AS builder
 WORKDIR /app
 
