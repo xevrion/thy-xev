@@ -15,7 +15,7 @@ const __dirname = path.dirname(__filename);
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
 
-dotenv.config({ path: ".env.production" });
+dotenv.config({ path: ".env.production" }); // local dev only; Docker injects env vars directly
 const app = express();
 
 const PORT = 3001;
