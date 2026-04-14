@@ -6,6 +6,12 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
+
+ARG VITE_API_URL
+ARG VITE_OPENWEATHER_KEY
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_OPENWEATHER_KEY=$VITE_OPENWEATHER_KEY
+
 RUN npm run build
 
 # Stage 2: serve with nginx

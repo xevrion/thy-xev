@@ -53,5 +53,8 @@ jobs:
           tags: |
             ${{ env.IMAGE }}:${{ steps.vars.outputs.sha }}
             ${{ env.IMAGE }}:latest
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_OPENWEATHER_KEY=${{ secrets.VITE_OPENWEATHER_KEY }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

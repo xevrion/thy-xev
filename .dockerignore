@@ -4,4 +4,6 @@ dist
 .github
 server
 *.md
-.env*
+.env
+.env.local
+.env.*.local
