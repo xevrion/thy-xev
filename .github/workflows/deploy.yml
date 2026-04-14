@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Copy docker-compose to server
         uses: appleboy/scp-action@v1
@@ -34,7 +34,6 @@ jobs:
           host: ${{ secrets.SERVER_IP }}
           username: xevrion
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script_stop: true
           script: |
             cd ~/app
             echo "${{ secrets.ENV_FILE }}" > .env
