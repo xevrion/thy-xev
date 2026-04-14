@@ -1,16 +1,26 @@
-name: deploy-frontend
+name: Deploy Frontend
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'index.html'
+      - 'vite.config.*'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
 
 jobs:
   deploy:
+    name: Build & Reload Nginx
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
-      - name: SSH into server & deploy
-        uses: appleboy/ssh-action@v0.1.10
+      - name: Build & reload
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_IP }}
           username: xevrion
@@ -18,14 +28,8 @@ jobs:
           script_stop: true
           script: |
             cd /home/xevrion/thy
-
             git fetch origin
             git reset --hard origin/main
-
             npm ci
-
             npm run build
-
             sudo systemctl reload nginx
-
-            pm2 restart xevrion-backend
