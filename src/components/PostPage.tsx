@@ -4,8 +4,8 @@ import { parsedPosts, readingTime } from "./../utils/posts";
 import { usePostViews } from "../hooks/usePostViews";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-// import remarkHtml from 'remark-html'
 import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
 import { Title, Meta, Link, Style } from "react-head";
 
 const Tooltip: React.FC<{ message: string; children: React.ReactNode }> = ({
@@ -79,7 +79,7 @@ export const PostPage = () => {
       <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl text-lg mx-auto text-battleship-gray sg-regular">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, rehypeHighlight]}
         components={{
           h1: (props) => (
             <div className="mb-8">
@@ -128,12 +128,17 @@ export const PostPage = () => {
               target="_blank"
             />
           ),
-          code: (props) => (
-            <code
-              className="text-soft-royal-blue py-0.5 rounded-md font-mono tracking-tight"
-              {...props}
-            />
-          ),
+          code: ({ children, className, node, ...props }: React.HTMLAttributes<HTMLCodeElement> & { node?: unknown }) => {
+            // If it has a language/hljs class, it's a fenced block — let rehype-highlight styles apply
+            if (className) return <code className={className} {...props}>{children}</code>;
+            // Inline code: subtle background, no blue
+            return (
+              <code
+                className="inline-code px-1.5 py-0.5 rounded text-[0.875em] font-mono tracking-tight"
+                {...props}
+              >{children}</code>
+            );
+          },
           blockquote: (props) => (
             <blockquote
               className="border-l-4 border-soft-royal-blue pl-4 italic text-battleship-gray my-4"
@@ -171,12 +176,7 @@ export const PostPage = () => {
           hr: () => (
             <hr className="my-8 border-none h-px bg-gradient-to-r from-transparent via-soft-royal-blue/30 to-transparent" />
           ),
-          pre: (props) => (
-            <pre
-              className="relative bg-[#0e1116] text-[#e6edf3] font-mono text-[15px] rounded-lg p-4 my-5 whitespace-pre-wrap break-words border border-[rgba(100,149,237,0.2)]"{...props}
-            >{props.children}
-            </pre>
-          ),
+          pre: (props) => <pre {...props} />,
           table: (props) => (
             <div className="overflow-x-auto my-5">
               <table

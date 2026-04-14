@@ -121,10 +121,59 @@ html.light .social-icon, html.light .skill-icon {
   /* color: #a6a19d; */
 }
 
-/* Code block overrides for light theme */
-html.light pre {
-  background-color: #e8e3dd !important;
-  color: #2e2a27 !important;
-  border-color: rgba(61, 92, 232, 0.2) !important;
-  box-shadow: none !important;
+/* ── Syntax highlighting (highlight.js) ── */
+@import 'highlight.js/styles/tokyo-night-dark.css';
+
+/* Shared pre wrapper for highlighted blocks */
+pre:has(> code.hljs) {
+  border-radius: 0.5rem;
+  padding: 0 !important;
+  margin: 1.25rem 0;
+  overflow: hidden;
+  border: 1px solid rgba(100, 149, 237, 0.4);
 }
+
+pre:has(> code.hljs) code.hljs {
+  display: block;
+  border-radius: 0;
+  font-size: 15px;
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+  white-space: pre-wrap;
+  word-break: break-words;
+}
+
+/* Inline code: dark (default) */
+.inline-code {
+  background-color: #1e2030;
+  color: #a9b1d6;
+}
+/* Inline code: light */
+html.light .inline-code {
+  background-color: #e2ddd8;
+  color: #3a3633;
+}
+
+/* Light theme overrides for syntax highlighting */
+html.light pre:has(> code.hljs) {
+  border-color: rgba(61, 92, 232, 0.2);
+}
+
+/* Tokyo Night Light — bg adjusted to match warm page palette */
+html.light code.hljs {
+  background: #eae8e3;
+  color: #3760bf;
+}
+html.light .hljs-comment, html.light .hljs-quote { color: #9699a3; font-style: italic; }
+html.light .hljs-keyword, html.light .hljs-selector-tag,
+html.light .hljs-deletion, html.light .hljs-subst { color: #8c4351; }
+html.light .hljs-literal, html.light .hljs-number { color: #965027; }
+html.light .hljs-string, html.light .hljs-regexp, html.light .hljs-addition,
+html.light .hljs-attribute, html.light .hljs-meta.hljs-string { color: #485e30; }
+html.light .hljs-attr, html.light .hljs-variable, html.light .hljs-template-variable,
+html.light .hljs-type { color: #8f5e15; }
+html.light .hljs-symbol, html.light .hljs-bullet, html.light .hljs-link,
+html.light .hljs-meta, html.light .hljs-selector-id, html.light .hljs-title { color: #3760bf; }
+html.light .hljs-built_in, html.light .hljs-title.class_ { color: #166775; }
+html.light .hljs-emphasis { font-style: italic; }
+html.light .hljs-strong { font-weight: bold; }
+html.light .hljs-link { text-decoration: underline; }
