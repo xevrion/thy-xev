@@ -128,7 +128,7 @@ export const PostPage = () => {
               target="_blank"
             />
           ),
-          code: ({ children, className, node, ...props }: React.HTMLAttributes<HTMLCodeElement> & { node?: unknown }) => {
+          code: ({ children, className, node, ...props }: React.HTMLAttributes<HTMLElement> & { node?: unknown }) => {
             // If it has a language/hljs class, it's a fenced block — let rehype-highlight styles apply
             if (className) return <code className={className} {...props}>{children}</code>;
             // Inline code: subtle background, no blue
