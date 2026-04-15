@@ -1,6 +1,8 @@
 // src/pages/Posts.tsx
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import Fuse from "fuse.js";
 import { parsedPosts, readingTime } from "./../utils/posts";
 import { usePostViews } from "../hooks/usePostViews";
@@ -27,7 +29,9 @@ function PostCard({ post, activeTag, onTagClick }: { post: Post; activeTag: stri
           <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
         </div>
       </div>
-      <p className="text-battleship-gray text-lg sg-regular mb-3">{post.summary}</p>
+      <div className="text-battleship-gray text-lg sg-regular mb-3 [&_h2]:text-xl [&_h2]:text-soft-royal-blue [&_h2]:sg-bold [&_span.blue]:text-soft-royal-blue">
+        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.summary}</ReactMarkdown>
+      </div>
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag) => (
