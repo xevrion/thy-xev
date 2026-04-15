@@ -17,9 +17,9 @@ function PostCard({ post, activeTag, onTagClick }: { post: Post; activeTag: stri
   const views = usePostViews(post.slug);
   return (
     <div className="border-b border-battleship-gray pb-6">
-      <div className="mb-2 flex flex-row justify-between items-center">
-        <h2 className="text-3xl text-soft-royal-blue sg-bold mb-2 flex-1 min-w-0">
-          <Link to={`/posts/${post.slug}`} className="hover:underline truncate block">
+      <div className="mb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+        <h2 className="text-2xl sm:text-3xl text-soft-royal-blue sg-bold mb-1 sm:mb-2 sm:flex-1 sm:min-w-0">
+          <Link to={`/posts/${post.slug}`} className="hover:underline sm:truncate block">
             {post.title}
           </Link>
         </h2>
