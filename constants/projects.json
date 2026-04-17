@@ -8,6 +8,27 @@
       "live": "https://daemondoc.online"
     },
     {
+      "url": "https://kdenlive.org/",
+      "text": "Contributing to Kdenlive",
+      "desc": "Contributing to Kdenlive, an open-source video editor.",
+      "image": "/project-previews/kdenlive.png"
+    },
+    {
+      "url": "https://github.com/xevrion/cookmarked",
+      "text": "Cookmarked",
+      "desc": "A recipe manager that helps you save, organize, and discover recipes from around the web, all in one place.",
+      "image": "/project-previews/cookmarked.png",
+      "live": "https://cookmarked.xevrion.dev"
+    }
+  ],
+  "pastProjects": [
+    {
+      "url": "https://github.com/xevrion/claude-lag-fixer",
+      "text": "Claude Lag Fixer",
+      "desc": "A Chrome extension that fixes the typing lag and slowness you get in long Claude.ai conversations.",
+      "image": "/project-previews/claude.png"
+    },
+    {
       "url": "https://github.com/xevrion/peek-a-repo",
       "text": "Peek-a-Repo",
       "desc": "A Chrome extension that lets you peek into your GitHub repositories without clicking. No more scrolling through your repositories to find the one you want to work on.",
@@ -21,20 +42,6 @@
       "image": "/project-previews/stale-branches.png",
       "live": "https://xevrion.github.io/stale-branches/"
     },
-    {
-      "url": "https://github.com/zulip/zulip",
-      "text": "Contributing to Zulip",
-      "desc": "Contributing to Zulip, an open-source team chat application.",
-      "image": "/project-previews/zulip.png"
-    },
-    {
-      "url": "https://github.com/xevrion/claude-lag-fixer",
-      "text": "Claude Lag Fixer",
-      "desc": "A Chrome extension that fixes the typing lag and slowness you get in long Claude.ai conversations.",
-      "image": "/project-previews/claude-lag-fixer.png"
-    }
-  ],
-  "pastProjects": [
     {
       "url": "https://github.com/xevrion/Motixion",
       "text": "Motixion",
