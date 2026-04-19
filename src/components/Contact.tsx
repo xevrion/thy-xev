@@ -6,8 +6,8 @@ import { Title, Meta, Link } from 'react-head'
 const contacts = [
   {
     icon: <Mail className="w-5 h-5" />,
-    text: "krbavadiya11@gmail.com",
-    url: "mailto:krbavadiya11@gmail.com",
+    text: "me@xevrion.dev",
+    url: "mailto:me@xevrion.dev",
   },
   {
     icon: <FaGithub className="w-5 h-5" />,
