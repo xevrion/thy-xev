@@ -1,19 +1,48 @@
 # DSA & Competitive Programming Roadmap
-Date: 24-02-2026
-Tags: dsa, guide
+Date: 05-05-2026
+Tags: dsa, guide, competitive-programming
 
-This is my public roadmap to go from basically nothing to:
+This is my public roadmap to go from shaky foundations to:
 
 - Solving most Leetcode Hards, all Mediums and Easys independently
 - Reaching 1600–1800 rating on Codeforces
-- Being actually placement-ready
+- Crushing every DSA round in placements — no blanking, no hesitation
 
-I'm posting this publicly to keep myself accountable. I'll update dates as I complete things.
+3 months. No excuses. I'm posting this publicly to stay accountable. Every checkbox gets a date when it's done.
+
+---
+
+## Resources I'm Using
+
+These are the only resources I need. Seniors and people who've done this before all point to the same things — so I'm trusting the process.
+
+- **NeetCode YT + NeetCode 250 Sheet** — primary problem list. If stuck on any problem, watch his video. He explains the intuition, not just the code. Use the sheet but submit on LeetCode so the count goes up.
+- **Codestory with Mik YT** — watch for problem-solving mindset and contest strategy. His thinking-out-loud style builds intuition fast.
+- **LuvDSA YT** — additional problem walkthroughs for practice reinforcement.
+- **LeetCode Top 150** — milestone target. If I can do all of these, I'm placement-ready.
+- **cp-algorithms.com** — for deep dives on graph and DP algorithms.
+- **Codeforces problem filter** — daily grind for CP rating.
+
+---
+
+## Daily Schedule
+
+**Weekdays — 2.5 hours**
+- 1 hour morning: 1–2 LeetCode problems (topic I'm currently on). Minimum 30 min struggle before any hint.
+- 1 hour evening: theory if new topic, OR 1 more problem.
+- 30 min: review solution, understand alternate approaches, note patterns.
+
+**Weekends — 4 hours**
+- 2 hours: 2–3 problems, slightly harder than weekday target.
+- 1 hour: CF contest (live or virtual) on Saturday.
+- 1 hour: upsolve everything missed in the contest. Non-negotiable.
+
+**Daily problem target: 3–4 problems.** On slow days (GSoC heavy), minimum is 2. Zero is never acceptable.
 
 ---
 
 ## Phase 1 — Foundation Repair
-*Target: Weeks 1–4*
+*Target: Weeks 1–3*
 
 ### C++ STL Mastery
 
@@ -65,48 +94,53 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
   - [ ] [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
   - [ ] [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 
-
 ### Recursion & Backtracking
 
-- [ ] Understand the call stack — trace through recursive calls manually
-- [ ] Base case thinking — every recursion problem starts here
-- [ ] Classic problems: Fibonacci, factorial, power, reverse array
-- [ ] Subsets, permutations, combinations
+- [ ] Understand the call stack — trace recursive calls by hand on paper first
+- [ ] Base case thinking — every recursion problem starts here, always
+- [ ] Classic problems: Fibonacci, factorial, power(x,n), reverse array recursively
+- [ ] Subsets — draw the decision tree before coding
+- [ ] Permutations and combinations
 - [ ] Backtracking: N-Queens, Sudoku solver, rat in a maze
+- [ ] Watch: Striver's recursion series on YT (full playlist, in order)
+- [ ] Watch: Codestory with Mik — recursion + backtracking episodes
 - [ ] Practice: 20 pure recursion + backtracking problems before moving on
 
 ### Linked Lists
 
-- [ ] Singly linked list — insert, delete, reverse
-- [ ] Fast and slow pointers (Floyd's cycle detection)
+- [ ] Singly linked list — insert, delete, reverse (draw pointer changes before coding)
+- [ ] Fast and slow pointers — Floyd's cycle detection
 - [ ] Merge two sorted lists
 - [ ] Find middle, detect loop, remove nth from end
+- [ ] Watch: NeetCode linked list section
 - [ ] Practice: 10 problems on Leetcode
 
 ---
 
 ## Phase 2 — Core DSA
-*Target: Weeks 5–12*
+*Target: Weeks 4–10*
 
 ### Stacks & Queues
 
 - [ ] Stack using array and STL
-- [ ] Monotonic stack — next greater element, previous smaller element
+- [ ] Monotonic stack — next greater element, previous smaller element (most important pattern for placements)
 - [ ] Queue, circular queue, deque
 - [ ] Classic problems: valid parentheses, largest rectangle in histogram, sliding window maximum
+- [ ] Watch: NeetCode stack section + Mik's monotonic stack video
 - [ ] Practice: 12 problems
 
 ### Binary Search
 
-- [ ] Binary search on sorted array (the basics)
-- [ ] Binary search on answer — this is the real skill
+- [ ] Binary search on sorted array — the basics cold
+- [ ] Binary search on answer — the real skill. "minimize the maximum" = binary search on answer
 - [ ] Lower bound / upper bound applications
 - [ ] Classic problems: search in rotated array, find peak element, Koko eating bananas, aggressive cows
+- [ ] Watch: NeetCode binary search section
 - [ ] Practice: 15 problems
 
 ### Heaps (Priority Queue)
 
-- [ ] Min-heap and max-heap internals
+- [ ] Min-heap and max-heap internals — understand how heapify works
 - [ ] K largest / K smallest elements
 - [ ] Merge K sorted lists
 - [ ] Top K frequent elements
@@ -114,137 +148,121 @@ I'm posting this publicly to keep myself accountable. I'll update dates as I com
 
 ### Trees
 
-- [ ] Binary tree traversals — inorder, preorder, postorder (recursive + iterative)
-- [ ] Level order traversal (BFS on trees)
-- [ ] Height, diameter, depth of binary tree
+- [ ] Binary tree traversals — inorder, preorder, postorder (recursive AND iterative both)
+- [ ] Level order traversal — BFS on trees
+- [ ] Height, diameter, depth
 - [ ] Lowest common ancestor (LCA)
 - [ ] Binary Search Tree — insert, delete, search, validate
 - [ ] Path sum problems
 - [ ] Serialize and deserialize
-- [ ] Practice: 30 problems (this is non-negotiable before graphs)
+- [ ] Watch: NeetCode trees section (all 15 problems) + Mik's tree series
+- [ ] Practice: 30 problems — non-negotiable before touching graphs
 
 ### Graphs
 
-- [ ] Graph representation — adjacency list vs matrix
+- [ ] Graph representation — adjacency list vs matrix, know when to use which
 - [ ] BFS — shortest path in unweighted graph
 - [ ] DFS — connected components, cycle detection
-- [ ] Topological sort (Kahn's algorithm + DFS approach)
-- [ ] Union-Find (Disjoint Set Union) — with path compression and union by rank
+- [ ] Topological sort — Kahn's algorithm + DFS approach (both)
+- [ ] Union-Find (DSU) — with path compression and union by rank
 - [ ] Dijkstra's algorithm — shortest path in weighted graph
-- [ ] Bellman-Ford (for negative weights)
+- [ ] Bellman-Ford — for negative weights
 - [ ] Minimum spanning tree — Kruskal's and Prim's
-- [ ] Practice: 25 problems (topic-wise, one algorithm at a time)
+- [ ] Watch: NeetCode graphs + advanced graphs sections
+- [ ] Reference: cp-algorithms.com for DSU and Dijkstra deep dives
+- [ ] Practice: 25 problems — topic by topic, one algorithm at a time
 
 ### Dynamic Programming
 
 - [ ] 1D DP — climbing stairs, house robber, jump game
 - [ ] 2D DP — grid paths, unique paths, minimum path sum
 - [ ] Knapsack — 0/1 knapsack, unbounded knapsack
-- [ ] String DP — longest common subsequence, edit distance, longest palindromic subsequence
+- [ ] String DP — LCS, edit distance, longest palindromic subsequence
 - [ ] DP on trees
-- [ ] Bitmask DP (intro)
-- [ ] Practice: 30 problems — never memorize, always derive the recurrence yourself
+- [ ] Bitmask DP (intro level)
+- [ ] Watch: NeetCode 1D DP + 2D DP sections + Mik's DP series
+- [ ] Practice: 30 problems — never memorize, always derive the recurrence from scratch
 
 ---
 
-## Phase 3 — Leetcode Grind
-*Target: Weeks 8–20 (overlaps with Phase 2)*
+## Phase 3 — NeetCode 250 Grind
+*Target: Weeks 7–12 (overlaps with Phase 2)*
 
-### Topic-wise Leetcode (do alongside Phase 2 theory)
+Start this alongside Phase 2 theory from Week 7. Use the NeetCode 250 sheet. Submit on LeetCode. Watch NeetCode's video only after 30+ min of genuine struggle.
 
-- [ ] Arrays & Strings — 20 problems (Easy + Medium)
-- [ ] Two Pointers & Sliding Window — 15 problems
-- [ ] Binary Search — 15 problems
-- [ ] Stacks & Queues — 12 problems
-- [ ] Trees — 25 problems
-- [ ] Graphs — 20 problems
-- [ ] Dynamic Programming — 25 problems
-- [ ] Heaps — 10 problems
-- [ ] Backtracking — 12 problems
+- [ ] Arrays & Hashing
+- [ ] Two Pointers
+- [ ] Sliding Window
+- [ ] Stack
+- [ ] Binary Search
+- [ ] Linked List
+- [ ] Trees
+- [ ] Tries
+- [ ] Heap / Priority Queue
+- [ ] Backtracking
+- [ ] Graphs
+- [ ] Advanced Graphs
+- [ ] 1D DP
+- [ ] 2D DP
+- [ ] Greedy
+- [ ] Intervals
+- [ ] Math & Geometry
+- [ ] Bit Manipulation
 
-### NeetCode 150
+### LeetCode Top 150 — Placement Milestone
 
-- [ ] Start NeetCode 150 after completing Phase 1
-- [ ] Arrays & Hashing (9 problems)
-- [ ] Two Pointers (5 problems)
-- [ ] Sliding Window (6 problems)
-- [ ] Stack (7 problems)
-- [ ] Binary Search (7 problems)
-- [ ] Linked List (11 problems)
-- [ ] Trees (15 problems)
-- [ ] Tries (3 problems)
-- [ ] Heap / Priority Queue (7 problems)
-- [ ] Backtracking (9 problems)
-- [ ] Graphs (13 problems)
-- [ ] Advanced Graphs (6 problems)
-- [ ] 1D DP (12 problems)
-- [ ] 2D DP (11 problems)
-- [ ] Greedy (8 problems)
-- [ ] Intervals (6 problems)
-- [ ] Math & Geometry (8 problems)
-- [ ] Bit Manipulation (7 problems)
+- [ ] Complete LeetCode Top 150 by end of Month 3 — this is the placement-ready checkpoint
 
 ### Milestones
 
-- [ ] Can independently solve 80% of Leetcode Easys in under 15 minutes
-- [ ] Can independently solve 70% of Leetcode Mediums in under 35 minutes
-- [ ] Attempted at least 10 Leetcode Hards independently (no hints for first 45 min)
+- [ ] End of Month 1: Can solve 80% of Leetcode Easys in under 15 minutes independently
+- [ ] End of Month 2: Can solve 70% of Leetcode Mediums in under 35 minutes independently
+- [ ] End of Month 3: Attempted at least 15 Leetcode Hards independently (no hints for first 45 min)
+- [ ] Can explain every data structure and algorithm out loud without notes
 
-<!-- ---
+---
 
-## Phase 4 — Codeforces Grind
-*Target: Week 6 onwards, ongoing*
+## Phase 4 — Codeforces Rating Grind
+*Target: Week 4 onwards, ongoing in parallel*
 
-### Rating Ladder (problem filter grind)
+Current rating: 1072 (max 1077). Target: 1600–1800.
 
-- [ ] Solve 30 problems rated 800 on Codeforces
-- [ ] Solve 30 problems rated 900
-- [ ] Solve 30 problems rated 1000
-- [ ] Solve 25 problems rated 1100
-- [ ] Solve 25 problems rated 1200
+### Rating Ladder (Codeforces problem filter grind)
+
+- [ ] Solve 20 problems rated 1100
+- [ ] Solve 20 problems rated 1200
 - [ ] Solve 20 problems rated 1300
-- [ ] Solve 20 problems rated 1400
+- [ ] Solve 15 problems rated 1400
 - [ ] Solve 15 problems rated 1500
 - [ ] Solve 15 problems rated 1600
 
 ### Live Contests
 
 - [ ] Participate in first Div. 4 contest (live)
-- [ ] Participate in 5 Div. 4 contests
+- [ ] Participate in 5 Div. 4 contests total
 - [ ] Participate in first Div. 3 contest (live)
-- [ ] Participate in 5 Div. 3 contests
-- [ ] Upsolve every problem missed in every contest (non-negotiable)
+- [ ] Participate in 5 Div. 3 contests total
+- [ ] Upsolve every problem missed in every contest — non-negotiable, every single time
 
 ### Rating Milestones
 
-- [ ] Reach rating 800 (Newbie)
-- [ ] Reach rating 1000
 - [ ] Reach rating 1200 (Pupil)
 - [ ] Reach rating 1400
-- [ ] Reach rating 1600 (Specialist)
-- [ ] Reach rating 1700
-- [ ] **Reach rating 1800 (Specialist → Expert boundary)** 🎯 -->
+- [ ] Reach rating 1600 (Specialist) 🎯
+- [ ] Reach rating 1800 (Expert boundary) 🎯
 
 ---
 
-## Rules I'm Following
+## Rules — Non-Negotiable
 
-- Minimum 30–45 minutes of genuine struggle before looking at any hint
-- No copy-pasting solutions to maintain streaks — if I can't solve it, I upsolve it properly
-- Every new topic: learn theory first, then immediately do 10+ problems on that topic
-- After every contest: upsolve every problem I couldn't solve during the contest
-- Update this post with dates every time a checkbox gets ticked
+- **30–45 minutes of genuine struggle** before looking at any hint. Pain builds intuition. There's no shortcut here.
+- **No copy-pasting solutions.** If I can't solve it, I upsolve it properly — read the editorial, understand it fully, then code from scratch without looking.
+- **Every new topic:** theory first, then minimum 10 problems on that topic before moving on.
+- **After every CF contest:** upsolve every problem I couldn't solve during the contest. Read the editorial. Code it. No exceptions.
+- **NeetCode 250 is the primary sheet.** If stuck on any problem, watch NeetCode's video for that problem. Submit on LeetCode so the count goes up.
+- **Zero days are not allowed.** GSoC heavy day = minimum 2 problems. No day is a zero.
+- **Update this post with dates** every time a checkbox gets ticked. Public accountability is the point.
 
 ---
-
-<!-- ## Resources
-
-- **Primary theory + problem list:** Striver's A2Z DSA Sheet — takeuforward.org
-- **Leetcode structured list:** NeetCode 150 — neetcode.io
-- **Codeforces:** Live contests + rating ladder grind
-- **Algorithm deep dives:** cp-algorithms.com
-- **Language reference:** cppreference.com
-
---- -->
 
 *Written by Yash (xevrion)*
