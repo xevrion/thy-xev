@@ -89,8 +89,8 @@ These are the only resources I need. Seniors and people who've done this before 
   - [x] [560. Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) — **03-03-2026**
   - [x] [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/) — **03-03-2026**
   - [x] [1456. Maximum Number of Vowels in a Substring of Given Length](https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/) — **03-03-2026**
-  - [ ] [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
-  - [ ] [567. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+  - [x] [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) - **11-05-2026**
+  - [x] [438. Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/) - **11-05-2026**
   - [ ] [128. Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)
   - [ ] [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 
