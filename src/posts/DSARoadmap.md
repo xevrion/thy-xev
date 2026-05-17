@@ -105,6 +105,26 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Watch: Striver's recursion series on YT (full playlist, in order)
 - [ ] Watch: Codestory with Mik — recursion + backtracking episodes
 - [ ] Practice: 20 pure recursion + backtracking problems before moving on
+  - [ ] [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+  - [ ] [344. Reverse String](https://leetcode.com/problems/reverse-string/)
+  - [ ] [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+  - [ ] [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+  - [ ] [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
+  - [ ] [78. Subsets](https://leetcode.com/problems/subsets/)
+  - [ ] [90. Subsets II](https://leetcode.com/problems/subsets-ii/)
+  - [ ] [46. Permutations](https://leetcode.com/problems/permutations/)
+  - [ ] [47. Permutations II](https://leetcode.com/problems/permutations-ii/)
+  - [ ] [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
+  - [ ] [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
+  - [ ] [77. Combinations](https://leetcode.com/problems/combinations/)
+  - [ ] [22. Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)
+  - [ ] [17. Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/)
+  - [ ] [131. Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)
+  - [ ] [93. Restore IP Addresses](https://leetcode.com/problems/restore-ip-addresses/)
+  - [ ] [79. Word Search](https://leetcode.com/problems/word-search/)
+  - [ ] [51. N-Queens](https://leetcode.com/problems/n-queens/)
+  - [ ] [52. N-Queens II](https://leetcode.com/problems/n-queens-ii/)
+  - [ ] [37. Sudoku Solver](https://leetcode.com/problems/sudoku-solver/)
 
 ### Linked Lists
 
@@ -114,6 +134,16 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Find middle, detect loop, remove nth from end
 - [ ] Watch: NeetCode linked list section
 - [ ] Practice: 10 problems on Leetcode
+  - [ ] [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)
+  - [ ] [21. Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)
+  - [ ] [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
+  - [ ] [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
+  - [ ] [83. Remove Duplicates from Sorted List](https://leetcode.com/problems/remove-duplicates-from-sorted-list/)
+  - [ ] [19. Remove Nth Node From End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)
+  - [ ] [143. Reorder List](https://leetcode.com/problems/reorder-list/)
+  - [ ] [2. Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)
+  - [ ] [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
+  - [ ] [25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
 
 ---
 
@@ -128,6 +158,18 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Classic problems: valid parentheses, largest rectangle in histogram, sliding window maximum
 - [ ] Watch: NeetCode stack section + Mik's monotonic stack video
 - [ ] Practice: 12 problems
+  - [ ] [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/)
+  - [ ] [155. Min Stack](https://leetcode.com/problems/min-stack/)
+  - [ ] [232. Implement Queue using Stacks](https://leetcode.com/problems/implement-queue-using-stacks/)
+  - [ ] [225. Implement Stack using Queues](https://leetcode.com/problems/implement-stack-using-queues/)
+  - [ ] [496. Next Greater Element I](https://leetcode.com/problems/next-greater-element-i/)
+  - [ ] [739. Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)
+  - [ ] [150. Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)
+  - [ ] [394. Decode String](https://leetcode.com/problems/decode-string/)
+  - [ ] [901. Online Stock Span](https://leetcode.com/problems/online-stock-span/)
+  - [ ] [84. Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)
+  - [ ] [239. Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
+  - [ ] [42. Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)
 
 ### Binary Search
 
@@ -137,6 +179,21 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Classic problems: search in rotated array, find peak element, Koko eating bananas, aggressive cows
 - [ ] Watch: NeetCode binary search section
 - [ ] Practice: 15 problems
+  - [ ] [704. Binary Search](https://leetcode.com/problems/binary-search/)
+  - [ ] [278. First Bad Version](https://leetcode.com/problems/first-bad-version/)
+  - [ ] [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+  - [ ] [374. Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)
+  - [ ] [69. Sqrt(x)](https://leetcode.com/problems/sqrtx/)
+  - [ ] [167. Two Sum II - Input Array Is Sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+  - [ ] [33. Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)
+  - [ ] [153. Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)
+  - [ ] [162. Find Peak Element](https://leetcode.com/problems/find-peak-element/)
+  - [ ] [74. Search a 2D Matrix](https://leetcode.com/problems/search-a-2d-matrix/)
+  - [ ] [875. Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)
+  - [ ] [1011. Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)
+  - [ ] [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+  - [ ] [981. Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/)
+  - [ ] [4. Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)
 
 ### Heaps (Priority Queue)
 
@@ -145,6 +202,16 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Merge K sorted lists
 - [ ] Top K frequent elements
 - [ ] Practice: 10 problems
+  - [ ] [703. Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)
+  - [ ] [1046. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/)
+  - [ ] [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
+  - [ ] [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
+  - [ ] [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+  - [ ] [621. Task Scheduler](https://leetcode.com/problems/task-scheduler/)
+  - [ ] [295. Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)
+  - [ ] [355. Design Twitter](https://leetcode.com/problems/design-twitter/)
+  - [ ] [23. Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)
+  - [ ] [502. IPO](https://leetcode.com/problems/ipo/)
 
 ### Trees
 
@@ -157,6 +224,36 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Serialize and deserialize
 - [ ] Watch: NeetCode trees section (all 15 problems) + Mik's tree series
 - [ ] Practice: 30 problems — non-negotiable before touching graphs
+  - [ ] [144. Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)
+  - [ ] [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+  - [ ] [145. Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)
+  - [ ] [104. Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+  - [ ] [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
+  - [ ] [572. Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)
+  - [ ] [100. Same Tree](https://leetcode.com/problems/same-tree/)
+  - [ ] [101. Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)
+  - [ ] [112. Path Sum](https://leetcode.com/problems/path-sum/)
+  - [ ] [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+  - [ ] [107. Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)
+  - [ ] [637. Average of Levels in Binary Tree](https://leetcode.com/problems/average-of-levels-in-binary-tree/)
+  - [ ] [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
+  - [ ] [110. Balanced Binary Tree](https://leetcode.com/problems/balanced-binary-tree/)
+  - [ ] [700. Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)
+  - [ ] [701. Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)
+  - [ ] [530. Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)
+  - [ ] [235. Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
+  - [ ] [199. Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)
+  - [ ] [1448. Count Good Nodes in Binary Tree](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)
+  - [ ] [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
+  - [ ] [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+  - [ ] [105. Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+  - [ ] [106. Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
+  - [ ] [236. Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
+  - [ ] [113. Path Sum II](https://leetcode.com/problems/path-sum-ii/)
+  - [ ] [124. Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)
+  - [ ] [297. Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)
+  - [ ] [450. Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)
+  - [ ] [99. Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/)
 
 ### Graphs
 
@@ -171,6 +268,31 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Watch: NeetCode graphs + advanced graphs sections
 - [ ] Reference: cp-algorithms.com for DSU and Dijkstra deep dives
 - [ ] Practice: 25 problems — topic by topic, one algorithm at a time
+  - [ ] [997. Find the Town Judge](https://leetcode.com/problems/find-the-town-judge/)
+  - [ ] [1791. Find Center of Star Graph](https://leetcode.com/problems/find-center-of-star-graph/)
+  - [ ] [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+  - [ ] [733. Flood Fill](https://leetcode.com/problems/flood-fill/)
+  - [ ] [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
+  - [ ] [542. 01 Matrix](https://leetcode.com/problems/01-matrix/)
+  - [ ] [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+  - [ ] [133. Clone Graph](https://leetcode.com/problems/clone-graph/)
+  - [ ] [207. Course Schedule](https://leetcode.com/problems/course-schedule/)
+  - [ ] [210. Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
+  - [ ] [684. Redundant Connection](https://leetcode.com/problems/redundant-connection/)
+  - [ ] [323. Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)
+  - [ ] [261. Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/)
+  - [ ] [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
+  - [ ] [417. Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)
+  - [ ] [130. Surrounded Regions](https://leetcode.com/problems/surrounded-regions/)
+  - [ ] [286. Walls and Gates](https://leetcode.com/problems/walls-and-gates/)
+  - [ ] [743. Network Delay Time](https://leetcode.com/problems/network-delay-time/)
+  - [ ] [787. Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+  - [ ] [1631. Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/)
+  - [ ] [332. Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/)
+  - [ ] [1584. Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/)
+  - [ ] [778. Swim in Rising Water](https://leetcode.com/problems/swim-in-rising-water/)
+  - [ ] [269. Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)
+  - [ ] [765. Couples Holding Hands](https://leetcode.com/problems/couples-holding-hands/)
 
 ### Dynamic Programming
 
@@ -182,6 +304,36 @@ These are the only resources I need. Seniors and people who've done this before 
 - [ ] Bitmask DP (intro level)
 - [ ] Watch: NeetCode 1D DP + 2D DP sections + Mik's DP series
 - [ ] Practice: 30 problems — never memorize, always derive the recurrence from scratch
+  - [ ] [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+  - [ ] [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
+  - [ ] [198. House Robber](https://leetcode.com/problems/house-robber/)
+  - [ ] [213. House Robber II](https://leetcode.com/problems/house-robber-ii/)
+  - [ ] [322. Coin Change](https://leetcode.com/problems/coin-change/)
+  - [ ] [518. Coin Change II](https://leetcode.com/problems/coin-change-ii/)
+  - [ ] [55. Jump Game](https://leetcode.com/problems/jump-game/)
+  - [ ] [45. Jump Game II](https://leetcode.com/problems/jump-game-ii/)
+  - [ ] [152. Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)
+  - [ ] [139. Word Break](https://leetcode.com/problems/word-break/)
+  - [ ] [62. Unique Paths](https://leetcode.com/problems/unique-paths/)
+  - [ ] [63. Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)
+  - [ ] [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
+  - [ ] [120. Triangle](https://leetcode.com/problems/triangle/)
+  - [ ] [416. Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)
+  - [ ] [494. Target Sum](https://leetcode.com/problems/target-sum/)
+  - [ ] [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+  - [ ] [72. Edit Distance](https://leetcode.com/problems/edit-distance/)
+  - [ ] [1092. Shortest Common Supersequence](https://leetcode.com/problems/shortest-common-supersequence/)
+  - [ ] [516. Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/)
+  - [ ] [647. Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
+  - [ ] [5. Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+  - [ ] [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+  - [ ] [309. Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)
+  - [ ] [714. Best Time to Buy and Sell Stock with Transaction Fee](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/)
+  - [ ] [10. Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)
+  - [ ] [115. Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
+  - [ ] [312. Burst Balloons](https://leetcode.com/problems/burst-balloons/)
+  - [ ] [329. Longest Increasing Path in a Matrix](https://leetcode.com/problems/longest-increasing-path-in-a-matrix/)
+  - [ ] [337. House Robber III](https://leetcode.com/problems/house-robber-iii/)
 
 ---
 
