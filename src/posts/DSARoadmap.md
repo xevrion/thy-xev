@@ -96,10 +96,10 @@ These are the only resources I need. Seniors and people who've done this before 
 
 ### Recursion & Backtracking
 
-- [ ] Understand the call stack — trace recursive calls by hand on paper first
-- [ ] Base case thinking — every recursion problem starts here, always
-- [ ] Classic problems: Fibonacci, factorial, power(x,n), reverse array recursively
-- [ ] Subsets — draw the decision tree before coding
+- [x] Understand the call stack — trace recursive calls by hand on paper first
+- [x] Base case thinking — every recursion problem starts here, always
+- [x] Classic problems: Fibonacci, factorial, power(x,n), reverse array recursively
+- [x] Subsets — draw the decision tree before coding
 - [ ] Permutations and combinations
 - [ ] Backtracking: N-Queens, Sudoku solver, rat in a maze
 - [ ] Watch: Striver's recursion series on YT (full playlist, in order)
