@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import { Title, Meta, Link as HeadLink } from "react-head";
 import SplitText from "./reactbits/splittext";
 
-const DRIVE_FILE_ID = "1uIcQ10m-TV1sfBsVp4UM7aIf9AQ9bvBH";
+const DRIVE_FILE_ID = "1Bmtk0cAVQXqrG_f_HwjXKDTVQcbHqKWf";
 const EMBED_URL = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/preview`;
 const DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
 

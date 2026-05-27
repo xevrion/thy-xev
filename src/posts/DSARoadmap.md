@@ -100,7 +100,7 @@ These are the only resources I need. Seniors and people who've done this before 
 - [x] Base case thinking — every recursion problem starts here, always
 - [x] Classic problems: Fibonacci, factorial, power(x,n), reverse array recursively
 - [x] Subsets — draw the decision tree before coding
-- [ ] Permutations and combinations
+- [x] Permutations and combinations
 - [ ] Backtracking: N-Queens, Sudoku solver, rat in a maze
 - [ ] Watch: Striver's recursion series on YT (full playlist, in order)
 - [ ] Watch: Codestory with Mik — recursion + backtracking episodes
@@ -110,9 +110,9 @@ These are the only resources I need. Seniors and people who've done this before 
   - [ ] [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
   - [ ] [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
   - [ ] [50. Pow(x, n)](https://leetcode.com/problems/powx-n/)
-  - [ ] [78. Subsets](https://leetcode.com/problems/subsets/)
+  - [x] [78. Subsets](https://leetcode.com/problems/subsets/)
   - [ ] [90. Subsets II](https://leetcode.com/problems/subsets-ii/)
-  - [ ] [46. Permutations](https://leetcode.com/problems/permutations/)
+  - [x] [46. Permutations](https://leetcode.com/problems/permutations/)
   - [ ] [47. Permutations II](https://leetcode.com/problems/permutations-ii/)
   - [ ] [39. Combination Sum](https://leetcode.com/problems/combination-sum/)
   - [ ] [40. Combination Sum II](https://leetcode.com/problems/combination-sum-ii/)
