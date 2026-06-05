@@ -50,7 +50,7 @@ export const Hero = () => {
         }}
       />
 
-      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto">
+      <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
           <div className="flex flex-col gap-5 text-center md:text-left">
             <SplitText

@@ -13,7 +13,7 @@ const items = [
 
 export const Now = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
       <div className="text-center">
         <SplitText
           text="Now"
@@ -31,8 +31,8 @@ export const Now = () => {
       <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
         {items.map((item) => (
           <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
-            <span className="text-battleship-gray/70 sg-regular text-base w-28 shrink-0">{item.label}</span>
-            <span className="text-soft-royal-blue sg-medium text-lg">{item.value}</span>
+            <span className="text-[var(--color-battleship-gray)]/45 sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
+            <span className="text-[var(--color-battleship-gray)] sg-regular text-base">{item.value}</span>
           </div>
         ))}
       </div>

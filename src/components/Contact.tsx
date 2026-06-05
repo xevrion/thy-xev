@@ -13,7 +13,7 @@ const contacts = [
 
 export const Contact = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
       <div className="text-center">
         <SplitText
           text="Get in Touch"
@@ -28,7 +28,7 @@ export const Contact = () => {
           rootMargin="-100px"
           textAlign="center"
         />
-        <p className="text-battleship-gray mt-3 text-lg sg-medium">
+        <p className="text-battleship-gray/60 mt-3 text-base sg-regular">
           Always open for collaborations, new ideas, or just a friendly chat.
         </p>
       </div>

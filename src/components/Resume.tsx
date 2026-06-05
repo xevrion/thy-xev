@@ -9,7 +9,7 @@ const DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${DRIVE_FIL
 
 export const Resume = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-8">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <SplitText
           text="Resume"

@@ -6,7 +6,7 @@ import Socials from './Socials'
 
 export const About = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
       <div className="text-center">
         <SplitText
           text="About Me"
@@ -23,14 +23,14 @@ export const About = () => {
         />
       </div>
 
-      <div className="text-battleship-gray text-lg sm:text-xl leading-relaxed max-w-3xl mx-auto text-center">
+      <div className="text-[var(--color-battleship-gray)]/70 text-base sm:text-[1.0625rem] leading-relaxed max-w-2xl mx-auto text-center sg-regular">
         <p>
           Hi! I'm Yash Bavadiya, a passionate Computer Science student from IIT Jodhpur with a knack for programming, design, and exploring new technologies. I love building creative projects that blend functionality and aesthetics, whether it's web apps, AI tools, or interactive websites. Outside of coding, I enjoy music, playing the piano and ukulele, and constantly learning new skills to push myself forward. My goal is to combine technology and creativity to make meaningful, polished digital experiences.
         </p>
       </div>
 
       <div className="text-center">
-        <h1 className="text-xl sm:text-2xl lg:text-3xl text-soft-royal-blue sg-bold selection:bg-battleship-gray mb-10">TechStack</h1>
+        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-battleship-gray)]/40 uppercase mb-8">Tech Stack</p>
         <Skills />
       </div>
 

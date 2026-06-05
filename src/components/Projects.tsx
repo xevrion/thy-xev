@@ -9,7 +9,7 @@ const { projects, pastProjects } = data
 
 export const Projects = () => {
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-16">
       <div className="text-center">
         <SplitText
           text="Projects"

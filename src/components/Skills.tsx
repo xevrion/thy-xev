@@ -98,9 +98,9 @@ export default function Skills() {
       ease: "back.out(1.7)",
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 80%",
-        // markers: true,
+        start: "top 95%",
         toggleActions: "play none none none",
+        once: true,
       },
     });
   }, []);

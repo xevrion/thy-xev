@@ -2,6 +2,7 @@
 
 import { ReadingProgress } from './ReadingProgress'
 import { DesktopTOC, MobileTOC, type TocItem } from './TableOfContents'
+import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 interface PostPageProps {
@@ -32,61 +33,54 @@ export const PostPage = ({
       <ReadingProgress />
       {toc.length > 0 && <MobileTOC items={toc} />}
 
-      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-20 2xl:px-40 py-12 max-w-screen-2xl mx-auto">
-        <div className="xl:grid xl:grid-cols-[1fr_200px] xl:gap-16">
-          {/* Main content */}
-          <div className="min-w-0">
-            {/* Header */}
-            <div className="mb-10">
-              <h1 className="text-2xl sm:text-3xl text-soft-royal-blue sg-medium mb-4">{title}</h1>
-              {description && (
-                <p className="text-battleship-gray/70 sg-regular mb-4">{description}</p>
-              )}
+      <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14">
+        {/* Post header */}
+        <header className="mb-10 sm:mb-12 pb-8 border-b border-[var(--color-battleship-gray)]/10">
+          <h1 className="text-[clamp(1.6rem,4vw+0.5rem,2.5rem)] font-bold text-[var(--color-soft-royal-blue)] leading-[1.15] tracking-tight mb-4">
+            {title}
+          </h1>
 
-              {/* Meta row */}
-              <div className="flex flex-col gap-2 text-sm sg-regular text-battleship-gray/60">
-                {date && (
-                  <div className="flex items-center gap-2">
-                    <span>{date}</span>
-                  </div>
-                )}
-                {updatedAt && updatedAt !== date && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-battleship-gray/40">Updated</span>
-                    <span>{updatedAt}</span>
-                  </div>
-                )}
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  {readingTime && <span>{readingTime}</span>}
-                  {views != null && (
-                    <>
-                      {readingTime && <span className="text-battleship-gray/30">·</span>}
-                      <span>{views.toLocaleString()} reads</span>
-                    </>
-                  )}
-                </div>
-                {tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/30 text-battleship-gray/70"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
+          {description && (
+            <p className="text-base sm:text-[1.0625rem] text-[var(--color-battleship-gray)]/70 leading-relaxed mb-5">
+              {description}
+            </p>
+          )}
 
-            <div className="prose-post">{children}</div>
+          {/* Meta row */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-[var(--color-battleship-gray)]/45 mb-4">
+            {date && <span>{date}</span>}
+            {updatedAt && updatedAt !== date && (
+              <span>updated {updatedAt}</span>
+            )}
+            {readingTime && <span>{readingTime}</span>}
+            {views != null && <span>{views.toLocaleString()} reads</span>}
           </div>
 
-          {/* Desktop TOC sidebar */}
+          {/* Tags */}
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {tags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/blogs?tags=${encodeURIComponent(tag)}`}
+                  className="px-2 py-0.5 rounded font-mono text-xs bg-[var(--color-battleship-gray)]/6 text-[var(--color-battleship-gray)]/55 border border-[var(--color-battleship-gray)]/15 hover:text-[var(--color-soft-royal-blue)] hover:bg-[var(--color-soft-royal-blue)]/8 hover:border-[var(--color-soft-royal-blue)]/20 transition-colors duration-150"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
+          )}
+        </header>
+
+        {/* Body: article + optional TOC sidebar */}
+        <div className={toc.length > 0 ? 'xl:grid xl:grid-cols-[1fr_220px] xl:gap-14' : ''}>
+          <article className="prose-post min-w-0">
+            {children}
+          </article>
+
           {toc.length > 0 && <DesktopTOC items={toc} />}
         </div>
-      </section>
+      </div>
     </>
   )
 }

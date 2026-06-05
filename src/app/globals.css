@@ -26,94 +26,123 @@ html.light .shiki span {
 .prose-post {
   color: var(--color-battleship-gray);
   font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem);
   line-height: 1.8;
 }
-.prose-post h1 { display: none; } /* title rendered in PostPage header */
+.prose-post h1 { display: none; }
 .prose-post h2 {
-  font-size: 1.35rem;
+  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.4rem);
   font-weight: 700;
   color: var(--color-soft-royal-blue);
-  margin: 2rem 0 0.75rem;
+  margin: 2.5rem 0 0.875rem;
+  scroll-margin-top: 5rem;
+  letter-spacing: -0.01em;
 }
 .prose-post h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: clamp(1.05rem, 1.5vw + 0.4rem, 1.2rem);
+  font-weight: 600;
   color: var(--color-soft-royal-blue);
-  margin: 1.5rem 0 0.5rem;
+  margin: 2rem 0 0.625rem;
+  scroll-margin-top: 5rem;
 }
-.prose-post p { margin-bottom: 1.25rem; }
+.prose-post h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-battleship-gray);
+  margin: 1.5rem 0 0.5rem;
+  scroll-margin-top: 5rem;
+}
+.prose-post p {
+  margin-bottom: 1.375rem;
+}
 .prose-post a {
   color: var(--color-soft-royal-blue);
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--color-soft-royal-blue) 40%, transparent);
   overflow-wrap: anywhere;
+  transition: text-decoration-color 0.15s;
 }
-.prose-post strong { font-weight: 700; }
+.prose-post a:hover {
+  text-decoration-color: var(--color-soft-royal-blue);
+}
+.prose-post strong {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--color-battleship-gray) 130%, transparent);
+}
 .prose-post em { font-style: italic; }
 .prose-post blockquote {
-  border-left: 4px solid var(--color-soft-royal-blue);
-  padding-left: 1rem;
+  border-left: 3px solid color-mix(in srgb, var(--color-soft-royal-blue) 50%, transparent);
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  margin: 1.75rem 0;
+  color: color-mix(in srgb, var(--color-battleship-gray) 80%, transparent);
   font-style: italic;
-  margin: 1.5rem 0;
-  color: var(--color-battleship-gray);
-  opacity: 0.8;
 }
-.prose-post ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
-.prose-post ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
-.prose-post li { margin-bottom: 0.4rem; }
+.prose-post ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-post ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.prose-post li { margin-bottom: 0.375rem; line-height: 1.7; }
 .prose-post hr {
   border: none;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--color-soft-royal-blue), transparent);
-  opacity: 0.3;
-  margin: 2rem 0;
+  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-soft-royal-blue) 35%, transparent), transparent);
+  margin: 2.5rem 0;
 }
 .prose-post table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.25rem 0;
-  font-size: 0.95rem;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
   overflow-x: auto;
   display: block;
 }
-.prose-post thead { border-bottom: 2px solid rgba(110,140,255,0.3); }
+.prose-post thead { border-bottom: 1px solid color-mix(in srgb, var(--color-soft-royal-blue) 25%, transparent); }
 .prose-post th {
   text-align: left;
   color: var(--color-soft-royal-blue);
-  font-weight: 700;
-  padding: 0.5rem 1rem;
+  font-weight: 600;
+  padding: 0.625rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
-.prose-post td { padding: 0.5rem 1rem; }
-.prose-post tr { border-bottom: 1px solid rgba(110,140,255,0.1); }
+.prose-post td { padding: 0.625rem 1rem; }
+.prose-post tr { border-bottom: 1px solid color-mix(in srgb, var(--color-battleship-gray) 12%, transparent); }
 
 /* Shiki code blocks */
 .prose-post .shiki {
   border-radius: 0.5rem;
-  padding: 1.25rem !important;
-  margin: 1.25rem 0;
+  padding: 1.25rem 1.375rem !important;
+  margin: 1.5rem 0;
   overflow-x: auto;
-  border: 1px solid rgba(100,149,237,0.3);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', monospace;
+  border: 1px solid color-mix(in srgb, var(--color-soft-royal-blue) 20%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  font-family: ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
 }
 html.light .prose-post .shiki {
-  border-color: rgba(61,92,232,0.2);
+  border-color: color-mix(in srgb, var(--color-soft-royal-blue) 15%, transparent);
 }
 
-/* Inline code (not inside a pre/shiki block) */
+/* Inline code */
 .prose-post :not(pre) > code {
-  background-color: #1e2030;
-  color: #a9b1d6;
+  background-color: color-mix(in srgb, var(--color-battleship-gray) 12%, transparent);
+  color: var(--color-battleship-gray);
   padding: 0.15em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
-  font-family: 'ui-monospace', monospace;
+  font-family: ui-monospace, monospace;
 }
 html.light .prose-post :not(pre) > code {
-  background-color: #e2ddd8;
-  color: #3a3633;
+  background-color: color-mix(in srgb, var(--color-battleship-gray) 14%, transparent);
+  color: color-mix(in srgb, var(--color-battleship-gray) 130%, transparent);
 }
 
 @theme {

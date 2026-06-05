@@ -122,7 +122,7 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
     <div className="xl:hidden sticky top-[57px] z-40 bg-[var(--color-taupe)] border-b border-battleship-gray/15 backdrop-blur-sm">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-3 px-6 sm:px-10 md:px-20 h-10 text-sm"
+        className="flex w-full items-center gap-3 px-6 sm:px-8 lg:px-10 h-10 text-sm"
       >
         {/* Progress circle */}
         <svg
@@ -164,7 +164,7 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
       {open && (
         <div
           ref={listRef}
-          className="px-6 sm:px-10 md:px-20 pb-3 max-h-[50vh] overflow-y-auto"
+          className="px-6 sm:px-8 lg:px-10 pb-3 max-h-[50vh] overflow-y-auto"
         >
           <ul className="flex flex-col gap-1 py-1">
             {items.map((item) => {

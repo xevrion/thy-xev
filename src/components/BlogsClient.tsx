@@ -318,7 +318,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage)
 
   return (
-    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
       <div className="text-center">
         <SplitText
           text="Blogs"
@@ -333,7 +333,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
       </div>
 
       {/* Controls row */}
-      <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto w-full">
+      <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto w-full">
         {/* Search */}
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none" />
@@ -369,7 +369,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
 
       {/* Active tag pills */}
       {activeTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 -mt-8 max-w-xl mx-auto w-full">
+        <div className="flex flex-wrap gap-2 -mt-8 max-w-2xl mx-auto w-full">
           {activeTags.map((tag) => (
             <button
               key={tag}
