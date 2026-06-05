@@ -43,6 +43,7 @@ jobs:
               "SPOTIFY_REFRESH_TOKEN=${{ secrets.SPOTIFY_REFRESH_TOKEN }}" \
               "WAKATIME_API_KEY=${{ secrets.WAKATIME_API_KEY }}" \
               "GITHUB_PAT=${{ secrets.GH_PAT }}" \
+              "NEXT_PUBLIC_OPENWEATHER_KEY=${{ secrets.OPENWEATHER_KEY }}" \
               > .env
             docker compose pull
             docker compose up -d --remove-orphans

@@ -1,23 +1,30 @@
-# Stage 1: build (forced rebuild)
-FROM node:22-alpine AS builder
+# Stage 1: build
+FROM oven/bun:1 AS builder
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile
 
 COPY . .
 
-ARG VITE_API_URL
-ARG VITE_OPENWEATHER_KEY
-ENV VITE_API_URL=$VITE_API_URL
-ENV VITE_OPENWEATHER_KEY=$VITE_OPENWEATHER_KEY
+# Build-time env vars needed by Next.js at build time
+ARG NEXT_PUBLIC_OPENWEATHER_KEY
+ENV NEXT_PUBLIC_OPENWEATHER_KEY=$NEXT_PUBLIC_OPENWEATHER_KEY
 
-RUN npm run build
+RUN bun --bun next build
 
-# Stage 2: serve with nginx
-FROM nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Stage 2: run
+FROM oven/bun:1-slim
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
 
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+
+CMD ["bun", "server.js"]

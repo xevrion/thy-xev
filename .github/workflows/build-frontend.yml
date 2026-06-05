@@ -6,12 +6,14 @@ on:
     paths:
       - 'src/**'
       - 'public/**'
-      - 'index.html'
-      - 'vite.config.*'
-      - 'nginx.conf'
+      - 'content/**'
+      - 'constants/**'
+      - 'next.config.ts'
+      - 'source.config.ts'
+      - 'tailwind.config.*'
       - 'Dockerfile'
       - 'package.json'
-      - 'package-lock.json'
+      - 'bun.lock'
   workflow_dispatch:
 
 env:
@@ -29,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -54,7 +58,6 @@ jobs:
             ${{ env.IMAGE }}:${{ steps.vars.outputs.sha }}
             ${{ env.IMAGE }}:latest
           build-args: |
-            VITE_API_URL=${{ secrets.VITE_API_URL }}
-            VITE_OPENWEATHER_KEY=${{ secrets.VITE_OPENWEATHER_KEY }}
+            NEXT_PUBLIC_OPENWEATHER_KEY=${{ secrets.OPENWEATHER_KEY }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

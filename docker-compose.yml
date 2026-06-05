@@ -4,6 +4,12 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
+    env_file: .env
+    environment:
+      - DATA_DIR=/app/data
+      - NODE_ENV=production
+    volumes:
+      - views_data:/app/data
 
   backend:
     image: ghcr.io/xevrion/thy-xev/backend:latest
