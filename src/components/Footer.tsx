@@ -1,6 +1,7 @@
 'use client'
 
 import SpotifyWidget from './SpotifyWidget'
+import { SectionLabel } from './SectionLabel'
 import WakatimeDailyWidget from './WakatimeWidget'
 import WakatimeLanguages from './WakatimeLanguages'
 import GithubContributions from './GithubContributions'
@@ -12,10 +13,10 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="w-full mt-20 border-t border-battleship-gray/15">
+    <footer className="w-full mt-4">
       <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-14">
 
-        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">The fun stuff</p>
+        <SectionLabel>The fun stuff</SectionLabel>
 
         {/* Live widgets */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">

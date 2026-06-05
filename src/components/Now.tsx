@@ -1,5 +1,7 @@
 'use client'
 
+import { SectionLabel } from './SectionLabel'
+
 const items = [
   { label: 'learning',  value: 'agentic architecture, contributing to Kdenlive' },
   { label: 'building',  value: 'improving DaemonDoc, cooking up something new' },
@@ -11,11 +13,8 @@ const items = [
 
 export const Now = () => {
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10 border-t border-battleship-gray/15">
-      <div className="flex items-baseline gap-4">
-        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">Now</p>
-        <p className="text-xs text-[var(--color-text-muted)] sg-regular">what i'm up to right now</p>
-      </div>
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
+      <SectionLabel>Now</SectionLabel>
 
       <div className="flex flex-col gap-6 max-w-2xl w-full">
         {items.map((item) => (

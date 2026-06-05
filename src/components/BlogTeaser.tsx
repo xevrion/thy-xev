@@ -1,5 +1,6 @@
 import { source } from '@/lib/source'
 import Link from 'next/link'
+import { SectionLabel } from './SectionLabel'
 
 function formatDate(date: string | Date) {
   return new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -15,8 +16,8 @@ export function BlogTeaser() {
   if (posts.length === 0) return null
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10 border-t border-battleship-gray/15">
-      <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">Writing</p>
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
+      <SectionLabel>Writing</SectionLabel>
 
       <div className="flex flex-col">
         {posts.map((post) => (

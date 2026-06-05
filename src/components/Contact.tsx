@@ -2,6 +2,7 @@
 
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { Mail } from 'lucide-react'
+import { SectionLabel } from './SectionLabel'
 
 const contacts = [
   { icon: <Mail className="w-5 h-5" />,        text: 'me@xevrion.dev',                 url: 'mailto:me@xevrion.dev' },
@@ -12,8 +13,8 @@ const contacts = [
 
 export const Contact = () => {
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10 border-t border-battleship-gray/15">
-      <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">Contact</p>
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
+      <SectionLabel>Contact</SectionLabel>
 
       <div className="max-w-2xl">
         <p className="text-[var(--color-text)] sg-bold text-2xl sm:text-3xl leading-snug mb-2">

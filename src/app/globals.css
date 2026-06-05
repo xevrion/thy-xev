@@ -261,6 +261,23 @@ html.light {
   --color-soft-royal-blue: #3d5ce8;
   --scrollbar-thumb: rgba(122, 116, 110, 0.3);
   --scrollbar-bg: #f2eeea;
+  --selection-bg: #3d5ce8;
+  --selection-fg: #f2eeea;
+  --mark-bg: #3d5ce8;
+  --mark-fg: #f2eeea;
+}
+
+/* Selection + mark highlight — soft-royal-blue, our palette */
+:root {
+  --selection-bg: #6e8cff;
+  --selection-fg: #1c1916;
+  --mark-bg: #6e8cff;
+  --mark-fg: #1c1916;
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 /* Disable default view-transition animation; JS drives the reveal */

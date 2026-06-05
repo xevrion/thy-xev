@@ -2,13 +2,14 @@
 
 import data from '../../constants/projects.json'
 import { LinkPreview } from './LinkPreview'
+import { SectionLabel } from './SectionLabel'
 
 const { projects, pastProjects } = data
 
 export const Projects = () => {
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10 border-t border-battleship-gray/15">
-      <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">Projects</p>
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
+      <SectionLabel>Projects</SectionLabel>
 
       <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold mb-2">Currently Working</div>
