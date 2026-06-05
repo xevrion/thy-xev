@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { NavBar } from '@/components/NavBar'
 import { CommandPalette } from '@/components/CommandPalette'
+import { MouseGlow } from '@/components/MouseGlow'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
             />
           </div>
+          <MouseGlow />
           <CommandPalette />
           <NavBar />
           <main>{children}</main>
