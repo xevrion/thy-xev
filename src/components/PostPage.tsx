@@ -2,32 +2,34 @@
 
 import { ReadingProgress } from './ReadingProgress'
 import { DesktopTOC, MobileTOC, type TocItem } from './TableOfContents'
+import { usePostViews } from '@/hooks/usePostViews'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
 
 interface PostPageProps {
+  slug: string
   title: string
   description?: string
   date?: string
   updatedAt?: string
   tags?: string[]
   readingTime?: string
-  views?: number
   toc?: TocItem[]
   children: ReactNode
 }
 
 export const PostPage = ({
+  slug,
   title,
   description,
   date,
   updatedAt,
   tags = [],
   readingTime,
-  views,
   toc = [],
   children,
 }: PostPageProps) => {
+  const views = usePostViews(slug, true)
   return (
     <>
       <ReadingProgress />
@@ -47,13 +49,13 @@ export const PostPage = ({
           )}
 
           {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-[var(--color-text-muted)] mb-4">
+          <div className="flex flex-wrap items-center gap-y-1 font-mono text-xs text-[var(--color-text-muted)] mb-4">
             {date && <span>{date}</span>}
             {updatedAt && updatedAt !== date && (
-              <span>updated {updatedAt}</span>
+              <><span className="mx-2 opacity-40">·</span><span>updated {updatedAt}</span></>
             )}
-            {readingTime && <span>{readingTime}</span>}
-            {views != null && <span>{views.toLocaleString()} reads</span>}
+            {readingTime && <><span className="mx-2 opacity-40">·</span><span>{readingTime}</span></>}
+            <><span className="mx-2 opacity-40">·</span><span>{views == null ? '—' : `${views.toLocaleString()} reads`}</span></>
           </div>
 
           {/* Tags */}

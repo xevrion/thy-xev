@@ -78,6 +78,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         tags={page.data.tags ?? []}
       />
       <PostPage
+        slug={slug.join('-')}
         title={page.data.title}
         description={page.data.description}
         date={date}
