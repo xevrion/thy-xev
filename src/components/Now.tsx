@@ -1,7 +1,5 @@
 'use client'
 
-import SplitText from './reactbits/splittext'
-
 const items = [
   { label: 'learning',  value: 'agentic architecture, contributing to Kdenlive' },
   { label: 'building',  value: 'improving DaemonDoc, cooking up something new' },
@@ -13,22 +11,13 @@ const items = [
 
 export const Now = () => {
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
-      <div className="text-center">
-        <SplitText
-          text="Now"
-          className="text-[clamp(2.25rem,5vw+1rem,3.5rem)] text-soft-royal-blue sg-bold mb-3 leading-tight tracking-tight"
-          delay={20}
-          duration={1}
-          ease="elastic.out(1, 0.5)"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-        />
-        <p className="text-[var(--color-text-muted)] sg-regular text-sm">what i'm up to right now</p>
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10 border-t border-battleship-gray/15">
+      <div className="flex items-baseline gap-4">
+        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase">Now</p>
+        <p className="text-xs text-[var(--color-text-muted)] sg-regular">what i'm up to right now</p>
       </div>
 
-      <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
+      <div className="flex flex-col gap-6 max-w-2xl w-full">
         {items.map((item) => (
           <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
             <span className="text-[var(--color-text-subtle)] sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
@@ -37,7 +26,7 @@ export const Now = () => {
         ))}
       </div>
 
-      <p className="text-center text-[var(--color-text-muted)] sg-regular text-sm">
+      <p className="text-[var(--color-text-muted)] sg-regular text-sm">
         last updated 11 April 2026 · inspired by{' '}
         <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)] transition-colors">
           nownownow.com

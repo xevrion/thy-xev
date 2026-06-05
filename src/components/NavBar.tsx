@@ -9,10 +9,24 @@ import WeatherWidget from './WeatherWidget'
 import { ThemeToggle } from './ThemeToggle'
 import { openCommandPalette } from './CommandPalette'
 
+// Sections that live as anchors on the homepage
+const ANCHOR_LINKS = ['About', 'Projects', 'Now', 'Contact']
+
+// Links shown in the nav — always shown (filtering is removed; active page is highlighted instead)
+const ALL_LINKS = ['About', 'Projects', 'Now', 'Blogs', 'Resume']
+
+function getLinkHref(link: string, isHomepage: boolean) {
+  if (link === 'Resume') return '/resume'
+  if (link === 'Blogs') return '/blogs'
+  if (ANCHOR_LINKS.includes(link)) return isHomepage ? `#${link.toLowerCase()}` : `/#${link.toLowerCase()}`
+  return `/${link.toLowerCase()}`
+}
+
 export const NavBar = () => {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const isHomepage = pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 70)
@@ -25,10 +39,13 @@ export const NavBar = () => {
     return () => { document.body.style.overflow = 'unset' }
   }, [isOpen])
 
-  // Close mobile menu on route change
   useEffect(() => { setIsOpen(false) }, [pathname])
 
-  const links = ['Projects', 'Blogs', 'About', 'Contact', 'Resume']
+  const isActive = (link: string) => {
+    if (link === 'Blogs') return pathname.startsWith('/blogs')
+    if (link === 'Resume') return pathname === '/resume'
+    return false
+  }
 
   return (
     <nav className={`w-full sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? 'bg-gradient-to-b from-taupe to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
@@ -46,30 +63,30 @@ export const NavBar = () => {
 
         {/* Desktop Links + Theme Toggle */}
         <div className="hidden md:flex items-center gap-8">
-          {links
-            .filter((link) => `/${link.toLowerCase()}` !== pathname)
-            .map((link) => {
-              if (link === 'Resume') {
-                return (
-                  <Link
-                    key={link}
-                    href="/resume"
-                    className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-60 transition-all duration-250 border-b border-dashed border-soft-royal-blue/50 hover:opacity-90 pb-[1px]"
-                  >
-                    Resume
-                  </Link>
-                )
-              }
+          {ALL_LINKS.map((link) => {
+            const href = getLinkHref(link, isHomepage)
+            const active = isActive(link)
+            if (link === 'Resume') {
               return (
                 <Link
                   key={link}
-                  href={`/${link.toLowerCase()}`}
-                  className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-80 transition-colors duration-250 after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-soft-royal-blue after:transition-all after:duration-250 hover:after:w-full hover:after:left-0"
+                  href={href}
+                  className="relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue opacity-60 transition-all duration-250 border-b border-dashed border-soft-royal-blue/50 hover:opacity-90 pb-[1px]"
                 >
-                  {link}
+                  Resume
                 </Link>
               )
-            })}
+            }
+            return (
+              <Link
+                key={link}
+                href={href}
+                className={`relative font-space-grotesk text-base sm:text-lg font-bold text-soft-royal-blue transition-colors duration-250 after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:bg-soft-royal-blue after:transition-all after:duration-250 hover:after:w-full hover:after:left-0 ${active ? 'opacity-100 after:w-full after:left-0' : 'opacity-80 after:w-0'}`}
+              >
+                {link}
+              </Link>
+            )
+          })}
           <button
             onClick={openCommandPalette}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/50 text-[var(--color-text)] text-sm sg-regular hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-150"
@@ -97,18 +114,16 @@ export const NavBar = () => {
           className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-taupe/75 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}
         >
           <div className="flex flex-col items-center justify-center h-full gap-8">
-            {links
-              .filter((link) => `/${link.toLowerCase()}` !== pathname)
-              .map((link) => (
-                <Link
-                  key={link}
-                  href={`/${link.toLowerCase()}`}
-                  className="font-space-grotesk text-2xl font-bold text-soft-royal-blue opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link}
-                </Link>
-              ))}
+            {ALL_LINKS.map((link) => (
+              <Link
+                key={link}
+                href={getLinkHref(link, isHomepage)}
+                className="font-space-grotesk text-2xl font-bold text-soft-royal-blue opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                onClick={() => setIsOpen(false)}
+              >
+                {link}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

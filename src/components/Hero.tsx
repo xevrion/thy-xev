@@ -1,109 +1,51 @@
 'use client'
 
-import CurrentlyWorking from './CurrentlyWorking'
-import SplitText from './reactbits/splittext'
 import Socials from './Socials'
-import SpotifyWidget from './SpotifyWidget'
-import ContestWidget from './ContestWidget'
-import WakatimeWidget from './WakatimeWidget'
-import WakatimeLanguages from './WakatimeLanguages'
-import GithubContributions from './GithubContributions'
-import VisitorCount from './VisitorCount'
 import Image from 'next/image'
 import pfp from '../assets/download (10).jpeg'
 
 export const Hero = () => {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Person',
-            name: 'Yash Bavadiya',
-            alternateName: 'Xevrion',
-            url: 'https://xevrion.dev',
-            jobTitle: 'Full Stack Developer',
-            description: 'Computer Science student from IIT Jodhpur passionate about programming, design, and building creative projects',
-            alumniOf: { '@type': 'EducationalOrganization', name: 'IIT Jodhpur' },
-            sameAs: [
-              'https://github.com/xevrion',
-              'https://www.linkedin.com/in/yash-bavadiya-a598a224b/',
-              'https://x.com/xevrion_the1',
-            ],
-            knowsAbout: ['Web Development', 'Full Stack Development', 'React', 'TypeScript', 'Linux', 'Software Engineering'],
-          }),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'WebSite',
-            name: 'Xevrion Portfolio',
-            url: 'https://xevrion.dev',
-            description: 'Full Stack Developer portfolio showcasing projects, blog posts, and technical expertise',
-            author: { '@type': 'Person', name: 'Xevrion' },
-          }),
-        }}
-      />
-
-      <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
-          <div className="flex flex-col gap-5 text-center md:text-left">
-            <SplitText
-              text="Hello! I'm"
-              className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-[var(--color-text)] sg-bold selection:bg-blue-crayola"
-              delay={20}
-              duration={1}
-              ease="elastic.out(1, 0.5)"
-              splitType="words"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-100px"
-              textAlign="center"
-            />
-            <SplitText
-              text="Xevrion"
-              className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-soft-royal-blue sg-bold transition-all duration-150 hover:scale-105 hover:[text-shadow:0_0_10px_#5e7aff] selection:bg-battleship-gray"
-              delay={20}
-              duration={1}
-              ease="elastic.out(1, 0.5)"
-              splitType="chars"
-              from={{ opacity: 0, y: 40 }}
-              to={{ opacity: 1, y: 0 }}
-              threshold={0.1}
-              rootMargin="-100px"
-              textAlign="center"
-            />
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 sm:py-20">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20 w-full">
+        <div className="flex flex-col gap-5 text-center md:text-left">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl text-[var(--color-text)] sg-bold leading-tight">
+              Yash Bavadiya
+            </h1>
+            <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
+              Full Stack Developer
+            </p>
           </div>
 
-          <div className="w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-56 xl:h-56 border-4 rounded-full border-battleship-gray shrink-0 overflow-hidden">
-            <Image src={pfp} alt="profile picture" className="w-full h-full object-cover rounded-full" priority />
-          </div>
-        </div>
+          <p className="text-[var(--color-text-muted)] sg-regular text-base sm:text-lg max-w-md">
+            CS student at IIT Jodhpur. I build things for the web, tinker with systems, and occasionally touch grass.
+          </p>
 
-        <div className="mt-10 flex flex-col gap-6">
-          <VisitorCount />
-          <div className="flex flex-col sm:flex-row sm:justify-between items-center sm:items-start gap-6">
-            <SpotifyWidget />
-          </div>
-          <CurrentlyWorking />
-          <ContestWidget />
-          <WakatimeWidget />
-          <WakatimeLanguages />
-          <GithubContributions />
-          <div className="flex justify-center">
-            <a href="/now" className="text-base sg-regular text-[var(--color-text-muted)] hover:text-soft-royal-blue transition-colors duration-200">
-              what i'm doing now →
+          <div className="flex flex-col sm:flex-row gap-3 mt-1 justify-center md:justify-start">
+            <a
+              href="#contact"
+              className="px-5 py-2.5 bg-soft-royal-blue text-white sg-semibold text-sm hover:opacity-90 transition-opacity duration-200 text-center"
+            >
+              Get in touch
+            </a>
+            <a
+              href="/resume"
+              className="px-5 py-2.5 border border-battleship-gray/40 text-[var(--color-text)] sg-regular text-sm hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-200 text-center"
+            >
+              Resume
             </a>
           </div>
-          <Socials />
         </div>
-      </section>
-    </>
+
+        <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 border border-battleship-gray/30 shrink-0 overflow-hidden">
+          <Image src={pfp} alt="profile picture" className="w-full h-full object-cover" priority />
+        </div>
+      </div>
+
+      <div className="mt-12 flex justify-center md:justify-start">
+        <Socials />
+      </div>
+    </section>
   )
 }

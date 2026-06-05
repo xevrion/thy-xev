@@ -5,6 +5,7 @@ import { NavBar } from '@/components/NavBar'
 import { CommandPalette } from '@/components/CommandPalette'
 import { MouseGlow } from '@/components/MouseGlow'
 import { JsonLd } from '@/components/JsonLd'
+import Footer from '@/components/Footer'
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import './globals.css'
 
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <CommandPalette />
           <NavBar />
           <main>{children}</main>
+          <Footer />
         </ThemeProvider>
         </NuqsAdapter>
       </body>

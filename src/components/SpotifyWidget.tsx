@@ -88,7 +88,7 @@ const SpotifyWidget: React.FC = () => {
         <img
           src={track?.albumArt}
           alt="Album cover"
-          className="w-12 h-12 rounded-lg shadow-md hover:opacity-90 transition"
+          className="w-12 h-12 shadow-md hover:opacity-90 transition"
         />
       </a>
 
