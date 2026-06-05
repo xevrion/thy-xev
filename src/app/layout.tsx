@@ -1,9 +1,28 @@
 import type { Metadata } from 'next'
+import { Inter, Space_Grotesk, Caveat } from 'next/font/google'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { NavBar } from '@/components/NavBar'
 import { CommandPalette } from '@/components/CommandPalette'
 import { MouseGlow } from '@/components/MouseGlow'
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space-grotesk',
+})
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-caveat',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://xevrion.dev'),
@@ -31,7 +50,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${caveat.variable}`}>
       <body>
         <ThemeProvider>
           {/* Decorative diagonal stripe borders */}
