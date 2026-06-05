@@ -58,25 +58,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <NuqsAdapter>
         <ThemeProvider>
-          {/* Decorative diagonal stripe borders */}
+          {/* Outer grid pattern — visible only outside content area */}
           <div
-            className="pointer-events-none fixed inset-y-0 z-[999] hidden w-[60px] overflow-hidden xl:block"
-            style={{ left: 'calc(50% - 576px - 60px)' }}
-          >
-            <div
-              className="absolute inset-0 h-full w-[60px] border border-[var(--color-battleship-gray)] opacity-[0.15]"
-              style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
-            />
-          </div>
-          <div
-            className="pointer-events-none fixed inset-y-0 z-[999] hidden w-[60px] overflow-hidden xl:block"
-            style={{ left: 'calc(50% + 576px)' }}
-          >
-            <div
-              className="absolute inset-0 h-full w-[60px] border border-[var(--color-battleship-gray)] opacity-[0.15]"
-              style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
-            />
-          </div>
+            className="pointer-events-none fixed inset-0 z-[998] hidden xl:block"
+            style={{
+              backgroundImage: 'linear-gradient(to right, var(--grid-line) 0.5px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 0.5px, transparent 1px)',
+              backgroundSize: '80px 80px',
+              WebkitMaskImage: 'linear-gradient(to right, black 0%, black calc(50% - 576px), transparent calc(50% - 576px), transparent calc(50% + 576px), black calc(50% + 576px), black 100%)',
+              maskImage: 'linear-gradient(to right, black 0%, black calc(50% - 576px), transparent calc(50% - 576px), transparent calc(50% + 576px), black calc(50% + 576px), black 100%)',
+            }}
+          />
+          {/* Vertical content border lines */}
+          <div className="pointer-events-none fixed inset-y-0 z-[999] hidden xl:block w-px bg-battleship-gray/15" style={{ left: 'calc(50% - 576px)' }} />
+          <div className="pointer-events-none fixed inset-y-0 z-[999] hidden xl:block w-px bg-battleship-gray/15" style={{ left: 'calc(50% + 576px)' }} />
           <JsonLd type="person" />
           <JsonLd type="website" />
           <MouseGlow />
