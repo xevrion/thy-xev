@@ -122,6 +122,18 @@ todo
 
 - [x] fully dockerized + GitHub Actions CI/CD to DigitalOcean VPS
 
+- [x] single-page scroll layout (Hero → About → Projects → Now → Writing → Contact)
+  - [x] anchor nav links with smooth scrolling
+  - [x] footer with all live widgets (Spotify, WakaTime, GitHub contributions, visitor count)
+  - [x] blog teaser section on homepage (4 most recent posts)
+  - [x] blocky/rectangular style (no rounded corners)
+
+- [x] add Last.fm social icon + command palette entry
+
+- [x] LinkedIn vanity URL updated (linkedin.com/in/yash-bavadiya)
+
+- [x] sitemap cleaned up (removed redirect-only routes)
+
 - [ ] typing animation on hero (lowest priority)
   - [ ] cycle through "developer", "designer", "pianist", "iit student"
 
