@@ -39,5 +39,7 @@ export default function BlogsPage() {
     }
   })
 
-  return <BlogsClient posts={posts} />
+  const allTags = Array.from(new Set(pages.flatMap((p) => (p.data.tags as string[] | undefined) ?? []))).sort()
+
+  return <BlogsClient posts={posts} allTags={allTags} />
 }

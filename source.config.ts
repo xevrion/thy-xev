@@ -1,4 +1,5 @@
 import { defineConfig, defineDocs } from 'fumadocs-mdx/config'
+import lastModified from 'fumadocs-mdx/plugins/last-modified'
 import { pageSchema } from 'fumadocs-core/source/schema'
 import { remarkReadingTime } from '@/lib/remarkReadingTime'
 import { z } from 'zod'
@@ -12,12 +13,13 @@ export const docs = defineDocs({
     }),
     postprocess: {
       includeProcessedMarkdown: true,
-      valueToExport: ['readingTime'],
+      valueToExport: ['readingTime', 'lastModified'],
     },
   },
 })
 
 export default defineConfig({
+  plugins: [lastModified()],
   mdxOptions: {
     remarkPlugins: [remarkReadingTime],
     rehypeCodeOptions: {

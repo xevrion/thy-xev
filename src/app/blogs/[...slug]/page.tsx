@@ -4,6 +4,7 @@ import { source } from '@/lib/source'
 import { PostPage } from '@/components/PostPage'
 import { getMDXComponents } from '@/mdx-components'
 import { JsonLd } from '@/components/JsonLd'
+import { getTableOfContents } from 'fumadocs-core/content/toc'
 
 export async function generateStaticParams() {
   return source.generateParams()
@@ -45,6 +46,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+function formatDate(d: Date) {
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string[] }> }) {
   const { slug } = await params
   const page = source.getPage(slug)
@@ -52,6 +57,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const MDX = page.data.body
   const readingTime = (page.data as any)._exports?.readingTime
+
+  // Extract TOC from raw markdown
+  const rawMarkdown = await page.data.getText('raw')
+  const toc = getTableOfContents(rawMarkdown)
+
+  const date = page.data.date ? formatDate(page.data.date) : undefined
+  // lastModified comes from the file stat via fumadocs-mdx
+  const lastModified: Date | undefined = (page.data as any).lastModified
+  const updatedAt = lastModified ? formatDate(lastModified) : undefined
 
   return (
     <>
@@ -66,9 +80,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <PostPage
         title={page.data.title}
         description={page.data.description}
-        date={page.data.date?.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')}
+        date={date}
+        updatedAt={updatedAt}
         tags={page.data.tags ?? []}
         readingTime={readingTime?.text}
+        toc={toc}
       >
         <MDX components={getMDXComponents()} />
       </PostPage>
