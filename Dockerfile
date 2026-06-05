@@ -2,6 +2,8 @@
 FROM oven/bun:1 AS builder
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y git --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
 COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile --ignore-scripts
 
