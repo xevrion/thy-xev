@@ -60,32 +60,6 @@ export async function GET(req: NextRequest) {
             }}
           />
 
-          {/* Soft blue glow — top-right, warm not harsh */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '-200px',
-              right: '-200px',
-              width: '700px',
-              height: '700px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(110,140,255,0.10) 0%, transparent 65%)',
-            }}
-          />
-
-          {/* Warm bottom-left accent */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '-100px',
-              left: '-100px',
-              width: '400px',
-              height: '400px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(166,161,157,0.06) 0%, transparent 70%)',
-            }}
-          />
-
           {/* Top: domain + breadcrumb path */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', zIndex: 1 }}>
             <span style={{ color: C.blue, fontSize: '15px', fontWeight: 600, letterSpacing: '0.01em' }}>
@@ -181,17 +155,6 @@ export async function GET(req: NextRequest) {
             </div>
           </div>
 
-          {/* Bottom border line — like your site's horizontal separator */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: '3px',
-              background: `linear-gradient(to right, transparent, ${C.blue}, transparent)`,
-            }}
-          />
         </div>
       ),
       { width: 1200, height: 630 },
