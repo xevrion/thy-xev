@@ -191,6 +191,28 @@ body {
   background-color: var(--color-taupe);
 }
 
+/* Custom scrollbar — thin floating pill, matches site palette */
+:root {
+  --scrollbar-thumb: rgba(166, 161, 157, 0.35); /* battleship-gray at low opacity */
+  --scrollbar-bg: #2e2a27;                       /* taupe dark */
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 6px;
+  border: 3px solid var(--scrollbar-bg);
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /* Light theme overrides */
 html.light {
   --color-taupe: #f2eeea;
@@ -198,6 +220,8 @@ html.light {
   --color-silver: #2e2a27;
   --color-blue-crayola: #4c6fff;
   --color-soft-royal-blue: #3d5ce8;
+  --scrollbar-thumb: rgba(122, 116, 110, 0.3);
+  --scrollbar-bg: #f2eeea;
 }
 
 /* Disable default view-transition animation; JS drives the reveal */
