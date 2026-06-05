@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Fuse from 'fuse.js'
-import { Search, X, Tag, ChevronDown } from 'lucide-react'
+import { Search, X, Tag, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import SplitText from './reactbits/splittext'
 import Socials from './Socials'
 
@@ -18,8 +18,10 @@ export interface BlogPost {
   readingTime?: string
 }
 
-// --- Tag dropdown (no external dep) ---
-function TagDropdown({
+const PER_PAGE_OPTIONS = [5, 10, 15, 20]
+
+// --- Tag popover ---
+function TagPopover({
   allTags,
   activeTags,
   onChange,
@@ -33,33 +35,33 @@ function TagDropdown({
 
   useEffect(() => {
     if (!open) return
-    function onClick(e: MouseEvent) {
+    function onDown(e: MouseEvent) {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
     }
-    document.addEventListener('mousedown', onClick)
-    return () => document.removeEventListener('mousedown', onClick)
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
   }, [open])
 
   function toggle(tag: string) {
-    onChange(
-      activeTags.includes(tag) ? activeTags.filter((t) => t !== tag) : [...activeTags, tag],
-    )
+    onChange(activeTags.includes(tag) ? activeTags.filter((t) => t !== tag) : [...activeTags, tag])
   }
+
+  const active = activeTags.length > 0
 
   return (
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm sg-regular transition-colors duration-150 ${
-          activeTags.length > 0
+        className={`flex h-[38px] items-center gap-2 px-3 text-sm sg-regular transition-colors duration-150 border-y border-l rounded-l-lg ${
+          active
             ? 'border-soft-royal-blue text-soft-royal-blue bg-soft-royal-blue/5'
             : 'border-battleship-gray/40 text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue'
         }`}
       >
         <Tag size={14} />
         <span>Tags</span>
-        {activeTags.length > 0 && (
-          <span className="flex items-center justify-center w-4 h-4 rounded-full bg-soft-royal-blue text-white text-[10px] sg-medium">
+        {active && (
+          <span className="flex items-center justify-center w-4 h-4 rounded-full bg-soft-royal-blue text-white text-[10px] sg-medium leading-none">
             {activeTags.length}
           </span>
         )}
@@ -71,50 +73,164 @@ function TagDropdown({
 
       {open && (
         <div className="absolute right-0 top-full mt-1 z-50 min-w-[180px] rounded-lg border border-battleship-gray/20 bg-[var(--color-taupe)] shadow-lg py-1.5">
-          {activeTags.length > 0 && (
+          {active && (
             <>
               <button
                 onClick={() => onChange([])}
                 className="flex items-center gap-1.5 w-full px-3 py-1.5 text-xs sg-medium text-battleship-gray/60 hover:text-soft-royal-blue transition-colors duration-150"
               >
-                <X size={11} />
-                Clear all
+                <X size={11} /> Clear all
               </button>
               <div className="my-1 border-t border-battleship-gray/15" />
             </>
           )}
-          {allTags.map((tag) => {
-            const checked = activeTags.includes(tag)
-            return (
-              <label
-                key={tag}
-                className="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer hover:bg-battleship-gray/8 transition-colors duration-100"
-              >
-                <span
-                  className={`w-3.5 h-3.5 rounded border flex items-center justify-center shrink-0 transition-colors duration-150 ${
-                    checked
-                      ? 'border-soft-royal-blue bg-soft-royal-blue'
-                      : 'border-battleship-gray/40'
-                  }`}
-                >
-                  {checked && (
-                    <svg viewBox="0 0 10 8" className="w-2 h-2 fill-white">
-                      <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  )}
-                </span>
-                <span
-                  className={`text-sm sg-regular ${
-                    checked ? 'text-soft-royal-blue' : 'text-battleship-gray'
-                  }`}
-                >
-                  {tag}
-                </span>
-              </label>
-            )
-          })}
+          <ul className="max-h-56 overflow-y-auto">
+            {allTags.map((tag) => {
+              const checked = activeTags.includes(tag)
+              return (
+                <li key={tag}>
+                  <label className="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer hover:bg-battleship-gray/[0.08] transition-colors duration-100">
+                    <span
+                      className={`w-3.5 h-3.5 rounded-[3px] border flex items-center justify-center shrink-0 transition-colors duration-150 ${
+                        checked ? 'border-soft-royal-blue bg-soft-royal-blue' : 'border-battleship-gray/40'
+                      }`}
+                    >
+                      {checked && (
+                        <svg viewBox="0 0 10 8" className="w-2 h-2">
+                          <path d="M1 4l2.5 2.5L9 1" stroke="white" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </span>
+                    <input
+                      type="checkbox"
+                      className="sr-only"
+                      checked={checked}
+                      onChange={() => toggle(tag)}
+                    />
+                    <span className={`text-sm sg-regular ${checked ? 'text-soft-royal-blue' : 'text-battleship-gray'}`}>
+                      {tag}
+                    </span>
+                  </label>
+                </li>
+              )
+            })}
+          </ul>
         </div>
       )}
+    </div>
+  )
+}
+
+// --- Per-page select ---
+function PerPageSelect({
+  value,
+  onChange,
+}: {
+  value: number
+  onChange: (n: number) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onDown(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex h-[38px] items-center gap-2 px-3 text-sm sg-regular border border-battleship-gray/40 rounded-r-lg text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue transition-colors duration-150"
+      >
+        <span>{value} per page</span>
+        <ChevronDown size={13} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full mt-1 z-50 min-w-[130px] rounded-lg border border-battleship-gray/20 bg-[var(--color-taupe)] shadow-lg py-1.5">
+          {PER_PAGE_OPTIONS.map((n) => (
+            <button
+              key={n}
+              onClick={() => { onChange(n); setOpen(false) }}
+              className={`w-full px-3 py-1.5 text-sm text-left sg-regular transition-colors duration-100 hover:bg-battleship-gray/[0.08] ${
+                n === value ? 'text-soft-royal-blue sg-medium' : 'text-battleship-gray'
+              }`}
+            >
+              {n} per page
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// --- Pagination ---
+function Pagination({
+  current,
+  total,
+  onChange,
+}: {
+  current: number
+  total: number
+  onChange: (p: number) => void
+}) {
+  if (total <= 1) return null
+
+  // Build page number list with ellipsis
+  const pages: (number | '…')[] = (() => {
+    if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1)
+    if (current <= 4) return [1, 2, 3, 4, 5, '…', total]
+    if (current >= total - 3) return [1, '…', total - 4, total - 3, total - 2, total - 1, total]
+    return [1, '…', current - 1, current, current + 1, '…', total]
+  })()
+
+  const btn = 'flex items-center justify-center w-8 h-8 rounded-md text-sm sg-regular transition-colors duration-150 disabled:opacity-40'
+
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        onClick={() => onChange(current - 1)}
+        disabled={current <= 1}
+        className={`${btn} text-battleship-gray hover:text-soft-royal-blue disabled:pointer-events-none`}
+        aria-label="Previous page"
+      >
+        <ChevronLeft size={15} />
+      </button>
+
+      {pages.map((p, i) =>
+        p === '…' ? (
+          <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center text-battleship-gray/40 text-sm">
+            …
+          </span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => onChange(p as number)}
+            className={`${btn} ${
+              p === current
+                ? 'bg-soft-royal-blue/10 border border-soft-royal-blue/40 text-soft-royal-blue sg-medium'
+                : 'text-battleship-gray hover:text-soft-royal-blue hover:bg-battleship-gray/[0.08]'
+            }`}
+          >
+            {p}
+          </button>
+        ),
+      )}
+
+      <button
+        onClick={() => onChange(current + 1)}
+        disabled={current >= total}
+        className={`${btn} text-battleship-gray hover:text-soft-royal-blue disabled:pointer-events-none`}
+        aria-label="Next page"
+      >
+        <ChevronRight size={15} />
+      </button>
     </div>
   )
 }
@@ -131,9 +247,7 @@ function PostCard({ post }: { post: BlogPost }) {
         </h2>
         <div className="flex items-center gap-3 whitespace-nowrap text-sm sg-regular text-battleship-gray/60 sm:pt-1 shrink-0">
           {post.readingTime && <span>{post.readingTime}</span>}
-          {post.readingTime && post.displayDate && (
-            <span className="text-battleship-gray/30">·</span>
-          )}
+          {post.readingTime && post.displayDate && <span className="text-battleship-gray/30">·</span>}
           {post.displayDate && <span>{post.displayDate}</span>}
         </div>
       </div>
@@ -143,10 +257,7 @@ function PostCard({ post }: { post: BlogPost }) {
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/20 text-battleship-gray/70"
-            >
+            <span key={tag} className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/20 text-battleship-gray/70">
               {tag}
             </span>
           ))}
@@ -156,37 +267,36 @@ function PostCard({ post }: { post: BlogPost }) {
   )
 }
 
-// --- Main BlogsClient ---
+// --- Main ---
 export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: string[] }) {
   const [query, setQuery] = useState('')
   const [activeTags, setActiveTags] = useState<string[]>([])
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(10)
 
-  const results = useMemo(() => {
+  // Reset to page 1 on filter/search change
+  function setQueryReset(q: string) { setQuery(q); setPage(1) }
+  function setTagsReset(t: string[]) { setActiveTags(t); setPage(1) }
+  function setPerPageReset(n: number) { setPerPage(n); setPage(1) }
+
+  const filtered = useMemo(() => {
     let pool = posts
     if (activeTags.length > 0) {
       pool = pool.filter((p) => activeTags.every((t) => p.tags.includes(t)))
     }
-
     const q = query.trim()
     if (!q) return pool
 
     const lower = q.toLowerCase()
     const substringMatches = pool.filter(
-      (p) =>
-        p.title.toLowerCase().includes(lower) ||
-        p.description.toLowerCase().includes(lower),
+      (p) => p.title.toLowerCase().includes(lower) || p.description.toLowerCase().includes(lower),
     )
     const fuzzyMatches = new Fuse(pool, {
-      keys: [
-        { name: 'title', weight: 0.6 },
-        { name: 'description', weight: 0.4 },
-      ],
+      keys: [{ name: 'title', weight: 0.6 }, { name: 'description', weight: 0.4 }],
       threshold: 0.1,
       minMatchCharLength: 3,
       ignoreLocation: true,
-    })
-      .search(q)
-      .map((r) => r.item)
+    }).search(q).map((r) => r.item)
 
     const seen = new Set<string>()
     return [...substringMatches, ...fuzzyMatches].filter((p) => {
@@ -195,6 +305,10 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
       return true
     })
   }, [query, activeTags, posts])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / perPage))
+  const currentPage = Math.min(page, totalPages)
+  const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage)
 
   return (
     <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto flex flex-col gap-12">
@@ -211,23 +325,21 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
         />
       </div>
 
-      {/* Search + tag filter row */}
-      <div className="flex gap-3 max-w-xl mx-auto w-full">
+      {/* Controls row */}
+      <div className="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto w-full">
+        {/* Search */}
         <div className="relative flex-1">
-          <Search
-            size={16}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none"
-          />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none" />
           <input
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => setQueryReset(e.target.value)}
             placeholder="Search posts..."
-            className="w-full pl-9 pr-9 py-2 rounded-lg border border-battleship-gray/40 bg-transparent text-soft-royal-blue placeholder-battleship-gray/60 sg-regular text-sm focus:outline-none focus:border-soft-royal-blue/60 transition-colors duration-200"
+            className="w-full h-[38px] pl-9 pr-9 rounded-lg border border-battleship-gray/40 bg-transparent text-soft-royal-blue placeholder-battleship-gray/60 sg-regular text-sm focus:outline-none focus:border-soft-royal-blue/60 transition-colors duration-200"
           />
           {query && (
             <button
-              onClick={() => setQuery('')}
+              onClick={() => setQueryReset('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-battleship-gray hover:text-soft-royal-blue transition-colors duration-150"
             >
               <X size={14} />
@@ -235,9 +347,17 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
           )}
         </div>
 
-        {allTags.length > 0 && (
-          <TagDropdown allTags={allTags} activeTags={activeTags} onChange={setActiveTags} />
-        )}
+        {/* Fused: Tags | per-page */}
+        <div className="flex shrink-0">
+          {allTags.length > 0 && (
+            <TagPopover allTags={allTags} activeTags={activeTags} onChange={setTagsReset} />
+          )}
+          {/* Separator */}
+          {allTags.length > 0 && (
+            <div className="w-px bg-battleship-gray/25 self-stretch" />
+          )}
+          <PerPageSelect value={perPage} onChange={setPerPageReset} />
+        </div>
       </div>
 
       {/* Active tag pills */}
@@ -246,11 +366,10 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
           {activeTags.map((tag) => (
             <button
               key={tag}
-              onClick={() => setActiveTags(activeTags.filter((t) => t !== tag))}
-              className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs sg-medium bg-soft-royal-blue/8 border border-soft-royal-blue/30 text-soft-royal-blue hover:bg-soft-royal-blue/15 transition-colors duration-150"
+              onClick={() => setTagsReset(activeTags.filter((t) => t !== tag))}
+              className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs sg-medium bg-soft-royal-blue/[0.08] border border-soft-royal-blue/30 text-soft-royal-blue hover:bg-soft-royal-blue/15 transition-colors duration-150"
             >
-              {tag}
-              <X size={10} />
+              {tag} <X size={10} />
             </button>
           ))}
         </div>
@@ -258,19 +377,25 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
 
       {/* Results */}
       <div className="flex flex-col gap-10">
-        {results.length > 0 ? (
-          results.map((post) => <PostCard key={post.slug} post={post} />)
+        {paginated.length > 0 ? (
+          paginated.map((post) => <PostCard key={post.slug} post={post} />)
         ) : (
           <p className="text-battleship-gray sg-regular text-center">
             No posts found
-            {activeTags.length > 0
-              ? ` tagged "${activeTags.join(', ')}"`
-              : query
-                ? ` for "${query}"`
-                : ''}
+            {activeTags.length > 0 ? ` tagged "${activeTags.join(', ')}"` : query ? ` for "${query}"` : ''}
           </p>
         )}
       </div>
+
+      {/* Bottom: count + pagination */}
+      {filtered.length > 0 && (
+        <div className="flex flex-col items-center gap-4">
+          <p className="text-xs sg-regular text-battleship-gray/50 tabular-nums">
+            Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filtered.length)} of {filtered.length} post{filtered.length !== 1 ? 's' : ''}
+          </p>
+          <Pagination current={currentPage} total={totalPages} onChange={setPage} />
+        </div>
+      )}
 
       <Socials />
     </section>
