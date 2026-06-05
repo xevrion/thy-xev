@@ -6,7 +6,7 @@ import { Mail } from 'lucide-react'
 const contacts = [
   { icon: <Mail className="w-5 h-5" />,        text: 'me@xevrion.dev',                 url: 'mailto:me@xevrion.dev' },
   { icon: <FaGithub className="w-5 h-5" />,    text: 'github.com/xevrion',              url: 'https://github.com/xevrion' },
-  { icon: <FaLinkedin className="w-5 h-5" />,  text: 'linkedin.com/in/yash-bavadiya',   url: 'https://www.linkedin.com/in/yash-bavadiya-a598a224b/' },
+  { icon: <FaLinkedin className="w-5 h-5" />,  text: 'linkedin.com/in/yash-bavadiya',   url: 'https://www.linkedin.com/in/yash-bavadiya/' },
   { icon: <FaTwitter className="w-5 h-5" />,   text: 'twitter.com/xevrion',             url: 'https://x.com/xevrion_the1' },
 ]
 

@@ -33,7 +33,7 @@ const PAGES: PaletteItem[] = [
 
 const SOCIAL_ACTIONS: PaletteItem[] = [
   { id: 'github',   label: 'Open GitHub',   subtitle: 'github.com/xevrion',            type: 'action', actionType: 'external', target: 'https://github.com/xevrion',                              icon: <Github   size={14} className="opacity-50" /> },
-  { id: 'linkedin', label: 'Open LinkedIn', subtitle: 'linkedin.com/in/yash-bavadiya', type: 'action', actionType: 'external', target: 'https://www.linkedin.com/in/yash-bavadiya-a598a224b/',  icon: <Linkedin size={14} className="opacity-50" /> },
+  { id: 'linkedin', label: 'Open LinkedIn', subtitle: 'linkedin.com/in/yash-bavadiya', type: 'action', actionType: 'external', target: 'https://www.linkedin.com/in/yash-bavadiya/',  icon: <Linkedin size={14} className="opacity-50" /> },
   { id: 'twitter',  label: 'Open Twitter',  subtitle: 'x.com/xevrion_the1',            type: 'action', actionType: 'external', target: 'https://x.com/xevrion_the1',                             icon: <Twitter  size={14} className="opacity-50" /> },
   { id: 'email',    label: 'Send Email',    subtitle: 'me@xevrion.dev',                type: 'action', actionType: 'external', target: 'mailto:me@xevrion.dev',                                  icon: <Mail     size={14} className="opacity-50" /> },
 ]

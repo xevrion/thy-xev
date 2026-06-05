@@ -14,7 +14,7 @@ export default function Socials() {
   const urls = [
     'https://github.com/xevrion',
     'https://instagram.com/yashbavadiya',
-    'https://linkedin.com/in/yash-bavadiya-a598a224b',
+    'https://linkedin.com/in/yash-bavadiya',
     'https://discord.com/users/1121919048465268756',
     'https://open.spotify.com/user/7s6e62y95ur6d0nsmv9gj1369',
     'https://x.com/xevrion_the1'
