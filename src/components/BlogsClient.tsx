@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef, useEffect, useTransition } from 'react'
+import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryStates } from 'nuqs'
 import Link from 'next/link'
 import Fuse from 'fuse.js'
 import { Search, X, Tag, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
@@ -267,17 +268,23 @@ function PostCard({ post }: { post: BlogPost }) {
   )
 }
 
+const searchParsers = {
+  q:    parseAsString.withDefault(''),
+  tags: parseAsArrayOf(parseAsString).withDefault([]),
+  page: parseAsInteger.withDefault(1),
+  per:  parseAsInteger.withDefault(10),
+}
+
 // --- Main ---
 export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: string[] }) {
-  const [query, setQuery] = useState('')
-  const [activeTags, setActiveTags] = useState<string[]>([])
-  const [page, setPage] = useState(1)
-  const [perPage, setPerPage] = useState(10)
+  const [params, setParams] = useQueryStates(searchParsers)
+  const { q: query, tags: activeTags, page, per: perPage } = params
+  const [, startTransition] = useTransition()
 
-  // Reset to page 1 on filter/search change
-  function setQueryReset(q: string) { setQuery(q); setPage(1) }
-  function setTagsReset(t: string[]) { setActiveTags(t); setPage(1) }
-  function setPerPageReset(n: number) { setPerPage(n); setPage(1) }
+  function setQueryReset(q: string) { startTransition(() => { void setParams({ q, page: 1 }) }) }
+  function setTagsReset(tags: string[]) { startTransition(() => { void setParams({ tags, page: 1 }) }) }
+  function setPerPageReset(per: number) { startTransition(() => { void setParams({ per, page: 1 }) }) }
+  function setPage(p: number) { startTransition(() => { void setParams({ page: p }) }) }
 
   const filtered = useMemo(() => {
     let pool = posts

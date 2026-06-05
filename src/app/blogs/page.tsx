@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { source } from '@/lib/source'
 import { BlogsClient, type BlogPost } from '@/components/BlogsClient'
 
@@ -41,5 +42,9 @@ export default function BlogsPage() {
 
   const allTags = Array.from(new Set(pages.flatMap((p) => (p.data.tags as string[] | undefined) ?? []))).sort()
 
-  return <BlogsClient posts={posts} allTags={allTags} />
+  return (
+    <Suspense>
+      <BlogsClient posts={posts} allTags={allTags} />
+    </Suspense>
+  )
 }

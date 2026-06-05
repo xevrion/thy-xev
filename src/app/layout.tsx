@@ -5,6 +5,7 @@ import { NavBar } from '@/components/NavBar'
 import { CommandPalette } from '@/components/CommandPalette'
 import { MouseGlow } from '@/components/MouseGlow'
 import { JsonLd } from '@/components/JsonLd'
+import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import './globals.css'
 
 const inter = Inter({
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning className={`${inter.variable} ${spaceGrotesk.variable} ${caveat.variable}`}>
       <body>
+        <NuqsAdapter>
         <ThemeProvider>
           {/* Decorative diagonal stripe borders */}
           <div
@@ -80,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <NavBar />
           <main>{children}</main>
         </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   )
