@@ -1,6 +1,7 @@
 # Ubuntu Ethernet Login Page Not Loading
 Date: 02-11-2025
 Tags: linux, iit
+Description: Debugging why the IITJ ethernet login page refused to load inside Docker containers.
 
 ## Symptoms
 

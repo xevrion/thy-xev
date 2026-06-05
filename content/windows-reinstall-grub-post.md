@@ -1,6 +1,7 @@
 # I Broke My Dual Boot. Then Fixed It. Here's Everything.
 Date: 11-04-2026
 Tags: linux, windows, sysadmin, grub, dualboot
+Description: A Windows update nuked my GRUB bootloader. Here's exactly how I recovered the dual boot.
 
 My Windows was cooked.
 

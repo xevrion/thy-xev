@@ -1,6 +1,7 @@
 # My First Technical Interview (AlgoUniversity)
 Date: 14-02-2026
 Tags: life, iit
+Description: A first-hand account of my first technical interview at AlgoUniversity and what I learned.
 
 Today I gave my first ever technical interview for an SDE intern role at AlgoUniversity.
 

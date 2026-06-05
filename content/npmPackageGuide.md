@@ -1,6 +1,7 @@
 # Building and Publishing an npm Package
 Date: 12-03-2026
 Tags: web, guide
+Description: Step-by-step guide to building, testing, and publishing your first npm package.
 
 ## The Problem
 

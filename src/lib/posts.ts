@@ -13,6 +13,7 @@ const postsDir = path.join(process.cwd(), 'content')
 export interface Post {
   slug: string
   title: string
+  description: string
   summary: string
   content: string
   date: string
@@ -33,11 +34,20 @@ function parsePost(fileName: string): Post {
   const lines = raw.split('\n')
 
   const title = lines[0].replace(/^# /, '') || slug
-  const summary = lines.slice(4, 6).join(' ').slice(0, 150) + '...'
 
   const rawDate = lines[1]?.replace(/^Date:\s*/, '').trim() || ''
   const rawTags = lines[2]?.replace(/^Tags:\s*/, '').trim() || ''
   const tags = rawTags ? rawTags.split(',').map((t) => t.trim()).filter(Boolean) : []
+
+  // Optional Description: on line 3 (before blank line 4)
+  const descLine = lines[3]?.trim() || ''
+  const description = descLine.startsWith('Description:')
+    ? descLine.replace(/^Description:\s*/, '').trim()
+    : lines.slice(5, 7).join(' ').slice(0, 150).replace(/[#*`]/g, '') + '...'
+
+  // Content body starts after frontmatter (skip lines 0–3, blank line 4)
+  const bodyStart = descLine.startsWith('Description:') ? 5 : 4
+  const summary = lines.slice(bodyStart, bodyStart + 2).join(' ').slice(0, 150) + '...'
 
   let sortDate = rawDate
   if (rawDate.includes('-')) {
@@ -48,6 +58,7 @@ function parsePost(fileName: string): Post {
   return {
     slug,
     title,
+    description,
     summary,
     content: raw,
     date: sortDate,
@@ -76,10 +87,11 @@ export function getAllSlugs(): string[] {
     .map((f) => f.replace('.md', ''))
 }
 
-// Strip the first 3 lines (title, date, tags) before rendering
+// Strip frontmatter lines before rendering (keep title as h1 for markdown)
 function stripFrontmatter(raw: string): string {
   const lines = raw.split('\n')
-  return [lines[0], ...lines.slice(3)].join('\n')
+  const hasDescription = lines[3]?.trim().startsWith('Description:')
+  return [lines[0], ...lines.slice(hasDescription ? 5 : 4)].join('\n')
 }
 
 export async function renderPostHTML(post: Post): Promise<string> {

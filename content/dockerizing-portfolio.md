@@ -1,6 +1,7 @@
 # Dockerizing My Portfolio & Automating Deployments
 Date: 14-04-2026
 Tags: docker, deployment, vps, CICD
+Description: Full walkthrough of containerizing this portfolio with Docker and automating deploys via GitHub Actions.
 
 My portfolio was running on a DigitalOcean VPS in the most fragile way possible.
 

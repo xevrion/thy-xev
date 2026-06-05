@@ -1,6 +1,7 @@
 # 3rd Semester
 Date: 10-12-2025
 Tags: iit, life
+Description: Wrapping up 3rd semester at IIT Jodhpur — courses, grind, and what I learned.
 
 So, the 3rd semester has officially ended, and I must say it was an rollercoaster of emotions and experiences. From the excitement of diving into new subjects to the stress of exams and projects, this semester had it all.
 

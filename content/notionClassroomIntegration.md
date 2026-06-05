@@ -1,6 +1,7 @@
 # Syncing Google Classroom to Notion with Google Apps Script
 Date: 02-03-2026
 Tags: web, guide
+Description: Using Google Apps Script to automatically sync Google Classroom assignments into Notion.
 
 ## The Problem
 

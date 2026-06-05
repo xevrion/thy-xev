@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const post = getPostBySlug(slug)
   if (!post) return {}
 
-  const description = post.summary || post.content.slice(0, 155).replace(/[#*`\n]/g, ' ').trim()
+  const description = post.description || post.summary
   const url = `https://xevrion.dev/blogs/${slug}`
 
   return {

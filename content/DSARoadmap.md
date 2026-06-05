@@ -1,6 +1,7 @@
 # DSA & Competitive Programming Roadmap
 Date: 05-05-2026
 Tags: dsa, guide, competitive-programming
+Description: A structured roadmap for getting good at DSA and competitive programming from scratch.
 
 This is my public roadmap to go from shaky foundations to:
 

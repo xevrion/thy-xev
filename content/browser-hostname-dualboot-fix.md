@@ -1,6 +1,7 @@
 # Browsers Stopped Opening After a New Router
 Date: 09-05-2026
 Tags: linux, networking, debugging
+Description: How a new router broke browser connections on Linux and the weirdly simple fix.
 
 I've been dual booting Fedora and Windows for a long time now. Never had any issues with it. Boot into Fedora, open Brave or Chrome, do my thing. Pretty normal stuff.
 

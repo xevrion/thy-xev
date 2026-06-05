@@ -1,6 +1,7 @@
 # Rewriting the IITJ LAN Autologin Tool in Go
 Date: 23-03-2026
 Tags: linux, iit, go
+Description: Rewriting the IITJ LAN autologin script in Go for speed, reliability, and cross-platform support.
 
 The <span class="blue">bash version worked</span>. That is the important part.
 
