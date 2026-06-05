@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FaDiscord, FaGithub, FaInstagram, FaLinkedin, FaSpotify } from 'react-icons/fa'
+import { FaDiscord, FaGithub, FaInstagram, FaLastfm, FaLinkedin, FaSpotify } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -17,10 +17,11 @@ export default function Socials() {
     'https://linkedin.com/in/yash-bavadiya',
     'https://discord.com/users/1121919048465268756',
     'https://open.spotify.com/user/7s6e62y95ur6d0nsmv9gj1369',
+    'https://www.last.fm/user/xevrion/',
     'https://x.com/xevrion_the1'
   ]
 
-  const Icons = [FaGithub, FaInstagram, FaLinkedin, FaDiscord, FaSpotify, FaXTwitter]
+  const Icons = [FaGithub, FaInstagram, FaLinkedin, FaDiscord, FaSpotify, FaLastfm, FaXTwitter]
 
   useEffect(() => {
     if (!containerRef.current) return
