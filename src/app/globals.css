@@ -13,6 +13,16 @@ html.light .shiki span {
   background-color: var(--shiki-light-bg) !important;
 }
 
+/* ── Scroll-driven fade (pure CSS, zero JS) ── */
+.scroll-fade-y {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.scroll-fade-x {
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+
 /* ── prose-post: blog article typography ── */
 .prose-post {
   color: var(--color-battleship-gray);

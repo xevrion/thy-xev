@@ -1,9 +1,12 @@
 'use client'
 
 import type { Post } from '@/lib/posts'
+import { ReadingProgress } from './ReadingProgress'
 
 export const PostPage = ({ post, html }: { post: Post; html: string }) => {
   return (
+    <>
+    <ReadingProgress />
     <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 py-12 max-w-screen-2xl mx-auto">
       {/* Post header */}
       <div className="mb-10">
@@ -26,5 +29,6 @@ export const PostPage = ({ post, html }: { post: Post; html: string }) => {
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </section>
+    </>
   )
 }

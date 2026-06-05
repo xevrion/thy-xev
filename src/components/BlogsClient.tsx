@@ -120,7 +120,7 @@ export function BlogsClient({ posts }: { posts: Post[] }) {
           )}
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none scroll-fade-x">
           {allTags.map((tag) => (
             <button
               key={tag}
