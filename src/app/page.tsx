@@ -4,6 +4,7 @@ import { Projects } from '@/components/Projects'
 import { Now } from '@/components/Now'
 import { BlogTeaser } from '@/components/BlogTeaser'
 import { Contact } from '@/components/Contact'
+import { Quote } from '@/components/Quote'
 import { SectionDivider } from '@/components/SectionDivider'
 
 export default function HomePage() {
@@ -18,6 +19,8 @@ export default function HomePage() {
       <div id="now"><Now /></div>
       <SectionDivider />
       <BlogTeaser />
+      <SectionDivider />
+      <Quote />
       <SectionDivider />
       <div id="contact"><Contact /></div>
     </>
