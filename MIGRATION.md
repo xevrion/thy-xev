@@ -1,294 +1,220 @@
-# Migration Plan: React + Vite → Next.js (App Router)
+# Migration Log: React + Vite → Next.js (App Router)
 
-> Written 2026-06-05. Based on analysis of current thy-xev codebase + inspiration from anishshobithps.com.
-
----
-
-## Current State (What We Have)
-
-| Layer | Tech | Notes |
-|---|---|---|
-| Frontend | React 19 + Vite 7 + React Router v7 | Client-side only, CSR |
-| Styling | Tailwind CSS v4 + CSS variables | Already good, minimal changes needed |
-| Blog | 18 `.md` files in `src/posts/`, parsed with `import.meta.glob` | Plain markdown, custom frontmatter |
-| Markdown render | `react-markdown` + `rehype-highlight` + `remarkGfm` | Works, but no MDX |
-| Backend | Express.js on port 3001 | Spotify, WakaTime, GitHub, view counters |
-| Routing | React Router v7, all routes in `App.tsx` | 8 routes total |
-| Animations | GSAP SplitText + Framer Motion + View Transition API | Heavy, must keep |
-| DevOps | Docker (2 containers: Nginx frontend + Node backend) on DigitalOcean | GHCR images, 3 GitHub Actions |
-| SEO | react-head for meta tags, static `sitemap.xml`, JSON-LD | Weak (CSR, no real SSR) |
+> Started 2026-06-05. Tracking what's done, what's in progress, what's left.
 
 ---
 
-## Why Migrate to Next.js
+## Status Overview
 
-### Problems with the current setup
-
-1. **CSR = bad SEO** — React renders on the client. Crawlers see an empty HTML shell. Blog posts are invisible to Google.
-2. **Blog can't grow properly** — No MDX (can't embed React components in posts), no reading time from AST, no dynamic OG images per post, no table of contents.
-3. **Static sitemap** — `public/sitemap.xml` is manually maintained. Every new post requires updating it manually.
-4. **Meta tags via react-head** — Works but runs client-side. OG scrapers (Slack, Twitter, Discord) hit the HTML before JS runs and get blank tags.
-5. **View counter hack** — A whole Express server just to count views + proxy APIs. Next.js API routes + edge functions eliminate the need for this.
-6. **Two containers** — Frontend Nginx container + Backend Node container. Next.js collapses this into one.
-
-### What Next.js gives us
-
-- **SSG for blog posts** — Pre-rendered HTML at build time. Perfect SEO, fast first load.
-- **MDX** — Embed React components inside posts (interactive demos, callouts, tooltips).
-- **Dynamic OG images** — `/og` route generates per-page social preview images.
-- **Auto sitemap** — `sitemap.ts` exports all routes including every blog post.
-- **Server Actions** — Replace the Express view counter with 5 lines of server code.
-- **API Routes** — Spotify, WakaTime, GitHub proxied inside the same process.
-- **`next/image`** — Automatic WebP conversion, lazy loading, no layout shift.
-- **One container** — Next.js replaces both the Vite frontend and Nginx.
+| Phase | Status |
+|---|---|
+| Scaffold & Config | ✅ Done |
+| Layout & Navigation | ✅ Done |
+| Static Pages | ✅ Done |
+| Blog System (Fumadocs) | ✅ Done |
+| Font fix | ✅ Done |
+| API Routes (move Express → Next.js) | ✅ Done |
+| Dynamic OG Images | ✅ Done |
+| JSON-LD Structured Data | ✅ Done |
+| Table of Contents (blog posts) | ✅ Done |
+| Blog search/filter polish | ✅ Done |
+| Custom scrollbar | ✅ Done |
+| Docker Update | ⬜ Not started |
+| Guestbook / Comments | ⬜ Not started (needs DB + auth) |
 
 ---
 
-## What to Keep (Zero Changes Needed)
+## What's Done
 
-- All CSS variables and color tokens — paste directly into `app/globals.css`
-- Tailwind v4 config — compatible as-is
-- All font imports (Space Grotesk, Inter, Caveat)
-- All 18 `.md` post files — copy into `content/blog/`
-- `constants/projects.json` and `constants/data.json`
-- All public assets (`/public` folder)
-- The Express backend — keep it running in its own container (it handles Spotify OAuth which is stateful)
-- All animation libraries (GSAP, Framer Motion) — work fine with `"use client"` directive
-- Docker infrastructure — just update the frontend image to Next.js
-
----
-
-## What Changes
+### Framework & Tooling
+- [x] Migrated from React + Vite + React Router v7 → **Next.js 16.2.7** App Router (in-place, same folder)
+- [x] Switched package manager and runtime to **Bun** (`bun --bun next dev/build/start`)
+- [x] `vite.config.ts`, `src/App.tsx`, `src/main.tsx`, `index.html` deleted
+- [x] `tsconfig.json` merged + updated for Next.js
+- [x] `.gitignore` updated (`.next`, `.post-cache`, lockfiles)
 
 ### Routing
-| Old (React Router `App.tsx`) | New (Next.js file) |
-|---|---|
-| `/` | `app/page.tsx` |
-| `/about` | `app/about/page.tsx` |
-| `/posts` | `app/posts/page.tsx` |
-| `/posts/:slug` | `app/posts/[slug]/page.tsx` |
-| `/projects` | `app/projects/page.tsx` |
-| `/contact` | `app/contact/page.tsx` |
-| `/resume` | `app/resume/page.tsx` |
-| `/now` | `app/now/page.tsx` |
-| — | `app/og/route.tsx` (new: dynamic OG images) |
-| — | `app/sitemap.ts` (new: auto-generated) |
-| — | `app/robots.ts` (new: replaces `public/robots.txt`) |
+- [x] All routes converted to `app/` file-based routing
+- [x] `/posts` renamed to `/blogs` throughout
+- [x] `useNavigate`/`useLocation` (React Router) → `useRouter`/`usePathname` (next/navigation)
+- [x] Redirect shortcuts in `next.config.ts`: `/github`, `/linkedin`, `/twitter`, `/mail`, `/discord`, `/spotify`
 
-### Blog Post Format (upgrade from `.md` → `.mdx`)
+### Layout & Fonts
+- [x] `src/app/layout.tsx` with root metadata, ThemeProvider, NavBar, MouseGlow, CommandPalette, NuqsAdapter
+- [x] Decorative diagonal stripe borders (left/right, xl+ screens)
+- [x] Fonts migrated from `@import url(googleapis.com)` → **`next/font/google`** (`Inter`, `Space_Grotesk`, `Caveat`) injected as CSS variables
+- [x] `suppressHydrationWarning` on `<html>` for theme flicker prevention
+- [x] `font-optical-sizing: auto` + `font-style: normal` fully restored on all font utility classes
 
-**Current frontmatter:**
-```md
-# Post Title
-Date: 25-05-2025
-Tags: react, typescript, vite
+### Theme
+- [x] Custom `useTheme` hook replaced with **`next-themes`**
+- [x] `ThemeProvider.tsx` wrapper with `attribute="class"`
+- [x] ThemeToggle has `mounted` guard + View Transition API circle animation
 
-Content here...
-```
+### Blog System — Fumadocs
+- [x] Installed `fumadocs-mdx@14.2.7`, `fumadocs-core@16.6.0`, `fumadocs-ui@16.6.0`
+- [x] `source.config.ts` at root — Shiki dual-theme (`github-dark` / `github-light`), `remarkReadingTime` plugin, `lastModified` plugin (git-based file modification date)
+- [x] `src/lib/remarkReadingTime.ts` — reading time from prose AST only (skips code blocks), 260 wpm
+- [x] `src/lib/source.ts` — Fumadocs `loader()` at `/blogs` base URL
+- [x] `src/mdx-components.tsx` — MDX component registry
+- [x] `postinstall: "fumadocs-mdx"` in `package.json` — auto-regenerates `.source/` types
+- [x] All 18 posts converted from custom `.md` → `.mdx` with YAML frontmatter
+- [x] Moved to `content/blog/` directory
+- [x] Blog route changed to `[...slug]` (compatible with `source.generateParams()`)
+- [x] All 18 posts statically generated at build time (SSG)
+- [x] First post load: ~700ms (vs 8s before), subsequent: instant (static HTML)
+- [x] Dropped custom unified/Shiki pipeline + `.post-cache/` disk cache
 
-**New frontmatter (ISO dates, YAML standard):**
+### Blog Post Format
 ```yaml
 ---
 title: "Post Title"
-description: "Short summary for SEO and cards"
-date: "2025-05-25"
-tags: ["react", "typescript", "vite"]
+description: "One line summary"
+date: YYYY-MM-DD
+tags:
+  - tag1
+  - tag2
 ---
-
-Content here with optional React components...
+Content...
 ```
 
-The title moves from being the first line of content into frontmatter. This is a one-time conversion on all 18 posts.
+### SEO & Metadata
+- [x] `generateMetadata()` on all pages and blog posts (replaces `react-head`)
+- [x] `src/app/sitemap.ts` — auto-generates sitemap including all blog posts
+- [x] `src/app/robots.ts` — replaces old `public/robots.txt`
+- [x] OpenGraph + Twitter card tags per post (title, description, publishedTime, tags, canonical URL)
+- [x] Per-post dynamic OG image URL wired into `generateMetadata()`
 
-### Components → `"use client"` directive
+### API Routes (Express → Next.js)
+All proxy routes live in `src/app/api/`. Express is now only needed for Spotify OAuth:
+- [x] `/api/now-playing` — Spotify currently playing (Node runtime, no cache)
+- [x] `/api/wakatime-daily` — today's coding time (5 min cache via `revalidate`)
+- [x] `/api/wakatime-languages` — 7-day language breakdown aggregated (5 min cache)
+- [x] `/api/github-contributions` — GitHub GraphQL contributions graph (1h cache)
+- [x] `/api/views` — total site visit counter, GET + POST (file-based `views.json`)
+- [x] `/api/views/[slug]` — per-post view counter, GET + POST, IP rate-limited (10 min window)
+- [x] All frontend components (`SpotifyWidget`, `WakatimeWidget`, `WakatimeLanguages`, `GithubContributions`, `VisitorCount`, `CommandPalette`, `usePostViews`) updated to call `/api/...` relative paths — `NEXT_PUBLIC_API_URL` dropped entirely
 
-Every component that uses:
-- `useState`, `useEffect`, `useRef`
-- Framer Motion
-- GSAP
-- Event listeners
-- `localStorage`
+**Note:** Keep Express service only for Spotify OAuth `/login` + `/callback` (needs redirect URI + session state).
 
-...needs `"use client"` at the top. Everything else can be a Server Component.
+### Dynamic OG Images
+- [x] `src/app/og/route.tsx` — edge runtime, 1200×630, your site palette (taupe bg `#2e2a27`, diagonal stripe texture, `soft-royal-blue` accents, `battleship-gray` text)
+- [x] Parameters: `?title=...&description=...&path=...&tags=comma,separated`
+- [x] Wired into root layout metadata (default OG) and per-post `generateMetadata()` (per-post OG with tags encoded in URL)
+- [x] Uses `next/og` `ImageResponse` (built-in, no extra deps)
+- [x] Preview locally: `http://localhost:3000/og?title=My+Post&tags=nextjs,typescript&path=blogs`
 
-**Forced client components:**
-- `NavBar.tsx` (theme toggle, mobile menu, weather, Discord status)
-- `SpotifyWidget.tsx`
-- `WakatimeWidget.tsx`
-- `GithubContributions.tsx`
-- `CommandPalette.tsx`
-- `ThemeToggle.tsx`
-- `PageWrapper.tsx` (Framer Motion)
-- `PostPage.tsx` (interactive elements)
-- `reactbits/splittext.tsx` (GSAP)
-- `LinkPreview.tsx` (hover state)
+### JSON-LD Structured Data
+- [x] `src/components/JsonLd.tsx` — zero-dep component, supports `person`, `website`, `webpage`, `article`, `breadcrumb` schema types
+- [x] `src/lib/site.ts` — shared `siteConfig` object used by `JsonLd`, OG route, and any future SEO features
+- [x] `Person` + `WebSite` schemas injected in root layout (every page)
+- [x] `BlogPosting` schema injected on each individual blog post page (title, description, publishedAt, tags, author, publisher)
+- [x] Removed duplicate inline JSON-LD from `Hero.tsx` (was hardcoded there before)
 
-**Can be Server Components:**
-- `Skills.tsx`
-- `Socials.tsx`
-- `Projects.tsx` (static JSON data)
-- Static parts of `About.tsx`
+### Table of Contents (blog posts)
+- [x] `src/components/TableOfContents.tsx` — two components:
+  - **`DesktopTOC`** — sticky sidebar to the right of post content on `xl+` screens; depth-indented links; active heading tracked via `IntersectionObserver` and highlighted in `soft-royal-blue`
+  - **`MobileTOC`** — sticky bar below navbar on `<xl` screens; collapsible list; SVG progress circle (scroll % through post); shows current heading + `x/total` counter
+- [x] TOC extracted at build time using `getTableOfContents(rawMarkdown)` from `fumadocs-core/content/toc` — `page.data.getText('raw')` gives raw MDX, headings parsed from it
+- [x] `PostPage.tsx` updated to a CSS grid layout: `1fr 200px` on desktop, single column on mobile
+- [x] **Updated date** shown in post meta — `lastModified` fumadocs-mdx plugin reads git history for file modification date; shown as "Updated [date]" below publish date if different
 
-### Environment Variables
+### Blog Posts Page (`/blogs`) — Polish
+- [x] **Fused control group** — Tags popover + per-page selector joined into a single button group with shared border and vertical separator (same pattern as anishshobithps.com, our palette)
+- [x] **Tags popover** — multi-select checkbox list, shows active count badge, "Clear all" shortcut, auto-closes on outside click
+- [x] **Per-page selector** — dropdown with options 5 / 10 / 15 / 20, defaults to 10
+- [x] **Pagination** — page number list with ellipsis for large counts, prev/next arrows, "Showing X–Y of Z posts" count
+- [x] **Active tag pills** — appear below controls when tags are selected, × to remove individually
+- [x] **URL-synced state via `nuqs`** — search query (`?q=`), active tags (`?tags=`), page (`?page=`), and per-page (`?per=`) all live in the URL; links are shareable and bookmarkable; `Suspense` boundary wraps `BlogsClient` (required by `nuqs` internals)
+- [x] Search still uses **Fuse.js** fuzzy matching (better than anish's plain `includes()`) — typo-tolerant, weighted title vs description
 
-| Old | New |
+### Custom Scrollbar
+- [x] Thin floating pill scrollbar via `::-webkit-scrollbar` — 10px total width, thumb is `battleship-gray` at 35% opacity with a 3px border matching the page background color, creating a floating effect
+- [x] Dark mode: border matches `#2e2a27` (taupe); Light mode: border matches `#f2eeea`
+- [x] Both `--scrollbar-thumb` and `--scrollbar-bg` defined as CSS vars in `globals.css`, overridden in `html.light`
+
+### New Features Added
+- [x] **Mouse glow** — `requestAnimationFrame` cursor follower via direct DOM ref (`MouseGlow.tsx`)
+- [x] **Reading progress bar** — zero-lag, writes directly to `ref.current.style` (no `useState`) (`ReadingProgress.tsx`)
+- [x] **Scroll-driven CSS fade** — `.scroll-fade-x` / `.scroll-fade-y` mask-image utilities in `globals.css`
+- [x] **Security headers** — `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`
+- [x] **Shiki syntax highlighting** — dual light/dark theme, compiled at build time
+
+### Components Updated
+- [x] `NavBar.tsx` — `usePathname` from next/navigation
+- [x] `CommandPalette.tsx` — `useRouter` from next/navigation, `useTheme` from next-themes, `/api/now-playing`
+- [x] `ThemeToggle.tsx` — `useTheme` from next-themes
+- [x] `LinkPreview.tsx` — fixed `motion/react` → `framer-motion` import
+- [x] All `VITE_*` env vars replaced with `NEXT_PUBLIC_*`
+- [x] `PostPage.tsx` — grid layout, expanded meta (date, updatedAt, readingTime, views, tags), TOC prop
+- [x] `BlogsClient.tsx` — nuqs URL state, fused controls, pagination, tag popover, per-page select
+
+---
+
+## What's Left
+
+### Docker Update
+- [ ] Update frontend `Dockerfile` — replace Nginx stage with `next start`
+- [ ] Remove `nginx.conf`
+- [ ] Update `docker-compose.yml` frontend service (port 3000)
+- [ ] Update GitHub Actions workflows for new build process
+
+**Note:** Express service still needs its own container — used for Spotify OAuth only.
+
+### Guestbook / Comments (future)
+Needs a real database — do this when you're ready:
+- [ ] **Neon** (serverless Postgres) — DB
+- [ ] **Drizzle ORM** — schema + queries
+- [ ] **Clerk** — auth (GitHub/Google login)
+- [ ] Guestbook page at `/guestbook`
+- [ ] Comments section at bottom of each blog post
+- [ ] Mood reaction picker on blog posts (4-state emoji, tracked by IP hash — no login required)
+
+### Other Nice-to-Haves
+- [ ] Typing animation on hero — cycle through "developer", "pianist", "iit student"
+- [ ] Flicker text SVG animation (like anishshobithps.com) for name/initials
+- [ ] Dynamic project fetching from GitHub API instead of static `constants/projects.json`
+- [ ] Dual favicons (light/dark SVG) — OS picks via `prefers-color-scheme` in `<link>`
+- [ ] `/blog/:path*.mdx` redirect to raw MDX (LLM-friendly route)
+- [ ] Cursor trail effect (lowest priority)
+- [ ] Delete leftover `content/*.md` files (originals, now unused — `.mdx` versions in `content/blog/`)
+
+---
+
+## Tech Stack (Current)
+
+| Layer | Tech |
 |---|---|
-| `VITE_API_URL` | `NEXT_PUBLIC_API_URL` |
-| `VITE_OPENWEATHER_KEY` | `NEXT_PUBLIC_OPENWEATHER_KEY` |
-
-Server-only vars (Spotify, WakaTime, GitHub tokens) move to Next.js API routes and no longer need `NEXT_PUBLIC_` prefix — they stay private on the server.
-
-### Docker
-
-**Current:** 2 containers (Nginx + Node backend)
-**After:** 2 containers (Next.js + Node backend)
-
-The Nginx container is replaced with Next.js running `next start` on port 3000. The `nginx.conf` is gone. Next.js handles its own routing and static file serving.
-
----
-
-## Migration Phases
-
-### Phase 1 — Scaffold & Config
-- `npx create-next-app@latest thy-xev-next --typescript --tailwind --app --src-dir --no-eslint`
-- Copy over `globals.css` (colors, fonts, custom classes)
-- Copy `constants/`, `public/`, `src/assets/`
-- Set up `next.config.ts` with security headers + rewrites
-- Configure `next/font` for Space Grotesk + Inter + Caveat
-
-### Phase 2 — Layout & Navigation
-- Migrate `NavBar.tsx` → `"use client"` component
-- Create `app/layout.tsx` with theme provider, font classes, and NavBar
-- Migrate `ThemeToggle.tsx` with `next-themes`
-- Migrate `PageWrapper.tsx` (Framer Motion layout animations)
-- Test dark/light toggle + page transitions
-
-### Phase 3 — Static Pages
-Migrate these in order (simplest first):
-1. `/contact` — just links, pure server component
-2. `/about` — Skills component + bio
-3. `/projects` — JSON data, mostly static
-4. `/resume` — static page
-5. `/now` — static text
-6. `/` (Hero) — most complex (all the widgets), save for last in this phase
-
-### Phase 4 — Blog System
-- Install: `next-mdx-remote` or `fumadocs-mdx` (Anish uses Fumadocs — worth considering)
-- Convert all 18 `.md` posts to `.mdx` with updated frontmatter
-- Build `app/posts/page.tsx` — listing with search (keep Fuse.js) + tag filter
-- Build `app/posts/[slug]/page.tsx` — single post with `generateStaticParams()`
-- Add reading time remark plugin (walk AST, skip code blocks, 200 wpm)
-- Add Shiki syntax highlighting (replace highlight.js) — light/dark themes
-- Add `generateMetadata()` per post (title, description, OG tags)
-- Auto-generate table of contents from headings
-
-### Phase 5 — API Routes (replace Express for non-OAuth endpoints)
-Move these to `app/api/`:
-- `/api/wakatime/daily` → proxies WakaTime
-- `/api/wakatime/languages` → language breakdown
-- `/api/github/contributions` → GitHub GraphQL proxy
-- `/api/views/[slug]` → view counter (replace file-based with edge KV or keep file)
-- `/api/discord` → Lanyard proxy (or call directly from client)
-
-**Keep Express for:** Spotify OAuth (needs redirect callback, session state — easier to leave in its own service)
-
-### Phase 6 — Dynamic OG Images
-- Create `app/og/route.tsx`
-- Generate per-page dark card: title, description, tags, date
-- Wire up in `generateMetadata()` for all pages and posts
-- Replace static `public/meta.png`
-
-### Phase 7 — SEO & Metadata
-- Delete `public/sitemap.xml` and `public/robots.txt`
-- Create `app/sitemap.ts` (auto-includes all blog posts)
-- Create `app/robots.ts`
-- Audit JSON-LD — we already have it, just port to server components
-- Verify all OG tags render in source HTML (not JS-injected)
-
-### Phase 8 — Docker Update
-- Update `Dockerfile` frontend stage: remove Nginx, add `next start`
-- Update `docker-compose.yml` frontend service
-- Update GitHub Actions workflow for new build process
-- Test full stack locally with `docker compose up`
-
-### Phase 9 — Polish & Parity Check
-- Command palette (`Cmd+K`) — migrate with `"use client"`
-- Custom cursor (Cursorify) — may need `"use client"` wrapper
-- GSAP SplitText — ensure it only runs after mount (`useEffect`)
-- Locomotive scroll — check compatibility with App Router
-- View transitions for theme toggle — works in Next.js
-- Check all Framer Motion page transitions
-- Run Lighthouse before/after comparison
+| Framework | Next.js 16.2.7 (App Router, Turbopack) |
+| Runtime / PM | Bun |
+| Styling | Tailwind CSS v4 + CSS variables |
+| Fonts | next/font/google (Space Grotesk, Inter, Caveat) |
+| Blog | Fumadocs (fumadocs-mdx 14.2.7 + fumadocs-core/ui 16.6.0) |
+| Syntax highlighting | Shiki (via fumadocs rehypeCodeOptions, dual theme) |
+| Animations | GSAP SplitText + Framer Motion + View Transition API |
+| Theme | next-themes |
+| Search | Fuse.js (client-side fuzzy search) + nuqs (URL state sync) |
+| Backend | Express.js on port 3001 (Spotify OAuth only now) |
+| DevOps | Docker + GHCR + GitHub Actions → DigitalOcean VPS |
 
 ---
 
-## Risky Parts to Watch
+## Known Issues / Notes
 
-### GSAP SplitText
-GSAP needs the DOM. In Next.js SSR, any GSAP initialization must be inside `useEffect`. The current `reactbits/splittext.tsx` probably runs on mount already, but double-check it doesn't run at module level.
-
-### Locomotive Scroll
-`locomotive-scroll` v5 (beta) + React 19 + Next.js App Router can conflict. May need to wrap in a `"use client"` provider and initialize after hydration. Alternatively, replace with native CSS scroll-driven animations (zero dependency).
-
-### Framer Motion Page Transitions
-App Router doesn't have the same exit-animation lifecycle as React Router. The `AnimatePresence` pattern needs to be rethought. Solution: wrap `{children}` in a layout-level `AnimatePresence` with a keyed inner div.
-
-### View Counter (File-based)
-`views.json` in the Express server works fine. If we move view counting to Next.js API routes, we need a persistent store (can't write to filesystem on Vercel/ephemeral deploys, but we're on our own VPS so it's fine).
-
-### `import.meta.glob` (Vite-specific)
-The current `src/utils/posts.ts` uses `import.meta.glob()` which is Vite-only. In Next.js, replace with `fs.readdir` + `fs.readFile` in a server utility, or use `next-mdx-remote` which handles this for you.
+- **Spotify/WakaTime/GitHub widgets show errors in dev** — expected, env vars (`SPOTIFY_REFRESH_TOKEN`, `WAKATIME_API_KEY`, `GITHUB_PAT`) need to be in `.env.local`. Works fine in production.
+- **`.source/` directory** — auto-generated by `fumadocs-mdx` codegen, committed to repo. Re-generated on `postinstall` and on `bun dev` start.
+- **`content/` old `.md` files** — the originals in `content/*.md` are still there alongside `content/blog/*.mdx`. The `.md` files are unused and can be deleted.
+- **`views.json` location** — in dev, the file writes to the project root (cwd). In production on VPS, `DATA_DIR` env var must point to a persistent volume path so views survive container restarts.
+- **`lastModified` (updated date)** — requires git history on the machine running the build. In CI/Docker, make sure the repo is fully cloned (not shallow clone), otherwise the plugin won't find dates.
 
 ---
 
-## New Features to Add During Migration
-
-These are from `INSPIRATION.md` and make sense to build in alongside the migration rather than after:
-
-1. **Dynamic OG images** — already in Phase 6, build it properly
-2. **MDX components** — custom `<Callout>`, `<Note>`, code blocks with filename headers
-3. **Reading progress** — SVG circle or scroll-driven CSS (zero JS version)
-4. **Post description in frontmatter** — used for SEO + card previews
-5. **Better post cards** — add description + reading time to cards on `/posts`
-6. **Auto sitemap** — replaces manual `public/sitemap.xml`
-
----
-
-## What We're NOT Doing (Yet)
-
-- **Guestbook** — needs DB + auth (Clerk), save for after migration
-- **Blog comments** — same, needs DB
-- **Mood reactions** — same
-- **Fumadocs** — powerful but heavy; we'll start with `next-mdx-remote`, migrate to Fumadocs later if needed
-- **Neon DB** — no DB until we build guestbook/comments
-
----
-
-## Files to Delete After Migration
-
-```
-src/App.tsx              # replaced by file-based routing
-src/main.tsx             # replaced by app/layout.tsx
-vite.config.ts           # gone
-index.html               # gone (Next.js handles this)
-nginx.conf               # gone (Next.js serves itself)
-tsconfig.app.json        # merge into tsconfig.json
-start.bat                # Windows dev script, replace with npm commands
-```
-
----
-
-## Estimated Effort
-
-| Phase | Complexity | Est. Time |
-|---|---|---|
-| 1. Scaffold & Config | Low | 1–2 hrs |
-| 2. Layout & Navigation | Medium | 2–3 hrs |
-| 3. Static Pages | Low–Medium | 3–4 hrs |
-| 4. Blog System | High | 4–6 hrs |
-| 5. API Routes | Medium | 2–3 hrs |
-| 6. OG Images | Medium | 2–3 hrs |
-| 7. SEO & Metadata | Low | 1–2 hrs |
-| 8. Docker Update | Low–Medium | 1–2 hrs |
-| 9. Polish & Parity | Medium | 2–4 hrs |
-| **Total** | | **~18–29 hrs** |
+## Inspiration Reference
+Techniques studied from `anishshobithps.com` (cloned at `~/Coding/anishshobithps.com`):
+- Fused button group pattern for controls (Tags + per-page)
+- TOC desktop sidebar + mobile collapsible with progress circle
+- URL-synced search state via `nuqs`
+- Custom scrollbar floating pill
+- JSON-LD schema structure
+- Dynamic OG image route pattern
+- `lastModified` plugin for updated date on posts
