@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import { Music, ExternalLink } from 'lucide-react';
 
@@ -11,7 +13,7 @@ interface SpotifyTrack {
   message?: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SpotifyWidget: React.FC = () => {
   const [track, setTrack] = useState<SpotifyTrack | null>(null);

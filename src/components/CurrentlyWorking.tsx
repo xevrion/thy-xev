@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import data from '../../constants/projects.json'
 import { LinkPreview } from './LinkPreview';

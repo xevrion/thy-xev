@@ -1,6 +1,8 @@
+'use client'
+
 import { useEffect, useState } from "react";
 
-const API_KEY = import.meta.env.VITE_OPENWEATHER_KEY;
+const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_KEY;
 
 interface WeatherData {
   city: string;

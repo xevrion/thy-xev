@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from "react";
 
 interface WakaDailyResponse {
@@ -10,7 +12,7 @@ interface WakaDailyResponse {
   // WakaTime may include other fields, we only care about data[0].grand_total
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const WakatimeDailyWidget: React.FC = () => {
   const [timeText, setTimeText] = useState<string | null>(null);

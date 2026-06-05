@@ -1,3 +1,5 @@
+'use client'
+
 import { encode } from "qss";
 import React from "react";
 import {
@@ -5,7 +7,7 @@ import {
   motion,
   useMotionValue,
   useSpring,
-} from "motion/react";
+} from "framer-motion";
 import { cn } from "../lib/utils";
 
 type LinkPreviewProps = {

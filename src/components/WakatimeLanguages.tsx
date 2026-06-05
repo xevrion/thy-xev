@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from "react";
 
 interface LangEntry {
@@ -5,7 +7,7 @@ interface LangEntry {
   seconds: number;
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function formatSeconds(sec: number) {
   const hrs = Math.floor(sec / 3600);

@@ -1,34 +1,15 @@
+'use client'
+
 import SplitText from './reactbits/splittext'
 import data from '../../constants/projects.json'
-import { Title, Meta, Link } from 'react-head'
-import Socials from './Socials';
-import { LinkPreview } from './LinkPreview';
+import Socials from './Socials'
+import { LinkPreview } from './LinkPreview'
 
-const { projects, pastProjects } = data;
+const { projects, pastProjects } = data
 
 export const Projects = () => {
   return (
-    <>
-      <Title>Projects | Xevrion - Full Stack Developer</Title>
-      <Meta name="title" content="Projects | Xevrion - Full Stack Developer" />
-      <Meta name="description" content="Explore my current and past projects including web applications, AI tools, and interactive websites. Showcasing creative projects that blend functionality and aesthetics." />
-      <Link rel="canonical" href="https://xevrion.dev/projects" />
-
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://xevrion.dev/projects" />
-      <Meta property="og:title" content="Projects | Xevrion" />
-      <Meta property="og:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
-      <Meta property="og:image" content="https://xevrion.dev/android-chrome-512x512.png" />
-
-      <Meta name="twitter:card" content="summary_large_image" />
-      <Meta name="twitter:url" content="https://xevrion.dev/projects" />
-      <Meta name="twitter:title" content="Projects | Xevrion" />
-      <Meta name="twitter:description" content="Explore my current and past projects including web applications, AI tools, and interactive websites." />
-      <Meta name="twitter:image" content="https://xevrion.dev/android-chrome-512x512.png" />
-
-      <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16  ">
-
-      {/* Heading */}
+    <section className="px-6 sm:px-10 md:px-20 lg:px-40 xl:px-60 2xl:px-80 py-10 md:py-20 max-w-screen-2xl mx-auto flex flex-col gap-16">
       <div className="text-center">
         <SplitText
           text="Projects"
@@ -45,96 +26,53 @@ export const Projects = () => {
         />
       </div>
 
-      {/* Currently Working */}
-
       <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Currently Working</div>
-        {projects.map((value, index) => {
-          return (<>
-            <div key={index} className="flex whitespace-nowrap gap-2 items-center">
-              {value['image'] ? (
-                <LinkPreview 
-                  url={value['url']} 
-                  isStatic={true}
-                  imageSrc={value['image']}
-                  className="hover:underline inter-medium text-xl"
-                >
-                  {value['text']}
-                </LinkPreview>
-              ) : (
-                <LinkPreview 
-                  url={value['url']} 
-                  className="hover:underline inter-medium text-xl"
-                >
-                  {value['text']}
-                </LinkPreview>
-              )}
-              {value['live'] && (
-                <a 
-                  href={value['live']} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium"
-                >
-                  live
-                </a>
-              )}
-              <p className="inter-medium text-xl truncate">- {value['desc']}</p>
-            </div>
-          </>
-          )
-        })}
-
+        {projects.map((value, index) => (
+          <div key={index} className="flex whitespace-nowrap gap-2 items-center">
+            {value.image ? (
+              <LinkPreview url={value.url} isStatic imageSrc={value.image} className="hover:underline inter-medium text-xl">
+                {value.text}
+              </LinkPreview>
+            ) : (
+              <LinkPreview url={value.url} className="hover:underline inter-medium text-xl">
+                {value.text}
+              </LinkPreview>
+            )}
+            {value.live && (
+              <a href={value.live} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium">
+                live
+              </a>
+            )}
+            <p className="inter-medium text-xl truncate">- {value.desc}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Past Projects */}
       <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Past Projects</div>
-        {pastProjects.map((value, index) => {
-          return (<>
-            <div key={index} className="flex whitespace-nowrap gap-2 items-center">
-              {value['image'] ? (
-                <LinkPreview 
-                  url={value['url']} 
-                  isStatic={true}
-                  imageSrc={value['image']}
-                  className="hover:underline inter-medium text-xl"
-                >
-                  {value['text']}
-                </LinkPreview>
-              ) : (
-                <LinkPreview 
-                  url={value['url']} 
-                  className="hover:underline inter-medium text-xl"
-                >
-                  {value['text']}
-                </LinkPreview>
-              )}
-              {value['live'] && (
-                <a 
-                  href={value['live']} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium"
-                >
-                  live
-                </a>
-              )}
-              <p className="inter-medium text-xl truncate">- {value['desc']}</p>
-            </div>
-          </>
-          )
-        })}
-
+        {pastProjects.map((value, index) => (
+          <div key={index} className="flex whitespace-nowrap gap-2 items-center">
+            {value.image ? (
+              <LinkPreview url={value.url} isStatic imageSrc={value.image} className="hover:underline inter-medium text-xl">
+                {value.text}
+              </LinkPreview>
+            ) : (
+              <LinkPreview url={value.url} className="hover:underline inter-medium text-xl">
+                {value.text}
+              </LinkPreview>
+            )}
+            {value.live && (
+              <a href={value.live} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium">
+                live
+              </a>
+            )}
+            <p className="inter-medium text-xl truncate">- {value.desc}</p>
+          </div>
+        ))}
       </div>
 
-
-      <div className="mt-10 flex flex-col gap-6 bottom-0">
-
-        <Socials />
-      </div>
-
+      <Socials />
     </section>
-    </>
   )
 }
