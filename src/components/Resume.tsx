@@ -3,9 +3,8 @@
 import SplitText from './reactbits/splittext'
 import { PdfViewer } from './PdfViewer'
 
-const DRIVE_FILE_ID = '1Bmtk0cAVQXqrG_f_HwjXKDTVQcbHqKWf'
-const DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`
-const EMBED_URL = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/preview`
+const PDF_URL = '/resume.pdf'
+const DOWNLOAD_URL = '/resume.pdf'
 
 export const Resume = () => {
   return (
@@ -23,13 +22,13 @@ export const Resume = () => {
           to={{ opacity: 1, y: 0 }}
         />
         <p className="text-base text-[var(--color-text-muted)] sg-regular max-w-lg">
-          Where I've been, what I built — one page.
+          CS student at IIT Jodhpur. Full stack developer. One page.
         </p>
       </div>
 
       {/* PDF Viewer */}
       <PdfViewer
-        file={EMBED_URL}
+        file={PDF_URL}
         downloadHref={DOWNLOAD_URL}
         filename="Yash_Bavadiya_Resume.pdf"
       />
