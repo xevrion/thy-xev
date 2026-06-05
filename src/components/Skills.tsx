@@ -115,7 +115,7 @@ export default function Skills() {
         if (!Icon) return null;
         return (
           <div key={i} className="inline-block">
-            <Icon className="skill-icon w-10 h-10 text-[#bcb8b1] hover:rotate-15 hover:scale-[1.1] transition-all duration-250" />
+            <Icon className="skill-icon w-10 h-10 text-[var(--color-text)] hover:rotate-15 hover:scale-[1.1] transition-all duration-250" />
           </div>
         );
       })}

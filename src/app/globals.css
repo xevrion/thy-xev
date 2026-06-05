@@ -268,9 +268,5 @@ html.light {
 ::view-transition-new(root) { z-index: 9999; }
 ::view-transition-old(root) { z-index: 0; }
 
-/* Social icons: darken in light theme */
-html.light .social-icon,
-html.light .skill-icon {
-  color: #85807d;
-}
+/* Icon colors follow theme automatically via --color-text */
 

@@ -45,7 +45,7 @@ export function DesktopTOC({ items }: { items: TocItem[] }) {
 
   return (
     <aside className="hidden xl:block sticky top-24 self-start">
-      <p className="text-xs sg-medium text-[var(--color-text-subtle)] uppercase tracking-widest mb-4">
+      <p className="text-xs font-mono font-medium text-[var(--color-text-muted)] uppercase tracking-widest mb-4">
         On this page
       </p>
       <nav>
@@ -63,7 +63,7 @@ export function DesktopTOC({ items }: { items: TocItem[] }) {
                   className={`block text-sm py-0.5 transition-colors duration-150 truncate ${
                     isActive
                       ? 'text-soft-royal-blue sg-medium'
-                      : 'text-[var(--color-text-muted)] hover:text-battleship-gray sg-regular'
+                      : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)] sg-regular'
                   }`}
                   onClick={(e) => {
                     e.preventDefault()

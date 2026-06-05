@@ -31,7 +31,7 @@ export const Now = () => {
       <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
         {items.map((item) => (
           <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
-            <span className="text-[var(--color-text-muted)]/70 sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
+            <span className="text-[var(--color-text-subtle)] sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
             <span className="text-[var(--color-text)] sg-regular text-base">{item.value}</span>
           </div>
         ))}
