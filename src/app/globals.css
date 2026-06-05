@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* ── Shiki dual-theme: show correct block per color scheme ── */
 .shiki,
 .shiki span {
