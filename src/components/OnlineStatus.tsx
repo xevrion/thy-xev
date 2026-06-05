@@ -80,45 +80,31 @@ const DiscordWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center space-x-2 animate-pulse">
-        <div className="w-3 h-3 bg-battleship-gray rounded-full opacity-50"></div>
-        <div className="h-3 bg-battleship-gray rounded w-10 opacity-50"></div>
+      <div className="flex items-center gap-1.5 animate-pulse">
+        <div className="w-2.5 h-2.5 bg-battleship-gray rounded-full opacity-40" />
+        <div className="h-2.5 bg-battleship-gray rounded w-12 opacity-30" />
       </div>
     );
   }
 
   if (error || !status) {
     return (
-      <div className="flex items-center space-x-2 text-[var(--color-text)]">
-        <div className="w-3 h-3 bg-battleship-gray rounded-full opacity-50"></div>
-        <span className="inter-regular text-sm opacity-70">Discord unavailable</span>
+      <div className="flex items-center gap-1.5">
+        <div className="w-2.5 h-2.5 bg-battleship-gray rounded-full opacity-40" />
+        <span className="text-xs font-mono text-[var(--color-text-subtle)]">unavailable</span>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-2 hover:scale-105 transition-transform duration-150">
-      {/* Avatar (hidden on very small screens) */}
-      {/* {status.discord_user.avatar && (
-        <img
-          src={`https://cdn.discordapp.com/avatars/${status.discord_user.id}/${status.discord_user.avatar}.png`}
-          alt="Discord Avatar"
-          className="hidden sm:block w-5 h-5 rounded-full border border-battleship-gray"
-        />
-      )} */}
-
-      {/* Status Indicator */}
+    <div className="flex items-center gap-1.5">
       <div className="relative shrink-0">
-        <div className={`w-3 h-3 rounded-full ${getStatusColor(status.discord_status)}`}></div>
+        <div className={`w-2.5 h-2.5 rounded-full ${getStatusColor(status.discord_status)}`} />
         {status.discord_status === 'online' && (
-          <div
-            className={`absolute inset-0 w-3 h-3 rounded-full ${getStatusColor(status.discord_status)} animate-ping opacity-75`}
-          ></div>
+          <div className={`absolute inset-0 w-2.5 h-2.5 rounded-full ${getStatusColor(status.discord_status)} animate-ping opacity-75`} />
         )}
       </div>
-
-      {/* Status Text */}
-      <span className="inter-regular text-sm text-[var(--color-text)] whitespace-nowrap">
+      <span className="text-xs font-mono text-[var(--color-text-muted)] whitespace-nowrap">
         {getStatusText(status.discord_status)}
       </span>
     </div>

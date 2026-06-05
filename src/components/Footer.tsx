@@ -8,6 +8,7 @@ import WakatimeLanguages from './WakatimeLanguages'
 import GithubContributions from './GithubContributions'
 import VisitorCount from './VisitorCount'
 import Socials from './Socials'
+import DiscordWidget from './OnlineStatus'
 import { ThemeToggle } from './ThemeToggle'
 
 const pages = [
@@ -38,6 +39,11 @@ export default function Footer() {
             <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">
               Making the web a little less ugly.
             </p>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">Discord</span>
+              <span className="text-[var(--color-text-subtle)]">—</span>
+              <DiscordWidget />
+            </div>
             <Socials />
           </div>
 

@@ -4,7 +4,6 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
-import DiscordWidget from './OnlineStatus'
 import WeatherWidget from './WeatherWidget'
 import { ThemeToggle } from './ThemeToggle'
 import { openCommandPalette } from './CommandPalette'
@@ -57,8 +56,7 @@ export const NavBar = () => {
               xevrion
             </div>
           </Link>
-          <DiscordWidget />
-          <WeatherWidget />
+<WeatherWidget />
         </div>
 
         {/* Desktop Links + Theme Toggle */}
