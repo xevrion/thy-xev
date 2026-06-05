@@ -49,7 +49,7 @@ export function HandwrittenHint({
             width={arrowWidth}
             height={arrowHeight}
             viewBox={arrowViewBox}
-            className="text-battleship-gray/65 shrink-0"
+            className="text-[var(--color-text-subtle)] shrink-0"
           >
             <motion.path
               d={arrowPath}
@@ -65,12 +65,12 @@ export function HandwrittenHint({
           </svg>
           <div className="flex flex-col">
             <span
-              className={`caveat text-battleship-gray/65 text-lg whitespace-nowrap inline-block ${textRotation}`}
+              className={`caveat text-[var(--color-text-subtle)] text-lg whitespace-nowrap inline-block ${textRotation}`}
             >
               {text}
             </span>
             {subtitle && (
-              <span className="caveat text-battleship-gray/50 text-xl whitespace-nowrap inline-block">
+              <span className="caveat text-[var(--color-text-subtle)] text-xl whitespace-nowrap inline-block">
                 {subtitle}
               </span>
             )}

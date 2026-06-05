@@ -17,7 +17,7 @@ export const Now = () => {
       <div className="text-center">
         <SplitText
           text="Now"
-          className="text-5xl sm:text-6xl text-soft-royal-blue sg-bold mb-3"
+          className="text-[clamp(2.25rem,5vw+1rem,3.5rem)] text-soft-royal-blue sg-bold mb-3 leading-tight tracking-tight"
           delay={20}
           duration={1}
           ease="elastic.out(1, 0.5)"
@@ -25,21 +25,21 @@ export const Now = () => {
           from={{ opacity: 0, y: 40 }}
           to={{ opacity: 1, y: 0 }}
         />
-        <p className="text-battleship-gray/60 sg-regular text-sm">what i'm up to right now</p>
+        <p className="text-[var(--color-text-muted)] sg-regular text-sm">what i'm up to right now</p>
       </div>
 
       <div className="flex flex-col gap-6 max-w-2xl mx-auto w-full">
         {items.map((item) => (
           <div key={item.label} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-battleship-gray/15 pb-5">
-            <span className="text-[var(--color-battleship-gray)]/45 sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
-            <span className="text-[var(--color-battleship-gray)] sg-regular text-base">{item.value}</span>
+            <span className="text-[var(--color-text-muted)]/70 sg-regular text-sm font-mono w-28 shrink-0">{item.label}</span>
+            <span className="text-[var(--color-text)] sg-regular text-base">{item.value}</span>
           </div>
         ))}
       </div>
 
-      <p className="text-center text-battleship-gray/60 sg-regular text-sm">
+      <p className="text-center text-[var(--color-text-muted)] sg-regular text-sm">
         last updated 11 April 2026 · inspired by{' '}
-        <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="hover:text-battleship-gray transition-colors">
+        <a href="https://nownownow.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--color-text)] transition-colors">
           nownownow.com
         </a>
       </p>

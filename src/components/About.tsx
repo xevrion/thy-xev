@@ -23,14 +23,14 @@ export const About = () => {
         />
       </div>
 
-      <div className="text-[var(--color-battleship-gray)]/70 text-base sm:text-[1.0625rem] leading-relaxed max-w-2xl mx-auto text-center sg-regular">
+      <div className="text-[var(--color-text)] text-base sm:text-[1.0625rem] leading-relaxed max-w-2xl mx-auto text-center sg-regular">
         <p>
           Hi! I'm Yash Bavadiya, a passionate Computer Science student from IIT Jodhpur with a knack for programming, design, and exploring new technologies. I love building creative projects that blend functionality and aesthetics, whether it's web apps, AI tools, or interactive websites. Outside of coding, I enjoy music, playing the piano and ukulele, and constantly learning new skills to push myself forward. My goal is to combine technology and creativity to make meaningful, polished digital experiences.
         </p>
       </div>
 
       <div className="text-center">
-        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-battleship-gray)]/40 uppercase mb-8">Tech Stack</p>
+        <p className="text-xs font-mono font-medium tracking-widest text-[var(--color-text-muted)]/60 uppercase mb-8">Tech Stack</p>
         <Skills />
       </div>
 

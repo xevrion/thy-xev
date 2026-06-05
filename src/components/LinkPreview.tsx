@@ -129,7 +129,7 @@ export const LinkPreview = ({
   // If mobile, just render a regular link without hover preview
   if (isMobile) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className={cn("text-battleship-gray", className)}>
+      <a href={url} target="_blank" rel="noopener noreferrer" className={cn("text-[var(--color-text)]", className)}>
         {children}
       </a>
     );
@@ -153,7 +153,7 @@ export const LinkPreview = ({
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className={cn("text-battleship-gray relative", className)}
+        className={cn("text-[var(--color-text)] relative", className)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onMouseMove={handleMouseMove}

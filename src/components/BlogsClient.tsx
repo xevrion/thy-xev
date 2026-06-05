@@ -56,7 +56,7 @@ function TagPopover({
         className={`flex h-[38px] items-center gap-2 px-3 text-sm sg-regular transition-colors duration-150 border-y border-l rounded-l-lg ${
           active
             ? 'border-soft-royal-blue text-soft-royal-blue bg-soft-royal-blue/5'
-            : 'border-battleship-gray/40 text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue'
+            : 'border-battleship-gray/40 text-[var(--color-text)] hover:border-soft-royal-blue/50 hover:text-soft-royal-blue'
         }`}
       >
         <Tag size={14} />
@@ -78,7 +78,7 @@ function TagPopover({
             <>
               <button
                 onClick={() => onChange([])}
-                className="flex items-center gap-1.5 w-full px-3 py-1.5 text-xs sg-medium text-battleship-gray/60 hover:text-soft-royal-blue transition-colors duration-150"
+                className="flex items-center gap-1.5 w-full px-3 py-1.5 text-xs sg-medium text-[var(--color-text-muted)] hover:text-soft-royal-blue transition-colors duration-150"
               >
                 <X size={11} /> Clear all
               </button>
@@ -108,7 +108,7 @@ function TagPopover({
                       checked={checked}
                       onChange={() => toggle(tag)}
                     />
-                    <span className={`text-sm sg-regular ${checked ? 'text-soft-royal-blue' : 'text-battleship-gray'}`}>
+                    <span className={`text-sm sg-regular ${checked ? 'text-soft-royal-blue' : 'text-[var(--color-text)]'}`}>
                       {tag}
                     </span>
                   </label>
@@ -146,7 +146,7 @@ function PerPageSelect({
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex h-[38px] items-center gap-2 px-3 text-sm sg-regular border border-battleship-gray/40 rounded-r-lg text-battleship-gray hover:border-soft-royal-blue/50 hover:text-soft-royal-blue transition-colors duration-150"
+        className="flex h-[38px] items-center gap-2 px-3 text-sm sg-regular border border-battleship-gray/40 rounded-r-lg text-[var(--color-text)] hover:border-soft-royal-blue/50 hover:text-soft-royal-blue transition-colors duration-150"
       >
         <span>{value} per page</span>
         <ChevronDown size={13} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
@@ -159,7 +159,7 @@ function PerPageSelect({
               key={n}
               onClick={() => { onChange(n); setOpen(false) }}
               className={`w-full px-3 py-1.5 text-sm text-left sg-regular transition-colors duration-100 hover:bg-battleship-gray/[0.08] ${
-                n === value ? 'text-soft-royal-blue sg-medium' : 'text-battleship-gray'
+                n === value ? 'text-soft-royal-blue sg-medium' : 'text-[var(--color-text)]'
               }`}
             >
               {n} per page
@@ -198,7 +198,7 @@ function Pagination({
       <button
         onClick={() => onChange(current - 1)}
         disabled={current <= 1}
-        className={`${btn} text-battleship-gray hover:text-soft-royal-blue disabled:pointer-events-none`}
+        className={`${btn} text-[var(--color-text)] hover:text-soft-royal-blue disabled:pointer-events-none`}
         aria-label="Previous page"
       >
         <ChevronLeft size={15} />
@@ -206,7 +206,7 @@ function Pagination({
 
       {pages.map((p, i) =>
         p === '…' ? (
-          <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center text-battleship-gray/40 text-sm">
+          <span key={`ellipsis-${i}`} className="w-8 h-8 flex items-center justify-center text-[var(--color-text-subtle)] text-sm">
             …
           </span>
         ) : (
@@ -216,7 +216,7 @@ function Pagination({
             className={`${btn} ${
               p === current
                 ? 'bg-soft-royal-blue/10 border border-soft-royal-blue/40 text-soft-royal-blue sg-medium'
-                : 'text-battleship-gray hover:text-soft-royal-blue hover:bg-battleship-gray/[0.08]'
+                : 'text-[var(--color-text)] hover:text-soft-royal-blue hover:bg-battleship-gray/[0.08]'
             }`}
           >
             {p}
@@ -227,7 +227,7 @@ function Pagination({
       <button
         onClick={() => onChange(current + 1)}
         disabled={current >= total}
-        className={`${btn} text-battleship-gray hover:text-soft-royal-blue disabled:pointer-events-none`}
+        className={`${btn} text-[var(--color-text)] hover:text-soft-royal-blue disabled:pointer-events-none`}
         aria-label="Next page"
       >
         <ChevronRight size={15} />
@@ -246,19 +246,19 @@ function PostCard({ post }: { post: BlogPost }) {
             {post.title}
           </Link>
         </h2>
-        <div className="flex items-center gap-3 whitespace-nowrap text-sm sg-regular text-battleship-gray/60 sm:pt-1 shrink-0">
+        <div className="flex items-center gap-3 whitespace-nowrap text-sm sg-regular text-[var(--color-text-muted)] sm:pt-1 shrink-0">
           {post.readingTime && <span>{post.readingTime}</span>}
-          {post.readingTime && post.displayDate && <span className="text-battleship-gray/30">·</span>}
+          {post.readingTime && post.displayDate && <span className="text-[var(--color-text-subtle)]">·</span>}
           {post.displayDate && <span>{post.displayDate}</span>}
         </div>
       </div>
       {post.description && (
-        <p className="text-battleship-gray text-base sg-regular mb-3">{post.description}</p>
+        <p className="text-[var(--color-text)] text-base sg-regular mb-3">{post.description}</p>
       )}
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag) => (
-            <span key={tag} className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/20 text-battleship-gray/70">
+            <span key={tag} className="px-2 py-0.5 rounded-full text-xs sg-medium border border-battleship-gray/20 text-[var(--color-text-muted)]">
               {tag}
             </span>
           ))}
@@ -322,7 +322,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
       <div className="text-center">
         <SplitText
           text="Blogs"
-          className="text-5xl sm:text-6xl text-soft-royal-blue sg-bold mb-6"
+          className="text-[clamp(2.25rem,5vw+1rem,3.5rem)] text-soft-royal-blue sg-bold mb-6 leading-tight tracking-tight"
           delay={20}
           duration={1}
           ease="elastic.out(1, 0.5)"
@@ -336,7 +336,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
       <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto w-full">
         {/* Search */}
         <div className="relative flex-1">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-battleship-gray pointer-events-none" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text)] pointer-events-none" />
           <input
             type="text"
             value={query}
@@ -347,7 +347,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
           {query && (
             <button
               onClick={() => setQueryReset('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-battleship-gray hover:text-soft-royal-blue transition-colors duration-150"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text)] hover:text-soft-royal-blue transition-colors duration-150"
             >
               <X size={14} />
             </button>
@@ -387,7 +387,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
         {paginated.length > 0 ? (
           paginated.map((post) => <PostCard key={post.slug} post={post} />)
         ) : (
-          <p className="text-battleship-gray sg-regular text-center">
+          <p className="text-[var(--color-text)] sg-regular text-center">
             No posts found
             {activeTags.length > 0 ? ` tagged "${activeTags.join(', ')}"` : query ? ` for "${query}"` : ''}
           </p>
@@ -397,7 +397,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
       {/* Bottom: count + pagination */}
       {filtered.length > 0 && (
         <div className="flex flex-col items-center gap-4">
-          <p className="text-xs sg-regular text-battleship-gray/50 tabular-nums">
+          <p className="text-xs sg-regular text-[var(--color-text-subtle)] tabular-nums">
             Showing {(currentPage - 1) * perPage + 1}–{Math.min(currentPage * perPage, filtered.length)} of {filtered.length} post{filtered.length !== 1 ? 's' : ''}
           </p>
           <Pagination current={currentPage} total={totalPages} onChange={setPage} />

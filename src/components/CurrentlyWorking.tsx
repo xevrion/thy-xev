@@ -11,7 +11,7 @@ function CurrentlyWorking() {
     const [showHint, setShowHint] = useState(true)
 
     return (
-        <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl ">
+        <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl ">
             <div className="inter-bold">Currently Working</div>
             {projects.map((value, index) => {
                 return (

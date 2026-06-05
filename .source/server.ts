@@ -23,6 +23,16 @@ import type * as Config from '../source.config';
 const create = server<typeof Config, import("fumadocs-mdx/runtime/types").InternalTypeConfig & {
   DocData: {
   }
-}>({"doc":{"passthroughs":["extractedReferences"]}});
+} & {
+  DocData: {
+    docs: {
+      /**
+       * Last modified date of document file, obtained from version control.
+       *
+       */
+      lastModified?: Date;
+    },
+  }
+}>({"doc":{"passthroughs":["extractedReferences","lastModified"]}});
 
 export const docs = await create.docs("docs", "content/blog", {}, {"iitjLoginGoRewrite.mdx": __fd_glob_0, "agentic-architecture.mdx": __fd_glob_1, "pathwayHackathon.mdx": __fd_glob_2, "firstTechRound.mdx": __fd_glob_3, "ethernetIITJDockerIssue.mdx": __fd_glob_4, "aula-f75-linux-reverse-engineering.mdx": __fd_glob_5, "kernelNvidia.mdx": __fd_glob_6, "browser-hostname-dualboot-fix.mdx": __fd_glob_7, "3rdSem.mdx": __fd_glob_8, "npmPackageGuide.mdx": __fd_glob_9, "DSARoadmap.mdx": __fd_glob_10, "newJourney.mdx": __fd_glob_11, "ubuntu-to-fedora-hyprland.mdx": __fd_glob_12, "notionClassroomIntegration.mdx": __fd_glob_13, "IITJEthernetLoginIssue.mdx": __fd_glob_14, "dockerizing-portfolio.mdx": __fd_glob_15, "windows-reinstall-grub-post.mdx": __fd_glob_16, "echoGo.mdx": __fd_glob_17, });

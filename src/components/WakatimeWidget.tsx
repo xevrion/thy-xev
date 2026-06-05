@@ -55,7 +55,7 @@ const WakatimeDailyWidget: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="animate-pulse inter-bold text-battleship-gray text-xl">
+      <div className="animate-pulse inter-bold text-[var(--color-text)] text-xl">
         Loading today's coding...
       </div>
     );
@@ -63,16 +63,16 @@ const WakatimeDailyWidget: React.FC = () => {
 
   if (error) {
     return (
-      <div className="inter-bold text-battleship-gray text-xl">{error}</div>
+      <div className="inter-bold text-[var(--color-text)] text-xl">{error}</div>
     );
   }
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="inter-bold text-battleship-gray text-xl">Today's Coding Time</p>
+      <p className="inter-bold text-[var(--color-text)] text-xl">Today's Coding Time</p>
       <div className="flex items-center gap-3 rounded-xl px-3 py-2 w-full max-w-md hover:scale-[1.03] transition-all duration-200 ease-in-out">
         <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse shrink-0"></div>
-        <span className="text-sm md:text-base inter-medium text-battleship-gray truncate">
+        <span className="text-sm md:text-base inter-medium text-[var(--color-text)] truncate">
           {timeText}
         </span>
       </div>

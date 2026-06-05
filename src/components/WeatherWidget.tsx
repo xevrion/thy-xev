@@ -51,7 +51,7 @@ export default function WeatherWidget() {
 
   if (loading) {
     return (
-      <div className="text-battleship-gray text-sm italic opacity-70">
+      <div className="text-[var(--color-text)] text-sm italic opacity-70">
         loading...
       </div>
     );
@@ -64,7 +64,7 @@ export default function WeatherWidget() {
           key={w.city}
           className="flex items-center gap-1 group"
         >
-          <span className="text-xs inter-medium text-battleship-gray group-hover:text-soft-royal-blue transition-all duration-200">
+          <span className="text-xs inter-medium text-[var(--color-text)] group-hover:text-soft-royal-blue transition-all duration-200">
             {w.city}
           </span>
           <img

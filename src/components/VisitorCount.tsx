@@ -26,7 +26,7 @@ const VisitorCount = () => {
     if (total === null) return null;
 
     return (
-        <p className="inter-regular text-battleship-gray/60 text-sm text-center md:text-left">
+        <p className="inter-regular text-[var(--color-text-muted)] text-sm text-center md:text-left">
             {total.toLocaleString()} {total === 1 ? "visitor" : "visitors"} so far
         </p>
     );

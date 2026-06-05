@@ -53,15 +53,15 @@ const CodeforcesWidget: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div className="animate-pulse inter-bold text-battleship-gray text-xl">Loading contests...</div>;
+        return <div className="animate-pulse inter-bold text-[var(--color-text)] text-xl">Loading contests...</div>;
     }
 
     if (error) {
-        return <div className="inter-bold text-battleship-gray text-xl">{error}</div>;
+        return <div className="inter-bold text-[var(--color-text)] text-xl">{error}</div>;
     }
 
     if (contests.length === 0) {
-        return <div className="inter-bold text-battleship-gray text-xl">No contests today</div>;
+        return <div className="inter-bold text-[var(--color-text)] text-xl">No contests today</div>;
     }
 
     return (
@@ -69,7 +69,7 @@ const CodeforcesWidget: React.FC = () => {
 
 
             <div className="flex flex-col gap-2">
-                <p className='inter-bold text-battleship-gray text-xl'>Upcoming/Live Contests:</p>
+                <p className='inter-bold text-[var(--color-text)] text-xl'>Upcoming/Live Contests:</p>
                 {contests.map((contest) => {
                     const start = new Date(contest.startTimeSeconds * 1000);
                     const timeIST = start.toLocaleTimeString('en-IN', {
@@ -90,8 +90,8 @@ const CodeforcesWidget: React.FC = () => {
                             <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse shrink-0"></div>
                             {/* Contest Info */}
                             <div className="flex flex-col overflow-hidden">
-                                <span className="text-sm md:text-base inter-medium text-battleship-gray truncate">{contest.name}</span>
-                                <span className="text-xs md:text-sm text-battleship-gray opacity-80 inter-medium">{timeIST} IST</span>
+                                <span className="text-sm md:text-base inter-medium text-[var(--color-text)] truncate">{contest.name}</span>
+                                <span className="text-xs md:text-sm text-[var(--color-text)] opacity-80 inter-medium">{timeIST} IST</span>
                             </div>
                         </a>
                     );

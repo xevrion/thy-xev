@@ -24,7 +24,7 @@ html.light .shiki span {
 
 /* ── prose-post: blog article typography ── */
 .prose-post {
-  color: var(--color-battleship-gray);
+  color: var(--color-text);
   font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
   font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem);
   line-height: 1.8;
@@ -68,14 +68,14 @@ html.light .shiki span {
 }
 .prose-post strong {
   font-weight: 700;
-  color: color-mix(in srgb, var(--color-battleship-gray) 130%, transparent);
+  color: var(--color-text);
 }
 .prose-post em { font-style: italic; }
 .prose-post blockquote {
   border-left: 3px solid color-mix(in srgb, var(--color-soft-royal-blue) 50%, transparent);
   padding: 0.25rem 0 0.25rem 1.25rem;
   margin: 1.75rem 0;
-  color: color-mix(in srgb, var(--color-battleship-gray) 80%, transparent);
+  color: var(--color-text-muted);
   font-style: italic;
 }
 .prose-post ul {
@@ -133,20 +133,23 @@ html.light .prose-post .shiki {
 
 /* Inline code */
 .prose-post :not(pre) > code {
-  background-color: color-mix(in srgb, var(--color-battleship-gray) 12%, transparent);
-  color: var(--color-battleship-gray);
+  background-color: rgba(166, 161, 157, 0.12);
+  color: var(--color-text);
   padding: 0.15em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: ui-monospace, monospace;
 }
 html.light .prose-post :not(pre) > code {
-  background-color: color-mix(in srgb, var(--color-battleship-gray) 14%, transparent);
-  color: color-mix(in srgb, var(--color-battleship-gray) 130%, transparent);
+  background-color: rgba(122, 116, 110, 0.1);
+  color: var(--color-text);
 }
 
 @theme {
   --color-taupe: #2e2a27;
+  --color-text: #dedad6;
+  --color-text-muted: #a6a19d;
+  --color-text-subtle: #6b6662;
   --color-battleship-gray: #a6a19d;
   --color-silver: #e0dedb;
   --color-blue-crayola: #4c6fff;
@@ -245,6 +248,9 @@ body {
 /* Light theme overrides */
 html.light {
   --color-taupe: #f2eeea;
+  --color-text: #1c1916;
+  --color-text-muted: #7a746e;
+  --color-text-subtle: #a09994;
   --color-battleship-gray: #7a746e;
   --color-silver: #2e2a27;
   --color-blue-crayola: #4c6fff;

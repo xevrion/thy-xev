@@ -72,7 +72,7 @@ export const NavBar = () => {
             })}
           <button
             onClick={openCommandPalette}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/50 text-battleship-gray text-sm sg-regular hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-150"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-battleship-gray/50 text-[var(--color-text)] text-sm sg-regular hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-150"
             aria-label="Open command palette"
           >
             <span>Search...</span>

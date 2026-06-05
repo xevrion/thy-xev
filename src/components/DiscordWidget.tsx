@@ -87,7 +87,7 @@ const DiscordActivityWidget: React.FC = () => {
 
   if (error) {
     return (
-      <div className="w-full max-w-xs text-battleship-gray">
+      <div className="w-full max-w-xs text-[var(--color-text)]">
         <p className="inter-regular text-sm truncate">{error}</p>
       </div>
     );
@@ -98,7 +98,7 @@ const DiscordActivityWidget: React.FC = () => {
   return (
     <div className="flex flex-col gap-2 items-center sm:items-end w-full max-w-xs sm:ml-auto">
       <div
-        className={isActive ? "text-soft-royal-blue" : "text-battleship-gray"}
+        className={isActive ? "text-soft-royal-blue" : "text-[var(--color-text)]"}
       >
         <h2 className="inter-bold text-center sm:text-right">
           {isActive ? "Currently Active" : "Idle"}
@@ -111,7 +111,7 @@ const DiscordActivityWidget: React.FC = () => {
             {activity?.name || "No active app"}
           </h4>
 
-          <p className="inter-regular text-battleship-gray text-xs truncate">
+          <p className="inter-regular text-[var(--color-text)] text-xs truncate">
             {activity ? elapsed : "—"}
           </p>
         </div>

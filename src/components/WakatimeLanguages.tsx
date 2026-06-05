@@ -65,7 +65,7 @@ const WakatimeLanguages = () => {
 
   if (loading) {
     return (
-      <div className="animate-pulse inter-bold text-battleship-gray text-xl">
+      <div className="animate-pulse inter-bold text-[var(--color-text)] text-xl">
         Loading language stats...
       </div>
     );
@@ -73,7 +73,7 @@ const WakatimeLanguages = () => {
 
   if (error || langs.length === 0) {
     return (
-      <div className="inter-bold text-battleship-gray text-xl">
+      <div className="inter-bold text-[var(--color-text)] text-xl">
         {error ?? "No language data this week"}
       </div>
     );
@@ -83,12 +83,12 @@ const WakatimeLanguages = () => {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="inter-bold text-battleship-gray text-xl">Languages this week</p>
+      <p className="inter-bold text-[var(--color-text)] text-xl">Languages this week</p>
       <div className="flex flex-col gap-2 w-full max-w-md">
         {langs.map((lang) => (
           <div key={lang.name} className="flex items-center gap-3">
             {/* Label */}
-            <span className="inter-medium text-battleship-gray text-sm w-24 shrink-0 truncate">
+            <span className="inter-medium text-[var(--color-text)] text-sm w-24 shrink-0 truncate">
               {lang.name}
             </span>
             {/* Bar */}
@@ -102,7 +102,7 @@ const WakatimeLanguages = () => {
               />
             </div>
             {/* Time */}
-            <span className="inter-medium text-battleship-gray text-xs w-12 text-right shrink-0">
+            <span className="inter-medium text-[var(--color-text)] text-xs w-12 text-right shrink-0">
               {formatSeconds(lang.seconds)}
             </span>
           </div>

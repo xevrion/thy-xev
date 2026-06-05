@@ -55,7 +55,7 @@ export const Hero = () => {
           <div className="flex flex-col gap-5 text-center md:text-left">
             <SplitText
               text="Hello! I'm"
-              className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-battleship-gray sg-bold selection:bg-blue-crayola"
+              className="text-3xl sm:text-4xl lg:text-5xl mb-1 text-[var(--color-text)] sg-bold selection:bg-blue-crayola"
               delay={20}
               duration={1}
               ease="elastic.out(1, 0.5)"
@@ -97,7 +97,7 @@ export const Hero = () => {
           <WakatimeLanguages />
           <GithubContributions />
           <div className="flex justify-center">
-            <a href="/now" className="text-base sg-regular text-battleship-gray/70 hover:text-soft-royal-blue transition-colors duration-200">
+            <a href="/now" className="text-base sg-regular text-[var(--color-text-muted)] hover:text-soft-royal-blue transition-colors duration-200">
               what i'm doing now →
             </a>
           </div>

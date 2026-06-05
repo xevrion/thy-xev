@@ -41,13 +41,13 @@ export const PostPage = ({
           </h1>
 
           {description && (
-            <p className="text-base sm:text-[1.0625rem] text-[var(--color-battleship-gray)]/70 leading-relaxed mb-5">
+            <p className="text-base sm:text-[1.0625rem] text-[var(--color-text-muted)] leading-relaxed mb-5">
               {description}
             </p>
           )}
 
           {/* Meta row */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-[var(--color-battleship-gray)]/45 mb-4">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-[var(--color-text-muted)]/70 mb-4">
             {date && <span>{date}</span>}
             {updatedAt && updatedAt !== date && (
               <span>updated {updatedAt}</span>

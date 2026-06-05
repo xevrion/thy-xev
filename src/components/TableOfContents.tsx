@@ -45,7 +45,7 @@ export function DesktopTOC({ items }: { items: TocItem[] }) {
 
   return (
     <aside className="hidden xl:block sticky top-24 self-start">
-      <p className="text-xs sg-medium text-battleship-gray/50 uppercase tracking-widest mb-4">
+      <p className="text-xs sg-medium text-[var(--color-text-subtle)] uppercase tracking-widest mb-4">
         On this page
       </p>
       <nav>
@@ -63,7 +63,7 @@ export function DesktopTOC({ items }: { items: TocItem[] }) {
                   className={`block text-sm py-0.5 transition-colors duration-150 truncate ${
                     isActive
                       ? 'text-soft-royal-blue sg-medium'
-                      : 'text-battleship-gray/60 hover:text-battleship-gray sg-regular'
+                      : 'text-[var(--color-text-muted)] hover:text-battleship-gray sg-regular'
                   }`}
                   onClick={(e) => {
                     e.preventDefault()
@@ -147,17 +147,17 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
           />
         </svg>
 
-        <span className="flex-1 text-left truncate text-battleship-gray/70 sg-regular text-xs">
+        <span className="flex-1 text-left truncate text-[var(--color-text-muted)] sg-regular text-xs">
           {activeItem ? String(activeItem.title) : 'Table of contents'}
         </span>
 
-        <span className="text-xs sg-regular text-battleship-gray/40 shrink-0 tabular-nums">
+        <span className="text-xs sg-regular text-[var(--color-text-subtle)] shrink-0 tabular-nums">
           {activeIdx >= 0 ? `${activeIdx + 1}/${items.length}` : `0/${items.length}`}
         </span>
 
         <ChevronDown
           size={14}
-          className={`shrink-0 text-battleship-gray/50 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          className={`shrink-0 text-[var(--color-text-subtle)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -181,7 +181,7 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
                     className={`block text-sm py-1 transition-colors duration-150 ${
                       isActive
                         ? 'text-soft-royal-blue sg-medium'
-                        : 'text-battleship-gray/60 sg-regular'
+                        : 'text-[var(--color-text-muted)] sg-regular'
                     }`}
                     onClick={(e) => {
                       e.preventDefault()

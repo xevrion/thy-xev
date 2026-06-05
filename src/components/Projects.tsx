@@ -26,7 +26,7 @@ export const Projects = () => {
         />
       </div>
 
-      <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
+      <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Currently Working</div>
         {projects.map((value, index) => (
           <div key={index} className="flex whitespace-nowrap gap-2 items-center">
@@ -49,7 +49,7 @@ export const Projects = () => {
         ))}
       </div>
 
-      <div className="text-battleship-gray flex flex-col gap-1 sm:gap-0 text-xl">
+      <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl">
         <div className="inter-bold">Past Projects</div>
         {pastProjects.map((value, index) => (
           <div key={index} className="flex whitespace-nowrap gap-2 items-center">

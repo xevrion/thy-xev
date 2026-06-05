@@ -1,5 +1,6 @@
 // source.config.ts
 import { defineConfig, defineDocs } from "fumadocs-mdx/config";
+import lastModified from "fumadocs-mdx/plugins/last-modified";
 import { pageSchema } from "fumadocs-core/source/schema";
 
 // src/lib/remarkReadingTime.ts
@@ -28,11 +29,12 @@ var docs = defineDocs({
     }),
     postprocess: {
       includeProcessedMarkdown: true,
-      valueToExport: ["readingTime"]
+      valueToExport: ["readingTime", "lastModified"]
     }
   }
 });
 var source_config_default = defineConfig({
+  plugins: [lastModified()],
   mdxOptions: {
     remarkPlugins: [remarkReadingTime],
     rehypeCodeOptions: {

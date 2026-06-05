@@ -25,7 +25,7 @@ export const Resume = () => {
           href={DOWNLOAD_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-lg border border-battleship-gray text-battleship-gray sg-medium text-sm hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-200 w-fit"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg border border-battleship-gray text-[var(--color-text)] sg-medium text-sm hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-200 w-fit"
         >
           <Download size={15} />
           Download PDF

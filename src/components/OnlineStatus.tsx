@@ -89,7 +89,7 @@ const DiscordWidget: React.FC = () => {
 
   if (error || !status) {
     return (
-      <div className="flex items-center space-x-2 text-battleship-gray">
+      <div className="flex items-center space-x-2 text-[var(--color-text)]">
         <div className="w-3 h-3 bg-battleship-gray rounded-full opacity-50"></div>
         <span className="inter-regular text-sm opacity-70">Discord unavailable</span>
       </div>
@@ -118,7 +118,7 @@ const DiscordWidget: React.FC = () => {
       </div>
 
       {/* Status Text */}
-      <span className="inter-regular text-sm text-battleship-gray whitespace-nowrap">
+      <span className="inter-regular text-sm text-[var(--color-text)] whitespace-nowrap">
         {getStatusText(status.discord_status)}
       </span>
     </div>

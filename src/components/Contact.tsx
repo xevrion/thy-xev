@@ -28,7 +28,7 @@ export const Contact = () => {
           rootMargin="-100px"
           textAlign="center"
         />
-        <p className="text-battleship-gray/60 mt-3 text-base sg-regular">
+        <p className="text-[var(--color-text-muted)] mt-3 text-base sg-regular">
           Always open for collaborations, new ideas, or just a friendly chat.
         </p>
       </div>
@@ -40,7 +40,7 @@ export const Contact = () => {
             href={c.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 text-xl text-battleship-gray hover:text-soft-royal-blue hover:scale-[1.05] transition-all duration-250"
+            className="flex items-center gap-3 text-base text-[var(--color-text)] hover:text-soft-royal-blue hover:scale-[1.05] transition-all duration-200"
           >
             {c.icon}
             <span className="truncate max-w-xs sm:max-w-sm md:max-w-md">{c.text}</span>

@@ -65,14 +65,14 @@ const GithubContributions = () => {
 
   if (loading) {
     return (
-      <div className="animate-pulse inter-bold text-battleship-gray text-xl">
+      <div className="animate-pulse inter-bold text-[var(--color-text)] text-xl">
         Loading contributions...
       </div>
     );
   }
 
   if (error || !calendar) {
-    return <div className="inter-bold text-battleship-gray text-xl">{error}</div>;
+    return <div className="inter-bold text-[var(--color-text)] text-xl">{error}</div>;
   }
 
   // Build month labels: track which column each month first appears in
@@ -97,8 +97,8 @@ const GithubContributions = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="inter-bold text-battleship-gray text-xl">GitHub Contributions</p>
-        <span className="text-sm text-battleship-gray/60 sg-regular">
+        <p className="inter-bold text-[var(--color-text)] text-xl">GitHub Contributions</p>
+        <span className="text-sm text-[var(--color-text-muted)] sg-regular">
           {calendar.totalContributions.toLocaleString()} this year
         </span>
       </div>
@@ -182,7 +182,7 @@ const GithubContributions = () => {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-1.5 text-xs text-battleship-gray/50 sg-regular">
+      <div className="flex items-center gap-1.5 text-xs text-[var(--color-text-subtle)] sg-regular">
         <span>Less</span>
         {[0, 3, 6, 9, 12].map((n) => (
           <div
