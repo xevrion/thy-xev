@@ -48,7 +48,7 @@ todo
 
 - [x] integrate search in posts page
   - [x] client-side fuzzy + substring search using fuse.js (no server needed)
-  - [x] searches title, summary, and full post content
+  - [x] searches title, description, and tags
 
 - [ ] add testimonials section (research other personal sites before proceeding)
 
@@ -67,10 +67,11 @@ todo
 
 - [x] reading time on posts
   - [x] show "X min read" on post cards and at top of each post
+  - [x] now computed via remarkReadingTime plugin (prose-only, skips code blocks)
 
 - [x] post tags + filter
-  - [x] tags stored as "Tags:" line in markdown, parsed like Date
-  - [x] tag chips on post cards, filter on /posts page, shown on post page
+  - [x] tags stored in YAML frontmatter, parsed by Fumadocs
+  - [x] tag chips on post cards, filter on /blogs page, shown on post page
   - [x] horizontal scroll if too many tags
 
 - [x] command palette (Cmd+K / Ctrl+K)
@@ -90,8 +91,44 @@ todo
   - [x] show "X reads" on post cards and post page
   - [x] total site visitor counter on home page
 
+- [x] migrate to Next.js (from React + Vite + React Router)
+  - [x] App Router, SSG, generateStaticParams, generateMetadata
+  - [x] next-themes replacing custom useTheme hook
+  - [x] useRouter/usePathname replacing react-router hooks
+
+- [x] rename /posts to /blogs
+
+- [x] switch to Bun as package manager + runtime
+
+- [x] migrate blog to Fumadocs (Anish's stack)
+  - [x] fumadocs-mdx 14.2.7 + fumadocs-core/ui 16.6.0 on Next.js 16
+  - [x] MDX compiled at build time (no per-request rendering)
+  - [x] Shiki dual-theme syntax highlighting (github-dark / github-light)
+  - [x] remarkReadingTime plugin for accurate reading time
+  - [x] all 18 posts converted to .mdx with YAML frontmatter
+  - [x] description field on posts
+
+- [x] auto sitemap + robots.txt (Next.js metadata routes)
+
+- [x] redirect shortcuts: /github, /linkedin, /twitter, /mail, /discord, /spotify
+
+- [x] mouse glow effect following cursor
+
+- [x] reading progress bar on blog posts (zero-lag, direct DOM writes)
+
+- [x] scroll-driven CSS fade utility (.scroll-fade-x/y)
+
+- [x] security headers (X-Frame-Options, X-Content-Type-Options, etc.)
+
+- [x] fully dockerized + GitHub Actions CI/CD to DigitalOcean VPS
+
 - [ ] typing animation on hero (lowest priority)
   - [ ] cycle through "developer", "designer", "pianist", "iit student"
 
 - [ ] cursor trail effect (lowest priority)
   - [ ] subtle particle trail on desktop only
+
+- [ ] add guestbook / comments
+  - [ ] needs Neon (Postgres) + Drizzle ORM + Clerk auth (like Anish)
+
+- [ ] dynamic project fetching from GitHub repos
