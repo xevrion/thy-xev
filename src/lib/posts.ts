@@ -1,5 +1,12 @@
 import fs from 'fs'
 import path from 'path'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
+import rehypeRaw from 'rehype-raw'
+import rehypeShiki from '@shikijs/rehype'
+import rehypeStringify from 'rehype-stringify'
 
 const postsDir = path.join(process.cwd(), 'content')
 
@@ -67,4 +74,30 @@ export function getAllSlugs(): string[] {
   return fs.readdirSync(postsDir)
     .filter((f) => f.endsWith('.md'))
     .map((f) => f.replace('.md', ''))
+}
+
+// Strip the first 3 lines (title, date, tags) before rendering
+function stripFrontmatter(raw: string): string {
+  const lines = raw.split('\n')
+  return [lines[0], ...lines.slice(3)].join('\n')
+}
+
+export async function renderPostHTML(post: Post): Promise<string> {
+  const content = stripFrontmatter(post.content)
+
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeShiki, {
+      themes: {
+        dark: 'github-dark',
+        light: 'github-light',
+      },
+    })
+    .use(rehypeStringify)
+    .process(content)
+
+  return String(file)
 }

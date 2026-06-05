@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getAllSlugs, getPostBySlug } from '@/lib/posts'
+import { getAllSlugs, getPostBySlug, renderPostHTML } from '@/lib/posts'
 import { PostPage } from '@/components/PostPage'
 
 export async function generateStaticParams() {
@@ -41,5 +41,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = getPostBySlug(slug)
   if (!post) notFound()
 
-  return <PostPage post={post} />
+  const html = await renderPostHTML(post)
+
+  return <PostPage post={post} html={html} />
 }

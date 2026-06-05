@@ -1,6 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300..700&display=swap');
 @import 'tailwindcss';
 
+/* ── Shiki dual-theme: show correct block per color scheme ── */
+.shiki,
+.shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+html.light .shiki,
+html.light .shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+
+/* ── prose-post: blog article typography ── */
+.prose-post {
+  color: var(--color-battleship-gray);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+.prose-post h1 { display: none; } /* title rendered in PostPage header */
+.prose-post h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-soft-royal-blue);
+  margin: 2rem 0 0.75rem;
+}
+.prose-post h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-soft-royal-blue);
+  margin: 1.5rem 0 0.5rem;
+}
+.prose-post p { margin-bottom: 1.25rem; }
+.prose-post a {
+  color: var(--color-soft-royal-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.prose-post strong { font-weight: 700; }
+.prose-post em { font-style: italic; }
+.prose-post blockquote {
+  border-left: 4px solid var(--color-soft-royal-blue);
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+  color: var(--color-battleship-gray);
+  opacity: 0.8;
+}
+.prose-post ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose-post ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
+.prose-post li { margin-bottom: 0.4rem; }
+.prose-post hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-soft-royal-blue), transparent);
+  opacity: 0.3;
+  margin: 2rem 0;
+}
+.prose-post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  display: block;
+}
+.prose-post thead { border-bottom: 2px solid rgba(110,140,255,0.3); }
+.prose-post th {
+  text-align: left;
+  color: var(--color-soft-royal-blue);
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+}
+.prose-post td { padding: 0.5rem 1rem; }
+.prose-post tr { border-bottom: 1px solid rgba(110,140,255,0.1); }
+
+/* Shiki code blocks */
+.prose-post .shiki {
+  border-radius: 0.5rem;
+  padding: 1.25rem !important;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  border: 1px solid rgba(100,149,237,0.3);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', monospace;
+}
+html.light .prose-post .shiki {
+  border-color: rgba(61,92,232,0.2);
+}
+
+/* Inline code (not inside a pre/shiki block) */
+.prose-post :not(pre) > code {
+  background-color: #1e2030;
+  color: #a9b1d6;
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: 'ui-monospace', monospace;
+}
+html.light .prose-post :not(pre) > code {
+  background-color: #e2ddd8;
+  color: #3a3633;
+}
+
 @theme {
   --color-taupe: #2e2a27;
   --color-battleship-gray: #a6a19d;
@@ -52,54 +158,3 @@ html.light .skill-icon {
   color: #85807d;
 }
 
-/* ── Syntax highlighting (highlight.js) ── */
-@import 'highlight.js/styles/tokyo-night-dark.css';
-
-pre:has(> code.hljs) {
-  border-radius: 0.5rem;
-  padding: 0 !important;
-  margin: 1.25rem 0;
-  overflow: hidden;
-  border: 1px solid rgba(100, 149, 237, 0.4);
-}
-
-pre:has(> code.hljs) code.hljs {
-  display: block;
-  border-radius: 0;
-  font-size: 15px;
-  font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
-  white-space: pre-wrap;
-  word-break: break-words;
-}
-
-.inline-code {
-  background-color: #1e2030;
-  color: #a9b1d6;
-}
-html.light .inline-code {
-  background-color: #e2ddd8;
-  color: #3a3633;
-}
-
-html.light pre:has(> code.hljs) {
-  border-color: rgba(61, 92, 232, 0.2);
-}
-
-html.light code.hljs {
-  background: #eae8e3;
-  color: #3760bf;
-}
-html.light .hljs-comment, html.light .hljs-quote { color: #9699a3; font-style: italic; }
-html.light .hljs-keyword, html.light .hljs-selector-tag,
-html.light .hljs-deletion, html.light .hljs-subst { color: #8c4351; }
-html.light .hljs-literal, html.light .hljs-number { color: #965027; }
-html.light .hljs-string, html.light .hljs-regexp, html.light .hljs-addition,
-html.light .hljs-attribute, html.light .hljs-meta.hljs-string { color: #485e30; }
-html.light .hljs-attr, html.light .hljs-variable, html.light .hljs-template-variable,
-html.light .hljs-type { color: #8f5e15; }
-html.light .hljs-symbol, html.light .hljs-bullet, html.light .hljs-link,
-html.light .hljs-meta, html.light .hljs-selector-id, html.light .hljs-title { color: #3760bf; }
-html.light .hljs-built_in, html.light .hljs-title.class_ { color: #166775; }
-html.light .hljs-emphasis { font-style: italic; }
-html.light .hljs-strong { font-weight: bold; }
-html.light .hljs-link { text-decoration: underline; }
