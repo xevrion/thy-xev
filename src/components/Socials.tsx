@@ -45,7 +45,7 @@ export default function Socials() {
   }, [])
 
   return (
-    <div ref={containerRef} className='flex gap-4 justify-center'>
+    <div ref={containerRef} className='flex gap-4 justify-start'>
       {Icons.map((Icon, i) => (
         <a
           key={i}
