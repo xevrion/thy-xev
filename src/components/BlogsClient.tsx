@@ -2,31 +2,41 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import ReactMarkdown from 'react-markdown'
-import rehypeRaw from 'rehype-raw'
 import Fuse from 'fuse.js'
 import { Search, X } from 'lucide-react'
 import SplitText from './reactbits/splittext'
 import Socials from './Socials'
-import type { Post } from '@/lib/posts'
 
-function PostCard({ post, activeTag, onTagClick }: { post: Post; activeTag: string | null; onTagClick: (tag: string) => void }) {
+export interface BlogPost {
+  slug: string
+  url: string
+  title: string
+  description: string
+  date: string      // ISO string for sorting
+  displayDate: string
+  tags: string[]
+  readingTime?: string
+}
+
+function PostCard({ post, activeTag, onTagClick }: { post: BlogPost; activeTag: string | null; onTagClick: (tag: string) => void }) {
   return (
     <div className="border-b border-battleship-gray pb-6">
       <div className="mb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <h2 className="text-2xl sm:text-3xl text-soft-royal-blue sg-bold mb-1 sm:mb-2 sm:flex-1 sm:min-w-0">
-          <Link href={`/blogs/${post.slug}`} className="hover:underline sm:truncate block">
+          <Link href={post.url} className="hover:underline sm:truncate block">
             {post.title}
           </Link>
         </h2>
         <div className="flex items-center gap-3 whitespace-nowrap">
-          <span className="text-sm sg-regular text-battleship-gray/60">{post.readingTime}</span>
+          {post.readingTime && (
+            <span className="text-sm sg-regular text-battleship-gray/60">{post.readingTime}</span>
+          )}
           <h3 className="text-lg sg-medium text-battleship-gray">{post.displayDate}</h3>
         </div>
       </div>
-      <div className="text-battleship-gray text-lg sg-regular mb-3 [&_h2]:text-xl [&_h2]:text-soft-royal-blue [&_h2]:sg-bold [&_span.blue]:text-soft-royal-blue">
-        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{post.summary}</ReactMarkdown>
-      </div>
+      {post.description && (
+        <p className="text-battleship-gray text-lg sg-regular mb-3">{post.description}</p>
+      )}
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag) => (
@@ -48,7 +58,7 @@ function PostCard({ post, activeTag, onTagClick }: { post: Post; activeTag: stri
   )
 }
 
-export function BlogsClient({ posts }: { posts: Post[] }) {
+export function BlogsClient({ posts }: { posts: BlogPost[] }) {
   const [query, setQuery] = useState('')
   const [activeTag, setActiveTag] = useState<string | null>(null)
 
@@ -58,20 +68,20 @@ export function BlogsClient({ posts }: { posts: Post[] }) {
   )
 
   const results = useMemo(() => {
-    const q = query.trim()
     let pool = posts
     if (activeTag) pool = pool.filter((p) => p.tags.includes(activeTag))
+
+    const q = query.trim()
     if (!q) return pool
 
     const lower = q.toLowerCase()
     const substringMatches = pool.filter(
       (p) =>
         p.title.toLowerCase().includes(lower) ||
-        p.summary.toLowerCase().includes(lower) ||
-        p.content.toLowerCase().includes(lower)
+        p.description.toLowerCase().includes(lower)
     )
     const fuzzyMatches = new Fuse(pool, {
-      keys: [{ name: 'title', weight: 0.4 }, { name: 'summary', weight: 0.2 }, { name: 'content', weight: 0.4 }],
+      keys: [{ name: 'title', weight: 0.6 }, { name: 'description', weight: 0.4 }],
       threshold: 0.1,
       minMatchCharLength: 3,
       ignoreLocation: true,

@@ -1,0 +1,139 @@
+---
+title: "Browsers Stopped Opening After a New Router"
+description: "How a new router broke browser connections on Linux and the weirdly simple fix."
+date: 2026-05-09
+tags:
+  - linux
+  - networking
+  - debugging
+---
+
+I've been dual booting Fedora and Windows for a long time now. Never had any issues with it. Boot into Fedora, open Brave or Chrome, do my thing. Pretty normal stuff.
+
+Then two days ago everything just stopped working.
+
+## What was happening
+
+Every time I booted into Fedora, both Brave and Chrome threw this error and refused to open:
+
+```
+The profile appears to be in use by another Brave process (7126) on another computer (DESKTOP-E1SPMLH.lan).
+Brave has locked the profile so that it doesn't get corrupted.
+```
+
+Same thing for Chrome. And Spotify wasn't launching either. Every reboot, my tabs were gone too.
+
+My first thought was stale lock files from dual booting. Deleted them, browsers opened. But next reboot, same error. So something else was going on.
+
+## What I checked first
+
+I thought maybe Windows Fast Startup was leaving the NTFS partition dirty and causing lock files to persist. But both OSes use completely separate partitions, Windows on its own NTFS C drive and Fedora's home on ext4. So that wasn't it.
+
+I also checked Tailscale since it showed up in the journal. Nothing there either.
+
+Then I checked the hostname:
+
+```bash
+hostname
+# fedora
+cat /etc/hostname
+# (empty)
+```
+
+`/etc/hostname` was empty. That was the first actual clue.
+
+## The real cause
+
+Since `/etc/hostname` was empty, systemd has no static hostname to load. So on boot it just uses `fedora` as a transient fallback. Fine so far.
+
+But then NetworkManager starts, connects to the network, and does a reverse DNS lookup on the machine's IP to figure out the hostname. And the router returned `DESKTOP-E1SPMLH.lan`.
+
+That's my Windows machine's hostname. Windows had registered it in the new router's DNS when it last connected, so when Fedora asked the router "what's my hostname?", the router just gave back whatever IP had registered last. NetworkManager trusted it and applied it:
+
+```
+NetworkManager[1491]: policy: set-hostname: set hostname to 'DESKTOP-E1SPMLH.lan' (from address lookup)
+```
+
+So now Fedora is running as `DESKTOP-E1SPMLH.lan`. Chrome and Brave write a lock file with the current hostname when they open. Next boot, hostname starts as `fedora`, browser sees a lock file from `DESKTOP-E1SPMLH.lan`, thinks some other machine is using the profile, and refuses to open.
+
+The error message is technically correct. It just never tells you that "another computer" is yourself with a different name.
+
+## Why it started suddenly
+
+I got a new router two days ago. Checking the journal confirmed it started exactly from the first boot after the router went in:
+
+```
+Boot -7 (May 7): NetworkManager set hostname to 'DESKTOP-E1SPMLH.lan' (from address lookup)
+Boot -6 (May 8): same
+Boot -5 (May 8): same
+```
+
+The old router probably didn't do reverse DNS lookups like this, or Windows hadn't registered its hostname on it yet. New router, properly configured DNS, and suddenly Fedora is borrowing Windows' identity every boot.
+
+## The fix
+
+Two things to fix this properly.
+
+**1. Set a static hostname**
+
+```bash
+sudo hostnamectl set-hostname fedora
+```
+
+This writes `/etc/hostname` so systemd loads the correct hostname before NetworkManager even starts. No more transient fallback.
+
+**2. Tell NetworkManager to stop overriding it**
+
+```bash
+echo -e '[main]\nhostname-mode=none' | sudo tee /etc/NetworkManager/conf.d/no-dhcp-hostname.conf
+```
+
+`hostname-mode=none` means NetworkManager won't touch the hostname at all, not from DHCP, not from reverse DNS. Whatever systemd set is what sticks.
+
+After this the journal showed:
+
+```
+NetworkManager: static hostname changed from (none) to "fedora"
+```
+
+No more `DESKTOP-E1SPMLH.lan`. Browsers open fine on every boot now.
+
+## About the lock files
+
+The lock files are at:
+
+```
+~/.config/BraveSoftware/Brave-Browser/SingletonLock
+~/.config/google-chrome/SingletonLock
+```
+
+Not inside the `Default/` folder, in the parent directory. I kept clearing the wrong location for a while.
+
+If you ever hit the same error and need to clear them manually:
+
+```bash
+rm -f ~/.config/BraveSoftware/Brave-Browser/Singleton*
+rm -f ~/.config/google-chrome/Singleton*
+```
+
+But with the hostname stable now, they get written and read back with the same name every time so it never mismatches.
+
+## Bonus: Windows C drive not mounting
+
+While I was at it I also noticed the Windows C drive wasn't auto mounting on boot. The UUID in `/etc/fstab` was wrong, it had an old UUID that didn't match the actual partition anymore. Probably got set wrong at some point during Fedora install.
+
+```bash
+sudo blkid | grep ntfs
+# showed the real UUID
+sudo sed -i 's/UUID=01DB223A23D0DDE0/UUID=AA14DAAC14DA7AB1/' /etc/fstab
+```
+
+Mounted fine after that.
+
+## tldr
+
+The browser "profile in use by another computer" error doesn't always mean what it sounds like. In this case it was the same computer with a different hostname on each boot. The lock file stores the hostname when it's written, and if the hostname changes between boots, the browser sees a mismatch and refuses to open.
+
+Fix: set a static hostname with `hostnamectl` and create `/etc/NetworkManager/conf.d/no-dhcp-hostname.conf` with `hostname-mode=none`. That's it.
+
+*Written by Yash (xevrion)*
