@@ -9,6 +9,7 @@ import rehypeShiki from '@shikijs/rehype'
 import rehypeStringify from 'rehype-stringify'
 
 const postsDir = path.join(process.cwd(), 'content')
+const cacheDir = path.join(process.cwd(), '.post-cache')
 
 export interface Post {
   slug: string
@@ -39,13 +40,11 @@ function parsePost(fileName: string): Post {
   const rawTags = lines[2]?.replace(/^Tags:\s*/, '').trim() || ''
   const tags = rawTags ? rawTags.split(',').map((t) => t.trim()).filter(Boolean) : []
 
-  // Optional Description: on line 3 (before blank line 4)
   const descLine = lines[3]?.trim() || ''
   const description = descLine.startsWith('Description:')
     ? descLine.replace(/^Description:\s*/, '').trim()
     : lines.slice(5, 7).join(' ').slice(0, 150).replace(/[#*`]/g, '') + '...'
 
-  // Content body starts after frontmatter (skip lines 0–3, blank line 4)
   const bodyStart = descLine.startsWith('Description:') ? 5 : 4
   const summary = lines.slice(bodyStart, bodyStart + 2).join(' ').slice(0, 150) + '...'
 
@@ -87,16 +86,28 @@ export function getAllSlugs(): string[] {
     .map((f) => f.replace('.md', ''))
 }
 
-// Strip frontmatter lines before rendering (keep title as h1 for markdown)
 function stripFrontmatter(raw: string): string {
   const lines = raw.split('\n')
   const hasDescription = lines[3]?.trim().startsWith('Description:')
   return [lines[0], ...lines.slice(hasDescription ? 5 : 4)].join('\n')
 }
 
+// Cache HTML to disk — computed once per post, reused on every request
 export async function renderPostHTML(post: Post): Promise<string> {
-  const content = stripFrontmatter(post.content)
+  fs.mkdirSync(cacheDir, { recursive: true })
+  const cacheFile = path.join(cacheDir, `${post.slug}.html`)
 
+  // Use cached version if the source file hasn't changed
+  const srcMtime = fs.statSync(path.join(postsDir, `${post.slug}.md`)).mtimeMs
+  if (fs.existsSync(cacheFile)) {
+    const cacheMtime = fs.statSync(cacheFile).mtimeMs
+    if (cacheMtime >= srcMtime) {
+      return fs.readFileSync(cacheFile, 'utf-8')
+    }
+  }
+
+  // Build fresh
+  const content = stripFrontmatter(post.content)
   const file = await unified()
     .use(remarkParse)
     .use(remarkGfm)
@@ -111,5 +122,7 @@ export async function renderPostHTML(post: Post): Promise<string> {
     .use(rehypeStringify)
     .process(content)
 
-  return String(file)
+  const html = String(file)
+  fs.writeFileSync(cacheFile, html, 'utf-8')
+  return html
 }

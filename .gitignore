@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .next
+.post-cache
 *.env
 *.env.local
 *.env.production
