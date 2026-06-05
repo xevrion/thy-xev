@@ -1,62 +1,137 @@
 'use client'
 
+import React from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import data from '../../constants/projects.json'
-import { LinkPreview } from './LinkPreview'
 import { SectionLabel } from './SectionLabel'
+import { ExternalLink, Github } from 'lucide-react'
 
 const { projects, pastProjects } = data
+
+type Project = {
+  url: string
+  text: string
+  desc: string
+  image?: string
+  live?: string
+  tags?: string[]
+}
+
+function CornerMark({ className }: { className: string }) {
+  return (
+    <span aria-hidden="true" className={`pointer-events-none absolute z-10 size-4 flex items-center justify-center ${className}`}>
+      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="stroke-battleship-gray/25">
+        <line x1="5" y1="0" x2="5" y2="10" strokeWidth="1" />
+        <line x1="0" y1="5" x2="10" y2="5" strokeWidth="1" />
+      </svg>
+    </span>
+  )
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const [hovered, setHovered] = React.useState(false)
+  const [cursor, setCursor] = React.useState({ x: 0, y: 0 })
+  const cardRef = React.useRef<HTMLLIElement>(null)
+
+  React.useEffect(() => {
+    const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
+    window.addEventListener('mousemove', onMove)
+    return () => window.removeEventListener('mousemove', onMove)
+  }, [])
+
+  const previewWidth = 256
+  const ox = 16, oy = 16
+  let px = cursor.x + ox
+  let py = cursor.y + oy
+  if (typeof window !== 'undefined' && px + previewWidth > window.innerWidth - 8) px = cursor.x - previewWidth - ox
+
+  return (
+    <li
+      ref={cardRef}
+      className="relative flex flex-col gap-4 p-6 border-r border-b border-battleship-gray/15 transition-colors duration-200 hover:bg-battleship-gray/[0.04]"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Cursor-following preview */}
+      {project.image && (
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1, transition: { duration: 0.12, ease: 'easeOut' } }}
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.08 } }}
+              className="fixed z-[1000] pointer-events-none"
+              style={{ left: px, top: py }}
+            >
+              <div className="p-1 bg-[var(--color-taupe)] border border-battleship-gray/30 shadow-2xl rounded-xl">
+                <img src={project.image} width={256} height={160} className="rounded-lg block" alt="preview" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+
+      {/* Title + icons */}
+      <div className="flex items-start justify-between gap-4">
+        <a href={project.url} target="_blank" rel="noopener noreferrer" className="sg-bold text-lg text-[var(--color-text)] hover:text-soft-royal-blue transition-colors duration-150">
+          {project.text}
+        </a>
+        <div className="flex items-center gap-2.5 shrink-0">
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-[var(--color-text-subtle)] hover:text-soft-royal-blue transition-colors" aria-label="Live site">
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+          <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-[var(--color-text-subtle)] hover:text-soft-royal-blue transition-colors" aria-label="GitHub">
+            <Github className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className="text-[var(--color-text-muted)] sg-regular text-base leading-relaxed flex-1">
+        {project.desc}
+      </p>
+
+      {/* Tags */}
+      {project.tags && project.tags.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {project.tags.map((tag) => (
+            <span key={tag} className="text-xs px-2 py-1 border border-battleship-gray/30 text-[var(--color-text-muted)] font-mono sg-medium">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </li>
+  )
+}
+
+function ProjectGrid({ items, label }: { items: Project[]; label: string }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">{label}</p>
+      <div className="relative">
+        <CornerMark className="-top-2 -left-2" />
+        <CornerMark className="-top-2 -right-2" />
+        <CornerMark className="-bottom-2 -left-2" />
+        <CornerMark className="-bottom-2 -right-2" />
+        <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-battleship-gray/15">
+          {items.map((p) => (
+            <ProjectCard key={p.url} project={p} />
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
 
 export const Projects = () => {
   return (
     <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
       <SectionLabel>Projects</SectionLabel>
-
-      <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl">
-        <div className="inter-bold mb-2">Currently Working</div>
-        {projects.map((value, index) => (
-          <div key={index} className="flex whitespace-nowrap gap-2 items-center">
-            {value.image ? (
-              <LinkPreview url={value.url} isStatic imageSrc={value.image} className="hover:underline inter-medium text-xl">
-                {value.text}
-              </LinkPreview>
-            ) : (
-              <LinkPreview url={value.url} className="hover:underline inter-medium text-xl">
-                {value.text}
-              </LinkPreview>
-            )}
-            {value.live && (
-              <a href={value.live} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium">
-                live
-              </a>
-            )}
-            <p className="inter-medium text-xl truncate">- {value.desc}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="text-[var(--color-text)] flex flex-col gap-1 sm:gap-0 text-xl">
-        <div className="inter-bold mb-2">Past Projects</div>
-        {pastProjects.map((value, index) => (
-          <div key={index} className="flex whitespace-nowrap gap-2 items-center">
-            {value.image ? (
-              <LinkPreview url={value.url} isStatic imageSrc={value.image} className="hover:underline inter-medium text-xl">
-                {value.text}
-              </LinkPreview>
-            ) : (
-              <LinkPreview url={value.url} className="hover:underline inter-medium text-xl">
-                {value.text}
-              </LinkPreview>
-            )}
-            {value.live && (
-              <a href={value.live} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-0.5 border border-battleship-gray/30 rounded hover:bg-battleship-gray/10 transition-colors inter-medium">
-                live
-              </a>
-            )}
-            <p className="inter-medium text-xl truncate">- {value.desc}</p>
-          </div>
-        ))}
-      </div>
-
+      <ProjectGrid items={projects} label="Currently working" />
+      <ProjectGrid items={pastProjects} label="Past projects" />
     </section>
   )
 }

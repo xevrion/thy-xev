@@ -5,20 +5,23 @@
       "text": "DaemonDoc",
       "desc": "Your README, on Autopilot.",
       "image": "/project-previews/daemondoc.png",
-      "live": "https://daemondoc.online"
+      "live": "https://daemondoc.online",
+      "tags": ["Next.js", "TypeScript", "AI", "GitHub API"]
     },
     {
       "url": "https://kdenlive.org/",
       "text": "Contributing to Kdenlive",
       "desc": "Contributing to Kdenlive, an open-source video editor.",
-      "image": "/project-previews/kdenlive.png"
+      "image": "/project-previews/kdenlive.png",
+      "tags": ["C++", "Qt", "Open Source"]
     },
     {
       "url": "https://github.com/xevrion/cookmarked",
       "text": "Cookmarked",
       "desc": "A recipe manager that helps you save, organize, and discover recipes from around the web, all in one place.",
       "image": "/project-previews/cookmarked.png",
-      "live": "https://cookmarked.xevrion.dev"
+      "live": "https://cookmarked.xevrion.dev",
+      "tags": ["Next.js", "TypeScript", "Postgres"]
     }
   ],
   "pastProjects": [
@@ -26,58 +29,67 @@
       "url": "https://github.com/xevrion/claude-lag-fixer",
       "text": "Claude Lag Fixer",
       "desc": "A Chrome extension that fixes the typing lag and slowness you get in long Claude.ai conversations.",
-      "image": "/project-previews/claude.png"
+      "image": "/project-previews/claude.png",
+      "tags": ["Chrome Extension", "JavaScript"]
     },
     {
       "url": "https://github.com/xevrion/peek-a-repo",
       "text": "Peek-a-Repo",
-      "desc": "A Chrome extension that lets you peek into your GitHub repositories without clicking. No more scrolling through your repositories to find the one you want to work on.",
+      "desc": "A Chrome extension that lets you peek into your GitHub repositories without clicking.",
       "image": "/project-previews/peek-a-repo.png",
-      "live": "https://chromewebstore.google.com/detail/aanpngikpldepannbdkglfohenbkhomp?utm_source=item-share-cb"
+      "live": "https://chromewebstore.google.com/detail/aanpngikpldepannbdkglfohenbkhomp?utm_source=item-share-cb",
+      "tags": ["Chrome Extension", "JavaScript", "GitHub API"]
     },
     {
       "url": "https://npmjs.com/package/stale-branches",
       "text": "Stale Branches",
-      "desc": "Interactive CLI to list and delete stale git branches",
+      "desc": "Interactive CLI to list and delete stale git branches.",
       "image": "/project-previews/stale-branches.png",
-      "live": "https://xevrion.github.io/stale-branches/"
+      "live": "https://xevrion.github.io/stale-branches/",
+      "tags": ["Node.js", "CLI", "npm"]
     },
     {
       "url": "https://github.com/xevrion/Motixion",
       "text": "Motixion",
-      "desc": "A minimal, gamified productivity tracker where you can log tasks, hours, streaks, and points — and stay motivated by connecting with multiple friends to compare progress and build consistency together.",
+      "desc": "A minimal, gamified productivity tracker with streaks, points, and friend comparisons.",
       "image": "/project-previews/motixion.png",
-      "live": "https://motixion.vercel.app"
+      "live": "https://motixion.vercel.app",
+      "tags": ["React", "Node.js", "MongoDB"]
     },
     {
       "url": "https://github.com/xevrion/notionx",
       "text": "NotionX",
-      "desc": "A friction-zero Chrome extension that lets you save tweets to Notion with a single tap. No modals, no decision fatigue—just flow.",
-      "image": "/project-previews/notionX.png"
+      "desc": "A friction-zero Chrome extension that lets you save tweets to Notion with a single tap.",
+      "image": "/project-previews/notionX.png",
+      "tags": ["Chrome Extension", "Notion API", "JavaScript"]
     },
     {
       "url": "https://github.com/xevrion/DocuMentor",
       "text": "DocuMentor",
-      "desc": "An offline, privacy-first AI tutor that helps you learn from your study materials through intelligent summarization, Q&A, and quiz generation.",
-      "image": "/project-previews/documentor.png"
+      "desc": "An offline, privacy-first AI tutor for summarization, Q&A, and quiz generation from study materials.",
+      "image": "/project-previews/documentor.png",
+      "tags": ["Python", "LLM", "RAG"]
     },
     {
       "url": "https://github.com/xevrion/StraightHockey",
       "text": "StraightHockey",
-      "desc": "A reinforcement-learning–powered air hockey game with a launcher, offering both a casual AI mode and an extreme RL showdown.",
-      "image": "/project-previews/straighthockey.png"
+      "desc": "A reinforcement-learning–powered air hockey game with casual AI and extreme RL modes.",
+      "image": "/project-previews/straighthockey.png",
+      "tags": ["Python", "Reinforcement Learning", "Pygame"]
     },
     {
       "url": "https://github.com/xevrion/chronapse",
       "text": "Chronapse",
-      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend — capture time, frame by frame, the smart way.",
-      "image": "/project-previews/chronapse.png"
+      "desc": "A minimalist Linux timelapse recorder with a Bubbletea TUI and Python backend.",
+      "image": "/project-previews/chronapse.png",
+      "tags": ["Go", "Python", "TUI", "Linux"]
     },
     {
       "url": "https://github.com/xevrion/chat-in-home",
       "text": "chat-in-home",
       "desc": "A real-time chat app built with React, Node, and Socket.IO for local networks and hostels.",
-      "image": "/project-previews/chat-in-home.png"
+      "image": "/project-previews/chat-in-home.png",
+      "tags": ["React", "Node.js", "Socket.IO"]
     }
   ]
 }
