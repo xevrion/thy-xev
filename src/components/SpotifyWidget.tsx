@@ -13,7 +13,6 @@ interface SpotifyTrack {
   message?: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SpotifyWidget: React.FC = () => {
   const [track, setTrack] = useState<SpotifyTrack | null>(null);
@@ -22,7 +21,7 @@ const SpotifyWidget: React.FC = () => {
 
   const fetchNowPlaying = async () => {
     try {
-      const response = await fetch(`${API_URL}/now-playing`);
+      const response = await fetch('/api/now-playing');
       const data = await response.json();
       setTrack(data);
       setError(null);

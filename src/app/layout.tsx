@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { NavBar } from '@/components/NavBar'
 import { CommandPalette } from '@/components/CommandPalette'
 import { MouseGlow } from '@/components/MouseGlow'
+import { JsonLd } from '@/components/JsonLd'
 import './globals.css'
 
 const inter = Inter({
@@ -38,12 +39,12 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://xevrion.dev',
     siteName: 'Xevrion',
-    images: [{ url: '/android-chrome-512x512.png', width: 512, height: 512 }],
+    images: [{ url: '/og', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     creator: '@xevrion_the1',
-    images: ['/android-chrome-512x512.png'],
+    images: ['/og'],
   },
   robots: { index: true, follow: true },
 }
@@ -72,6 +73,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 2px, var(--color-battleship-gray) 2px, var(--color-battleship-gray) 3px, transparent 3px, transparent 6px)' }}
             />
           </div>
+          <JsonLd type="person" />
+          <JsonLd type="website" />
           <MouseGlow />
           <CommandPalette />
           <NavBar />

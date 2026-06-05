@@ -7,7 +7,6 @@ interface LangEntry {
   seconds: number;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function formatSeconds(sec: number) {
   const hrs = Math.floor(sec / 3600);
@@ -50,7 +49,7 @@ const WakatimeLanguages = () => {
   useEffect(() => {
     const fetchLangs = async () => {
       try {
-        const res = await fetch(`${API_URL}/wakatimeLanguages`);
+        const res = await fetch('/api/wakatime-languages');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: LangEntry[] = await res.json();
         setLangs(data);

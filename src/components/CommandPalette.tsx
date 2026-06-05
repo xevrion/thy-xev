@@ -8,8 +8,6 @@ import projectsData from '../../constants/projects.json'
 import { FileText, Folder, Navigation, ExternalLink, Sun, Moon, Music, Github, Linkedin, Twitter, Mail, Zap } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL
-
 type ActionType = 'navigate' | 'external' | 'function'
 
 interface PaletteItem {
@@ -98,8 +96,8 @@ export const CommandPalette = () => {
   useEffect(() => { _globalOpen = () => setOpen(true) }, [])
 
   useEffect(() => {
-    if (!open || !API_URL) return
-    fetch(`${API_URL}/now-playing`)
+    if (!open) return
+    fetch('/api/now-playing')
       .then((r) => r.json())
       .then((d) => {
         if (d?.songUrl) {

@@ -17,7 +17,6 @@ interface ContributionCalendar {
   weeks: ContributionWeek[];
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 function getColor(count: number): string {
   if (count === 0) return "var(--color-cell-empty)";
@@ -40,7 +39,7 @@ const GithubContributions = () => {
   useEffect(() => {
     const fetch_ = async () => {
       try {
-        const res = await fetch(`${API_URL}/github-contributions`);
+        const res = await fetch('/api/github-contributions');
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: ContributionCalendar = await res.json();
         setCalendar(data);

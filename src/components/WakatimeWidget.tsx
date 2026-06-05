@@ -12,7 +12,6 @@ interface WakaDailyResponse {
   // WakaTime may include other fields, we only care about data[0].grand_total
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const WakatimeDailyWidget: React.FC = () => {
   const [timeText, setTimeText] = useState<string | null>(null);
@@ -23,7 +22,7 @@ const WakatimeDailyWidget: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_URL}/wakatimeDaily`);
+      const res = await fetch('/api/wakatime-daily');
       if (!res.ok) {
         const txt = await res.text();
         throw new Error(`HTTP ${res.status}: ${txt}`);

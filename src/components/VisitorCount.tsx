@@ -2,22 +2,18 @@
 
 import { useState, useEffect } from "react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
 const VisitorCount = () => {
     const [total, setTotal] = useState<number | null>(null);
 
     useEffect(() => {
         const alreadyCounted = localStorage.getItem("visited");
         if (alreadyCounted) {
-            // just fetch the count, don't increment
-            fetch(`${API_URL}/views`)
+            fetch('/api/views')
                 .then((r) => r.json())
                 .then((d) => setTotal(d.total ?? null))
                 .catch(() => {});
         } else {
-            // first visit — increment and mark
-            fetch(`${API_URL}/views`, { method: "POST" })
+            fetch('/api/views', { method: "POST" })
                 .then((r) => r.json())
                 .then((d) => {
                     setTotal(d.total ?? null);

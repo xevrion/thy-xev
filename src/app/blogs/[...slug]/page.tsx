@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { source } from '@/lib/source'
 import { PostPage } from '@/components/PostPage'
 import { getMDXComponents } from '@/mdx-components'
+import { JsonLd } from '@/components/JsonLd'
 
 export async function generateStaticParams() {
   return source.generateParams()
@@ -18,6 +19,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `https://xevrion.dev/blogs/${slug.join('/')}`
   const publishedTime = page.data.date ? page.data.date.toISOString() : undefined
 
+  const tags = page.data.tags ?? []
+  const ogUrl = `/og?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}&path=${encodeURIComponent('blogs / ' + slug.join(' / '))}&tags=${tags.map(encodeURIComponent).join(',')}`
+
   return {
     title,
     description,
@@ -28,12 +32,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       publishedTime,
       authors: ['Xevrion'],
-      tags: page.data.tags ?? [],
+      tags,
+      images: [{ url: ogUrl, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [ogUrl],
     },
     alternates: { canonical: url },
   }
@@ -48,14 +54,24 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const readingTime = (page.data as any)._exports?.readingTime
 
   return (
-    <PostPage
-      title={page.data.title}
-      description={page.data.description}
-      date={page.data.date?.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')}
-      tags={page.data.tags ?? []}
-      readingTime={readingTime?.text}
-    >
-      <MDX components={getMDXComponents()} />
-    </PostPage>
+    <>
+      <JsonLd
+        type="article"
+        title={page.data.title}
+        description={page.data.description ?? ''}
+        canonicalUrl={`https://xevrion.dev/blogs/${slug.join('/')}`}
+        publishedAt={page.data.date?.toISOString()}
+        tags={page.data.tags ?? []}
+      />
+      <PostPage
+        title={page.data.title}
+        description={page.data.description}
+        date={page.data.date?.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')}
+        tags={page.data.tags ?? []}
+        readingTime={readingTime?.text}
+      >
+        <MDX components={getMDXComponents()} />
+      </PostPage>
+    </>
   )
 }
