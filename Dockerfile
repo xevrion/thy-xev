@@ -3,9 +3,10 @@ FROM oven/bun:1 AS builder
 WORKDIR /app
 
 COPY package.json bun.lock* ./
-RUN bun install --frozen-lockfile
+RUN bun install --frozen-lockfile --ignore-scripts
 
 COPY . .
+RUN bun run postinstall
 
 # Build-time env vars needed by Next.js at build time
 ARG NEXT_PUBLIC_OPENWEATHER_KEY
