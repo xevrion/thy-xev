@@ -49,7 +49,7 @@ export default function BlogsPage() {
           Blogs
         </h1>
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
-          Writing about what I built, what broke, and occasionally both at once.
+          Linux rabbit holes, Go rewrites, things I broke at 2am, and the occasional eureka moment.
         </p>
       </div>
       <Suspense>
