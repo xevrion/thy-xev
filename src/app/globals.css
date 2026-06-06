@@ -1,348 +1,414 @@
-@import 'tailwindcss';
-@import 'fumadocs-ui/css/preset.css';
+@import "tailwindcss";
+@import "fumadocs-ui/css/preset.css";
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 /* ── Shiki dual-theme: fumadocs preset handles .dark; cover html.light for our theme system ── */
-html.light .shiki span { color: var(--shiki-light) !important; }
+html.light .shiki span {
+    color: var(--shiki-light) !important;
+}
 
 /* ── Scroll-driven fade (pure CSS, zero JS) ── */
 .scroll-fade-y {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+    );
 }
 .scroll-fade-x {
-  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 6%,
+        black 94%,
+        transparent 100%
+    );
 }
 
 /* ── prose-post: blog article typography ── */
 .prose-post {
-  color: var(--color-text);
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem);
-  line-height: 1.8;
+    color: var(--color-text);
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.125rem);
+    line-height: 1.8;
 }
-.prose-post h1 { display: none; }
+.prose-post h1 {
+    display: none;
+}
 .prose-post h2 {
-  font-size: clamp(1.2rem, 2vw + 0.5rem, 1.4rem);
-  font-weight: 700;
-  color: var(--color-soft-royal-blue);
-  margin: 2.5rem 0 0.875rem;
-  scroll-margin-top: 5rem;
-  letter-spacing: -0.01em;
+    font-size: clamp(1.2rem, 2vw + 0.5rem, 1.4rem);
+    font-weight: 700;
+    color: var(--color-soft-royal-blue);
+    margin: 2.5rem 0 0.875rem;
+    scroll-margin-top: 5rem;
+    letter-spacing: -0.01em;
 }
 .prose-post h3 {
-  font-size: clamp(1.05rem, 1.5vw + 0.4rem, 1.2rem);
-  font-weight: 600;
-  color: var(--color-soft-royal-blue);
-  margin: 2rem 0 0.625rem;
-  scroll-margin-top: 5rem;
+    font-size: clamp(1.05rem, 1.5vw + 0.4rem, 1.2rem);
+    font-weight: 600;
+    color: var(--color-soft-royal-blue);
+    margin: 2rem 0 0.625rem;
+    scroll-margin-top: 5rem;
 }
 .prose-post h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-battleship-gray);
-  margin: 1.5rem 0 0.5rem;
-  scroll-margin-top: 5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-battleship-gray);
+    margin: 1.5rem 0 0.5rem;
+    scroll-margin-top: 5rem;
 }
 .prose-post p {
-  margin-bottom: 1.375rem;
+    margin-bottom: 1.375rem;
 }
 .prose-post a {
-  color: var(--color-soft-royal-blue);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--color-soft-royal-blue) 40%, transparent);
-  overflow-wrap: anywhere;
-  transition: text-decoration-color 0.15s;
+    color: var(--color-soft-royal-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(
+        in srgb,
+        var(--color-soft-royal-blue) 40%,
+        transparent
+    );
+    overflow-wrap: anywhere;
+    transition: text-decoration-color 0.15s;
 }
 .prose-post a:hover {
-  text-decoration-color: var(--color-soft-royal-blue);
+    text-decoration-color: var(--color-soft-royal-blue);
 }
 .prose-post strong {
-  font-weight: 700;
-  color: var(--color-text);
+    font-weight: 700;
+    color: var(--color-text);
 }
-.prose-post em { font-style: italic; }
+.prose-post em {
+    font-style: italic;
+}
 .prose-post blockquote {
-  border-left: 3px solid color-mix(in srgb, var(--color-soft-royal-blue) 50%, transparent);
-  padding: 0.25rem 0 0.25rem 1.25rem;
-  margin: 1.75rem 0;
-  color: var(--color-text-muted);
-  font-style: italic;
+    border-left: 3px solid
+        color-mix(in srgb, var(--color-soft-royal-blue) 50%, transparent);
+    padding: 0.25rem 0 0.25rem 1.25rem;
+    margin: 1.75rem 0;
+    color: var(--color-text-muted);
+    font-style: italic;
 }
 .prose-post ul {
-  list-style: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1.25rem;
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 .prose-post ol {
-  list-style: decimal;
-  padding-left: 1.5rem;
-  margin-bottom: 1.25rem;
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
 }
-.prose-post li { margin-bottom: 0.375rem; line-height: 1.7; }
+.prose-post li {
+    margin-bottom: 0.375rem;
+    line-height: 1.7;
+}
 .prose-post hr {
-  border: none;
-  height: 1px;
-  background: linear-gradient(to right, transparent, color-mix(in srgb, var(--color-soft-royal-blue) 35%, transparent), transparent);
-  margin: 2.5rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        color-mix(in srgb, var(--color-soft-royal-blue) 35%, transparent),
+        transparent
+    );
+    margin: 2.5rem 0;
 }
 .prose-post table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  font-size: 0.9rem;
-  overflow-x: auto;
-  display: block;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    display: block;
 }
-.prose-post thead { border-bottom: 1px solid color-mix(in srgb, var(--color-soft-royal-blue) 25%, transparent); }
+.prose-post thead {
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--color-soft-royal-blue) 25%, transparent);
+}
 .prose-post th {
-  text-align: left;
-  color: var(--color-soft-royal-blue);
-  font-weight: 600;
-  padding: 0.625rem 1rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+    text-align: left;
+    color: var(--color-soft-royal-blue);
+    font-weight: 600;
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
-.prose-post td { padding: 0.625rem 1rem; }
-.prose-post tr { border-bottom: 1px solid color-mix(in srgb, var(--color-battleship-gray) 12%, transparent); }
+.prose-post td {
+    padding: 0.625rem 1rem;
+}
+.prose-post tr {
+    border-bottom: 1px solid
+        color-mix(in srgb, var(--color-battleship-gray) 12%, transparent);
+}
 
 /* ── fumadocs-ui fd-* theme: our palette mapped to fd color vars ── */
 /* Light mode (default) — preset.css defines fd-* vars; we override them here */
 @theme {
-  --color-fd-background: #f2eeea;
-  --color-fd-foreground: #1c1916;
-  --color-fd-card: #ebe7e3;
-  --color-fd-card-foreground: #1c1916;
-  --color-fd-border: rgba(122, 116, 110, 0.2);
-  --color-fd-muted: #e5e1dd;
-  --color-fd-muted-foreground: #7a746e;
-  --color-fd-secondary: #e5e1dd;
-  --color-fd-secondary-foreground: #1c1916;
-  --color-fd-accent: rgba(61, 92, 232, 0.1);
-  --color-fd-accent-foreground: #3d5ce8;
-  --color-fd-ring: #3d5ce8;
-  --color-fd-primary: #3d5ce8;
-  --color-fd-primary-foreground: #f2eeea;
-  --color-fd-diff-add: rgba(61, 92, 232, 0.1);
-  --color-fd-diff-add-symbol: #3d5ce8;
-  --color-fd-diff-remove: rgba(220, 80, 80, 0.08);
-  --color-fd-diff-remove-symbol: #dc5050;
+    --color-fd-background: #f2eeea;
+    --color-fd-foreground: #1c1916;
+    --color-fd-card: #ebe7e3;
+    --color-fd-card-foreground: #1c1916;
+    --color-fd-border: rgba(122, 116, 110, 0.2);
+    --color-fd-muted: #e5e1dd;
+    --color-fd-muted-foreground: #7a746e;
+    --color-fd-secondary: #e5e1dd;
+    --color-fd-secondary-foreground: #1c1916;
+    --color-fd-accent: rgba(61, 92, 232, 0.1);
+    --color-fd-accent-foreground: #3d5ce8;
+    --color-fd-ring: #3d5ce8;
+    --color-fd-primary: #3d5ce8;
+    --color-fd-primary-foreground: #f2eeea;
+    --color-fd-diff-add: rgba(61, 92, 232, 0.1);
+    --color-fd-diff-add-symbol: #3d5ce8;
+    --color-fd-diff-remove: rgba(220, 80, 80, 0.08);
+    --color-fd-diff-remove-symbol: #dc5050;
 }
 
 /* Dark mode — fumadocs checks .dark class (next-themes sets this) */
 .dark {
-  --color-fd-background: #2e2a27;
-  --color-fd-foreground: #dedad6;
-  --color-fd-card: #363129;
-  --color-fd-card-foreground: #dedad6;
-  --color-fd-border: rgba(166, 161, 157, 0.18);
-  --color-fd-muted: #3a3530;
-  --color-fd-muted-foreground: #a6a19d;
-  --color-fd-secondary: #3a3530;
-  --color-fd-secondary-foreground: #dedad6;
-  --color-fd-accent: rgba(110, 140, 255, 0.12);
-  --color-fd-accent-foreground: #6e8cff;
-  --color-fd-ring: #6e8cff;
-  --color-fd-primary: #6e8cff;
-  --color-fd-primary-foreground: #1c1916;
-  --color-fd-diff-add: rgba(110, 140, 255, 0.1);
-  --color-fd-diff-add-symbol: #6e8cff;
-  --color-fd-diff-remove: rgba(255, 100, 100, 0.08);
-  --color-fd-diff-remove-symbol: #ff6464;
+    --color-fd-background: #2e2a27;
+    --color-fd-foreground: #dedad6;
+    --color-fd-card: #363129;
+    --color-fd-card-foreground: #dedad6;
+    --color-fd-border: rgba(166, 161, 157, 0.18);
+    --color-fd-muted: #3a3530;
+    --color-fd-muted-foreground: #a6a19d;
+    --color-fd-secondary: #3a3530;
+    --color-fd-secondary-foreground: #dedad6;
+    --color-fd-accent: rgba(110, 140, 255, 0.12);
+    --color-fd-accent-foreground: #6e8cff;
+    --color-fd-ring: #6e8cff;
+    --color-fd-primary: #6e8cff;
+    --color-fd-primary-foreground: #1c1916;
+    --color-fd-diff-add: rgba(110, 140, 255, 0.1);
+    --color-fd-diff-add-symbol: #6e8cff;
+    --color-fd-diff-remove: rgba(255, 100, 100, 0.08);
+    --color-fd-diff-remove-symbol: #ff6464;
 }
 
 /* Inline code */
 .prose-post :not(pre) > code {
-  background-color: rgba(110, 140, 255, 0.1);
-  color: var(--color-soft-royal-blue);
-  padding: 0.15em 0.4em;
-  border-radius: 0.25rem;
-  font-size: 0.875em;
-  font-family: ui-monospace, monospace;
-  border: 1px solid color-mix(in srgb, var(--color-soft-royal-blue) 20%, transparent);
+    background-color: rgba(110, 140, 255, 0.1);
+    color: var(--color-soft-royal-blue);
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, monospace;
+    border: 1px solid
+        color-mix(in srgb, var(--color-soft-royal-blue) 20%, transparent);
 }
 html.light .prose-post :not(pre) > code {
-  background-color: rgba(61, 92, 232, 0.08);
-  color: var(--color-soft-royal-blue);
+    background-color: rgba(61, 92, 232, 0.08);
+    color: var(--color-soft-royal-blue);
 }
 
 /* Mark / highlight in prose */
 .prose-post mark {
-  background-color: var(--mark-bg);
-  color: var(--mark-fg);
-  border-radius: 0.2em;
-  padding: 0.05em 0.25em;
-  font-style: normal;
+    background-color: var(--mark-bg);
+    color: var(--mark-fg);
+    border-radius: 0.2em;
+    padding: 0.05em 0.25em;
+    font-style: normal;
 }
 
 /* Rounded images */
 .prose-post img {
-  border-radius: 0.75rem;
-  margin: 1.75rem auto;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid color-mix(in srgb, var(--color-battleship-gray) 15%, transparent);
+    border-radius: 0.75rem;
+    margin: 1.75rem auto;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid
+        color-mix(in srgb, var(--color-battleship-gray) 15%, transparent);
 }
 
 /* Clean italics */
 .prose-post em {
-  font-style: italic;
-  color: var(--color-text-muted);
+    font-style: italic;
+    color: var(--color-text-muted);
 }
 
 :root {
-  --grid-line: rgba(166, 161, 157, 0.05); /* dark mode — very subtle */
+    --grid-line: rgba(166, 161, 157, 0.04); /* dark mode — very subtle */
 }
 
 html.light {
-  --grid-line: rgba(28, 25, 22, 0.07); /* light mode — slightly more visible */
+    --grid-line: rgba(
+        28,
+        25,
+        22,
+        0.04
+    ); /* light mode — slightly more visible */
 }
 
 @theme {
-  --color-taupe: #2e2a27;
-  --color-text: #dedad6;
-  --color-text-muted: #a6a19d;
-  --color-text-subtle: #6b6662;
-  --color-battleship-gray: #a6a19d;
-  --color-silver: #e0dedb;
-  --color-blue-crayola: #4c6fff;
-  --color-soft-royal-blue: #6e8cff;
+    --color-taupe: #2e2a27;
+    --color-text: #dedad6;
+    --color-text-muted: #a6a19d;
+    --color-text-subtle: #6b6662;
+    --color-battleship-gray: #a6a19d;
+    --color-silver: #e0dedb;
+    --color-blue-crayola: #4c6fff;
+    --color-soft-royal-blue: #6e8cff;
 }
 
 /* sg -> headings */
 /* inter -> other text */
 .sg-regular {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 .sg-medium {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 .sg-semibold {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }
 .sg-bold {
-  font-family: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+    font-family: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
 }
 .inter-regular {
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+    font-family: var(--font-inter), "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 .inter-medium {
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
+    font-family: var(--font-inter), "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 .inter-semibold {
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: normal;
+    font-family: var(--font-inter), "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
 }
 .inter-bold {
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+    font-family: var(--font-inter), "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
 }
 .inter-black {
-  font-family: var(--font-inter), 'Inter', sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 900;
-  font-style: normal;
+    font-family: var(--font-inter), "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
 }
 .caveat {
-  font-family: var(--font-caveat), 'Caveat', cursive;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
+    font-family: var(--font-caveat), "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
 }
 
 body {
-  background-color: var(--color-taupe);
+    background-color: var(--color-taupe);
 }
 
 /* Custom scrollbar — thin floating pill, matches site palette */
 :root {
-  --scrollbar-thumb: rgba(166, 161, 157, 0.35); /* battleship-gray at low opacity */
-  --scrollbar-bg: #2e2a27;                       /* taupe dark */
+    --scrollbar-thumb: rgba(
+        166,
+        161,
+        157,
+        0.35
+    ); /* battleship-gray at low opacity */
+    --scrollbar-bg: #2e2a27; /* taupe dark */
 }
 
 *::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+    width: 10px;
+    height: 10px;
 }
 *::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 6px;
-  border: 3px solid var(--scrollbar-bg);
+    background: var(--scrollbar-thumb);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbar-bg);
 }
 *::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 *::-webkit-scrollbar-corner {
-  background: transparent;
+    background: transparent;
 }
 
 /* Light theme overrides */
 html.light {
-  --color-taupe: #f2eeea;
-  --color-text: #1c1916;
-  --color-text-muted: #7a746e;
-  --color-text-subtle: #a09994;
-  --color-battleship-gray: #7a746e;
-  --color-silver: #2e2a27;
-  --color-blue-crayola: #4c6fff;
-  --color-soft-royal-blue: #3d5ce8;
-  --scrollbar-thumb: rgba(122, 116, 110, 0.3);
-  --scrollbar-bg: #f2eeea;
-  --selection-bg: #3d5ce8;
-  --selection-fg: #f2eeea;
-  --mark-bg: #3d5ce8;
-  --mark-fg: #f2eeea;
+    --color-taupe: #f2eeea;
+    --color-text: #1c1916;
+    --color-text-muted: #7a746e;
+    --color-text-subtle: #a09994;
+    --color-battleship-gray: #7a746e;
+    --color-silver: #2e2a27;
+    --color-blue-crayola: #4c6fff;
+    --color-soft-royal-blue: #3d5ce8;
+    --scrollbar-thumb: rgba(122, 116, 110, 0.3);
+    --scrollbar-bg: #f2eeea;
+    --selection-bg: #3d5ce8;
+    --selection-fg: #f2eeea;
+    --mark-bg: #3d5ce8;
+    --mark-fg: #f2eeea;
 }
 
 /* Selection + mark highlight — soft-royal-blue, our palette */
 :root {
-  --selection-bg: #6e8cff;
-  --selection-fg: #1c1916;
-  --mark-bg: #6e8cff;
-  --mark-fg: #1c1916;
+    --selection-bg: #6e8cff;
+    --selection-fg: #1c1916;
+    --mark-bg: #6e8cff;
+    --mark-fg: #1c1916;
 }
 
 ::selection {
-  background-color: var(--selection-bg);
-  color: var(--selection-fg);
+    background-color: var(--selection-bg);
+    color: var(--selection-fg);
 }
 
 /* Disable default view-transition animation; JS drives the reveal */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
+    animation: none;
+    mix-blend-mode: normal;
 }
-::view-transition-new(root) { z-index: 9999; }
-::view-transition-old(root) { z-index: 0; }
+::view-transition-new(root) {
+    z-index: 9999;
+}
+::view-transition-old(root) {
+    z-index: 0;
+}
 
 /* Icon colors follow theme automatically via --color-text */
-
