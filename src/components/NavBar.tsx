@@ -76,7 +76,7 @@ export const NavBar = () => {
         {/* Logo + Weather */}
         <div className="flex items-center gap-2">
           <Link href="/">
-            <div className="sg-bold text-xl sm:text-2xl text-soft-royal-blue transition-all duration-200 hover:scale-105 hover:[text-shadow:0_0_10px_#5e7aff]">
+            <div className="sg-bold text-xl sm:text-2xl text-soft-royal-blue">
               xevrion
             </div>
           </Link>

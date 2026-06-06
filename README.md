@@ -1,5 +1,25 @@
-thy personal website~
+# xevrion.dev
 
+Personal portfolio and blog. Built with Next.js, deployed on a DigitalOcean VPS.
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Runtime | Bun |
+| Styling | Tailwind CSS v4 + CSS variables |
+| Fonts | Space Grotesk, Inter, Caveat (next/font/google) |
+| Blog | Fumadocs (fumadocs-mdx 14.2.7 + fumadocs-core/ui 16.6.0) |
+| Syntax highlighting | Shiki — dual light/dark theme, compiled at build time |
+| Animations | Framer Motion + View Transition API |
+| Theme | next-themes |
+| Search | Fuse.js (fuzzy) + nuqs (URL state) |
+| Icons | lucide-react |
+| Backend | Express.js on port 3001 — Spotify OAuth only |
+| DevOps | Docker + GHCR + GitHub Actions → DigitalOcean VPS |
+
+---
 
 todo
 - [x] make basic structure
@@ -134,6 +154,12 @@ todo
 
 - [x] sitemap cleaned up (removed redirect-only routes)
 
+- [x] mobile responsive — animated nav dropdown, animated TOC
+- [x] /projects page — dedicated page, scroll reveal on cards
+- [x] Mark highlights, SectionDivider, SectionLabel components throughout site
+- [x] consistent large h1 headers on /blogs, /resume, /projects
+- [x] blogs page — tag filter, fuzzy search, pagination, per-page select, URL-synced via nuqs
+
 - [ ] typing animation on hero (lowest priority)
   - [ ] cycle through "developer", "designer", "pianist", "iit student"
 
@@ -144,3 +170,13 @@ todo
   - [ ] needs Neon (Postgres) + Drizzle ORM + Clerk auth (like Anish)
 
 - [ ] dynamic project fetching from GitHub repos
+
+- [ ] dual favicons (light/dark SVG via prefers-color-scheme)
+
+- [ ] improve blog post formatting — inline code styling, image rounding
+
+- [ ] GSoC / Experience section
+
+- [ ] background moves with page scroll (not fixed)
+
+- [ ] /blog/:path*.mdx route (LLM-friendly raw MDX)
