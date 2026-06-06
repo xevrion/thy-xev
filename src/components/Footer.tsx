@@ -13,7 +13,7 @@ import { ThemeToggle } from './ThemeToggle'
 
 const pages = [
   { href: '/#about', label: 'About' },
-  { href: '/#projects', label: 'Projects' },
+  { href: '/projects', label: 'Projects' },
   { href: '/#now', label: 'Now' },
   { href: '/blogs', label: 'Blogs' },
   { href: '/#contact', label: 'Contact' },

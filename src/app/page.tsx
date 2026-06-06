@@ -15,7 +15,7 @@ export default function HomePage() {
       <SectionDivider />
       <div id="about"><About /></div>
       <SectionDivider />
-      <div id="projects"><Projects /></div>
+      <div id="projects"><Projects limit={6} showViewAll flat /></div>
       <SectionDivider />
       <div id="now"><Now /></div>
       <SectionDivider />

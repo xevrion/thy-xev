@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
 import data from '../../constants/projects.json'
 import { SectionLabel } from './SectionLabel'
 import { ExternalLink, Github } from 'lucide-react'
@@ -107,10 +108,10 @@ function ProjectCard({ project }: { project: Project }) {
   )
 }
 
-function ProjectGrid({ items, label }: { items: Project[]; label: string }) {
+function ProjectGrid({ items, label }: { items: Project[]; label?: string }) {
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">{label}</p>
+      {label && <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">{label}</p>}
       <div className="relative">
         <CornerMark className="-top-2 -left-2" />
         <CornerMark className="-top-2 -right-2" />
@@ -126,12 +127,60 @@ function ProjectGrid({ items, label }: { items: Project[]; label: string }) {
   )
 }
 
-export const Projects = () => {
+interface ProjectsProps {
+  /** Max total projects to show. undefined = show all. */
+  limit?: number
+  /** Show "All projects →" link at the bottom */
+  showViewAll?: boolean
+  /** Merge all projects into one unlabelled grid (no section headers) */
+  flat?: boolean
+}
+
+export const Projects = ({ limit, showViewAll, flat }: ProjectsProps) => {
+  const allCombined = [...projects, ...pastProjects]
+
+  if (flat) {
+    const items = limit !== undefined ? allCombined.slice(0, limit) : allCombined
+    return (
+      <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
+        <SectionLabel>Projects</SectionLabel>
+        <ProjectGrid items={items} />
+        {showViewAll && (
+          <Link
+            href="/projects"
+            className="text-sm sg-regular text-[var(--color-text-muted)] hover:text-soft-royal-blue transition-colors duration-150 self-start"
+          >
+            All projects →
+          </Link>
+        )}
+      </section>
+    )
+  }
+
+  let activeItems = projects
+  let pastItems = pastProjects
+
+  if (limit !== undefined) {
+    activeItems = projects.slice(0, limit)
+    const remaining = limit - activeItems.length
+    pastItems = remaining > 0 ? pastProjects.slice(0, remaining) : []
+  }
+
   return (
     <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
       <SectionLabel>Projects</SectionLabel>
-      <ProjectGrid items={projects} label="Currently working" />
-      <ProjectGrid items={pastProjects} label="Past projects" />
+      <ProjectGrid items={activeItems} label="Currently working" />
+      {pastItems.length > 0 && (
+        <ProjectGrid items={pastItems} label="Past projects" />
+      )}
+      {showViewAll && (
+        <Link
+          href="/projects"
+          className="text-sm sg-regular text-[var(--color-text-muted)] hover:text-soft-royal-blue transition-colors duration-150 self-start"
+        >
+          All projects →
+        </Link>
+      )}
     </section>
   )
 }

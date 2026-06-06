@@ -9,12 +9,13 @@ import WeatherWidget from './WeatherWidget'
 import { ThemeToggle } from './ThemeToggle'
 import { openCommandPalette } from './CommandPalette'
 
-const ANCHOR_LINKS = ['About', 'Projects', 'Now', 'Contact']
+const ANCHOR_LINKS = ['About', 'Now', 'Contact']
 const ALL_LINKS = ['About', 'Projects', 'Now', 'Blogs', 'Resume']
 
 function getLinkHref(link: string, isHomepage: boolean) {
   if (link === 'Resume') return '/resume'
   if (link === 'Blogs') return '/blogs'
+  if (link === 'Projects') return '/projects'
   if (ANCHOR_LINKS.includes(link)) return isHomepage ? `#${link.toLowerCase()}` : `/#${link.toLowerCase()}`
   return `/${link.toLowerCase()}`
 }
@@ -56,6 +57,7 @@ export const NavBar = () => {
   const isActive = (link: string) => {
     if (link === 'Blogs') return pathname.startsWith('/blogs')
     if (link === 'Resume') return pathname === '/resume'
+    if (link === 'Projects') return pathname === '/projects'
     return false
   }
 
