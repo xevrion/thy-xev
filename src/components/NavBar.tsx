@@ -1,17 +1,15 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 import WeatherWidget from './WeatherWidget'
 import { ThemeToggle } from './ThemeToggle'
 import { openCommandPalette } from './CommandPalette'
 
-// Sections that live as anchors on the homepage
 const ANCHOR_LINKS = ['About', 'Projects', 'Now', 'Contact']
-
-// Links shown in the nav — always shown (filtering is removed; active page is highlighted instead)
 const ALL_LINKS = ['About', 'Projects', 'Now', 'Blogs', 'Resume']
 
 function getLinkHref(link: string, isHomepage: boolean) {
@@ -25,6 +23,7 @@ export const NavBar = () => {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
   const isHomepage = pathname === '/'
 
   useEffect(() => {
@@ -33,12 +32,26 @@ export const NavBar = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close on route change
+  useEffect(() => { setIsOpen(false) }, [pathname])
+
+  // Close on outside click
   useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'unset'
-    return () => { document.body.style.overflow = 'unset' }
+    if (!isOpen) return
+    function onDown(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setIsOpen(false)
+    }
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
   }, [isOpen])
 
-  useEffect(() => { setIsOpen(false) }, [pathname])
+  // Close when viewport goes to md+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const handler = (e: MediaQueryListEvent) => { if (e.matches) setIsOpen(false) }
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   const isActive = (link: string) => {
     if (link === 'Blogs') return pathname.startsWith('/blogs')
@@ -47,16 +60,19 @@ export const NavBar = () => {
   }
 
   return (
-    <nav className={`w-full sticky top-0 z-50 transition-all duration-150 ${scrolled && !isOpen ? 'bg-gradient-to-b from-taupe to-transparent backdrop-blur-[1px]' : 'bg-transparent'}`}>
-      <div className="max-w-6xl mx-auto flex justify-between items-center px-6 sm:px-8 py-4">
-        {/* Logo + Discord */}
+    <nav
+      ref={navRef}
+      className={`w-full sticky top-0 z-50 transition-all duration-150 ${scrolled ? 'bg-[var(--color-taupe)]/85 backdrop-blur-sm border-b border-battleship-gray/10' : 'bg-transparent'}`}
+    >
+      <div className="max-w-5xl mx-auto flex justify-between items-center px-6 sm:px-8 lg:px-10 py-4">
+        {/* Logo + Weather */}
         <div className="flex items-center gap-2">
           <Link href="/">
             <div className="sg-bold text-xl sm:text-2xl text-soft-royal-blue transition-all duration-200 hover:scale-105 hover:[text-shadow:0_0_10px_#5e7aff]">
               xevrion
             </div>
           </Link>
-<WeatherWidget />
+          <WeatherWidget />
         </div>
 
         {/* Desktop Links + Theme Toggle */}
@@ -96,35 +112,57 @@ export const NavBar = () => {
           <ThemeToggle />
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile: theme + hamburger */}
         <div className="flex md:hidden items-center gap-2">
           <ThemeToggle />
           <button
-            className="text-soft-royal-blue z-50 relative"
-            onClick={() => setIsOpen(!isOpen)}
+            className="text-soft-royal-blue p-1"
+            onClick={() => setIsOpen((o) => !o)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-
-        {/* Mobile Dropdown */}
-        <div
-          className={`fixed top-0 left-0 w-full h-screen backdrop-blur-md bg-taupe/75 z-40 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-y-0' : '-translate-y-full'} md:hidden`}
-        >
-          <div className="flex flex-col items-center justify-center h-full gap-8">
-            {ALL_LINKS.map((link) => (
-              <Link
-                key={link}
-                href={getLinkHref(link, isHomepage)}
-                className="font-space-grotesk text-2xl font-bold text-soft-royal-blue opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
-                onClick={() => setIsOpen(false)}
-              >
-                {link}
-              </Link>
-            ))}
-          </div>
-        </div>
       </div>
+
+      {/* Mobile dropdown — full width, drops below nav */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            className="md:hidden border-t border-battleship-gray/10 bg-[var(--color-taupe)]/95 backdrop-blur-md shadow-lg overflow-hidden"
+          >
+            <nav className="flex flex-col divide-y divide-battleship-gray/10" aria-label="Mobile navigation">
+              {ALL_LINKS.map((link) => {
+                const active = isActive(link)
+                return (
+                  <Link
+                    key={link}
+                    href={getLinkHref(link, isHomepage)}
+                    onClick={() => setIsOpen(false)}
+                    className={`px-6 py-3.5 font-space-grotesk text-sm font-bold transition-colors duration-150 ${
+                      active
+                        ? 'text-soft-royal-blue'
+                        : 'text-[var(--color-text)] hover:text-soft-royal-blue hover:bg-battleship-gray/[0.06]'
+                    }`}
+                  >
+                    {link}
+                  </Link>
+                )
+              })}
+              <div className="flex items-center justify-between px-6 py-3.5">
+                <span className="font-space-grotesk text-sm font-bold text-[var(--color-text-muted)]">Theme</span>
+                <ThemeToggle />
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

@@ -50,15 +50,11 @@ export default function WeatherWidget() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="text-[var(--color-text)] text-sm italic opacity-70">
-        loading...
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className="flex gap-3 ml-3 hidden lg:block">
+    <div className="hidden lg:flex gap-3 ml-3">
       {weather.map((w) => (
         <div
           key={w.city}
