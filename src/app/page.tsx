@@ -6,6 +6,7 @@ import { BlogTeaser } from '@/components/BlogTeaser'
 import { Contact } from '@/components/Contact'
 import { Quote } from '@/components/Quote'
 import { SectionDivider } from '@/components/SectionDivider'
+import { Uses } from '@/components/Uses'
 
 export default function HomePage() {
   return (
@@ -17,6 +18,8 @@ export default function HomePage() {
       <div id="projects"><Projects /></div>
       <SectionDivider />
       <div id="now"><Now /></div>
+      <SectionDivider />
+      <Uses />
       <SectionDivider />
       <BlogTeaser />
       <SectionDivider />
