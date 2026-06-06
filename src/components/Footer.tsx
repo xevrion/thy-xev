@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import SpotifyWidget from './SpotifyWidget'
 import { SectionLabel } from './SectionLabel'
+import { Mark } from './Mark'
 import WakatimeDailyWidget from './WakatimeWidget'
 import WakatimeLanguages from './WakatimeLanguages'
 import GithubContributions from './GithubContributions'
@@ -34,7 +35,7 @@ export default function Footer() {
               Yash Bavadiya
             </Link>
             <p className="text-sm text-[var(--color-text-muted)] sg-regular max-w-sm leading-relaxed">
-              CS student at IIT Jodhpur who codes too late and ships anyway. I like making things that feel good to use.
+              CS student at IIT Jodhpur who <Mark>codes too late and ships anyway</Mark>. I like making things that feel good to use.
             </p>
             <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest">
               Making the web a little less ugly.

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Projects } from '@/components/Projects'
 import { SectionDivider } from '@/components/SectionDivider'
+import { Mark } from '@/components/Mark'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
           Projects
         </h1>
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
-          Everything I shipped — and a few things I started at midnight and never quite finished.
+          Side projects, open source contributions, and <Mark>experiments that got out of hand</Mark>.
         </p>
       </div>
       <SectionDivider />

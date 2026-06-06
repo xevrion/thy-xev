@@ -1,4 +1,5 @@
 import { PdfViewer } from './PdfViewer'
+import { Mark } from './Mark'
 
 const PDF_URL = '/resume.pdf'
 const DOWNLOAD_URL = '/resume.pdf'
@@ -11,7 +12,7 @@ export const Resume = () => {
           Resume
         </h1>
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
-          CS student at IIT Jodhpur. Full stack developer. One page.
+          CS student at IIT Jodhpur. <Mark>Full stack developer</Mark>. One page.
         </p>
       </div>
 

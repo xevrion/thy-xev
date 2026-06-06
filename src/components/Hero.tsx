@@ -25,7 +25,7 @@ export const Hero = () => {
           </div>
 
           <p className="text-[var(--color-text-muted)] sg-regular text-base sm:text-lg max-w-md">
-            CS student at <Mark>IIT Jodhpur</Mark>. I build things for the web, <Mark>tinker with systems</Mark>, and occasionally touch grass.
+            CS student at <Mark>IIT Jodhpur</Mark>. I build things for the web, tinker with systems, and <Mark>occasionally touch grass</Mark>.
           </p>
 
           <div className="flex flex-col items-center md:items-start gap-3 mt-1">

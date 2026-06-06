@@ -11,7 +11,7 @@ export const About = () => {
 
       <div className="text-[var(--color-text)] text-base sm:text-[1.0625rem] leading-relaxed max-w-2xl sg-regular">
         <p>
-          Hi! I&apos;m Yash Bavadiya, a <Mark>Computer Science student from IIT Jodhpur</Mark> with a knack for programming, design, and exploring new technologies. I love building creative projects that blend <Mark>functionality and aesthetics</Mark> — web apps, AI tools, interactive websites. Outside of coding, I enjoy music, <Mark>playing the piano and ukulele</Mark>, and constantly learning new things. My goal is to combine technology and creativity to make meaningful, polished digital experiences.
+          Hi! I&apos;m Yash Bavadiya, a <Mark>Computer Science student from IIT Jodhpur</Mark> with a knack for programming, design, and exploring new technologies. I love building creative projects that blend functionality and aesthetics — <Mark>web apps, AI tools, interactive websites</Mark>. Outside of coding, I enjoy music, playing the piano and ukulele, and <Mark>constantly learning new things</Mark>. My goal is to combine technology and creativity to make <Mark>meaningful, polished digital experiences</Mark>.
         </p>
       </div>
 

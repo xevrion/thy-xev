@@ -1,12 +1,13 @@
 'use client'
 
 import { SectionLabel } from './SectionLabel'
+import { Mark } from './Mark'
 
-const items = [
-  { label: 'learning',  value: 'agentic architecture, contributing to Kdenlive' },
-  { label: 'building',  value: 'improving DaemonDoc, cooking up something new' },
-  { label: 'reading',   value: 'The Alchemist — Paulo Coelho' },
-  { label: 'listening', value: 'Babydoll — Dominic Fike' },
+const items: { label: string; value: React.ReactNode }[] = [
+  { label: 'learning',  value: <><Mark>agentic architecture</Mark>, contributing to Kdenlive</> },
+  { label: 'building',  value: <>improving <Mark>DaemonDoc</Mark>, cooking up something new</> },
+  { label: 'reading',   value: <><Mark>The Alchemist</Mark> — Paulo Coelho</> },
+  { label: 'listening', value: <>Babydoll — <Mark>Dominic Fike</Mark></> },
   { label: 'life',      value: 'grind is on' },
   { label: 'mood',      value: 'chill' },
 ]

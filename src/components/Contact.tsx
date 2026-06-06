@@ -3,6 +3,7 @@
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 import { Mail } from 'lucide-react'
 import { SectionLabel } from './SectionLabel'
+import { Mark } from './Mark'
 
 const contacts = [
   { icon: <Mail className="w-5 h-5" />,        text: 'me@xevrion.dev',                 url: 'mailto:me@xevrion.dev' },
@@ -18,10 +19,10 @@ export const Contact = () => {
 
       <div className="max-w-2xl">
         <p className="text-[var(--color-text)] sg-bold text-2xl sm:text-3xl leading-snug mb-2">
-          Got something worth building?
+          Got something <Mark>worth building</Mark>?
         </p>
         <p className="text-[var(--color-text-muted)] sg-regular text-base">
-          Always open for collaborations, new ideas, or just a friendly chat.
+          Always open for <Mark>collaborations</Mark>, new ideas, or just a friendly chat.
         </p>
       </div>
 

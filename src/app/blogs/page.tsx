@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { source } from '@/lib/source'
 import { BlogsClient, type BlogPost } from '@/components/BlogsClient'
+import { Mark } from '@/components/Mark'
 
 export const metadata: Metadata = {
   title: 'Blogs',
@@ -49,7 +50,7 @@ export default function BlogsPage() {
           Blogs
         </h1>
         <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
-          Linux rabbit holes, Go rewrites, things I broke at 2am, and the occasional eureka moment.
+          <Mark>Linux rabbit holes</Mark>, Go rewrites, things I broke at 2am, and the occasional eureka moment.
         </p>
       </div>
       <Suspense>
