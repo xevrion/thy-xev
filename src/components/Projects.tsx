@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import data from '../../constants/projects.json'
 import { SectionLabel } from './SectionLabel'
+import { SectionDivider } from './SectionDivider'
 import { ExternalLink, Github } from 'lucide-react'
 
 const { projects, pastProjects } = data
@@ -190,7 +191,10 @@ export const Projects = ({ limit, showViewAll, flat, noHeader }: ProjectsProps) 
       {!noHeader && <SectionLabel>Projects</SectionLabel>}
       <ProjectGrid items={activeItems} label="Currently working" />
       {pastItems.length > 0 && (
-        <ProjectGrid items={pastItems} label="Past projects" />
+        <>
+          <SectionDivider />
+          <ProjectGrid items={pastItems} label="Past projects" />
+        </>
       )}
       {showViewAll && (
         <Link

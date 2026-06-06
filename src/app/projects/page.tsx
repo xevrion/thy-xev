@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Projects } from '@/components/Projects'
+import { SectionDivider } from '@/components/SectionDivider'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -18,6 +19,7 @@ export default function ProjectsPage() {
           Everything I shipped — and a few things I started at midnight and never quite finished.
         </p>
       </div>
+      <SectionDivider />
       <Projects noHeader />
     </>
   )
