@@ -76,6 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MouseGlow />
           <CommandPalette />
           <NavBar />
+          <SectionDivider />
           <main>{children}</main>
           <SectionDivider />
           <Footer />
