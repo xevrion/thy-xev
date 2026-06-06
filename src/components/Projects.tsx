@@ -187,7 +187,7 @@ export const Projects = ({ limit, showViewAll, flat, noHeader }: ProjectsProps) 
   }
 
   return (
-    <section className={`w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col gap-10 ${noHeader ? 'pb-14' : 'py-14'}`}>
+    <section className={`w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col gap-10 ${noHeader ? 'pt-10 pb-14' : 'py-14'}`}>
       {!noHeader && <SectionLabel>Projects</SectionLabel>}
       <ProjectGrid items={activeItems} label="Currently working" />
       {pastItems.length > 0 && (
