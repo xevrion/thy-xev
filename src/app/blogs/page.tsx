@@ -43,8 +43,18 @@ export default function BlogsPage() {
   const allTags = Array.from(new Set(pages.flatMap((p) => (p.data.tags as string[] | undefined) ?? []))).sort()
 
   return (
-    <Suspense>
-      <BlogsClient posts={posts} allTags={allTags} />
-    </Suspense>
+    <>
+      <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 pt-10 sm:pt-14 pb-6 flex flex-col gap-3">
+        <h1 className="text-[clamp(2rem,5vw+1rem,3.5rem)] font-extrabold text-[var(--color-text)] leading-tight tracking-tight">
+          Blogs
+        </h1>
+        <p className="text-base sm:text-lg text-[var(--color-text-muted)] sg-regular">
+          Writing about what I built, what broke, and occasionally both at once.
+        </p>
+      </div>
+      <Suspense>
+        <BlogsClient posts={posts} allTags={allTags} />
+      </Suspense>
+    </>
   )
 }

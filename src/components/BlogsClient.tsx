@@ -5,7 +5,6 @@ import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryStates } from 'n
 import Link from 'next/link'
 import Fuse from 'fuse.js'
 import { Search, X, Tag, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
-import SplitText from './reactbits/splittext'
 import Socials from './Socials'
 
 export interface BlogPost {
@@ -318,20 +317,7 @@ export function BlogsClient({ posts, allTags }: { posts: BlogPost[]; allTags: st
   const paginated = filtered.slice((currentPage - 1) * perPage, currentPage * perPage)
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10 sm:py-14 flex flex-col gap-12">
-      <div className="text-center">
-        <SplitText
-          text="Blogs"
-          className="text-[clamp(2.25rem,5vw+1rem,3.5rem)] text-soft-royal-blue sg-bold mb-6 leading-tight tracking-tight"
-          delay={20}
-          duration={1}
-          ease="elastic.out(1, 0.5)"
-          splitType="chars"
-          from={{ opacity: 0, y: 40 }}
-          to={{ opacity: 1, y: 0 }}
-        />
-      </div>
-
+    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 pb-10 sm:pb-14 flex flex-col gap-12">
       {/* Controls row */}
       <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto w-full">
         {/* Search */}
