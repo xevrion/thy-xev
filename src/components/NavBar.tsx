@@ -155,12 +155,6 @@ export const NavBar = () => {
                   </Link>
                 );
               })}
-              <div className="flex items-center justify-between px-6 py-3.5">
-                <span className="font-space-grotesk text-sm font-bold text-[var(--color-text-muted)]">
-                  Theme
-                </span>
-                <ThemeToggle />
-              </div>
             </nav>
           </motion.div>
         )}
