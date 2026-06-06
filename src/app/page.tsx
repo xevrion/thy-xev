@@ -1,5 +1,6 @@
 import { Hero } from '@/components/Hero'
 import { About } from '@/components/About'
+import { Experience } from '@/components/Experience'
 import { Projects } from '@/components/Projects'
 import { Now } from '@/components/Now'
 import { BlogTeaser } from '@/components/BlogTeaser'
@@ -14,6 +15,8 @@ export default function HomePage() {
       <Hero />
       <SectionDivider />
       <div id="about"><About /></div>
+      <SectionDivider />
+      <Experience />
       <SectionDivider />
       <div id="projects"><Projects limit={6} showViewAll flat /></div>
       <SectionDivider />

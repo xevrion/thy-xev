@@ -1,0 +1,16 @@
+{
+  "experience": [
+    {
+      "company": "Google Summer of Code 2026 — KDE Kdenlive",
+      "role": "Open Source Contributor (C++ / Qt)",
+      "location": "Remote",
+      "period": "May 2026 – Present",
+      "logo": "/gsoc.png",
+      "points": [
+        "Selected for GSoC 2026 among ~1,200 global contributors for a 350-hour Large Project; implementing three effect widgets; a tabbed per-channel RGB curve editor, a multi-stop gradient editor, and a Bézier speed ramp UI; in C++ and Qt under lead Kdenlive maintainer Jean-Baptiste Mardelle.",
+        "Merged 20+ contributions across Kdenlive, KDE Documentation, and MLT upstream; resolved an 11-year-old bug (#352409) via a union-of-intervals gap-detection algorithm reviewed across 21 comment threads by core maintainers Eugen Mohr and Bernd Jordan, who called it 'a great new function.'",
+        "Traced a subtitle metadata regression into the MLT framework, submitted upstream PR #1222 fixing AVMEDIA_TYPE_SUBTITLE handling in the avformat producer; reviewed and committed by MLT maintainer Dan Dennedy, affecting both Kdenlive and MLT downstream."
+      ]
+    }
+  ]
+}

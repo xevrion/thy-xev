@@ -58,9 +58,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <NuqsAdapter>
         <ThemeProvider>
-          {/* Outer grid pattern — visible only outside content area */}
+          <div className="relative">
+          {/* Outer grid pattern — visible only outside content area, scrolls with page */}
           <div
-            className="pointer-events-none fixed inset-0 z-[998] hidden xl:block"
+            className="pointer-events-none absolute inset-0 z-[998] hidden xl:block"
             style={{
               backgroundImage: 'linear-gradient(to right, var(--grid-line) 0.5px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 0.5px, transparent 1px)',
               backgroundSize: '80px 80px',
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <SectionDivider />
           <Footer />
+          </div>
         </ThemeProvider>
         </NuqsAdapter>
       </body>
