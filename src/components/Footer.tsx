@@ -13,11 +13,8 @@ import DiscordWidget from './OnlineStatus'
 import { ThemeToggle } from './ThemeToggle'
 
 const pages = [
-  { href: '/#about', label: 'About' },
   { href: '/projects', label: 'Projects' },
-  { href: '/#now', label: 'Now' },
   { href: '/blogs', label: 'Blogs' },
-  { href: '/#contact', label: 'Contact' },
   { href: '/resume', label: 'Resume' },
 ]
 
@@ -49,7 +46,7 @@ export default function Footer() {
           </div>
 
           <nav aria-label="Footer navigation" className="flex flex-col gap-3">
-            <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest mb-1">Pages</p>
+            <p className="text-xs font-mono text-[var(--color-text-subtle)] uppercase tracking-widest mb-1 sm:text-right">Pages</p>
             <div className="flex flex-wrap gap-2 sm:max-w-48 sm:justify-end">
               {pages.map(({ href, label }) => (
                 <Link
