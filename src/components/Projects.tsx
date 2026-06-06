@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Link from 'next/link'
 import data from '../../constants/projects.json'
@@ -71,8 +72,8 @@ function ProjectCard({ project, index = 0 }: { project: Project; index?: number 
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Cursor-following preview */}
-      {project.image && (
+      {/* Cursor-following preview — portaled to body to escape transform stacking context */}
+      {project.image && typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -87,7 +88,8 @@ function ProjectCard({ project, index = 0 }: { project: Project; index?: number 
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
       )}
 
       {/* Title + icons */}
