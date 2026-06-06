@@ -64,7 +64,7 @@ export const NavBar = () => {
   return (
     <nav
       ref={navRef}
-      className={`w-full sticky top-0 z-50 transition-all duration-150 ${scrolled ? 'bg-[var(--color-taupe)]/85 backdrop-blur-sm border-b border-battleship-gray/10' : 'bg-transparent'}`}
+      className={`w-full sticky top-0 z-50 border-b border-battleship-gray/15 transition-all duration-150 ${scrolled ? 'bg-[var(--color-taupe)]/85 backdrop-blur-sm' : 'bg-transparent'}`}
     >
       <div className="max-w-5xl mx-auto flex justify-between items-center px-6 sm:px-8 lg:px-10 py-4">
         {/* Logo + Weather */}
