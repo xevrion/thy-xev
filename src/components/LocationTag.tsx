@@ -64,7 +64,7 @@ export function LocationTag({ city = LOCATION.city, country = LOCATION.country, 
       </span>
 
       {/* Sliding text */}
-      <span className="relative h-[1.25rem] overflow-hidden min-w-[8rem]">
+      <span className="relative h-[1.25rem] overflow-hidden min-w-[8rem] text-center">
         <span
           className="block transition-[transform,opacity] duration-500"
           style={{ transform: isActive ? 'translateY(-100%)' : 'translateY(0)', opacity: isActive ? 0 : 1 }}
@@ -72,7 +72,7 @@ export function LocationTag({ city = LOCATION.city, country = LOCATION.country, 
           {city}, {country}
         </span>
         <span
-          className="absolute left-0 top-0 flex items-center gap-1 transition-[transform,opacity] duration-500"
+          className="absolute inset-x-0 top-0 flex items-center justify-center gap-1 transition-[transform,opacity] duration-500"
           style={{ transform: isActive ? 'translateY(0)' : 'translateY(100%)', opacity: isActive ? 1 : 0 }}
         >
           {currentTime}
