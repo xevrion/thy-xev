@@ -29,15 +29,27 @@ function CornerMark({ className }: { className: string }) {
   )
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   const [hovered, setHovered] = React.useState(false)
   const [cursor, setCursor] = React.useState({ x: 0, y: 0 })
+  const [visible, setVisible] = React.useState(false)
   const cardRef = React.useRef<HTMLLIElement>(null)
 
   React.useEffect(() => {
     const onMove = (e: MouseEvent) => setCursor({ x: e.clientX, y: e.clientY })
     window.addEventListener('mousemove', onMove)
     return () => window.removeEventListener('mousemove', onMove)
+  }, [])
+
+  React.useEffect(() => {
+    const el = cardRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
+      { threshold: 0.1, rootMargin: '0px 0px -32px 0px' },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
   }, [])
 
   const previewWidth = 256
@@ -49,7 +61,12 @@ function ProjectCard({ project }: { project: Project }) {
   return (
     <li
       ref={cardRef}
-      className="relative flex flex-col gap-4 p-6 border-r border-b border-battleship-gray/15 transition-colors duration-200 hover:bg-battleship-gray/[0.04]"
+      className="relative flex flex-col gap-4 p-6 border-r border-b border-battleship-gray/15 transition-[opacity,transform,background-color] duration-700 ease-out hover:bg-battleship-gray/[0.04]"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(20px)',
+        transitionDelay: `${index * 80}ms`,
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -118,8 +135,8 @@ function ProjectGrid({ items, label }: { items: Project[]; label?: string }) {
         <CornerMark className="-bottom-2 -left-2" />
         <CornerMark className="-bottom-2 -right-2" />
         <ul className="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-battleship-gray/15">
-          {items.map((p) => (
-            <ProjectCard key={p.url} project={p} />
+          {items.map((p, i) => (
+            <ProjectCard key={p.url} project={p} index={i} />
           ))}
         </ul>
       </div>
@@ -134,16 +151,18 @@ interface ProjectsProps {
   showViewAll?: boolean
   /** Merge all projects into one unlabelled grid (no section headers) */
   flat?: boolean
+  /** Hide the SectionLabel and reduce top padding (used when page provides its own h1) */
+  noHeader?: boolean
 }
 
-export const Projects = ({ limit, showViewAll, flat }: ProjectsProps) => {
+export const Projects = ({ limit, showViewAll, flat, noHeader }: ProjectsProps) => {
   const allCombined = [...projects, ...pastProjects]
 
   if (flat) {
     const items = limit !== undefined ? allCombined.slice(0, limit) : allCombined
     return (
-      <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
-        <SectionLabel>Projects</SectionLabel>
+      <section className={`w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col gap-10 ${noHeader ? 'pb-14' : 'py-14'}`}>
+        {!noHeader && <SectionLabel>Projects</SectionLabel>}
         <ProjectGrid items={items} />
         {showViewAll && (
           <Link
@@ -167,8 +186,8 @@ export const Projects = ({ limit, showViewAll, flat }: ProjectsProps) => {
   }
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
-      <SectionLabel>Projects</SectionLabel>
+    <section className={`w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col gap-10 ${noHeader ? 'pb-14' : 'py-14'}`}>
+      {!noHeader && <SectionLabel>Projects</SectionLabel>}
       <ProjectGrid items={activeItems} label="Currently working" />
       {pastItems.length > 0 && (
         <ProjectGrid items={pastItems} label="Past projects" />
