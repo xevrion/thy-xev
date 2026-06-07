@@ -65,14 +65,14 @@ const GithubContributions = () => {
 
   if (loading) {
     return (
-      <div className="animate-pulse inter-bold text-[var(--color-text)] text-xl">
+      <div className="animate-pulse sg-bold text-[var(--color-text)] text-xl">
         Loading contributions...
       </div>
     );
   }
 
   if (error || !calendar) {
-    return <div className="inter-bold text-[var(--color-text)] text-xl">{error}</div>;
+    return <div className="sg-bold text-[var(--color-text)] text-xl">{error}</div>;
   }
 
   // Build month labels: track which column each month first appears in
@@ -97,7 +97,7 @@ const GithubContributions = () => {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <p className="inter-bold text-[var(--color-text)] text-xl">GitHub Contributions</p>
+        <p className="sg-bold text-[var(--color-text)] text-xl">GitHub Contributions</p>
         <span className="text-sm text-[var(--color-text-muted)] sg-regular">
           {calendar.totalContributions.toLocaleString()} this year
         </span>
