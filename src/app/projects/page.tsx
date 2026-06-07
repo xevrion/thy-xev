@@ -1,17 +1,26 @@
 import type { Metadata } from 'next'
+import { JsonLd } from '@/components/JsonLd'
 import { Projects } from '@/components/Projects'
 import { SectionDivider } from '@/components/SectionDivider'
 import { Mark } from '@/components/Mark'
 
+const description = 'All projects built by Yash Bavadiya — web apps, CLI tools, AI experiments, and open source contributions.'
+
 export const metadata: Metadata = {
   title: 'Projects',
-  description: 'All projects built by Yash Bavadiya — web apps, CLI tools, AI experiments, and open source contributions.',
+  description,
   alternates: { canonical: 'https://xevrion.dev/projects' },
 }
 
 export default function ProjectsPage() {
   return (
     <>
+      <JsonLd
+        type="webpage"
+        title="Projects"
+        description={description}
+        canonicalUrl="https://xevrion.dev/projects"
+      />
       <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 pt-10 sm:pt-14 pb-6 flex flex-col gap-3 animate-in fade-in-0 slide-in-from-bottom-6 duration-700">
         <h1 className="text-[clamp(2rem,5vw+1rem,3.5rem)] sg-bold text-[var(--color-text)] leading-tight tracking-tight">
           Projects

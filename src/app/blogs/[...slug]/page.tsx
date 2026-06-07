@@ -77,6 +77,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         publishedAt={page.data.date?.toISOString()}
         tags={page.data.tags ?? []}
       />
+      <JsonLd
+        type="breadcrumb"
+        items={[
+          { name: 'Home', url: 'https://xevrion.dev' },
+          { name: 'Blogs', url: 'https://xevrion.dev/blogs' },
+          { name: page.data.title, url: `https://xevrion.dev/blogs/${slug.join('/')}` },
+        ]}
+      />
       <PostPage
         slug={slug.join('-')}
         title={page.data.title}

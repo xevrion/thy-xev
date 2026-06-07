@@ -1,3 +1,5 @@
+import { JsonLd } from '@/components/JsonLd'
+import { siteConfig } from '@/lib/site'
 import { Hero } from '@/components/Hero'
 import { HeroBanner } from '@/components/HeroBanner'
 import { About } from '@/components/About'
@@ -13,6 +15,12 @@ import { Uses } from '@/components/Uses'
 export default function HomePage() {
   return (
     <>
+      <JsonLd
+        type="webpage"
+        title={siteConfig.name}
+        description={siteConfig.description}
+        canonicalUrl={siteConfig.baseUrl}
+      />
       <HeroBanner />
       <Hero />
       <SectionDivider />

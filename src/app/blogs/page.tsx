@@ -1,17 +1,20 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { source } from '@/lib/source'
+import { JsonLd } from '@/components/JsonLd'
 import { BlogsClient, type BlogPost } from '@/components/BlogsClient'
 import { Mark } from '@/components/Mark'
 
+const description = 'Read my blog posts about web development, Linux, programming challenges, and tech insights.'
+
 export const metadata: Metadata = {
   title: 'Blogs',
-  description: 'Read my blog posts about web development, Linux, programming challenges, and tech insights.',
+  description,
   openGraph: {
     type: 'website',
     url: 'https://xevrion.dev/blogs',
     title: 'Blogs | Xevrion',
-    description: 'Read my blog posts about web development, Linux, programming challenges, and tech insights.',
+    description,
   },
   alternates: { canonical: 'https://xevrion.dev/blogs' },
 }
@@ -45,6 +48,12 @@ export default function BlogsPage() {
 
   return (
     <>
+      <JsonLd
+        type="webpage"
+        title="Blogs"
+        description={description}
+        canonicalUrl="https://xevrion.dev/blogs"
+      />
       <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 pt-10 sm:pt-14 pb-6 flex flex-col gap-3 animate-in fade-in-0 slide-in-from-bottom-6 duration-700">
         <h1 className="text-[clamp(2rem,5vw+1rem,3.5rem)] sg-bold text-[var(--color-text)] leading-tight tracking-tight">
           Blogs
