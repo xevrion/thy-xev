@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Space_Grotesk, Caveat } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { NavBar } from "@/components/NavBar";
@@ -65,6 +66,11 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${caveat.variable}`}
     >
       <body>
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="74938dae-7cfe-43c2-8933-b5e9be663d8c"
+          strategy="afterInteractive"
+        />
         <NuqsAdapter>
           <ThemeProvider>
             <div className="relative">
