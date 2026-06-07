@@ -31,12 +31,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
-function Row({ icon, name, href }: { icon?: string; name: string; href?: string }) {
+function Row({ icon, index, name, href }: { icon?: string; index?: number; name: string; href?: string }) {
   const Icon = icon ? iconMap[icon] : null
   const inner = (
     <div className="flex items-center gap-3 px-4 py-3 hover:bg-[var(--color-text-subtle)]/5 transition-colors duration-150 group">
       <div className="shrink-0 w-7 h-7 flex items-center justify-center rounded-md border border-battleship-gray/20 bg-[var(--color-text-subtle)]/5 text-[var(--color-text-muted)]">
-        {Icon && <Icon className="w-3.5 h-3.5" />}
+        {Icon ? <Icon className="w-3.5 h-3.5" /> : <span className="text-xs font-mono">{index}</span>}
       </div>
       <span className="flex-1 text-sm text-[var(--color-text)] sg-regular">{name}</span>
       {href && <ArrowUpRight className="w-3.5 h-3.5 text-[var(--color-text-subtle)] opacity-0 group-hover:opacity-100 transition-opacity duration-150" />}
@@ -63,11 +63,11 @@ export default function GearPage() {
         </Section>
 
         <Section title="Software">
-          {gear.software.map(s => <Row key={s.name} name={s.name} href={s.href} />)}
+          {gear.software.map((s, i) => <Row key={s.name} index={i + 1} name={s.name} href={s.href} />)}
         </Section>
 
         <Section title="Browser Extensions">
-          {gear.extensions.map(e => <Row key={e.name} name={e.name} href={e.href} />)}
+          {gear.extensions.map((e, i) => <Row key={e.name} index={i + 1} name={e.name} href={e.href} />)}
         </Section>
       </div>
     </div>

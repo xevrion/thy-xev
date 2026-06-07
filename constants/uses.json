@@ -1,0 +1,82 @@
+{
+  "gear": {
+    "devices": [
+      { "name": "Lenovo LOQ 15IRX9 15\" — i7 14th Gen, 16GB RAM, 1TB, RTX 4060 8GB", "icon": "laptop" },
+      { "name": "Gigabyte M27QA 27\"", "icon": "monitor" },
+      { "name": "Aula F75 Keyboard", "icon": "keyboard" },
+      { "name": "Razer DeathAdder Essential Mouse", "icon": "mouse" },
+      { "name": "Moondrop Chu 2 Earbuds", "icon": "headphones" },
+      { "name": "Realme Buds Air 5 TWS", "icon": "headphones" },
+      { "name": "JBL Go 4 Bluetooth Speaker", "icon": "speaker" },
+      { "name": "Kreo Mirage Controller", "icon": "gamepad" },
+      { "name": "Kreo Deskmat", "icon": "square" },
+      { "name": "Samsung F34 (128GB)", "icon": "smartphone" }
+    ],
+    "software": [
+      { "name": "Fedora Linux 43 (KDE Plasma)", "href": "https://fedoraproject.org/" },
+      { "name": "Brave Browser", "href": "https://brave.com/" },
+      { "name": "Obsidian", "href": "https://obsidian.md/" },
+      { "name": "Spotify", "href": "https://spotify.com/" },
+      { "name": "Discord", "href": "https://discord.com/" },
+      { "name": "OBS Studio", "href": "https://obsproject.com/" },
+      { "name": "VS Code", "href": "https://code.visualstudio.com/" },
+      { "name": "Sublime Text", "href": "https://www.sublimetext.com/" },
+      { "name": "Zed", "href": "https://zed.dev/" },
+      { "name": "Ghostty", "href": "https://ghostty.org/" },
+      { "name": "Neovim", "href": "https://neovim.io/" }
+    ],
+    "extensions": [
+      { "name": "Peek-a-Repo", "href": "https://chromewebstore.google.com/detail/aanpngikpldepannbdkglfohenbkhomp?utm_source=item-share-cb" },
+      { "name": "Vimium", "href": "https://vimium.github.io/" },
+      { "name": "Dark Reader", "href": "https://darkreader.org/" },
+      { "name": "ColorZilla", "href": "https://www.colorzilla.com/" },
+      { "name": "GoFullPage", "href": "https://gofullpage.com/" },
+      { "name": "Unhook — Remove YouTube Recommendations", "href": "https://unhook.app/" },
+      { "name": "Enhancer for YouTube", "href": "https://www.mrfdev.com/enhancer-for-youtube" },
+      { "name": "Workspaces", "href": "https://chromewebstore.google.com/detail/workspaces/hpljjefgmnkloakbfckghmlapghabgfa" },
+      { "name": "LeetQuiet", "href": "https://chromewebstore.google.com/detail/leetquiet-code-with-focus/fmmibmdiheablcolcljnihbdaliljfgf" },
+      { "name": "SmoothScroll", "href": "https://chromewebstore.google.com/detail/smoothscroll/nbokbjkabcmbfdlbddjidfmibcpneigj" }
+    ]
+  },
+  "setup": {
+    "editor": [
+      { "name": "VS Code", "href": "https://code.visualstudio.com/" },
+      { "name": "Sublime Text", "href": "https://www.sublimetext.com/" },
+      { "name": "Zed", "href": "https://zed.dev/" },
+      { "name": "Neovim", "href": "https://neovim.io/" }
+    ],
+    "themes": [
+      { "name": "Catppuccin Mocha", "href": "https://github.com/catppuccin/catppuccin" },
+      { "name": "Dracula", "href": "https://draculatheme.com/" }
+    ],
+    "extensions": [
+      { "name": "Prettier", "href": "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode" },
+      { "name": "ESLint", "href": "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint" },
+      { "name": "Tailwind CSS IntelliSense", "href": "https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss" },
+      { "name": "Path Intellisense", "href": "https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense" },
+      { "name": "Material Icon Theme", "href": "https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme" },
+      { "name": "vscode-animations", "href": "https://marketplace.visualstudio.com/items?itemName=BrandonKirbyson.vscode-animations" },
+      { "name": "WakaTime", "href": "https://marketplace.visualstudio.com/items?itemName=WakaTime.vscode-wakatime" }
+    ],
+    "fonts": [
+      { "name": "JetBrains Mono", "href": "https://www.jetbrains.com/lp/mono/" }
+    ]
+  },
+  "terminal": {
+    "shell": [
+      { "name": "Zsh", "href": "https://www.zsh.org/" },
+      { "name": "Oh My Zsh", "href": "https://ohmyz.sh/" },
+      { "name": "Powerlevel10k", "href": "https://github.com/romkatv/powerlevel10k" }
+    ],
+    "tools": [
+      { "name": "Fastfetch", "href": "https://github.com/fastfetch-cli/fastfetch" },
+      { "name": "ripgrep", "href": "https://github.com/BurntSushi/ripgrep" },
+      { "name": "tmux", "href": "https://github.com/tmux/tmux" },
+      { "name": "btop", "href": "https://github.com/aristocratos/btop" },
+      { "name": "glow", "href": "https://github.com/charmbracelet/glow" }
+    ],
+    "emulator": [
+      { "name": "Ghostty", "href": "https://ghostty.org/" }
+    ]
+  }
+}
