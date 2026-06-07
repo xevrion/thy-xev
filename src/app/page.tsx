@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero'
+import { HeroBanner } from '@/components/HeroBanner'
 import { About } from '@/components/About'
 import { Experience } from '@/components/Experience'
 import { Projects } from '@/components/Projects'
@@ -12,6 +13,7 @@ import { Uses } from '@/components/Uses'
 export default function HomePage() {
   return (
     <>
+      <HeroBanner />
       <Hero />
       <SectionDivider />
       <div id="about"><About /></div>
