@@ -59,7 +59,7 @@ export default function GearPage() {
 
       <div className="flex flex-col gap-10">
         <Section title="Devices">
-          {gear.devices.map(d => <Row key={d.name} icon={d.icon} name={d.name} />)}
+          {gear.devices.map(d => <Row key={d.name} icon={d.icon} name={d.name} href={d.href} />)}
         </Section>
 
         <Section title="Software">
@@ -70,6 +70,10 @@ export default function GearPage() {
           {gear.extensions.map((e, i) => <Row key={e.name} index={i + 1} name={e.name} href={e.href} />)}
         </Section>
       </div>
+
+      <p className="text-xs text-[var(--color-text-subtle)] sg-regular mt-12">
+        As an Amazon Associate I earn from qualifying purchases made through device links on this page.
+      </p>
     </div>
   )
 }
