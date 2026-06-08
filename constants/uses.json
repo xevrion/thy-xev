@@ -1,16 +1,16 @@
 {
   "gear": {
     "devices": [
-      { "name": "Lenovo LOQ 15IRX9 15\" — i7 14th Gen, 16GB RAM, 1TB, RTX 4060 8GB", "icon": "laptop", "href": "https://www.amazon.in/dp/B0CX8SF49C?tag=xevrion-21" },
-      { "name": "Gigabyte M27QA 27\"", "icon": "monitor", "href": "https://www.amazon.in/dp/B0FLJ2YH65?tag=xevrion-21" },
-      { "name": "Aula F75 Keyboard", "icon": "keyboard", "href": "https://www.amazon.in/dp/B0D14N2QZF?tag=xevrion-21" },
-      { "name": "Razer DeathAdder Essential Mouse", "icon": "mouse", "href": "https://www.amazon.in/dp/B07F2GC4S9?tag=xevrion-21" },
-      { "name": "Moondrop Chu 2 Earbuds", "icon": "headphones", "href": "https://www.amazon.in/dp/B0CB8HHS8V?tag=xevrion-21" },
-      { "name": "Realme Buds Air 5 TWS", "icon": "headphones", "href": "https://www.amazon.in/dp/B0CLSVSJF3?tag=xevrion-21" },
-      { "name": "JBL Go 4 Bluetooth Speaker", "icon": "speaker", "href": "https://www.amazon.in/dp/B0CX5C6WP3?tag=xevrion-21" },
-      { "name": "Kreo Mirage Controller", "icon": "gamepad", "href": "https://www.amazon.in/dp/B0CQYJXHRP?tag=xevrion-21" },
-      { "name": "Kreo Deskmat", "icon": "square", "href": "https://www.amazon.in/dp/B0CRB1VL2H?tag=xevrion-21" },
-      { "name": "Samsung F34 (128GB)", "icon": "smartphone", "href": "https://www.amazon.in/dp/B0CKL7XHSY?tag=xevrion-21" }
+      { "name": "Lenovo LOQ 15IRX9 15\" — i7 14th Gen, 16GB RAM, 1TB, RTX 4060 8GB", "icon": "laptop", "href": "https://amzn.to/4vElMf8" },
+      { "name": "Gigabyte M27QA 27\"", "icon": "monitor", "href": "https://amzn.to/4v3WMhu" },
+      { "name": "Aula F75 Keyboard", "icon": "keyboard", "href": "https://amzn.to/49MFr41" },
+      { "name": "Razer DeathAdder Essential Mouse", "icon": "mouse", "href": "https://amzn.to/4v3WKGo" },
+      { "name": "Moondrop Chu 2 Earbuds", "icon": "headphones", "href": "https://amzn.to/4xk11qI" },
+      { "name": "Realme Buds Air 5 TWS", "icon": "headphones", "href": "https://amzn.to/49Gd0EQ" },
+      { "name": "JBL Go 4 Bluetooth Speaker", "icon": "speaker", "href": "https://amzn.to/3SadmNQ" },
+      { "name": "Kreo Mirage Controller", "icon": "gamepad", "href": "https://amzn.to/49NVzlL" },
+      { "name": "Kreo Deskmat", "icon": "square", "href": "https://amzn.to/4xb0Fm9" },
+      { "name": "Samsung F34 (128GB)", "icon": "smartphone", "href": "https://amzn.to/4uW626X" }
     ],
     "software": [
       { "name": "Fedora Linux 43 (KDE Plasma)", "href": "https://fedoraproject.org/" },
