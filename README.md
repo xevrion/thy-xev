@@ -100,6 +100,10 @@ todo
   - [x] actions: toggle theme, open spotify song, social links
   - [x] desktop only
 
+- [ ] geo-based links on gear page (US visitors get US links, India gets India links)
+  - [ ] set up geo-IP detection (geoip-lite or similar, self-hosted friendly)
+  - [ ] map each gear item to its US equivalent
+
 - [x] /now page
   - [x] what i'm currently learning, reading, building, listening to
   - [x] updated manually, personal and casual tone
