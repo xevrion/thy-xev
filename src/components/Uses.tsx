@@ -13,13 +13,13 @@ const items = [
     href: '/uses/setup',
     icon: Monitor,
     title: 'Setup',
-    description: 'VS Code / Cursor configuration and extensions.',
+    description: 'VS Code configuration, themes, and extensions.',
   },
   {
     href: '/uses/terminal',
     icon: Terminal,
     title: 'Terminal',
-    description: 'Zsh, Starship, Fastfetch, and shell configuration.',
+    description: 'Zsh, Powerlevel10k, Fastfetch, and shell configuration.',
   },
 ]
 

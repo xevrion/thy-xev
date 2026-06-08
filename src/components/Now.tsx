@@ -1,5 +1,6 @@
 'use client'
 
+import { ExternalLink } from 'lucide-react'
 import { SectionLabel } from './SectionLabel'
 import { Mark } from './Mark'
 
@@ -16,6 +17,18 @@ export const Now = () => {
   return (
     <section className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-14 flex flex-col gap-10">
       <SectionLabel>Now</SectionLabel>
+
+      <a
+        href="https://nownownow.com/p/cIp1"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex items-center gap-3 max-w-2xl w-full rounded-lg border border-battleship-gray/20 px-5 py-4 transition-colors hover:border-battleship-gray/40 hover:bg-[var(--color-text)]/[0.03]"
+      >
+        <span className="text-[var(--color-text)] sg-regular text-sm sm:text-base">
+          This page is now <Mark>featured on nownownow.com</Mark>, check it out
+        </span>
+        <ExternalLink className="ml-auto w-4 h-4 text-[var(--color-text-subtle)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      </a>
 
       <div className="flex flex-col gap-6 max-w-2xl w-full">
         {items.map((item) => (

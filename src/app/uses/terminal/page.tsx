@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { terminal } from '@/lib/uses'
 
 export const metadata: Metadata = {
-  title: 'Terminal — Yash Bavadiya',
-  description: 'Zsh, Starship, Fastfetch, and shell configuration.',
+  title: 'Terminal | Yash Bavadiya',
+  description: 'Zsh, Powerlevel10k, Fastfetch, and shell configuration.',
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -38,7 +38,7 @@ export default function TerminalPage() {
 
       <header className="mb-12">
         <h1 className="sg-bold text-3xl text-[var(--color-text)] mb-2">Terminal</h1>
-        <p className="text-sm text-[var(--color-text-muted)] sg-regular">Zsh, Starship, Fastfetch, and shell configuration.</p>
+        <p className="text-sm text-[var(--color-text-muted)] sg-regular">Zsh, Powerlevel10k, Fastfetch, and shell configuration.</p>
       </header>
 
       <div className="flex flex-col gap-10">

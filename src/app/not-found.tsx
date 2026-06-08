@@ -22,7 +22,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-10 px-6 select-none">
       {/* Glitch 404 */}
-      <div aria-label="404 — page not found" className="relative">
+      <div aria-label="404: page not found" className="relative">
         <svg
           ref={svgRef}
           viewBox="0 0 520 160"

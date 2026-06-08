@@ -32,7 +32,7 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   metadataBase: new URL("https://xevrion.dev"),
   title: {
-    default: "Xevrion — Full Stack Developer",
+    default: "Xevrion | Full Stack Developer",
     template: "%s | Xevrion",
   },
   description:

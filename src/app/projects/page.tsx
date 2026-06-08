@@ -4,7 +4,7 @@ import { Projects } from '@/components/Projects'
 import { SectionDivider } from '@/components/SectionDivider'
 import { Mark } from '@/components/Mark'
 
-const description = 'All projects built by Yash Bavadiya — web apps, CLI tools, AI experiments, and open source contributions.'
+const description = 'All projects built by Yash Bavadiya: web apps, CLI tools, AI experiments, and open source contributions.'
 
 export const metadata: Metadata = {
   title: 'Projects',

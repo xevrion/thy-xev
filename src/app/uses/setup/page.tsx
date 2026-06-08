@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { setup } from '@/lib/uses'
 
 export const metadata: Metadata = {
-  title: 'Setup — Yash Bavadiya',
-  description: 'VS Code / Cursor configuration and extensions I use daily.',
+  title: 'Setup | Yash Bavadiya',
+  description: 'VS Code configuration, themes, and extensions I use daily.',
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -38,7 +38,7 @@ export default function SetupPage() {
 
       <header className="mb-12">
         <h1 className="sg-bold text-3xl text-[var(--color-text)] mb-2">Setup</h1>
-        <p className="text-sm text-[var(--color-text-muted)] sg-regular">VS Code / Cursor configuration and extensions I use daily.</p>
+        <p className="text-sm text-[var(--color-text-muted)] sg-regular">VS Code configuration, themes, and extensions I use daily.</p>
       </header>
 
       <div className="flex flex-col gap-10">

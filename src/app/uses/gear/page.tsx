@@ -16,7 +16,7 @@ const iconMap: Record<string, LucideIcon> = {
 }
 
 export const metadata: Metadata = {
-  title: 'Gear — Yash Bavadiya',
+  title: 'Gear | Yash Bavadiya',
   description: 'Tools, devices, and software I use to get work done.',
 }
 
