@@ -9,6 +9,7 @@ import { JsonLd } from "@/components/JsonLd";
 import Footer from "@/components/Footer";
 import { SectionDivider } from "@/components/SectionDivider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { source } from "@/lib/source";
 import "./globals.css";
 
 const inter = Inter({
@@ -59,6 +60,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const blogPosts = source.getPages().map((page) => ({
+    title: page.data.title,
+    description: page.data.description,
+    url: page.url,
+  }));
+
   return (
     <html
       lang="en"
@@ -99,7 +106,7 @@ export default function RootLayout({
               <JsonLd type="person" />
               <JsonLd type="website" />
               <MouseGlow />
-              <CommandPalette />
+              <CommandPalette blogPosts={blogPosts} />
               <NavBar />
               <SectionDivider />
               <main>{children}</main>

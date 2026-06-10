@@ -147,13 +147,14 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
     el?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [active, open])
 
-  const activeIdx = items.findIndex((i) => i.url.slice(1) === active)
-  const activeItem = activeIdx >= 0 ? items[activeIdx] : null
+  const rawIdx = items.findIndex((i) => i.url.slice(1) === active)
+  const activeIdx = rawIdx >= 0 ? rawIdx : 0
+  const activeItem = items[activeIdx] ?? null
 
   if (items.length === 0) return null
 
   // Progress is heading-based (same as Anish): fraction of headings passed
-  const progress = activeIdx >= 0 ? (activeIdx + 1) / items.length : 0
+  const progress = (activeIdx + 1) / items.length
 
   return (
     <div className="xl:hidden sticky top-14 z-40 bg-[var(--color-taupe)] border-b border-battleship-gray/15 backdrop-blur-sm">
@@ -169,7 +170,7 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
         </span>
 
         <span className="text-xs sg-regular text-[var(--color-text-subtle)] shrink-0 tabular-nums">
-          {activeIdx >= 0 ? activeIdx + 1 : 0}
+          {activeIdx + 1}
           <span className="mx-0.5">/</span>
           {items.length}
         </span>
@@ -214,7 +215,9 @@ export function MobileTOC({ items }: { items: TocItem[] }) {
                         onClick={(e) => {
                           e.preventDefault()
                           setOpen(false)
-                          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+                          setTimeout(() => {
+                            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                          }, 210)
                         }}
                       >
                         {String(item.title)}

@@ -15,11 +15,17 @@ interface PaletteItem {
   id: string
   label: string
   subtitle?: string
-  type: 'page' | 'post' | 'project' | 'action'
+  type: 'page' | 'blog' | 'project' | 'action'
   actionType: ActionType
   target?: string
   fn?: () => void
   icon?: React.ReactNode
+}
+
+interface BlogPostSummary {
+  title: string
+  description?: string
+  url: string
 }
 
 const PAGES: PaletteItem[] = [
@@ -54,17 +60,10 @@ const PROJECT_ITEMS: PaletteItem[] = [
 
 const STATIC_ITEMS: PaletteItem[] = [...PAGES, ...SOCIAL_ACTIONS, ...PROJECT_ITEMS]
 
-const fuse = new Fuse(STATIC_ITEMS, {
-  keys: [{ name: 'label', weight: 0.6 }, { name: 'subtitle', weight: 0.4 }],
-  threshold: 0.35,
-  ignoreLocation: true,
-  minMatchCharLength: 1,
-})
-
 function ItemIcon({ item }: { item: PaletteItem }) {
   if (item.icon) return <>{item.icon}</>
   const cls = 'shrink-0 opacity-50'
-  if (item.type === 'post')    return <FileText   size={14} className={cls} />
+  if (item.type === 'blog')    return <FileText   size={14} className={cls} />
   if (item.type === 'project') return <Folder     size={14} className={cls} />
   if (item.type === 'action')  return <Zap        size={14} className={cls} />
   return                              <Navigation size={14} className={cls} />
@@ -81,7 +80,7 @@ function TypeBadge({ type }: { type: PaletteItem['type'] }) {
 let _globalOpen: () => void = () => {}
 export function openCommandPalette() { _globalOpen() }
 
-export const CommandPalette = () => {
+export const CommandPalette = ({ blogPosts = [] }: { blogPosts?: BlogPostSummary[] }) => {
   const [open, setOpen] = useState(false)
   const openRef = useRef(false)
   useEffect(() => { openRef.current = open }, [open])
@@ -151,18 +150,36 @@ export const CommandPalette = () => {
     return items
   }, [spotifyUrl, spotifyLabel, open, toggleThemeFromCenter, theme])
 
+  const blogItems: PaletteItem[] = useMemo(() => blogPosts.map((p) => ({
+    id: `blog-${p.url}`,
+    label: p.title,
+    subtitle: p.description,
+    type: 'blog' as const,
+    actionType: 'navigate' as const,
+    target: p.url,
+  })), [blogPosts])
+
+  const allItems = useMemo(() => [...STATIC_ITEMS, ...blogItems], [blogItems])
+
+  const fuse = useMemo(() => new Fuse(allItems, {
+    keys: [{ name: 'label', weight: 0.6 }, { name: 'subtitle', weight: 0.4 }],
+    threshold: 0.35,
+    ignoreLocation: true,
+    minMatchCharLength: 1,
+  }), [allItems])
+
   const results = useMemo(() => {
     const q = query.trim()
     if (!q) return [...dynamicActions, ...PAGES, ...SOCIAL_ACTIONS]
     const lower = q.toLowerCase()
-    const allSearchable = [...dynamicActions, ...STATIC_ITEMS]
+    const allSearchable = [...dynamicActions, ...allItems]
     const substr = allSearchable.filter(
       (i) => i.label.toLowerCase().includes(lower) || (i.subtitle?.toLowerCase().includes(lower) ?? false)
     )
     const fuzzy = fuse.search(q).map((r) => r.item)
     const seen = new Set<string>()
     return [...substr, ...fuzzy].filter((i) => { if (seen.has(i.id)) return false; seen.add(i.id); return true })
-  }, [query, dynamicActions])
+  }, [query, dynamicActions, allItems, fuse])
 
   useEffect(() => { setActiveIdx(0) }, [results])
 
