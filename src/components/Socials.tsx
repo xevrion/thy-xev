@@ -46,7 +46,7 @@ export default function Socials() {
   }, [])
 
   return (
-    <div ref={containerRef} className='flex gap-4 justify-start'>
+    <div ref={containerRef} className='flex gap-2 sm:gap-4 justify-start flex-wrap sm:flex-nowrap'>
       {Icons.map((Icon, i) => (
         <a
           key={i}
@@ -57,7 +57,7 @@ export default function Socials() {
           className='inline-block'
         >
           <Icon
-            className={`social-icon w-8 h-8 text-[var(--color-text)] hover:rotate-15 hover:scale-[1.1] transition-all duration-250 ${
+            className={`social-icon w-7 h-7 sm:w-8 sm:h-8 text-[var(--color-text)] hover:rotate-15 hover:scale-[1.1] transition-all duration-250 ${
               i === Icons.length - 1 ? 'hover:text-pink-500' : ''
             }`}
           />
