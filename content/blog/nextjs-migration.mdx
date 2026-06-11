@@ -1,0 +1,183 @@
+---
+title: "I Rewrote My Entire Portfolio in Next.js (And Almost Lost My Mind Over One Date)"
+description: "Migrating xevrion.dev from React + Vite to Next.js: Fumadocs, Bun, dynamic OG images, and the Docker bug that took hours to find."
+date: 2026-06-11
+tags:
+  - nextjs
+  - migration
+  - web
+  - docker
+---
+
+I dockerized this portfolio back in April and was pretty happy with it. Two containers, GitHub Actions, push to main, done.
+
+Then I started reading anishshobithps.com's source code. And I couldn't stop.
+
+Static blog generation. Dynamic OG images. A TOC that tracks your scroll position. A scrollbar that's somehow *better* than the default one. JSON-LD structured data on every page. Posts that build in milliseconds instead of seconds.
+
+My blog was rendering markdown per request with a custom unified/Shiki pipeline and a disk cache duct-taped on top because first-load times were hitting 8 seconds. My fonts were `@import url(googleapis.com)`. My API calls were `NEXT_PUBLIC_API_URL` env vars pointing at an Express server.
+
+It worked. It just wasn't *good*.
+
+So on 2026-06-05 I did the thing you're not supposed to do. I migrated the entire site from React + Vite + React Router to Next.js 16, in place, in the same repo, while also switching package managers and rewriting the blog system from scratch.
+
+81 commits later, here's what actually happened.
+
+---
+
+## The Big Swaps
+
+- **React + Vite + React Router, replaced with Next.js 16** (App Router, Turbopack)
+- **npm, replaced with Bun** (`bun --bun next dev/build/start`)
+- **Custom unified/Shiki markdown pipeline, replaced with Fumadocs**
+- `vite.config.ts`, `App.tsx`, `main.tsx`, `index.html` all deleted
+- `useNavigate`/`useLocation` swapped for `useRouter`/`usePathname`
+- `/posts` renamed to `/blogs` everywhere
+- `@import url(googleapis.com)` fonts swapped for `next/font/google`
+
+Most of this was mechanical. Find and replace, fix the type errors, move on. The interesting parts were the things that *looked* like they'd be easy and weren't.
+
+---
+
+## Fumadocs: From 8 Seconds to Static HTML
+
+This was the actual reason I did all of this.
+
+Before, every blog post request ran through a custom pipeline: `remark`, `rehype-highlight`, `rehype-stringify`, with a `.post-cache/` directory on disk so Shiki didn't re-highlight the same post on every request. First load of a post: ~8 seconds. Cached load: still noticeably slow.
+
+Fumadocs changes the entire model. Posts are `.mdx` files in `content/blog/`, compiled **at build time**, and served as static HTML.
+
+```
+postinstall: "fumadocs-mdx"
+```
+
+That one line in `package.json` regenerates `.source/`, the typed content layer Fumadocs builds from your MDX files, every time you install. The blog route became `[...slug]`, compatible with `source.generateParams()`, and all 18 posts now get `generateStaticParams()`'d at build time.
+
+Result: first post load went from ~8s to ~700ms. Every load after that is instant, because it's just static HTML.
+
+I also wrote a custom `remarkReadingTime` plugin because the existing reading-time libraries count code blocks as prose, which makes a post with a 200-line config snippet say "47 min read." Mine walks the AST and only counts actual prose nodes. 260 wpm. Much more honest numbers now.
+
+The `lastModified` plugin was the other nice addition. It reads git history per file and shows "Updated [date]" under the publish date if the file changed since. Sounds simple. It was not simple. More on that below.
+
+---
+
+## Converting 18 Posts by Hand
+
+All 18 posts went from plain `.md` to `.mdx` with YAML frontmatter, moved into `content/blog/`. Mostly mechanical: add frontmatter, fix any raw HTML that needed to become JSX-compatible. But doing it for 18 files one at a time is the kind of task where you start questioning your life choices around post 11.
+
+The leftover `content/*.md` originals are still sitting there, unused, because by the time I noticed I just wanted to ship. They're on the cleanup list.
+
+---
+
+## Dynamic OG Images (This One Was Actually Fun)
+
+`src/app/og/route.tsx`. Edge runtime, `next/og`'s `ImageResponse`, zero extra dependencies. Generates a 1200x630 OG image on the fly using the site's actual palette: taupe background (`#2e2a27`), diagonal stripe texture, soft-royal-blue accents.
+
+```
+?title=...&description=...&path=...&tags=comma,separated
+```
+
+Every blog post now gets its own OG image with its title, tags, and the site's branding baked in, generated at request time at the edge. You can preview any combination locally:
+
+```
+http://localhost:3000/og?title=My+Post&tags=nextjs,typescript&path=blogs
+```
+
+This replaced... nothing, actually. There was no OG image system before. Just a happy addition.
+
+---
+
+## The Footer Rewrite (a.k.a. The Single-Page Layout)
+
+Somewhere in the middle of all this I decided the homepage needed to be a single long-scroll page instead of separate routes. Hero, About, Projects, Now, Writing, Contact, all anchor-linked.
+
+This meant `/about`, `/projects`, and `/contact` became redirects to `/#about` etc. Old links still work, they just bounce.
+
+It also meant building a real `Footer.tsx` for the first time. Every "fun but not hiring-relevant" widget (Spotify now-playing, WakaTime stats, GitHub contributions graph, visitor counter, socials, theme toggle) moved out of the Hero section and into the footer. The Hero is now just an intro. Name, tagline, two buttons. Clean.
+
+I also pulled a bunch of small UI patterns from anish's site during this: a `SectionDivider`/`SectionLabel` component used across every section, `Mark` highlights (the soft-royal-blue text highlighting you've probably noticed), a custom floating-pill scrollbar, and a fused button-group pattern for the blog filters/pagination. None of it copy-pasted, all reimplemented with this site's own palette and component structure, but the *patterns* are directly inspired by his.
+
+---
+
+## The API Routes Move
+
+Express routes became Next.js API routes: `/api/now-playing`, `/api/wakatime-daily`, `/api/wakatime-languages`, `/api/github-contributions`, `/api/views`, `/api/views/[slug]`. All `NEXT_PUBLIC_API_URL` references gone, everything's a relative `/api/...` path now.
+
+Express isn't dead though. It's still running, just for one job: Spotify OAuth. The `/login` and `/callback` redirect dance needs a stateful session, and rebuilding that in Next.js wasn't worth it for one feature.
+
+---
+
+## The Thing That Actually Broke: Docker + Git History
+
+Everything above was mostly tedious but predictable. The one thing that genuinely ate hours was making the `lastModified` plugin work in production.
+
+Locally, it worked instantly. The plugin reads `git log` for each content file and shows "Updated [date]" if it differs from the publish date. Cool feature, took like 10 minutes to wire up.
+
+Then I deployed it. And the "Updated" date just... never showed up. No error. No crash. The build succeeded. The site looked fine. The feature just silently did nothing.
+
+Three separate things were wrong, stacked on top of each other.
+
+**1. The build order was backwards.**
+
+```dockerfile
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile
+COPY . .
+```
+
+`bun install` runs `postinstall`, which runs `fumadocs-mdx` codegen, *before* the source files are even copied in. So it was generating `.source/` against basically nothing. Fix:
+
+```dockerfile
+COPY package.json bun.lock* ./
+RUN bun install --frozen-lockfile --ignore-scripts
+
+COPY . .
+RUN bun run postinstall
+```
+
+**2. `.git` was in `.dockerignore`.**
+
+Even after fixing the build order, the dates still didn't show. Because `.dockerignore` had `.git` in it, which is standard practice, you don't usually need git history inside a container. Except the `lastModified` plugin's *entire job* is reading git history. No `.git` directory, no history, plugin fails silently and just doesn't render the "Updated" line.
+
+```diff
+ node_modules
+ dist
+-.git
+ .github
+```
+
+**3. The base image doesn't have git.**
+
+`oven/bun:1`, the official Bun image, doesn't ship with `git`. So even with `.git` copied in, there was nothing to run `git log` with.
+
+```dockerfile
+FROM oven/bun:1 AS builder
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y git --no-install-recommends && rm -rf /var/lib/apt/lists/*
+```
+
+Three completely silent, completely unrelated-looking failures, all required to fix before a single "Updated Jun 5" label would render correctly. Each one on its own would've been a five-minute fix if I'd known what to look for. Finding all three, with zero error messages and a build that "succeeds" the whole time, is what actually took the hours.
+
+This is the classic works-on-my-machine trap, except worse. It's not "doesn't work in prod." It's "works in prod but quietly does less than it should, and nothing tells you."
+
+---
+
+## What's Still Left
+
+- Delete the leftover `content/*.md` originals
+- Guestbook / comments, needs Neon (Postgres) + Drizzle + Clerk auth, haven't started
+- Typing animation on the hero, cursor trail effect, low priority vibes-only features
+- Dynamic project fetching from GitHub API instead of the static `projects.json`
+- Dual favicons for light/dark mode
+- A `/blog/:path*.mdx` route so LLMs can fetch raw markdown directly
+
+---
+
+## Was It Worth It
+
+Yeah. The blog went from an embarrassingly slow first load to static HTML served instantly. The OG images, JSON-LD, sitemap, and TOC are things I genuinely wanted and now have. The single-page layout feels much more like a portfolio and less like a documentation site.
+
+But also, I migrated a production site's entire framework, package manager, and content pipeline simultaneously, in place, on a Friday. If the git-history bug had been something more fundamental than a Dockerfile ordering issue, this could've gone very differently.
+
+It didn't. It's live. And now every post on this blog has an "Updated" date that's actually accurate, because of three lines spread across a Dockerfile and a `.dockerignore` that took way longer to find than they should have.

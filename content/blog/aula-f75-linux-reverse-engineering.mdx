@@ -185,7 +185,7 @@ The packets from capture session 1 were probably not from Ripples_shining, I don
 
 ---
 
-## Step 5: strace -> Where Things Got Complicated
+## Step 5: strace, Where Things Got Complicated
 
 Since usbmon was unreliable, next approach: strace to intercept the actual syscalls Wine makes when writing to hidraw.
 
@@ -256,10 +256,10 @@ The two different byte indices (79 from the usbmon capture, 109 from the writev 
 
 Speed is probably not a simple single-byte field. Leading theories:
 
-1. **Pattern table encoding** -> the speed value is repeated across multiple entries in a lookup table. All entries need to change together.
-2. **Derived encoding** -> the byte value is computed from the speed setting rather than stored directly. Need to understand the formula.
-3. **Missing commit packet** -> there's a separate "apply" packet that triggers the firmware to use the new config. Without it, the keyboard ignores the data.
-4. **Wrong interface** -> the config might need to go to hidraw1, not hidraw2, or through a different report ID entirely.
+1. **Pattern table encoding** — the speed value is repeated across multiple entries in a lookup table. All entries need to change together.
+2. **Derived encoding** — the byte value is computed from the speed setting rather than stored directly. Need to understand the formula.
+3. **Missing commit packet** — there's a separate "apply" packet that triggers the firmware to use the new config. Without it, the keyboard ignores the data.
+4. **Wrong interface** — the config might need to go to hidraw1, not hidraw2, or through a different report ID entirely.
 
 ---
 

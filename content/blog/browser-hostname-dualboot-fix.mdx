@@ -135,5 +135,3 @@ Mounted fine after that.
 The browser "profile in use by another computer" error doesn't always mean what it sounds like. In this case it was the same computer with a different hostname on each boot. The lock file stores the hostname when it's written, and if the hostname changes between boots, the browser sees a mismatch and refuses to open.
 
 Fix: set a static hostname with `hostnamectl` and create `/etc/NetworkManager/conf.d/no-dhcp-hostname.conf` with `hostname-mode=none`. That's it.
-
-*Written by Yash (xevrion)*
