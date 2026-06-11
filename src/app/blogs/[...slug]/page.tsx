@@ -87,6 +87,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       />
       <PostPage
         slug={slug.join('-')}
+        rawPath={`/blog/${slug.join('/')}.mdx`}
         title={page.data.title}
         description={page.data.description}
         date={date}

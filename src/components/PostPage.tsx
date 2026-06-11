@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
 
 interface PostPageProps {
   slug: string
+  rawPath?: string
   title: string
   description?: string
   date?: string
@@ -20,6 +21,7 @@ interface PostPageProps {
 
 export const PostPage = ({
   slug,
+  rawPath,
   title,
   description,
   date,
@@ -56,6 +58,14 @@ export const PostPage = ({
             )}
             {readingTime && <><span className="mx-2 opacity-40">·</span><span>{readingTime}</span></>}
             <><span className="mx-2 opacity-40">·</span><span>{views == null ? '—' : `${views.toLocaleString()} reads`}</span></>
+            {rawPath && (
+              <>
+                <span className="mx-2 opacity-40">·</span>
+                <Link href={rawPath} className="hover:text-[var(--color-soft-royal-blue)] transition-colors duration-150">
+                  view raw
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Tags */}
