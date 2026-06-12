@@ -252,6 +252,80 @@ The two different byte indices (79 from the usbmon capture, 109 from the writev 
 
 ---
 
+## UPDATE (June 2026): Cracked the protocol, and learned why the speed cap can't be beaten
+
+Coming back to this months later, I got a lot further. I'll lead with the punchline because it's not the one I wanted: **the speed cap is real and lives in the keyboard's firmware. You cannot beat it by sending a bigger number.** But I now have full native-Linux control of the keyboard with no Wine at all, and I understand the actual path to a faster ripple. Here's everything.
+
+### The "conflicting offset" mystery was embarrassingly simple
+
+Offsets 79 and 109 were never in conflict. The `pkt_*.bin` files I'd extracted from strace had a **30-byte text prefix** glued to the front — the literal strace filename `/tmp/aula_trace_final2.412637:`. `109 − 30 = 79`. Same byte the whole time. Two captures that agreed perfectly, and I'd spent days suspecting they came from different effects. Always check your extraction boundaries.
+
+A few more things from the old post turned out to be mislabeled:
+
+- The `0684...` packet I'd called the "init/handshake" is actually a **read request** (command byte `0x84`, bit 7 = read).
+- The 520-byte packet "with full content" I saw in `writev` was the device's **response** to a read, flowing back through Wine's pipe — not something the app was sending.
+- "Modifying one byte did nothing" was because my base packet hex was corrupted/truncated, so every write was replacing the whole config region with garbage. There were even stray bytes left in the live effect table from those bad March writes, still there in June.
+
+### The protocol
+
+It's HID **feature reports, Report ID 6, 520 bytes**, on the vendor interface (the hidraw node whose report descriptor contains `85 06 ... 96 07 02 ... b1 02`). Header:
+
+```
+06 CMD A0 A1 A2 A3 L0 L1  <data...>
+   CMD: bit 7 = read. 0x04 = write config, 0x84 = read config,
+        0x0a = write per-key color table, 0x8a = read it
+   A*:  address (00 00 01 00 = main config region)
+   L*:  length, little-endian (0x0080 config, 0x0200 color table)
+```
+
+The missing piece for reading was the sequence: **`SET_FEATURE` the read request, then `GET_FEATURE` report 6** returns the data. A bare GET returns nothing. Once I had that, I could dump and diff the keyboard's live state at will — no more guessing from captures.
+
+### Decoding the effect table (on real hardware this time)
+
+The config region has a per-effect table of `(a, b)` pairs. By changing one byte at a time and watching the keyboard, I pinned them down:
+
+- `a` = **brightness** (`0x09` full, `0x01` visibly dim)
+- `b` = `(speed << 4) | color` — high nibble speed, low nibble color preset
+
+Ripple lives at offsets 78–79. And here's the wall: **the firmware clamps speed at 4.** Writing `0x57` (speed 5) or `0xF7` (speed 15) looks *identical* to `0x47` (speed 4). The UI stops at 4 because 4 is the hardware maximum. There is no magic value below or above the range that unlocks anything.
+
+### Why the cap exists — and it's not going anywhere
+
+I dumped the keyboard's memory with the read commands and hit the answer. Read commands `0x88`, `0x89`, `0x9d`, `0x9e`, `0x9f` return **8051 microcontroller machine code**. This is a SinoWealth-family chip, and the effects — including Ripples_shining — are rendered *inside that firmware*. The speed field is just an index into a fixed animation table baked into the chip. You'd have to reflash custom firmware to change the animation engine itself. The number-tweaking approach was doomed from the start.
+
+### The real path to a faster ripple: render it on the host
+
+This is how the flashier keyboards actually do it. They don't send a bigger speed value — they put the board into a **static / custom per-key mode** where it just displays whatever color each key is told to be, then stream color frames from the PC 30–60 times a second, computing the animation in software. At that point "speed" is just a variable in your code.
+
+And this keyboard supports it. There's a **per-key color table**: `0x0a` to write, `0x8a` to read, 512 bytes = 4 bytes per key (`RR GG BB 00`), 128 keys. I confirmed my writes land in it — read them straight back.
+
+### Where I'm actually stuck now
+
+One wall left, and it's a different wall than before: **writing the color table stores the colors but doesn't display them.** The LEDs only update when the keyboard is in custom/DIY mode *and* something triggers a refresh. The AULA app clearly sends a "commit/latch" command after writing colors that I haven't captured yet. (This is the old "missing commit packet" hypothesis from above — turns out it was right, just for the color path instead of the config path.)
+
+Finding that commit command needs a clean strace of the app, and that fought me hard:
+
+- `ptrace_scope` was `0`, but attaching still failed with **`Operation not permitted` even under sudo**.
+- The cause: a **stale `strace` from an earlier debugging attempt** was still attached to the Wine process (`TracerPid` in `/proc/<pid>/status` pointed at it). A process can only have one tracer. Killing the orphan released the lock.
+
+Lesson worth its own line: if `sudo strace` says "Operation not permitted," check `grep TracerPid /proc/<pid>/status` before assuming it's a security policy. It's often just a tracer you forgot to detach.
+
+### What I built
+
+A small native tool, `aula_f75.py`, that needs no Wine at all:
+
+```bash
+python3 aula_f75.py dump -o snapshot.bin   # read live config
+python3 aula_f75.py speed 0x47             # set ripple speed (4 = max)
+python3 aula_f75.py restore snapshot.bin   # roll back
+```
+
+I can read and write the full config, set effects, brightness, color, and write the per-key color table. The only thing between me and an arbitrarily-fast host-rendered ripple is that one commit command — which is the very next thing to capture now that strace works.
+
+A note for anyone else: OpenRGB has an *open, unimplemented* support request for this exact device (258a:010c). Nobody's mapped the protocol there yet. If you're reading this and want it in OpenRGB, the notes above are most of the way.
+
+---
+
 ## Current Hypotheses
 
 Speed is probably not a simple single-byte field. Leading theories:
@@ -265,12 +339,14 @@ Speed is probably not a simple single-byte field. Leading theories:
 
 ## What's Next
 
-1. Clean strace `writev` capture specifically for Ripples_shining at each slider position (0, 1, 2, 3, 4)
-2. Diff all five to understand the full encoding pattern
-3. Test whether sending the complete unmodified packet for Ripples_shining (no speed change) reproduces the correct effect
-4. If that works, start modifying values and watching the keyboard
+The number-tweaking plan is dead (the firmware caps it), so the new plan is the host-rendering one:
 
-The udev rule and Wine setup are documented and reproducible. The packet capture methodology is mostly figured out. The missing piece is a clean, controlled, effect-specific capture session.
+1. Capture the AULA app's **commit/latch command** with strace now that ptrace works — write color table, click apply, diff the traffic for the short packet sent after the `0x0a` writes.
+2. Reproduce that commit from `aula_f75.py` and confirm the LEDs update live.
+3. Wire up an **evdev keypress listener** + a frame loop: on each keypress, expand a ring of lit keys outward, repaint the whole table at ~60fps. Speed becomes a variable — finally faster than the firmware allows.
+4. Bonus: decode the remaining config fields and contribute the protocol to OpenRGB's open request for this device.
+
+The udev rule, Wine setup, full config read/write, effect decoding, and per-key color writes are all done and reproducible. The single remaining unknown is the color-table commit command.
 
 Will update this when I get further.
 
