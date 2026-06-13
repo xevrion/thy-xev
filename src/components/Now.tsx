@@ -22,12 +22,12 @@ export const Now = () => {
         href="https://nownownow.com/p/cIp1"
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex items-center gap-3 max-w-2xl w-full rounded-lg border border-battleship-gray/20 px-5 py-4 transition-colors hover:border-battleship-gray/40 hover:bg-[var(--color-text)]/[0.03]"
+        className="group flex items-center gap-3 max-w-2xl w-full rounded-lg border border-battleship-gray/20 px-5 py-4 transition-colors duration-300 hover:border-soft-royal-blue/40 hover:bg-[var(--color-text)]/[0.03]"
       >
         <span className="text-[var(--color-text)] sg-regular text-sm sm:text-base">
           This page is now <Mark>featured on nownownow.com</Mark>, check it out
         </span>
-        <ExternalLink className="ml-auto w-4 h-4 text-[var(--color-text-subtle)] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        <ExternalLink className="ml-auto w-4 h-4 text-[var(--color-text-subtle)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-soft-royal-blue" />
       </a>
 
       <div className="flex flex-col gap-6 max-w-2xl w-full">

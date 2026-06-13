@@ -20,7 +20,7 @@ export function ShenanigansTeaser() {
             href={project.live ?? project.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full border border-battleship-gray/30 text-sm sg-medium text-[var(--color-text)] hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-150"
+            className="px-4 py-2 rounded-full border border-battleship-gray/30 text-sm sg-medium text-[var(--color-text)] transition-all duration-300 hover:border-soft-royal-blue hover:text-soft-royal-blue hover:-translate-y-0.5"
           >
             {project.text}
           </a>

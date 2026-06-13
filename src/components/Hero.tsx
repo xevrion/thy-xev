@@ -5,7 +5,7 @@ import Image from 'next/image'
 import pfp from '../assets/download (10).jpeg'
 import { Mark } from './Mark'
 import { LocationTag } from './LocationTag'
-import { Mail, FileText } from 'lucide-react'
+import { Mail, FileText, ArrowRight } from 'lucide-react'
 
 export const Hero = () => {
   return (
@@ -30,18 +30,21 @@ export const Hero = () => {
 
           <div className="flex flex-col items-center md:items-start gap-3 mt-1">
             {/* Fused button group */}
-            <div className="inline-flex items-stretch rounded-full border border-battleship-gray/30 overflow-hidden">
+            <div className="group inline-flex items-stretch rounded-full border border-battleship-gray/30 overflow-hidden transition-colors duration-300 hover:border-battleship-gray/50">
               <a
                 href="#contact"
-                className="flex items-center gap-2 px-5 py-2.5 bg-soft-royal-blue text-white sg-semibold text-sm hover:opacity-90 transition-opacity duration-200"
+                className="flex items-center gap-2.5 pl-5 pr-2 py-2.5 bg-soft-royal-blue text-white sg-semibold text-sm transition-[filter] duration-300 hover:brightness-110 active:scale-[0.98]"
               >
                 <Mail className="w-3.5 h-3.5 opacity-80" />
                 Get in touch
+                <span className="ml-1 flex items-center justify-center w-5 h-5 rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowRight className="w-3 h-3" />
+                </span>
               </a>
               <div className="w-px bg-battleship-gray/20" />
               <a
                 href="/resume"
-                className="flex items-center gap-2 px-5 py-2.5 text-[var(--color-text)] sg-regular text-sm hover:text-soft-royal-blue transition-colors duration-200"
+                className="flex items-center gap-2 px-5 py-2.5 text-[var(--color-text)] sg-regular text-sm transition-colors duration-200 hover:text-soft-royal-blue"
               >
                 <FileText className="w-3.5 h-3.5 opacity-60" />
                 Resume
@@ -50,8 +53,10 @@ export const Hero = () => {
           </div>
         </div>
 
-        <div className="w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 border border-battleship-gray/30 shrink-0 overflow-hidden">
-          <Image src={pfp} alt="profile picture" className="w-full h-full object-cover" priority />
+        <div className="shrink-0 p-1.5 rounded-[1.75rem] bg-battleship-gray/[0.06] ring-1 ring-battleship-gray/10">
+          <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-[1.4rem] overflow-hidden ring-1 ring-inset ring-white/10">
+            <Image src={pfp} alt="profile picture" className="w-full h-full object-cover" priority />
+          </div>
         </div>
       </div>
 

@@ -72,7 +72,7 @@ export function Quote() {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-10">
-      <div className="relative border border-[var(--color-text-subtle)]/15 rounded-xl px-8 py-10 overflow-visible">
+      <div className="relative border border-[var(--color-text-subtle)]/15 rounded-xl px-8 py-10 overflow-visible transition-colors duration-300 hover:border-soft-royal-blue/20">
         {/* big quote mark */}
         <svg
           aria-hidden="true"

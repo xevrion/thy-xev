@@ -1,7 +1,7 @@
 'use client'
 
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { Mail } from 'lucide-react'
+import { Mail, ArrowUpRight } from 'lucide-react'
 import { SectionLabel } from './SectionLabel'
 import { Mark } from './Mark'
 
@@ -18,10 +18,10 @@ export const Contact = () => {
       <SectionLabel>Contact</SectionLabel>
 
       <div className="max-w-2xl">
-        <p className="text-[var(--color-text)] sg-bold text-2xl sm:text-3xl leading-snug mb-2">
+        <p className="text-[var(--color-text)] sg-bold text-3xl sm:text-4xl lg:text-5xl leading-[1.1] tracking-tight mb-3">
           Got something <Mark>worth building</Mark>?
         </p>
-        <p className="text-[var(--color-text-muted)] sg-regular text-base">
+        <p className="text-[var(--color-text-muted)] sg-regular text-base sm:text-lg">
           Always open for <Mark>collaborations</Mark>, new ideas, or just a friendly chat.
         </p>
       </div>
@@ -33,10 +33,11 @@ export const Contact = () => {
             href={c.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 px-4 py-3 border border-battleship-gray/20 text-[var(--color-text)] hover:border-soft-royal-blue hover:text-soft-royal-blue transition-colors duration-200"
+            className="group flex items-center gap-3 px-4 py-3 border border-battleship-gray/20 text-[var(--color-text)] transition-all duration-300 hover:border-soft-royal-blue hover:text-soft-royal-blue hover:translate-x-1"
           >
             {c.icon}
             <span className="sg-regular text-sm truncate">{c.text}</span>
+            <ArrowUpRight className="ml-auto w-3.5 h-3.5 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-60 group-hover:translate-x-0" />
           </a>
         ))}
       </div>

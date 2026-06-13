@@ -34,16 +34,16 @@ export function Uses() {
             <Link
               key={item.href}
               href={item.href}
-              className={`group flex items-center gap-5 px-5 py-4 border-x border-t border-battleship-gray/15 hover:bg-[var(--color-text-subtle)]/5 transition-colors duration-150 ${i === items.length - 1 ? 'border-b' : ''} ${i === 0 ? 'rounded-t-lg' : ''} ${i === items.length - 1 ? 'rounded-b-lg' : ''}`}
+              className={`group flex items-center gap-5 px-5 py-4 border-x border-t border-battleship-gray/15 hover:bg-[var(--color-text-subtle)]/5 transition-colors duration-300 ${i === items.length - 1 ? 'border-b' : ''} ${i === 0 ? 'rounded-t-lg' : ''} ${i === items.length - 1 ? 'rounded-b-lg' : ''}`}
             >
-              <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-md border border-battleship-gray/20 bg-[var(--color-text-subtle)]/5 text-[var(--color-text-muted)]">
+              <div className="shrink-0 w-8 h-8 flex items-center justify-center rounded-md border border-battleship-gray/20 bg-[var(--color-text-subtle)]/5 text-[var(--color-text-muted)] transition-colors duration-300 group-hover:border-soft-royal-blue/40 group-hover:text-soft-royal-blue">
                 <Icon className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="sg-semibold text-sm text-[var(--color-text)]">{item.title}</p>
                 <p className="text-xs text-[var(--color-text-muted)] sg-regular mt-0.5">{item.description}</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] opacity-0 group-hover:opacity-100 transition-opacity duration-150 shrink-0" />
+              <ArrowRight className="w-4 h-4 text-[var(--color-text-subtle)] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-soft-royal-blue transition-all duration-300 shrink-0" />
             </Link>
           )
         })}
