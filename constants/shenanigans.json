@@ -1,0 +1,24 @@
+{
+  "shenanigans": [
+    {
+      "url": "https://github.com/xevrion/vibe-check-api",
+      "text": "Vibe Check API",
+      "desc": "It's 2am and I built an API. A \"REST API\" that vibe-checks anything you send it — query, decision, your situationship — and returns a score, a confidence level, and a recommendation from the vibe council.",
+      "live": "https://vibe.xevrion.dev",
+      "tags": ["Cloudflare Workers", "API", "Fun"]
+    },
+    {
+      "url": "https://github.com/xevrion/honestcommit",
+      "text": "honestcommit",
+      "desc": "You type the truth, it types the lie your team lead wants to read. A CLI that turns \"moved one div and somehow fixed everything\" into a professional-sounding commit message.",
+      "live": "https://www.npmjs.com/package/honestcommit",
+      "tags": ["CLI", "Groq", "npm"]
+    },
+    {
+      "url": "https://github.com/xevrion/tab-shamer",
+      "text": "Tab Shamer",
+      "desc": "A new tab page that counts how many tabs you have open and judges you for it, with increasing levels of betrayal. 7 tiers, ending somewhere unhinged.",
+      "tags": ["Chrome Extension", "Vanilla JS"]
+    }
+  ]
+}

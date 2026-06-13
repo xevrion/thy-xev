@@ -5,6 +5,7 @@ import { HeroBanner } from '@/components/HeroBanner'
 import { About } from '@/components/About'
 import { Experience } from '@/components/Experience'
 import { Projects } from '@/components/Projects'
+import { ShenanigansTeaser } from '@/components/ShenanigansTeaser'
 import { Now } from '@/components/Now'
 import { BlogTeaser } from '@/components/BlogTeaser'
 import { Contact } from '@/components/Contact'
@@ -29,6 +30,8 @@ export default function HomePage() {
       <Experience />
       <SectionDivider />
       <div id="projects"><Projects limit={6} showViewAll flat /></div>
+      <SectionDivider />
+      <ShenanigansTeaser />
       <SectionDivider />
       <div id="now"><Now /></div>
       <SectionDivider />
